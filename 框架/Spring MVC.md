@@ -35,7 +35,7 @@ Spring MVC是一种基于MVC架构模式的轻量级Web框架。
 
 Spring MVC的处理过程：首先控制器接收用户的请求，调用相应的模型来进行业务处理，并返回数据给控制器。控制器调用相应的视图来显示处理的结果，并通过视图呈现给用户。
 
-![Spring MVC处理流程图](http://pkcfb0ug5.bkt.clouddn.com/18-12-30/49821714.jpg)
+![Spring MVC处理流程](https://img-blog.csdnimg.cn/20190125180502787.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
 
 处理流程中各个组件的功能：
 

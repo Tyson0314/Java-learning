@@ -327,7 +327,7 @@ GET参数命令作用是使SORT命令的返回结果是GET参数指定的键值�
 ## 事务
 事务的原理是将一个事务的命令发送给Redis，然后再让Redis依次执行这些命令。
 
-![](http://pkcfb0ug5.bkt.clouddn.com/18-12-27/90917911.jpg)
+![事务](https://img-blog.csdnimg.cn/20190125175715521.jpg)
 
 
 
