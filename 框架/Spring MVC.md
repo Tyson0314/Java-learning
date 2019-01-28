@@ -7,6 +7,7 @@
     - [非注解的处理器映射器和适配器](#非注解的处理器映射器和适配器)
     - [注解的处理器映射器和适配器](#注解的处理器映射器和适配器)
 - [前端控制器](#前端控制器)
+    - [对静态资源的处理](#对静态资源的处理)
 - [视图解析器](#视图解析器)
     - [AbstractCachingViewResolver](#abstractcachingviewresolver)
     - [UrlBasedViewResolver](#urlbasedviewresolver)
@@ -24,6 +25,10 @@
     - [Converter](#converter)
     - [Formatter](#formatter)
 - [验证器](#验证器)
+    - [使用Validator接口进行验证](#使用validator接口进行验证)
+    - [使用JSR-303 Validation进行验证](#使用jsr-303-validation进行验证)
+        - [自定义限制类型的注解](#自定义限制类型的注解)
+        - [分组校验](#分组校验)
 
 <!-- /MarkdownTOC -->
 
@@ -65,6 +70,7 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 
 1. 引入jar包spring-webmvc-4.2.5.RELEASE.jar，Spring相关jar包。
 2. web.xml文件中添加Spring MVC的前端控制器，用于拦截符合配置的url请求。
+3. 配置转码过滤器，防止中文乱码。
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
@@ -99,7 +105,7 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
 
-    <!--post乱码过滤器-->
+    <!--转码过滤器-->
     <filter>
         <filter-name>CharacherEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -198,9 +204,9 @@ public class UserController implements Controller {
 
 <a id="注解的处理器映射器和适配器"></a>
 ### 注解的处理器映射器和适配器
-方式一（常用的配置方式）：annotation-driven标签会自动注册处理器映射器和处理器适配器，它还提供数据绑定支持，例如@DateTimeFormat支持，@NumberFormatAnnotation支持，读写xml的支持和读写json的支持。
+方式一（常用的配置方式）：annotation-driven标签会自动注册RequestMappingHandlerMapping与RequestMappingHandlerAdapter两个Bean，这是Spring MVC为@Controller分发请求所必需的，并且提供了数据绑定支持，@NumberFormat支持，@DateTimeFormat支持，@Valid支持读写XML的支持（JAXB）和读写JSON的支持（默认Jackson）等功能。
 ```
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven/>
 ```
 方式二：必须保证基于注解的处理器映射器和适配器成对配置，否则没有效果。
 ```
@@ -219,7 +225,7 @@ public class UserController implements Controller {
 扫描配置，对包下所有的类进行扫描，找出所有使用了@Controller注解的Handler控制器类。
 ```
     <!-- 可以扫描controller、service等-->
-    <context:component-scan base-package="com.tyson.controller"></context:component-scan>
+    <context:component-scan base-package="com.tyson.controller"/>
 ```
 Handler类
 ```
@@ -317,6 +323,147 @@ public class UserController {
     }
 ```
 
+<a id="对静态资源的处理"></a>
+### 对静态资源的处理
+
+web.xml中DispatcherServlet的配置如下：
+
+```xml
+    <servlet>
+        <servlet-name>springmvc</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <!--初始化参数，Spring MVC的配置文件，默认是/WEB-INT/config/servletName-servlet.xml，
+        servletName是部署描述符中dispatcher servlet的名称-->
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:config/springmvc.xml</param-value>
+        </init-param>
+
+        <!--容器启动时是否加载servlet -->
+        <!--值大于0表示容器在应用启动时就加载这个servlet，小于0或不指定，则在该servlet的第一个请求时才会去加载，-->
+        <!--正数的值越小，应用启动时越先被加载，值相同则由容器选择加载顺序-->
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+```
+
+经测试，`<url-pattern>/</url-pattern>`会拦截\*.html请求，不会拦截\*.jsp请求。"/"优先级最低，故\*.jsp请求会先被默认的jsp Servlet处理，不会被dispatcherServlet拦截。而\*.html没有默认的Servlet可以处理，会被dispatcherServlet拦截。
+
+而`<url-pattern>/*</url-pattern>`则会拦截所有请求，包括\*.html和\*.jsp。
+
+`<url-pattern>*.action</url-pattern>`则只会拦截后缀为action的请求，不会拦截静态资源的请求。
+
+"/"和"/\*"的区别在于"/\*"的优先级高于"/路径"和"\*.后缀"的路径，而"/"在所有的匹配路径中，优先级最低，即当别的路径都无法匹配时，"/"所匹配的servlet才会进行相应的请求资源处理。
+
+```xml
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+```
+
+
+
+```xml
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+        <servlet-class>org.apache.jasper.servlet.JspServlet</servlet-class>
+        <init-param>
+            <param-name>fork</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <param-name>xpoweredBy</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+```
+
+
+
+```xml
+    <!-- The mapping for the default servlet -->
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <!-- The mappings for the JSP servlet -->
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>*.jspx</url-pattern>
+    </servlet-mapping>
+```
+
+
+
+
+
+静态资源的处理：
+
+方法一：激活Tomcat的default Servlet来处理静态资源
+
+```xml
+   <!--Tomcat, Jetty, JBoss, and GlassFish默认Servlet的名字为“default”-->
+	<servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.js</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>springmvc</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+```
+
+default Servlet无法解析jsp页面，直接输出html源码。
+
+![default servlet处理静态资源](https://img-blog.csdnimg.cn/20190127162223870.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
+
+方式二：使用`<mvc:default-servlet-handler/>`
+
+请求的url若是静态资源请求，则转由org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler 处理并返回，否则才由DispatcherServlet处理。DefaultServletHttpRequestHandler使用的是各个Servlet容器自己默认的Servlet（如jsp servlet）。
+
+
+
+方式三：Spring3.0.4以后版本`<mvc:resources/>`
+
+```xml
+    <mvc:annotation-driven />
+    <!--两个*，它表示映射/resources/下所有的URL，包括子路径-->
+    <mvc:resources mapping="/resources/**" location="/WEB-INF/, classpath:config, /resources/" cache-period="31536000"/>
+```
+
+`<mvc:default-servlet-handler/>` 将静态资源的处理经由 Spring MVC 框架交回 Web 应用服务器处理。而 `<mvc:resources/> `更进一步，由 Spring MVC 框架自行处理静态资源。
+
+`<mvc:resources/> `允许静态资源放在任何地方，如 WEB-INF 目录下、类路径，甚至 JAR 包中。可通过 cache-period 设置客户端数据缓存时间。
+
+使用` <mvc:resources/> `元素，把 mapping 的 URI 注册到 SimpleUrlHandlerMapping的urlMap 中，
+key 为 mapping 的 URI pattern值,而 value为 ResourceHttpRequestHandler，
+这样就巧妙的把对静态资源的访问由 HandlerMapping 转到 ResourceHttpRequestHandler 处理并返回，所以就支持classpath目录和jar包内静态资源的访问。
+
+
+
+<a id="视图解析器"></a>
 
 <a id="视图解析器"></a>
 ## 视图解析器
@@ -329,8 +476,8 @@ public class UserController {
 ### AbstractCachingViewResolver
 抽象类，实现了该抽象类的视图解析器会将其曾经解析过的视图进行缓存。
 
-
 <a id="urlbasedviewresolver"></a>
+
 ### UrlBasedViewResolver
 继承了AbstractCachingViewResolver，通过拼接资源的uri路径来展示视图。
 ```
@@ -584,24 +731,9 @@ public class UserList {
 ```
 
 
->web.xml中配置转码过滤器
-```
-    <!--post乱码过滤器-->
-    <filter>
-        <filter-name>CharacherEncodingFilter</filter-name>
-        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>utf-8</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>CharacherEncodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-```
 
 <a id="converter和formatter"></a>
+
 ## Converter和Formatter
 
 <a id="converter"></a>
@@ -712,7 +844,165 @@ spring配置文件。
 <a id="验证器"></a>
 ## 验证器
 
-引入依赖hibernate-validator。
+<a id="使用validator接口进行验证"></a>
+
+本节内容参考：[SpringMVC介绍之Validation](https://elim.iteye.com/blog/1812584)
+
+### 使用Validator接口进行验证
+
+需要进行验证的实体类
+
+```java
+public class User {
+    private Long id;
+
+    private String name;
+
+    public User(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+```
+
+
+
+Spring MVC提供了Validator接口，我们可以通过实现该接口来定义自己对实体对象的验证。
+
+```java
+import com.tyson.po.User;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+public class UserValidator implements Validator {
+
+    /**
+     * 判断当前Validator实现类是否支持校验当前需要校验的实体类
+     * UserValidator只支持对User对象的校验
+     */
+    public boolean supports(Class<?> aClass) {
+        return User.class.equals(aClass);
+    }
+
+    /**
+     * @param errors 存放错误信息
+     */
+    public void validate(Object o, Errors errors) {
+        ValidationUtils.rejectIfEmpty(errors, "id", null, "id is empty");
+        User user = (User)o;
+        if(user.getName().length() <= 4) {
+            errors.rejectValue("name", null, "name's length must be longer than 4");
+        }
+    }
+}
+```
+
+使用UserValidator校验User对象，使用DataBinder设定当前Controller由哪个Validator校验。
+
+```java
+import com.tyson.po.User;
+import com.tyson.validator.UserValidator;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.DataBinder;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
+import java.util.List;
+
+@Slf4j
+@Controller
+public class UserController {
+    @InitBinder
+    public void initBinder(DataBinder binder) {
+        binder.setValidator(new UserValidator());
+    }
+
+    /**
+     *用@Valid标识需要校验的参数user，否则Spring不会对它进行校验
+     * BindingResult参数告诉Spring数据校验单的错误由我们自己处理，否则Spring会直接抛出异常
+     * BindingResult参数必须紧挨着@Valid参数，有多少个@Valid参数就有多少个BindingResult参数
+     */
+    @RequestMapping("/login")
+    public String login(@Valid User user, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            for(ObjectError error : errors) {
+                log.info(error.toString());
+            }
+            return "error";
+        }
+
+        return "success";
+    }
+}
+```
+
+在Controller类中通过@InitBinder标记的方法只有在请求当前Controller的时候才会被执行，所以其中定义的Validator也只能在当前Controller中使用，如果我们希望一个Validator对所有的Controller都起作用的话，我们可以通过WebBindingInitializer的initBinder方法来设定了。另外，在SpringMVC的配置文件中通过mvc:annotation-driven的validator属性也可以指定全局的Validator。
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+     http://www.springframework.org/schema/context  
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+     http://www.springframework.org/schema/mvc  
+     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">  
+      
+    <!--将validator注册到适配器中-->
+    <mvc:annotation-driven validator="userValidator"/>  
+    <bean id="userValidator" class="com.tyson.validator.UserValidator"/>
+</beans>  
+```
+
+非注解方式编写的适配器。
+
+```xml
+    <bean id="userValidator" class="com.tyson.validator.UserValidator"/>
+
+    <!--自定义webBinder-->
+    <bean id="webBinder" class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+        <property name="validator" ref="userValidator"/>
+    </bean>
+    <!--处理器适配器-->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="webBindingInitializer" ref="webBinder"/>
+    </bean>
+```
+
+
+
+<a id="使用jsr-303-validation进行验证"></a>
+### 使用JSR-303 Validation进行验证
+
+JSR-303是一个数据验证的规范，Spring没有对这一规范进行实现，当我们在Spring MVC使用JSR-303的时候需要提供一个对JSR-303规范的实现，Hibernate Validator实现了这一规范。
+
+JSR303的校验是基于注解的，它的内部定义了一系列限制注解，我们只需要把这些注解标注在需要进行校验的实体类的属性或者对应的getter方法上面。
+
+首先引入依赖。
 
 ```xml
         <!--validation-->
@@ -721,62 +1011,404 @@ spring配置文件。
             <artifactId>hibernate-validator</artifactId>
             <version>5.0.2.Final</version>
         </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>1.1.0.Final</version>
+        </dependency>
 ```
 
-springmvc.xml
+在SpringMVC的配置文件中引入MVC Namespace，并加上`<mvn:annotation-driven/>`，此时便可以使用JSR-303来进行实体对象的验证。
 
 ```xml
-<mvc:annotation-driven validator="validator"/>    
-
-<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
-    </bean>
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd  
+     http://www.springframework.org/schema/context  
+     http://www.springframework.org/schema/context/spring-context-3.0.xsd  
+     http://www.springframework.org/schema/mvc  
+     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">  
+      
+    <mvc:annotation-driven/>  
+</beans>
 ```
 
-实体类
+实体类，其中@NotBlank是Hibernate Validator的扩展。
 
 ```java
-public class User {
-    @NotNull(message = "{user.id.null}")
-    private Long id;
+import org.hibernate.validator.constraints.NotBlank;
 
-    @NotEmpty(message = "{user.name.null}")
-    @Length(min = 5, max = 20, message = "{user.name.length.illegal}")
-    @Pattern(regexp = "[a-zA-Z]{5,20}", message = "{user.name.illegal}")
-    private String name;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
+public class User {
+	private String name;
+    private String password;
+    private int age;
+
+    @NotBlank(message = "用户名不能为空")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @NotNull(message = "密码不能为null")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Min(value = 10, message = "年龄最小为10")
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return name + ":" + age;
+    }
 }
 ```
 
 Controller类
 
 ```java
-    @RequestMapping("/findUserByCondition")
-    public String findUserByCondition(@Valid User user, BindingResult bindingResult) {
-        LOGGER.info("user_name: " + user.getName());
+import com.tyson.po.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.validation.Valid;
+
+@Controller
+public class UserController {
+    @RequestMapping("/login")
+    public String login(@Valid User user, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            List<ObjectError> errors = bindingResult.getAllErrors();
-            for(ObjectError error : errors) {
-                LOGGER.info(error.toString());
-                return "error";
-            }
+            return "error";
         }
         return "success";
     }
+}
 ```
 
-类路径下的ValidationMessages.properties
+**JSR-303原生支持的限制有如下几种：**
 
-```properties
-user.id.null=用户编号不能为空  
-user.name.null=用户名不能为空  
-user.name.length.illegal=用户名长度必须在5到20之间  
-user.name.illegal=用户名必须是字母  
-user.password.null=密码不能为空  
+| **限制**                      | 说明                                                         |
+| ----------------------------- | ------------------------------------------------------------ |
+| **@Null**                     | 限制只能为null                                               |
+| **@NotNull**                  | 限制必须不为null                                             |
+| **@AssertFalse**              | 限制必须为false                                              |
+| **@AssertTrue**               | 限制必须为true                                               |
+| **@DecimalMax(value)**        | 限制必须为一个不大于指定值的数字                             |
+| **@DecimalMin(value)**        | 限制必须为一个不小于指定值的数字                             |
+| **@Digits(integer,fraction)** | 限制必须为一个小数，且整数部分的位数不能超过integer，小数部分的位数不能超过fraction |
+| **@Future**                   | 限制必须是一个将来的日期                                     |
+| **@Max(value)**               | 限制必须为一个不大于指定值的数字                             |
+| **@Min(value)**               | 限制必须为一个不小于指定值的数字                             |
+| **@Past**                     | 限制必须是一个过去的日期                                     |
+| **@Pattern(value)**           | 限制必须符合指定的正则表达式                                 |
+| **@Size(max,min)**            | 限制字符长度必须在min到max之间                               |
+
+<a id="自定义限制类型的注解"></a>
+#### 自定义限制类型的注解
+
+除了JSR-303原生支持的限制类型之外我们还可以定义自己的限制类型。定义自己的限制类型首先我们得定义一个该种限制类型的注解，而且该注解需要使用@Constraint标注。下面定义一个表示金额的限制类型。
+
+```java
+package com.tyson.validator;
+
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Documented
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = MoneyValidator.class)
+public @interface Money {
+    String message() default "不是金额形式";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+}
+```
+
+@Constraint注解的validatedBy属性用于指定我们定义的当前限制类型需要被哪个ConstraintValidator进行校验。在定义自己的限制类型的注解时有三个属性是必须定义的，message、groups和payload属性。
+
+接下来定义限制类型校验类MoneyValidator，限制类型校验类必须实现接口javax.validation.ConstraintValidator，并实现它的initialize和isValid方法。
+
+```java
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+import java.util.regex.Pattern;
+
+public class MoneyValidator implements ConstraintValidator<Money, Double> {
+    private String moneyReg = "^\\d+(\\.\\d{1,2})?$"; //表示金额的正则表达式
+    private Pattern moneyPattern = Pattern.compile(moneyReg);
+
+    /**
+     * 通过initialize可以获取限制类型
+     */
+    public void initialize(Money money) {
+    }
+
+    public boolean isValid(Double value, ConstraintValidatorContext constraintValidatorContext) {
+        if(value == null) {
+            return false;
+        }
+        return moneyPattern.matcher(value.toString()).matches();
+    }
+}
+```
+
+同样的方法定义自己的@Min限制类型和对应的MinValidator校验器。
+
+```java
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.*;
+
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Constraint(
+        validatedBy = {MinValidator.class}
+)
+public @interface Min {
+    int value() default 0;
+
+    String message();
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+}
+
+```
+
+isValid方法的第一个参数正是对应的当前需要校验的数据的值，而它的类型也**正是对应的我们需要校验的数据的数据类型。**这两者的数据类型必须保持一致，否则Spring会提示找不到对应数据类型的ConstraintValidator。
+
+```java
+import javax.validation.ConstraintValidator;
+import javax.validation.ConstraintValidatorContext;
+
+public class MinValidator implements ConstraintValidator<Min, Integer> {
+    private int minValue;
+
+    public void initialize(Min min) {
+        minValue = min.value();
+    }
+
+    public boolean isValid(Integer val, ConstraintValidatorContext constraintValidatorContext) {
+        return val >= minValue;
+    }
+}
+```
+
+下面是使用了@Min和@Money限制的一个实体类
+
+```java
+import com.tyson.validator.Min;
+import com.tyson.validator.Money;
+
+public class Worker {
+    private int age;
+    private Double salary;
+
+    @Min(value = 10, message = "最小年龄是10")
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Money(message = "标准的金额格式是xxx.xx")
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+}
+```
+
+WorkerController类
+
+```java
+import javax.validation.Valid;
+import java.util.List;
+
+@Slf4j
+@Controller
+public class WorkerController {
+    @RequestMapping("/addWorker")
+    public String addWorker(@Valid Worker worker, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            for(ObjectError error : errors) {
+                log.info(error.toString());
+            }
+            return "error";
+        }
+        return "success";
+    }
+}
+```
+
+另外Spring对自定义JSR-303限制类型支持的新特性，那就是Spring支持往ConstraintValidator里面注入bean对象。
+
+```java
+public class MoneyValidator implements ConstraintValidator<Money, Double> {  
+   
+    private String moneyReg = "^\\d+(\\.\\d{1,2})?$";//表示金额的正则表达式  
+    private Pattern moneyPattern = Pattern.compile(moneyReg);  
+    private UserController controller;  
+     
+    public void initialize(Money money) {}  
+   
+    public boolean isValid(Double value, ConstraintValidatorContext arg1) {  
+       if (value == null)  
+           return true;  
+       return moneyPattern.matcher(value.toString()).matches();  
+    }  
+   
+    public UserController getController() {  
+       return controller;  
+    }  
+   
+    @Resource  
+    public void setController(UserController controller) {  
+       this.controller = controller;  
+    }  
+   
+}  
+```
+
+<a id="分组校验"></a>
+#### 分组校验
+
+POJO有多个属性，分组校验可以使得Controller的方法只校验POJO的某个属性，而不是校验所有的属性。
+
+```java
+import com.tyson.validator.Min;
+import com.tyson.validator.Money;
+import com.tyson.validator.ValidationGroup1;
+import com.tyson.validator.ValidationGroup2;
+
+public class Worker {
+    private int age;
+    private Double salary;
+
+    @Min(value = 10, message = "最小年龄是10", groups = {ValidationGroup1.class})
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Money(message = "标准的金额格式是xxx.xx", groups = {ValidationGroup2.class})
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+}
+```
+
+分组接口ValidationGroup1、ValidationGroup2，不需要写实现。
+
+```java
+public interface ValidationGroup1 {}
+```
+
+WorkerController类，@Validated(value = {ValidationGroup1.class})使得addWorker方法只校验ValidationGroup1这个分组的校验注解，即只校验年龄，不校验工资格式。
+
+```java
+import com.tyson.po.Worker;
+import com.tyson.validator.ValidationGroup1;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
+
+@Slf4j
+@Controller
+public class WorkerController {
+    @RequestMapping("/addWorker")
+    public String addWorker(@Validated(value = {ValidationGroup1.class}) Worker worker, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            List<ObjectError> errors = bindingResult.getAllErrors();
+            for(ObjectError error : errors) {
+                log.info(error.toString());
+            }
+            return "error";
+        }
+        return "success";
+    }
+}
 ```
 
 
 
+补充：@Valid和@Validated的区别：@Valid可以用于对象属性上，可嵌套验证，@Validated不可以嵌套验证；@Validated提供分组功能，而@Valid不支持分组功能。
 
+```java
+public class Item {
+
+    @NotNull(message = "id不能为空")
+    @Min(value = 1, message = "id必须为正整数")
+    private Long id;
+
+    @Valid // 嵌套验证必须用@Valid
+    @NotNull(message = "props不能为空")
+    @Size(min = 1, message = "props至少要有一个自定义属性")
+    private List<Prop> props;
+}
+```
+
+```java
+public class Prop {
+
+    @NotNull(message = "pid不能为空")
+    @Min(value = 1, message = "pid必须为正整数")
+    private Long pid;
+
+    @NotNull(message = "vid不能为空")
+    @Min(value = 1, message = "vid必须为正整数")
+    private Long vid;
+
+    @NotBlank(message = "pidName不能为空")
+    private String pidName;
+
+    @NotBlank(message = "vidName不能为空")
+    private String vidName;
+}
+```
 
 
 
