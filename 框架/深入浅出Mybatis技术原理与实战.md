@@ -1867,6 +1867,97 @@ public List<Role> findRolesInIds(@Param("ids") int[] ids);
 
 整合Mybatis-Spring可以通过xml的方式配置，也可以通过注解配置。配置Mybatis-Spring分为几个部分：配置数据源、配置SqlSessionFactory、配置SqlSessionTemplate、配置Mapper和事务处理。SqlSessionTemplate是对SqlSession操作的封装。
 
+pom.xml导入依赖。
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tyson</groupId>
+    <artifactId>mybatis-spring</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring.version>4.3.2.RELEASE</spring.version>
+        <mybatis-spring.version>1.3.0</mybatis-spring.version>
+        <mysql.version>5.1.38</mysql.version>
+        <mybatis.version>3.4.1</mybatis.version>
+        <junit.version>4.12</junit.version>
+        <c3p0.version>0.9.1.2</c3p0.version>
+    </properties>
+
+    <dependencies>
+        <!--Spring框架核心库 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--mybatis-spring适配器 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>${mybatis-spring.version}</version>
+        </dependency>
+        <!--Spring java数据库访问包，在本例中主要用于提供数据源 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--mysql数据库驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <!-- mybatis ORM框架 -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <version>3.4.1</version>
+        </dependency>
+        <!-- JUnit单元测试工具 -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+        <!--c3p0 连接池 -->
+        <dependency>
+            <groupId>c3p0</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>${c3p0.version}</version>
+        </dependency>
+    </dependencies>
+
+    <!--用于包含或排除某些资源-->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+    </build>
+</project>
+```
+
 applicationContext.xml
 
 ```xml
@@ -2409,4 +2500,18 @@ xml编译的问题，idea编译时没有把mapper包下的xml文件编译进来�
 ```
 
 
+
+2. #{}和${}
+
+\#{}和${}都可以接收基本类型或者pojo对象属性的值。
+
+select * from tbl_employee where id=${id} and last_name=#{lastName}
+
+预编译后: select * from tbl_employee where id=2 and last_name=?
+
+区别：
+
+\#{}:是以预编译的形式，将参数设置到sql语句中，注入的参数不会再进行SQL编译，防止sql注入；（预编译机制可以防止SQL注入）；
+
+${}:取出的值直接拼装在sql语句中，会有安全问题。
 
