@@ -1088,7 +1088,7 @@ public CDPlayer cdPlayer(CD cd) {
 <a id="注入外部的值"></a>
 #### 注入外部的值
 
-使用外部的属性装配EasonCD bean。
+使用JavaConfig的方式装配EasonCD bean。通过Environment类获得app.properties定义的属性值。
 
 ```java
 import com.tyson.pojo.CD;
@@ -1132,7 +1132,7 @@ public void test1() {
 }
 ```
 
-如果使用组件扫描和自动装配创建应用组件，可以通过@Value注解引用外部的值。
+如果使用组件扫描和自动装配创建bean，可以通过@Value注解引用外部的值。
 
 ```java
 import org.springframework.beans.factory.annotation.Value;
@@ -1178,7 +1178,7 @@ public void test1() {
 }
 ```
 
-使用xml配置的话，Spring的\<context:propertyplaceholder>元素可以为我们生成PropertySourcesPlaceholderConfigurer bean。
+使用xml配置的话，Spring的\<context:propertyplaceholder>元素可以为我们生成PropertySourcesPlaceholderConfigurer bean，进而可以使用占位符。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
