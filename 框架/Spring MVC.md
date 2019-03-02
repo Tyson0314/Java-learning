@@ -66,11 +66,172 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 4. Struts处理速度稍微比Spring MVC慢，Struts使用了Struts标签，加载数据较慢。
 
 <a id="spring-mvc环境搭建"></a>
+
 ## Spring MVC环境搭建
 
-1. 引入jar包spring-webmvc-4.2.5.RELEASE.jar，Spring相关jar包。
-2. web.xml文件中添加Spring MVC的前端控制器，用于拦截符合配置的url请求。
-3. 配置转码过滤器，防止中文乱码。
+导入jar包：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.tyson</groupId>
+    <artifactId>springmvc-demo</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <spring.version>5.0.9.RELEASE</spring.version>
+        <logback.version>1.2.3</logback.version>
+        <slf4j.version>1.7.12</slf4j.version>
+        <jsp.version>2.0</jsp.version>
+        <json.version>2.9.1</json.version>
+    </properties>
+
+    <dependencies>
+        <!--使用slf4f和logback作为日志-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-access</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.codehaus.janino</groupId>
+            <artifactId>janino</artifactId>
+            <version>2.6.1</version>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.12.4</version>
+        </dependency>
+
+    <!--spring start -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--spring end -->
+
+        <!--springmvc-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!--springmvc end-->
+
+        <!--其他web依赖-->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>${jsp.version}</version>
+        </dependency>
+
+        <!--springmvc默认没有将对象转化成json的转化器，需添加json依赖-->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${json.version}</version>
+        </dependency>
+        <!--其他web依赖 end-->
+
+    </dependencies>
+</project>
+```
+
+新建logback.xml用来配置日志：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <!-- 打印到控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为PatternLayoutEncoder -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--将org.springframeword.web包下的类的日志级别设置为debug-->
+    <!--开发SpringMVC经常出现和参数类型相关的4XX错误，设置此项可以看到更详细的错误信息-->
+    <logger name="org.springframework.web" level="DEBUG"/>
+    <root level="INFO">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+```
+
+web.xml文件中添加Spring MVC的前端控制器，用于拦截符合配置的url请求。
+
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
@@ -105,7 +266,7 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
         <url-pattern>/resources/*</url-pattern>
     </servlet-mapping>
 
-    <!--转码过滤器-->
+    <!--配置转码过滤器，防止中文乱码-->
     <filter>
         <filter-name>CharacherEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -121,7 +282,8 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 </web-app>
 ```
 
-3. 编写核心配置文件springmvc.xml。
+编写核心配置文件springmvc.xml。
+
 ```
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
