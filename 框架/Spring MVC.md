@@ -696,19 +696,54 @@ UrlBasedViewResolver支持返回的视图名称中含有"redirect:"和"forward:"
 
 <a id="beannameviewresolver"></a>
 ### BeanNameViewResolver
-视图的bean配置信息在springmvc.xml中，BeanNameViewResolver要求视图bean对象都定义在Spring的application context中。
+通过把返回的逻辑视图名称去匹配定义好的视图bean对象。BeanNameViewResolver要求视图bean对象都定义在Spring的application context中。
 ```
-    <!--BeanNameViewResolver 视图的bean配置信息在springmvc.xml中-->
-    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-        <property name="order" value="1"/>
-    </bean>
-    <bean id="hello" class="org.springframework.web.servlet.view.InternalResourceView">
-        <property name="url" value="/hello.jsp"/>
-    </bean>
+<!--通过把返回的逻辑视图名称去匹配定义好的视图bean对象-->
+<!-- 通过 order 属性来定义视图解析器的优先级, order 值越小优先级越高 -->
+<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<property name="order" value="1"/>
+</bean>
+<bean id="myView" class="com.tyson.view.MyView"/>
 ```
 
+MyView 定义：
+
+```java
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
+
+public class MyView implements View {
+
+    public String getContentType() {
+        return "text/html";
+    }
+
+    public void render(Map<String, ?> map, HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
+        httpServletResponse.getWriter().print("my view");
+    }
+}
+```
+
+MyViewController 
+
+```java
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MyViewController {
+    @RequestMapping("/myView")
+    public String myView() {
+        return "myView";
+    }
+}
+```
+
+Spring MVC 根据返回的逻辑视图名去寻找视图 bean 对象。
 
 <a id="resourcebundleviewresolver"></a>
+
 ### ResourceBundleViewResolver
 继承了AbstractCachingViewResolver，需要一个properties文件定义逻辑视图名和View对象的对应关系，配置文件需放在classpath根目录下。
 ```
