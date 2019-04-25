@@ -1,7 +1,152 @@
+<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
+
+- [基础知识](#基础知识)
+    - [数据类型](#数据类型)
+        - [整型](#整型)
+        - [浮点类型](#浮点类型)
+        - [char 类型](#char-类型)
+        - [boolean 类型](#boolean-类型)
+        - [大数值](#大数值)
+    - [操作符](#操作符)
+    - [注释文档](#注释文档)
+    - [代码规范](#代码规范)
+- [控制执行流程](#控制执行流程)
+    - [switch](#switch)
+    - [break 和 continue 实现 goto](#break-和-continue-实现-goto)
+- [初始化和清理](#初始化和清理)
+    - [成员初始化](#成员初始化)
+    - [可变参数列表](#可变参数列表)
+- [访问权限控制](#访问权限控制)
+    - [访问权限修饰词](#访问权限修饰词)
+- [复用类](#复用类)
+    - [继承语法](#继承语法)
+    - [final 关键字](#final-关键字)
+    - [初始化及类的加载](#初始化及类的加载)
+        - [继承与初始化](#继承与初始化)
+- [多态](#多态)
+    - [缺陷：“覆盖”私有方法](#缺陷：“覆盖”私有方法)
+    - [域和静态方法](#域和静态方法)
+    - [构造器和多态](#构造器和多态)
+        - [构造器的调用顺序](#构造器的调用顺序)
+- [接口](#接口)
+    - [抽象类](#抽象类)
+    - [接口的域](#接口的域)
+- [内部类](#内部类)
+    - [.this 和 .new](#this-和-new)
+    - [匿名内部类](#匿名内部类)
+        - [工厂方法](#工厂方法)
+    - [嵌套类](#嵌套类)
+    - [为什么需要内部类](#为什么需要内部类)
+    - [局部内部类](#局部内部类)
+    - [内部类标识符](#内部类标识符)
+- [容器](#容器)
+    - [添加一组元素](#添加一组元素)
+    - [迭代器](#迭代器)
+    - [LinkedList](#linkedlist)
+    - [Set](#set)
+    - [Map](#map)
+    - [Queue](#queue)
+        - [PriorityQueue](#priorityqueue)
+    - [foreach 和 迭代器](#foreach-和-迭代器)
+    - [适配器方法](#适配器方法)
+- [异常、断言和日志](#异常、断言和日志)
+    - [异常分类](#异常分类)
+    - [声明异常](#声明异常)
+    - [捕获异常](#捕获异常)
+    - [带资源的 try 语句](#带资源的-try-语句)
+    - [断言](#断言)
+        - [启用和禁用断言](#启用和禁用断言)
+    - [日志](#日志)
+        - [logback](#logback)
+- [字符串](#字符串)
+    - ["+"和 StringBuilder](#和-stringbuilder)
+    - [格式化输出](#格式化输出)
+        - [printf\(\) 和 format\(\)](#printf-和-format)
+        - [Formatter](#formatter)
+    - [正则表达式](#正则表达式)
+        - [基础](#基础)
+        - [创建正则表达式](#创建正则表达式)
+        - [Pattern 和 Matcher](#pattern-和-matcher)
+    - [扫描输入](#扫描输入)
+        - [Scanner 定界符](#scanner-定界符)
+        - [用正则表达式扫描](#用正则表达式扫描)
+- [类型信息](#类型信息)
+    - [反射](#反射)
+- [泛型](#泛型)
+    - [类型参数的好处](#类型参数的好处)
+    - [泛型类](#泛型类)
+    - [泛型接口](#泛型接口)
+    - [泛型方法](#泛型方法)
+        - [可变参数和泛型方法](#可变参数和泛型方法)
+    - [匿名内部类](#匿名内部类-1)
+    - [泛型擦除](#泛型擦除)
+    - [类型变量的限定](#类型变量的限定)
+    - [擦除的问题](#擦除的问题)
+    - [边界](#边界)
+    - [通配符](#通配符)
+        - [上界通配符](#上界通配符)
+        - [下界通配符](#下界通配符)
+- [数组](#数组)
+    - [复制数组](#复制数组)
+    - [Arrays 工具](#arrays-工具)
+        - [数组拷贝](#数组拷贝)
+        - [数组的比较](#数组的比较)
+        - [数组元素的比较](#数组元素的比较)
+        - [数组排序](#数组排序)
+        - [排序数组查找](#排序数组查找)
+- [容器深入研究](#容器深入研究)
+    - [填充容器](#填充容器)
+    - [SortedSet](#sortedset)
+    - [队列](#队列)
+        - [优先级队列](#优先级队列)
+        - [双向队列](#双向队列)
+    - [LinkedHashMap](#linkedhashmap)
+    - [Colletions 工具类](#colletions-工具类)
+        - [排序和查询](#排序和查询)
+        - [只读容器](#只读容器)
+        - [Collection 和 Map 的同步控制](#collection-和-map-的同步控制)
+        - [快速报错机制](#快速报错机制)
+    - [Java 1.0/1.1 的容器](#java-1011-的容器)
+        - [BitSet](#bitset)
+- [Java I/O 系统](#java-io-系统)
+    - [输入和输出](#输入和输出)
+        - [InputStream 和 OutputStream](#inputstream-和-outputstream)
+        - [Reader 和 Writer](#reader-和-writer)
+    - [组合输入输出流过滤器](#组合输入输出流过滤器)
+    - [文本输入和输出](#文本输入和输出)
+    - [以文本格式存储对象](#以文本格式存储对象)
+    - [字符编码方式](#字符编码方式)
+    - [读写二进制数据](#读写二进制数据)
+        - [DataInput 和 DataOutput](#datainput-和-dataoutput)
+        - [随机访问文件](#随机访问文件)
+        - [序列化](#序列化)
+    - [操作文件](#操作文件)
+        - [目录列表器](#目录列表器)
+    - [](#)
+- [枚举类型](#枚举类型)
+    - [基本 enum 特性](#基本-enum-特性)
+    - [向 enum 添加新方法](#向-enum-添加新方法)
+    - [覆盖 enum 的方法](#覆盖-enum-的方法)
+    - [Switch 语句中的 enum](#switch-语句中的-enum)
+    - [EnumSet](#enumset)
+        - [源码解析](#源码解析)
+    - [EnumMap](#enummap)
+- [注解](#注解)
+    - [基本语法](#基本语法)
+        - [自定义注解](#自定义注解)
+    - [元注解](#元注解)
+    - [编写注解处理器](#编写注解处理器)
+    - [注解综合](#注解综合)
+
+<!-- /MarkdownTOC -->
+
+<a id="基础知识"></a>
 ## 基础知识
 
+<a id="数据类型"></a>
 ### 数据类型
 
+<a id="整型"></a>
 #### 整型
 
 | 类型  | 存储空间 |
@@ -25,6 +170,7 @@ byte 的取值范围是-128~127。整型的取值范围和运行 Java 代码的�
 
 从 Java 7开始，可以为数据字面量添加下划线，如1_000_000，方便易读。Java 编译器会去除这些下划线。
 
+<a id="浮点类型"></a>
 #### 浮点类型
 
 | 类型   | 存储空间 |
@@ -42,14 +188,17 @@ float 类型的数值会有后缀 F 或者 f （2.01F），没有后缀 F 的浮
 
 NaN（不是一个数字）：Double.NaN
 
+<a id="char-类型"></a>
 #### char 类型
 
 Unicode 字符用一个或者两个 char 值描述。Unicode 字符可以表示为十六进制，其范围从/u0000到/uffff。
 
+<a id="boolean-类型"></a>
 #### boolean 类型
 
 布尔类型有两个值：true 和 false。布尔型和整型不能相互转化。Java 语言表达式所操作的 boolean 值，在编译之后都使用Java虚拟机中的int数据类型来代替，而 boolean 数组将会被编码成 Java 虚拟机的 byte 数组，每个元素 boolean 元素占8位”。这样我们可以得出 boolean 类型占了单独使用是4个字节，在数组中又是1个字节。
 
+<a id="大数值"></a>
 #### 大数值
 
 BigInteger 实现了任意精度的整数运算，BigDecimal 实现了任意精度的浮点数运算。
@@ -61,6 +210,7 @@ BigInteger c = a.add(b);
 BigInteger d = c.multiply(b.add(BigInteger.valueOf(2)));
 ```
 
+<a id="操作符"></a>
 ### 操作符
 
 **截尾和舍入**
@@ -73,10 +223,12 @@ System.out.println((int)num); //0
 System.out.println(Math.round(num)); //1
 ```
 
+<a id="注释文档"></a>
 ### 注释文档
 
 javadoc 用来提取注释的工具。javadoc 只能为 public 和 protected 成员进行文档注释。
 
+<a id="代码规范"></a>
 ### 代码规范
 
 可以采用将 public 成员放在开头，后面跟着 protect、包访问权限和 private 成员的创建类的形式，方便类的使用者阅读最为重要的部分（public成员）。
@@ -95,8 +247,10 @@ public class OrganizedByAccess {
 
  
 
+<a id="控制执行流程"></a>
 ## 控制执行流程
 
+<a id="switch"></a>
 ### switch
 
 break 会跳出 switch 语句，没有 break 语句则会一直往下执行。
@@ -137,6 +291,7 @@ switch (i) {
 //i >= 3
 ```
 
+<a id="break-和-continue-实现-goto"></a>
 ### break 和 continue 实现 goto
 
 ```java
@@ -181,12 +336,15 @@ public class LabeledFor {
 
 
 
+<a id="初始化和清理"></a>
 ## 初始化和清理
 
+<a id="成员初始化"></a>
 ### 成员初始化
 
 局部变量未初始化就使用，会产生编译时错误。类的数据成员是基本类型，它们会有初值（如 int 类型的数据成员初值为0）。
 
+<a id="可变参数列表"></a>
 ### 可变参数列表
 
 Java SE5 开始支持可变参数列表。当指定参数时，编译器会将元素列表转换为数组。
@@ -209,10 +367,12 @@ public class VarArgs {
 }
 ```
 
+<a id="访问权限控制"></a>
 ## 访问权限控制
 
 package 语句必须是文件中第一行非注释代码。
 
+<a id="访问权限修饰词"></a>
 ### 访问权限修饰词
 
 1. 包访问权限
@@ -272,12 +432,15 @@ class Application {
 
 
 
+<a id="复用类"></a>
 ## 复用类
 
+<a id="继承语法"></a>
 ### 继承语法
 
 派生类如果没有指定某个基类的构造器，则会调用基类的默认构造器，若没有默认的构造器（不带参数的构造器），编译器会报错。
 
+<a id="final-关键字"></a>
 ### final 关键字
 
 1. final 数据
@@ -315,8 +478,10 @@ class Num {
 
    final 类不能被继承。final 类的所有方法都被隐式指定为 final。JDK 的 String 类就是 final 类。
 
+<a id="初始化及类的加载"></a>
 ### 初始化及类的加载
 
+<a id="继承与初始化"></a>
 #### 继承与初始化
 
 ```java
@@ -360,6 +525,7 @@ k = 47, j = 39
 
 
 
+<a id="多态"></a>
 ## 多态
 
 封装把接口和实现分离开来，多态消除类型之间的耦合关系。
@@ -368,6 +534,7 @@ k = 47, j = 39
 
 ![向上转型](https://img2018.cnblogs.com/blog/1252910/201904/1252910-20190402204948375-70203256.png)
 
+<a id="缺陷：“覆盖”私有方法"></a>
 ### 缺陷：“覆盖”私有方法
 
 ```java
@@ -394,14 +561,17 @@ private f()
 
 Derived 类的 f() 实际上是一个全新的方法。基类的 f() 方法在子类 Derived 中不可见，因此不能被重载。
 
+<a id="域和静态方法"></a>
 ### 域和静态方法
 
 只有普通的方法调用具备多态性，域和静态方法没有多态性。
 
+<a id="构造器和多态"></a>
 ### 构造器和多态
 
 构造器实际上是 static 方法，只不过 static 声明是隐式的，不具备多态性。
 
+<a id="构造器的调用顺序"></a>
 #### 构造器的调用顺序
 
 ```java
@@ -486,24 +656,29 @@ Sandwich()
 
 
 
+<a id="接口"></a>
 ## 接口
 
 接口和内部类为我们提供了一种将接口与实现分离的方法。
 
+<a id="抽象类"></a>
 ### 抽象类
 
 从一个抽象类继承，需要为基类中的所有方法提供方法定义。如果没有提供，则派生类也是抽象类。
 
 如果有一个类，让其包含任何 abstract 方法都没有实际意义，而我们又想阻止产生这个类的任何对象，这时候可以把它设置成一个没有任何抽象方法的抽象类。
 
+<a id="接口的域"></a>
 ### 接口的域
 
 接口中的域都自动声明为`public static  final`，故接口可以用来创建常量组。Java SE5之前没有提供 enum 实现，可以通过接口实现 enum 的功能。
 
+<a id="内部类"></a>
 ## 内部类
 
 内部类允许把一些逻辑相关的类组织在一起，并控制内部类的可视性。内部类可以访问外围类，有些通过编写内部类可以让代码结构更清晰。
 
+<a id="this-和-new"></a>
 ### .this 和 .new
 
 使用外部类的名字后面紧跟 .this，可以生成对外部类对象的引用。
@@ -546,6 +721,7 @@ public class DotNew {
 
 创建内部类的对象，必须通过外部类的对象来创建，在拥有外部类对象之前是不可能创建内部类对象的。这是因为内部类对象会隐式连接到创建它的外部类对象上。但是如果创建的是嵌套类（静态内部类），则不需要创建外部类对象。
 
+<a id="匿名内部类"></a>
 ### 匿名内部类
 
 ```java
@@ -645,6 +821,7 @@ In anonymous f()
 */
 ```
 
+<a id="工厂方法"></a>
 #### 工厂方法
 
 使用匿名内部类改进工厂方法。
@@ -715,6 +892,7 @@ chess move 3
  */
 ```
 
+<a id="嵌套类"></a>
 ### 嵌套类
 
 将内部类声明为 static，即为嵌套类。普通的内部类隐式保存了一个指向外围类对象的引用，而嵌套类没有。所以创建嵌套类的对象，不需要先创建外围类对象。并且嵌套类不能访问非静态的外围类的成员。
@@ -746,6 +924,7 @@ StaticInner静态方法
 
 嵌套类没有.this引用。
 
+<a id="为什么需要内部类"></a>
 ### 为什么需要内部类
 
 使用内部类可以实现多重继承。
@@ -805,6 +984,7 @@ public class Sequence {
 
 如果 Sequence.java 不使用内部类，就必须声明 Sequence 是一个 Selector，对于某个特定的 Sequence 只能有一个 Selector。使用内部类的话很容易就可以拥有另一个方法 reverseSelector()，用来生成一个反向遍历序列的 Selector。
 
+<a id="局部内部类"></a>
 ### 局部内部类
 
 ```java
@@ -862,6 +1042,7 @@ Anonymous inner 1
 
 局部内部类可以拥有命名的构造器或者重载构造器，而匿名内部类只能使用实例初始化。如果需要不止一个该内部类对象，那么只能使用局部内部类。
 
+<a id="内部类标识符"></a>
 ### 内部类标识符
 
 内部类文件的命名格式：外围类名字加上"$"，再加上内部类的名字（如果是匿名类，则是一个数字）。
@@ -872,10 +1053,12 @@ Anonymous inner 1
 
 
 
+<a id="容器"></a>
 ## 容器
 
 ![容器分类](https://img2018.cnblogs.com/blog/1252910/201904/1252910-20190407155626374-53010434.png)
 
+<a id="添加一组元素"></a>
 ### 添加一组元素
 
 ```java
@@ -898,6 +1081,7 @@ public class AddingGroups {
 
 `Arrays.asList()`返回类型是`java.util.Arrays$ArrayList`，底层是数组，试图删除或增加元素会抛异常 UnsupportedOperationException。
 
+<a id="迭代器"></a>
 ### 迭代器
 
 ```java
@@ -967,6 +1151,7 @@ Rat, 1, 0; Manx, 2, 1; Cymric, 3, 2; Mutt, 4, 3; Pug, 5, 4; Cymric, 6, 5; Pug, 7
  */
 ```
 
+<a id="linkedlist"></a>
 ### LinkedList
 
 ```java
@@ -1037,6 +1222,7 @@ public class MyStack<T> {
 }
 ```
 
+<a id="set"></a>
 ### Set
 
 Set 不保存重复的元素，插入相同的元素会被忽略。HashSet 存储元素没有顺序；TreeSet 按照升序的方式存储元素；LinkedHashList 使用链表维护元素的插入顺序，并通过散列提供了快速访问能力。
@@ -1075,6 +1261,7 @@ public class SortedWords {
  */
 ```
 
+<a id="map"></a>
 ### Map
 
 HashMap 设计用来快速访问；TreeMap保持键始终处于升序状态；LinkedHashMap 使用链表维护元素的插入顺序，并通过散列提供了快速访问能力。
@@ -1117,6 +1304,7 @@ Sophia: Cat cat
  */
 ```
 
+<a id="queue"></a>
 ### Queue
 
 LinkedList 实现了 Queue 接口，可以作为队列使用。
@@ -1149,6 +1337,7 @@ peek()和 element()都将在不移除的情况下返回对头，peek()方法在�
 
 poll()和remove()方法将移除并返回对头，poll()在队列为空时返回 null，而remove()会跑 NoSuchElementExeception 异常。
 
+<a id="priorityqueue"></a>
 #### PriorityQueue
 
 Integer、String 和 Character 内建了自然排序，可以与 PriorityQueue 一起工作。要想在 PriorityQueue 中使用自己的类，就必须提供自己的 Comparator。
@@ -1199,6 +1388,7 @@ W U U U T T S S S O O O O N N L I I H H F E E E D D C C C B A A
 *///:~
 ```
 
+<a id="foreach-和-迭代器"></a>
 ### foreach 和 迭代器
 
 Java SE5引入了 Iterable 接口，该接口包含了一个能够产生 Iterator 的 iterator()方法。任何实现了 Iterable 的类（如Collection）都可以应用于 foreach 语句中。
@@ -1233,6 +1423,7 @@ public class IterableClass implements Iterable<String> {
 }
 ```
 
+<a id="适配器方法"></a>
 ### 适配器方法
 
 添加反向迭代器功能。
@@ -1266,10 +1457,12 @@ public class ReversibleArrayList<T> extends ArrayList<T> {
 
 
 
+<a id="异常、断言和日志"></a>
 ## 异常、断言和日志
 
 Java 语言给出了三种处理系统错误的机制：抛出异常、日志和使用断言。
 
+<a id="异常分类"></a>
 ### 异常分类
 
 所有异常都有 Throwable 继承而来。
@@ -1295,12 +1488,14 @@ ArithmeticException
 
 Java 语言规范将派生于 Error 类或 Runtime Exception 类的异常称为非检查（unchecked）异常；其他所有异常称为检查（checked）异常，编译器将会核查是否为所有的检查异常提供异常处理器。
 
+<a id="声明异常"></a>
 ###  声明异常
 
 一个方法必须声明所有可能抛出的检查异常。任何抛出异常的方法都可能是一个死亡陷阱，如果没有异常处理器捕获这个异常，当前线程就会结束。非检查异常要么不可控，要么应当避免发生。
 
 如果在子类覆盖了父类的方法，在子类方法中可以抛出更特定的异常，或者不抛异常。如果父类方法没有抛出异常，则子类只能在方法内捕获所有检查异常，不允许在子类的 throws 说明符中出现超过超类方法所列出的异常类范围。
 
+<a id="捕获异常"></a>
 ### 捕获异常
 
 捕获多个异常可以合并 catch 子句（异常类型不存在子类关系）。
@@ -1328,6 +1523,7 @@ try {
 }
 ```
 
+<a id="带资源的-try-语句"></a>
 ### 带资源的 try 语句
 
 ```java
@@ -1341,6 +1537,7 @@ try (Scanner in = new Scanner(new FileInputStream("e:\data"), "UTF-8");
 
 Java SE7 引入了带资源的 try 语句，当语句正常退出或者有异常，都会调用`in.close()`方法。如果`in.close()`方法也抛出异常，则原来的异常会重新抛出，而close方法抛出的异常会被抑制，通过调用 getSuppressed 方法可以得到从close 方法抛出并被抑制的异常列表。
 
+<a id="断言"></a>
 ### 断言
 
 ```java
@@ -1373,6 +1570,7 @@ assert x >= 0 : x;//将x的值传递给AssertError异常
 
 断言只应该用在测试阶段确定程序内部的错误位置。
 
+<a id="启用和禁用断言"></a>
 #### 启用和禁用断言
 
 默认情况下，断言被禁用，可以在运行程序时用`-eableassertions`或`-ea`选项启用。
@@ -1385,8 +1583,10 @@ assert x >= 0 : x;//将x的值传递给AssertError异常
 
 使用选项`-dableassertions`或`-da`禁用某个类和包的断言。
 
+<a id="日志"></a>
 ### 日志
 
+<a id="logback"></a>
 #### logback
 
 `<configuration>`的三个属性
@@ -1435,16 +1635,20 @@ Layout用于自定义日志输出格式。
 
 
 
+<a id="字符串"></a>
 ## 字符串
 
 String 对象是不可变的。String 类中会修改 String 的方法都会创建一个全新的 String 对象。
 
+<a id="和-stringbuilder"></a>
 ### "+"和 StringBuilder
 
 操作符"+"连接字符串会产生许多中间对象，使用 StringBuilder 的 append()方法拼接字符串会更加高效。
 
+<a id="格式化输出"></a>
 ### 格式化输出
 
+<a id="printf-和-format"></a>
 #### printf() 和 format()
 
 ```java
@@ -1462,6 +1666,7 @@ Row 1: [5 5.260000]
  */
 ```
 
+<a id="formatter"></a>
 #### Formatter
 
 ```java
@@ -1490,8 +1695,10 @@ peas           3       5.20
 
 String.format()接受与Formatter.format()一样的参数，它是通过创建一个 Formatter 对象实现的。
 
+<a id="正则表达式"></a>
 ### 正则表达式
 
+<a id="基础"></a>
 #### 基础
 
 可能有一个负号在最前面：`-?`
@@ -1564,6 +1771,7 @@ All in apple, we apple have a apple.
  */
 ```
 
+<a id="创建正则表达式"></a>
 #### 创建正则表达式
 
 字符类表达式，JDK 文档中 java.util.regex.Pattern 页面有完整的表达式。
@@ -1620,6 +1828,7 @@ true
 *///:~
 ```
 
+<a id="pattern-和-matcher"></a>
 #### Pattern 和 Matcher
 
 Pattern 和 Matcher 功能较 String 更为强大。Pattern.compile(String regex) 用来编译正则表达式，生成一个。
@@ -1820,10 +2029,12 @@ fix rig rag
 */
 ```
 
+<a id="扫描输入"></a>
 ### 扫描输入
 
 Java SE5新增了 Scanner 类，Scanner 的构造器可以接受任何类型的输入对象，包括 File 对象、InputStream、String 或者 Readable 对象。Scanner 所有的输入、分词以及翻译都隐藏在不用类型的 next 方法中。普通的 next()方法返回下一个 String 。
 
+<a id="scanner-定界符"></a>
 #### Scanner 定界符
 
 默认情况下，Scanner 根据空白字符对输入进行分词，我们可以用正则表达式指定自己所需的定界符。
@@ -1841,6 +2052,7 @@ public class ScannerDelimiter {
 }
 ```
 
+<a id="用正则表达式扫描"></a>
 #### 用正则表达式扫描
 
 ```java
@@ -1878,12 +2090,14 @@ Thread on 58.27.82.161 from 02/12/2005
 
 
 
+<a id="类型信息"></a>
 ## 类型信息
 
 通过运行时类型信息可以在程序运行时发现和使用类型信息。
 
 `Class.forName("Gum")`类 Gum 没有被加载就加载它。
 
+<a id="反射"></a>
 ### 反射
 
 类方法提取：
@@ -1921,10 +2135,12 @@ public final native void notifyAll()
 
 
 
+<a id="泛型"></a>
 ## 泛型
 
 泛型实现了参数化类型的概念，使代码可以应用于多种类型。使用泛型编写的程序比使用 Object 变量再进行强制类型转化的程序具有更好的安全性和可读性。
 
+<a id="类型参数的好处"></a>
 ### 类型参数的好处
 
 Java SE5泛型出现之前，ArrayList 是通过维护一个 Object 数组实现的。
@@ -1954,6 +2170,7 @@ Exception in thread "main" java.lang.ClassCastException: typeinfo.pets.Cat canno
 
 当获取值的时候需要进行强制类型转化，并且 add 操作可以放进任何类型的对象，编译和运行都不报错，当获取值进行强制类型转换时，可能会抛异常。
 
+<a id="泛型类"></a>
 ### 泛型类
 
 ```java
@@ -1971,6 +2188,7 @@ public class Holder<T> {
 //output Tyson
 ```
 
+<a id="泛型接口"></a>
 ### 泛型接口
 
 泛型也可以用于接口。
@@ -1999,6 +2217,7 @@ public class Fibonacci implements Generator<Integer> {
 //output:1 1 2 3 5 8 13 21 34 55
 ```
 
+<a id="泛型方法"></a>
 ### 泛型方法
 
 如果使用泛型方法可以取代将整个类泛型化，那么就应该只使用泛型方法。对于一个 static 方法而言，无法访问泛型类的类型参数，所以如果 static 方法需要使用泛化能力，就必须使其成为泛型方法。
@@ -2030,6 +2249,7 @@ com.tyson.chapter15.generics.GenericMethod
 
 GenericMethod 并不是参数化的，只有 f() 拥有参数类型。
 
+<a id="可变参数和泛型方法"></a>
 #### 可变参数和泛型方法
 
 向参数个数可变的方法传递一个泛型类型的实例。
@@ -2052,6 +2272,7 @@ public class GenericVarArgs {
 //output:[a, b]
 ```
 
+<a id="匿名内部类-1"></a>
 ### 匿名内部类
 
 ```java
@@ -2072,6 +2293,7 @@ public class Customer {
 }
 ```
 
+<a id="泛型擦除"></a>
 ### 泛型擦除
 
 ```java
@@ -2105,6 +2327,7 @@ class Manipulato {
 }
 ```
 
+<a id="类型变量的限定"></a>
 ### 类型变量的限定
 
 给定泛型类的边界，以此告知编译器只能接受遵循这个边界的类型。
@@ -2134,6 +2357,7 @@ public class Manipulation {
 //output: Has.f()
 ```
 
+<a id="擦除的问题"></a>
 ### 擦除的问题
 
 ```java
@@ -2161,6 +2385,7 @@ public class ErasureAndInheritance {
 
 Derived 继承自 GenericBase，但是没有任何泛型参数，而编译器不会发出任何警告。
 
+<a id="边界"></a>
 ### 边界
 
 在泛型的参数类型上设置限制条件，可以强制规定泛型可以应用的类型，从而可以按照自己的边界类型去调用方法。如果将泛型参数限制为某个类型子集，那么就可以用这些类型子集来调用方法。
@@ -2253,10 +2478,12 @@ public class InheritBounds {
 }
 ```
 
+<a id="通配符"></a>
 ### 通配符
 
 参考自：[泛型超详细解读](https://blog.csdn.net/jeffleo/article/details/52250948) | [通配符的上界通配符和下界通配符](https://blog.csdn.net/hello_worldee/article/details/77934244)
 
+<a id="上界通配符"></a>
 #### 上界通配符
 
 上界< ? extends Class>
@@ -2289,6 +2516,7 @@ public class UpperBound {
 
 list.get(0)能够执行是因为，当item在此list存在时，编译器能够确定他是Apple的子类，所以能够安全获得。
 
+<a id="下界通配符"></a>
 #### 下界通配符
 
 < ? super Class>表示，指定类的基类。
@@ -2320,12 +2548,14 @@ list.add(new Fruit())不能添加，是因为容器内存放的是Apple的**所�
 
 
 
+<a id="数组"></a>
 ## 数组
 
 数组的 length 是数组的大小，不是实际保存的元素个数。
 
 基本类型数组不显式初始化，会被自动初始化成初值。对象数组则会被初始化成 null。
 
+<a id="复制数组"></a>
 ### 复制数组
 
 Java 标准类库提供有 static 方法 System.arraycopy()，用来复制数组比用 for 循环复制要快的多。System.arraycopy() 针对所有类型做了重载。
@@ -2352,8 +2582,10 @@ dest = [47, 47, 47, 47, 47, 47, 47, 99, 99, 99]
 
 基本类型数组和对象数组都可以复制。复5制对象只是复制对象引用，即浅复制。System.arraycopy() 不会执行自动包装和自动拆包，两个数组需要具有相同的数据类型。
 
+<a id="arrays-工具"></a>
 ### Arrays 工具
 
+<a id="数组拷贝"></a>
 #### 数组拷贝
 
 ```java
@@ -2392,6 +2624,7 @@ public static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]>
 }
 ```
 
+<a id="数组的比较"></a>
 #### 数组的比较
 
 Arrays 类提供了重载后的 equals() 方法，用来比较整个数组。
@@ -2419,6 +2652,7 @@ true
  */
 ```
 
+<a id="数组元素的比较"></a>
 #### 数组元素的比较
 
 1. 实现`java.lang.Comparable`接口，使得类本身具有比较比较能力。
@@ -2497,6 +2731,7 @@ true
     */
    ```
 
+<a id="数组排序"></a>
 #### 数组排序
 
 使用内置的排序方法，就可以对基本类型数组进行排序。也可以对对象数组进行排序，只要该对象实现了 Comparable 接口或者具有相关联的 Comparator。
@@ -2524,6 +2759,7 @@ case insensive: [cQrGs, eGZMm, nyGcF, OWZnT, YNzbr]
 
 String 排序算法依据词典编排顺序排序。大写字母在前，小写字母在后。Java 标准类库中的排序算法针对正排序做了优化。针对基础类型设计了快速排序，针对对象设计了稳定归并排序。
 
+<a id="排序数组查找"></a>
 #### 排序数组查找
 
 若数组已经排序，既可以使用`Arrays.binarySearch()`执行快速查找。
@@ -2573,8 +2809,10 @@ index: 3-->nyGcF
 
 
 
+<a id="容器深入研究"></a>
 ## 容器深入研究
 
+<a id="填充容器"></a>
 ### 填充容器
 
 ```java
@@ -2592,6 +2830,7 @@ public class FillingList {
  */
 ```
 
+<a id="sortedset"></a>
 ### SortedSet
 
 按对象的比较函数对元素进行排序。用 TreeSet 迭代通常比用 HashSet 要快。
@@ -2628,10 +2867,12 @@ subSet: [one]
  */
 ```
 
+<a id="队列"></a>
 ### 队列
 
 除了并发应用，Queue Java SE5中仅有两个实现 LinkedList 和 PriorityQueue，它们的差异在于排序行为不在性能。
 
+<a id="优先级队列"></a>
 #### 优先级队列
 
 ```java
@@ -2692,6 +2933,7 @@ ToDoItem{primary=b, secondary=3, item='homework'}
  */
 ```
 
+<a id="双向队列"></a>
 #### 双向队列
 
 可以在队列任何一端添加或移除元素。Java 标准库中没有任何显式的用于双向队列的接口。
@@ -2729,6 +2971,7 @@ public class Deque<T> {
  */
 ```
 
+<a id="linkedhashmap"></a>
 ### LinkedHashMap
 
 可以在构造器中设定 LinkedHashMap，使之采用基于访问的最近最少使用（LRU）算法，没有访问过的元素会出现在队列的前面。可用于定期清理元素以节省空间。
@@ -2755,6 +2998,7 @@ public class LinkedHashMapDemo {
  */
 ```
 
+<a id="colletions-工具类"></a>
 ### Colletions 工具类
 
 ```java
@@ -2821,6 +3065,7 @@ arrayList: [nCopies;, nCopies;, nCopies;]
  */
 ```
 
+<a id="排序和查询"></a>
 #### 排序和查询
 
 ```java
@@ -2864,6 +3109,7 @@ Location of three is 7, list.get(7) = three
 */
 ```
 
+<a id="只读容器"></a>
 #### 只读容器
 
 ```java
@@ -2901,6 +3147,7 @@ public class ReadOnly {
 }
 ```
 
+<a id="collection-和-map-的同步控制"></a>
 #### Collection 和 Map 的同步控制
 
 ```java
@@ -2916,6 +3163,7 @@ public class Synchronization {
 }
 ```
 
+<a id="快速报错机制"></a>
 #### 快速报错机制
 
  fast-fail 是 Java 容器的一种保护机制。当多个线程对同一个集合进行操作时，就有可能会产生 fast-fail 事件。例如：当线程a正通过 iterator 遍历集合时，另一个线程b修改了集合的内容（modCount 不等于expectedModCount），那么线程a访问集合的时候，就会抛出 ConcurrentModificationException，产生 fast-fail 事件。
@@ -2942,8 +3190,10 @@ public class FastFail {
 - 使用`Colletions.synchronizedList()`方法或在修改集合内容的地方加上 synchronized。这样的话，增删集合内容的同步锁会阻塞遍历操作，影响性能。
 - 使用 CopyOnWriteArrayList 来替换 ArrayList。在对 CopyOnWriteArrayList 进行修改操作的时候，会拷贝一个新的数组，对新的数组进行操作，操作完成后再把引用移到新的数组。
 
+<a id="java-1011-的容器"></a>
 ### Java 1.0/1.1 的容器
 
+<a id="bitset"></a>
 #### BitSet
 
 参考自：[JAVA中BitSet使用](https://blog.csdn.net/xv1356027897/article/details/79518647)
@@ -2995,12 +3245,15 @@ size of bitset: 128
 
 
 
+<a id="java-io-系统"></a>
 ## Java I/O 系统
 
+<a id="输入和输出"></a>
 ### 输入和输出
 
 继承自 InputStream 或 Reader 的类都具有 read() 方法，用于读取单个字节或者字节数组；继承自 OutputStream 或 Writer 的类都含有 write() 方法，用于写单个字节或字节数组。
 
+<a id="inputstream-和-outputstream"></a>
 #### InputStream 和 OutputStream 
 
 InputStream 用来表示那些从不同数据源产生输入的类。这些数据源包括：1.字节数组；2.String 对象；3.文件；4.管道；5.一个由其他种类的流组成的序列。
@@ -3009,6 +3262,7 @@ InputStream 类有一个抽象方法：`abstract int read()`，这个方法将�
 
 OutputStream 决定了输出所要去的目标：字节数组、文件或管道。OutputStream 的 `abstract void write(int b)` 可以向某个输出位置写出一个字节。read() 和 write() 方法在执行时都将阻塞，至少字节被读入或者写出。
 
+<a id="reader-和-writer"></a>
 #### Reader 和 Writer
 
 设计 Reader 和 Writer 继承结构主要是为了国际化。老的 I/O 流继承层级结构只支持8位字节流，并且不能很好的处理16位的 Unicode 字符（两个字节）。由于 Unicode 用于字符国际化（Java 本身的 char 也是16位的 Unicode），所以添加 Reader 和 Writer 继承层次结构就是为了在所有的 I/O 操作中都支持 Unicode。另外，新类库的设计使得它的操作比旧类库更快。
@@ -3018,6 +3272,7 @@ abstract int read();
 abstract void write(char c);
 ```
 
+<a id="组合输入输出流过滤器"></a>
 ### 组合输入输出流过滤器
 
 FileInputStream 和 FileOutputStream 可以提供附在磁盘文件上的输入流和输出流。
@@ -3071,6 +3326,7 @@ DataInputStream din = new DataInputStream(
 );
 ```
 
+<a id="文本输入和输出"></a>
 ### 文本输入和输出
 
 将字节流转化为 Unicode 字符的读入器：
@@ -3099,6 +3355,7 @@ out.print("tyson");
 out.flush();
 ```
 
+<a id="以文本格式存储对象"></a>
 ### 以文本格式存储对象
 
 ```java
@@ -3162,6 +3419,7 @@ Employee{name='tom', salary=1200.0, hireDate=2015-11-23}
  */
 ```
 
+<a id="字符编码方式"></a>
 ### 字符编码方式
 
 输入和输出流都是用于字节序列，很多情况下，我们希望操作的是字符序列。
@@ -3174,8 +3432,10 @@ Employee{name='tom', salary=1200.0, hireDate=2015-11-23}
 String str = new String(bytes, StandardCharsets.UTF_8);
 ```
 
+<a id="读写二进制数据"></a>
 ### 读写二进制数据
 
+<a id="datainput-和-dataoutput"></a>
 #### DataInput 和 DataOutput
 
 DataOutput 接口定义了以二进制格式写数组、字符、字符串等的方法，如 writeChars、writeByte、writeInt 和 writeDouble。
@@ -3191,10 +3451,12 @@ DataInputStream in = new DataInputStream(new FileInputStream("e:/data.txt"));
 DataOutputStream out = new DataOutputStream(new FileOutputStream("e:/data.txt"));
 ```
 
+<a id="随机访问文件"></a>
 #### 随机访问文件
 
 RandomAccessFile 类可以在文件中的任何位置查找或写入。RandomAccessFile 类同时实现了 DataInput 和 DataOutput 接口。
 
+<a id="序列化"></a>
 #### 序列化
 
 **保存和加载序列化对象**
@@ -3301,10 +3563,12 @@ class Manager extends Employee {
 
 将对象序列化到输出流中，然后将其读回，产生的新对象是原对象的深拷贝。
 
+<a id="操作文件"></a>
 ### 操作文件
 
 File 类既能代表特定文件的名称，又能代表一个目录下的一组文件的名称。
 
+<a id="目录列表器"></a>
 #### 目录列表器
 
 获取某个目录下以".java"文件后缀结尾的文件名。
@@ -3354,10 +3618,17 @@ public class DirList {
 }
 ```
 
+<a id=""></a>
+<a id=""></a>
+<a id=""></a>
+<a id=""></a>
+<a id=""></a>
 ### 
 
+<a id="枚举类型"></a>
 ## 枚举类型
 
+<a id="基本-enum-特性"></a>
 ### 基本 enum 特性
 
 除了不能继承自一个 enum 之外，我们基本上可以将 enum 看做一个常规的类。所有的 enum 都继承自 java.lang.Enum 类，所以 enum 不能再继承其他类。在创建一个新的 enum 时，可以同时实现一个或多个接口。
@@ -3406,6 +3677,7 @@ BLUE
 
 values() 是编译器添加的 static 方法，Enum 类中没有 values() 方法。ordinal() 方法返回一个 int 值，这是每个 enum 实例声明时的次序，从0开始。valueOf() 根据给定的名字返回相应的 enum实例，如果不存在给定名字的实例，将会抛出异常。
 
+<a id="向-enum-添加新方法"></a>
 ### 向 enum 添加新方法
 
 ```java
@@ -3437,6 +3709,7 @@ SOUTH: Hainan
  */
 ```
 
+<a id="覆盖-enum-的方法"></a>
 ### 覆盖 enum 的方法
 
 ```java
@@ -3458,6 +3731,7 @@ public enum Animal {
 //output: Cat Dog Bird Pig
 ```
 
+<a id="switch-语句中的-enum"></a>
 ### Switch 语句中的 enum
 
 ```java
@@ -3502,6 +3776,7 @@ the traffic light is: RED
  */
 ```
 
+<a id="enumset"></a>
 ### EnumSet
 
  如果你想用一个数表示多种状态，那么位运算是一种很好的选择。EnumSet 是通过位运算实现的。它是一个与枚举类型一起使用的专用 Set 实现。枚举set中所有元素都必须来自单个枚举类型（即必须是同类型，且该类型是 Enum 的子类）。
@@ -3533,6 +3808,7 @@ seasons: [SPRING, SUMMER, AUTUMN, WINTER]
  */
 ```
 
+<a id="源码解析"></a>
 #### 源码解析
 
 参考自：[EnumSet源码解析](https://www.jianshu.com/p/f7035c5816b1)
@@ -3571,6 +3847,7 @@ void addAll() {
 }
 ```
 
+<a id="enummap"></a>
 ### EnumMap
 
 EnumMap 是一种特殊的 Map，它要求其中的键必须来自一个 enum。由于 enum 本身的限制，所以 EnumMap 在内部可由数组实现。因此 EnumMap 的速度很快。
@@ -3615,10 +3892,12 @@ java.lang.NullPointerException
 
 
 
+<a id="注解"></a>
 ## 注解
 
 Java SE5内置了三种定义在 java.lang 中的注解：@Override，@Deprecated 和 @SuppressWarnings（关闭不当的编译器警告信息）。
 
+<a id="基本语法"></a>
 ### 基本语法
 
 ```java
@@ -3628,6 +3907,7 @@ public @interface Override {
 }
 ```
 
+<a id="自定义注解"></a>
 #### 自定义注解
 
 ```java
@@ -3660,6 +3940,7 @@ public class PasswordUtils {
 
 当在Java源程序上加了一个注解，这个Java源程序要由javac去编译，javac把java源文件编译成.class文件，在编译成class时可能会把Java源程序上的一些注解给去掉，java编译器在处理java源程序时，可能会认为这个注解没有用了，于是就把这个注解去掉了，那么此时在编译好的class中就找不到注解了， 这是编译器编译java源程序时对注解进行处理的第一种可能情况，假设java编译器在把java源程序编译成class时，没有把java源程序中的注解去掉，那么此时在编译好的class中就可以找到注解，当程序使用编译好的class文件时，需要用类加载器把class文件加载到内存中，class文件中的东西不是字节码，class文件里面的东西由类加载器加载到内存中去，类加载器在加载class文件时，会对class文件里面的东西进行处理，如安全检查，处理完以后得到的最终在内存中的二进制的东西才是字节码，类加载器在把class文件加载到内存中时也有转换，转换时是否把class文件中的注解保留下来，这也有说法，所以说**一个注解的生命周期有三个阶段：java源文件是一个阶段，class文件是一个阶段，内存中的字节码是一个阶段**,javac把java源文件编译成.class文件时，有可能去掉里面的注解，类加载器把.class文件加载到内存时也有可能去掉里面的注解，因此**在自定义注解时就可以使用Retention注解指明自定义注解的生命周期，自定义注解的生命周期是在RetentionPolicy.SOURCE阶段（java源文件阶段），还是在RetentionPolicy.CLASS阶段（class文件阶段），或者是在RetentionPolicy.RUNTIME阶段(内存中的字节码运行时阶段)**，根据**JDK提供的API可以知道默认是在RetentionPolicy.CLASS阶段 （JDK的API写到：the retention policy defaults to RetentionPolicy.CLASS）。**
 
+<a id="元注解"></a>
 ### 元注解
 
 元、注解负责注解其他的注解。
@@ -3671,6 +3952,7 @@ public class PasswordUtils {
 | @Documented | 将此注解包含在 Javadoc 中        |
 | @Inherited  | 允许子类继承父类的注解           |
 
+<a id="编写注解处理器"></a>
 ### 编写注解处理器
 
 使用注解时，很重要的一部分就是创建和使用注解处理器。
@@ -3702,6 +3984,7 @@ warning: missing use case-48
  */
 ```
 
+<a id="注解综合"></a>
 ### 注解综合
 
 ```java

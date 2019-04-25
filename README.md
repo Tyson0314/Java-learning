@@ -10,3 +10,5 @@
 
 [Spriing Boot 实战](https://github.com/Tyson0314/Java-learning/blob/master/%E6%A1%86%E6%9E%B6/Spring%E5%AE%9E%E6%88%98.md)
 
+[Java编程思想总结](https://github.com/Tyson0314/Java-learning/blob/master/Java/Java%20%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3.md)
+
