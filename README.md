@@ -1,6 +1,6 @@
 # Java-learning
 
-[Redis 入门指南总结](https://github.com/Tyson0314/Java-learning/blob/master/Redis/Redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E6%80%BB%E7%BB%93.md)
+[Redis 入门指南总结](https://github.com/Tyson0314/Java-learning/blob/master/%E4%B8%AD%E9%97%B4%E4%BB%B6/Redis%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97%E6%80%BB%E7%BB%93.md)
 
 [Spring MVC 基础总结](https://github.com/Tyson0314/Java-learning/blob/master/%E6%A1%86%E6%9E%B6/Spring%20MVC.md)
 
@@ -12,3 +12,6 @@
 
 [Java编程思想总结](https://github.com/Tyson0314/Java-learning/blob/master/Java/Java%20%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3.md)
 
+[Java并发编程](<https://github.com/Tyson0314/Java-learning/blob/master/Java/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B.md>)
+
+[elasticsearch总结](<https://github.com/Tyson0314/Java-learning/blob/master/%E4%B8%AD%E9%97%B4%E4%BB%B6/elasticsearch.md>)
