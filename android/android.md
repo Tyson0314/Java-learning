@@ -233,6 +233,56 @@ app/build.gradle 文件，dependencies 闭包添加如下内容：
         />
 </android.support.percent.PercentFrameLayout>
 ```
+迁移到androidx：
+修改依赖：`implementation 'androidx.percentlayout:percentlayout:1.0.0'`
+修改布局：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.percentlayout.widget.PercentFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/button_1"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="left|top"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        android:text="Button1"
+        />
+    <Button
+        android:id="@+id/button_2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="right|top"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        android:text="Button2"
+        />
+    <Button
+        android:id="@+id/button_3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="left|bottom"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        android:text="Button3"
+        />
+
+    <Button
+        android:id="@+id/button_4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="right|bottom"
+        app:layout_heightPercent="50%"
+        app:layout_widthPercent="50%"
+        android:text="Button4"
+        />
+</androidx.percentlayout.widget.PercentFrameLayout>
+```
 
 ### 自定义控件
 
