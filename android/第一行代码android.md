@@ -320,7 +320,7 @@ button1.setOnClickListener(new View.OnClickListener() {
 
 #### 显式 Intent
 
-新建 Activity，勾选 generate layout file，命名布局文件为 second_layout.xml，不勾选 launcher activity。编辑 second_layout.xml：
+新建 Activity，勾选 generate layout file，命名布局文件为 second_layout.xml，不勾选 launcher activity（不是主活动）。编辑 second_layout.xml：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
