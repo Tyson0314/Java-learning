@@ -233,7 +233,7 @@ app/build.gradle 文件，dependencies 闭包添加如下内容：
         />
 </android.support.percent.PercentFrameLayout>
 ```
-迁移到androidx：
+迁移到androidx（support 包的整理）：
 修改依赖：`implementation 'androidx.percentlayout:percentlayout:1.0.0'`
 修改布局：
 ```xml
@@ -416,6 +416,18 @@ public class Fruit {
         return imageId;
     }
 }
+```
+修改 activity_main.xml：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/list_view"/>
+</LinearLayout>
 ```
 
 ListView 子项布局 fruit_item.xml：
