@@ -1070,3 +1070,448 @@ setStyle(new NotificationCompat.BigTextStyle().bigText("emm emm emm emm emm emm 
 ```java
 setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.demo)))
 ```
+
+#### 摄像头拍照
+新建 CameraAlbumTest 项目，修改 activity_main.xml 代码：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/take_photo"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="take photo"/>
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>
+```
+MainActivity 代码：
+```java
+public class MainActivity extends AppCompatActivity {
+
+    public static final int TAKE_PHOTO = 1;
+
+    private ImageView picture;
+
+    private Uri imageUri;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(imageUri));
+                        picture.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button takePhoto = findViewById(R.id.take_photo);
+        picture = findViewById(R.id.picture);
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //sd卡存放当前应用缓存数据的位置
+                File outputImage = new File(getExternalCacheDir(), "output_image.jpg");
+                try {
+                    if (outputImage.exists()) {
+                        outputImage.delete();
+                    }
+                    outputImage.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (Build.VERSION.SDK_INT >= 24) {
+                    //第一个参数是context，第二个参数是任意唯一的字符串，与AndroidManifest.xml中android:authorities保持一致
+                    //FileProvider对数据进行保护，选择性将封装过的uri共享给外部，提高应用的安全性
+                    imageUri = FileProvider.getUriForFile(MainActivity.this,
+                            "com.tyson.cameraalbumtest", outputImage);
+                } else {
+                    imageUri = Uri.fromFile(outputImage);
+                }
+                //启动相机程序，隐式intent
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, TAKE_PHOTO);
+            }
+        });
+    }
+}
+```
+在 AndroidManifest.xml 对内容提供器进行注册：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tyson.camaraalbumtest">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:authorities="com.tyson.camaraalbumtest"
+            android:name="androidx.core.content.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths"/>
+        </provider>
+    </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+</manifest>
+```
+新建 /res/xml/file_paths.xml：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path
+        name="my_images"
+        path="."/>
+</paths>
+```
+
+#### 相册选择相片
+修改 activity_main.xml：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/take_photo"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="take photo"/>
+
+    <Button
+        android:id="@+id/choose_from_album"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="choose from album"/>
+
+    <ImageView
+        android:id="@+id/picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"/>
+</LinearLayout>
+```
+相册选择相片代码：
+```java
+public class MainActivity extends AppCompatActivity {
+
+    public static final int TAKE_PHOTO = 1;
+
+    public static final int CHOOSE_PHOTO = 2;
+
+    private ImageView picture;
+
+    private Uri imageUri;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button takePhoto = findViewById(R.id.take_photo);
+        Button chooseFromAlbum  = findViewById(R.id.choose_from_album);
+        picture = findViewById(R.id.picture);
+        takePhoto.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //sd卡存放当前应用缓存数据的位置
+                File outputImage = new File(getExternalCacheDir(), "output_image.jpg");
+                try {
+                    if (outputImage.exists()) {
+                        outputImage.delete();
+                    }
+                    outputImage.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (Build.VERSION.SDK_INT >= 24) {
+                    //第一个参数是context，第二个参数是任意唯一的字符串
+                    //FileProvider对数据进行保护，选择性将封装过的uri共享给外部，提高应用的安全性
+                    imageUri = FileProvider.getUriForFile(MainActivity.this,
+                            "com.tyson.cameraalbumtest", outputImage);
+                } else {
+                    imageUri = Uri.fromFile(outputImage);
+                }
+                //启动相机程序
+                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(intent, TAKE_PHOTO);
+            }
+        });
+        chooseFromAlbum.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (ContextCompat.checkSelfPermission(MainActivity.this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                } else {
+                    openAlbum();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openAlbum();
+                } else {
+                    Toast.makeText(this, "permission deny", Toast.LENGTH_SHORT);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void openAlbum() {
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        //打开相册选择图片，选择完照片会回到onActivityResult方法
+        //进入CHOOSE_PHOTO的case处理图片
+        startActivityForResult(intent, CHOOSE_PHOTO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case TAKE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver()
+                                .openInputStream(imageUri));
+                        picture.setImageBitmap(bitmap);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case CHOOSE_PHOTO:
+                if (resultCode == RESULT_OK) {
+                    //判断手机系统版本号，4.4以上版本不返回图片真实的uri，而是返回一个封装过的uri
+                    //需要对uri进行处理
+                    if (Build.VERSION.SDK_INT >= 19) {
+                        handleImageOnKitKat(data);
+                    } else {
+                        handleImageBeforeKitKat(data);
+                    }
+                }
+            default:
+                break;
+        }
+    }
+
+    private void handleImageBeforeKitKat(Intent data) {
+        Uri uri = data.getData();
+        String imgPath = getImagePath(uri, null);
+        displayImage(imgPath);
+    }
+
+    @TargetApi(19)
+    private void handleImageOnKitKat(Intent data) {
+        String imagePath = null;
+        Uri uri = data.getData();
+        if (DocumentsContract.isDocumentUri(this, uri)) {
+            String docId = DocumentsContract.getDocumentId(uri);
+            if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                String id = docId.split(":")[1];//解析出数字格式的id
+                String selection = MediaStore.Images.Media._ID + "=" + id;
+                imagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
+            } else if ("com.android.providers.downloads.documents".equals(uri.getAuthority())) {
+                Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                imagePath = getImagePath(contentUri, null);
+            }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            //content类型的uri，使用普通方式处理
+            imagePath = getImagePath(uri, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            //file类型uri，获取图片路径即可
+            imagePath = uri.getPath();
+        }
+        displayImage(imagePath);
+    }
+
+    private void displayImage(String imgPath) {
+        if (imgPath != null) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imgPath);
+            picture.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(this, "fail to get image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String getImagePath(Uri uri, String s){
+        String path = null;
+        Cursor cursor = getContentResolver().query(uri, null, s, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            }
+            cursor.close();
+        }
+        return path;
+    }
+}
+```
+
+#### 音频播放
+新建 PlayAudioTest 项目，修改 activity_main.xml 代码：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="play"/>
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="pause"/>
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="stop"/>
+</LinearLayout>
+```
+修改 MainActivity 代码：
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private MediaPlayer mediaPlayer = new MediaPlayer();
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button play = findViewById(R.id.play);
+        Button pause = findViewById(R.id.pause);
+        Button stop = findViewById(R.id.stop);
+        play.setOnClickListener(this);
+        pause.setOnClickListener(this);
+        stop.setOnClickListener(this);
+        //播放音频文件需要申请sd卡访问权限
+        if (ContextCompat.checkSelfPermission(MainActivity.this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[] {
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+        } else {
+            initMediaPlayer();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] ==
+                    PackageManager.PERMISSION_GRANTED) {
+                    initMediaPlayer();
+                } else {
+                    Toast.makeText(this, "permission deny",
+                            Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.play:
+                if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                }
+                break;
+            case R.id.pause:
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause();
+                }
+                break;
+            case R.id.stop:
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.reset();
+                    initMediaPlayer();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void initMediaPlayer() {
+        try {
+            //在sd卡根目录下存放有music.mp3文件
+            File file = new File(Environment.getExternalStorageDirectory(), "music.mp3");
+            mediaPlayer.setDataSource(file.getPath());//指定音频文件的路径
+            mediaPlayer.prepare();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+在 AndroidManifest.xml 文件声明权限：
+```xml
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+```
+
