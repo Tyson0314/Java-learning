@@ -938,4 +938,135 @@ public class MainActivity extends AppCompatActivity {
 ### 通知
 
 通知可以在活动创建，也可以在广播接收器和服务创建。活动中创建通知比较少，一般是程序在后台才需要创建通知。
+创建 NotificationTest 项目，修改 activity_main.xml：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/send_notice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="send notice"/>
+</LinearLayout>
+```
+点击按钮发送通知，MainActivity 代码如下：
+```java
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Button btn = findViewById(R.id.send_notice);
+        btn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.send_notice:
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                Notification n = new NotificationCompat.Builder(this)
+                        .setContentTitle("title")
+                        .setContentText("text")
+                        .setWhen(System.currentTimeMillis())
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                        .build();
+                manager.notify(1, n);//1是id
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+实现点击通知的效果，使用 PendingIntent（延迟执行的 Intent）。
+新建 NotificationActivity，修改布局文件：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:textSize="24sp"
+        android:text="notification layout"/>
+</RelativeLayout>
+```
+修改 MainActivity 代码：
+```java
+public class Main2Activity extends AppCompatActivity implements View.OnClickListener {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main2);
+        Button btn = findViewById(R.id.send_notice);
+        btn.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.send_notice:
+                Intent intent = new Intent(this, NotificationActivity.class);
+                PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
+                NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                Notification n = new NotificationCompat.Builder(this)
+                        .setContentTitle("title")
+                        .setContentText("text")
+                        .setWhen(System.currentTimeMillis())
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher))
+                        .setContentIntent(pi)
+                        .setAutoCancel(true)
+                        .build();
+                manager.notify(1, n);//1是id
+                break;
+            default:
+                break;
+        }
+    }
+}
+```
+通知时震动：
+```java
+                Notification n = new NotificationCompat.Builder(this)
+                        //...
+                        .setVibrate(new long[] {0, 1000, 1000, 1000})
+                        .build();
+```
+控制震动需要申请权限：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tyson.notificationtest">
+    ...
+    <uses-permission android:name="android.permission.VIBRATE"/>
+</manifest>
+```
+控制 led 闪烁：
+```java
+setLights(Color.GREEN, 1000, 1000)
+```
+使用默认效果：
+```java
+setDefaults(NotificationCompat.DEFAULT_ALL)
+```
+
+长文本通知会使用省略号代替，setStyle 实现通知显示长文字：
+```java
+setStyle(new NotificationCompat.BigTextStyle().bigText("emm emm emm emm emm emm emm emm emm emm"))
+```
+
+通知显示大图片，res/drawable 目录下放 demo.png。
+```java
+setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(getResources(), R.drawable.demo)))
+```
