@@ -240,4 +240,111 @@ public class MainActivity extends AppCompatActivity {
     }
 }
  ```
- 
+ ### NavigationView
+ app/build.gradle 导入依赖：`implementation 'com.android.support:design:29.1.1'`
+activity_main.xml 代码如下：
+```xml
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:background="#4d7aed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:gravity="center"
+            android:textSize="18sp"
+            android:text="这里是一个主页面"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        app:headerLayout="@layout/nav_head"
+        app:menu="@menu/nav_menu"
+        android:layout_gravity="left"
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+```
+res/layout/nav_header.xml 代码：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:background="@drawable/demo" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#63a6e9"
+        android:gravity="center"
+        android:text="《魁拔》"
+        android:textColor="#fff"
+        android:textSize="18sp" />
+
+</LinearLayout>
+```
+res/menu/nav_menu.xml 代码：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item1"
+            android:title="功能列表1"></item>
+
+        <item
+            android:id="@+id/item2"
+            android:title="功能列表2"></item>
+
+        <item
+            android:id="@+id/item3"
+            android:title="功能列表3"></item>
+
+        <item
+            android:id="@+id/item4"
+            android:title="功能列表4"></item>
+
+        <item
+            android:id="@+id/item5"
+            android:title="功能列表5"></item>
+    </group>
+</menu>
+```
+MainActivity 添加导航栏菜单点击事件：
+```java
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        NavigationView navView = findViewById(R.id.nav_view);
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    default:
+                        Toast.makeText(MainActivity.this, "item", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+    }
+}
+```
