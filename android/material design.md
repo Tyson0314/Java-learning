@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
         android:background="#FFF">
     </TextView>
 </androidx.drawerlayout.widget.DrawerLayout>
- ```
+```
  layout_gravity 属性有三个值：left，从左往右；right，从右往左；start，由系统决定。
  往 Toolbar 添加导航按钮。准备一张导航按钮图片放在 res/drawable 目录下，修改 MainActivity 代码：
  ```java
@@ -348,7 +348,8 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
-### FloatActionButton
+## 悬浮按钮
+
 activity_main.xml 代码：
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -407,7 +408,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "click", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(v, "data deleted", Snackbar.LENGTH_SHORT)
+                        .setAction("undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "restore", Toast.LENGTH_SHORT).show();
+                        }});
             }
         });
     }
@@ -420,3 +426,34 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
+
+使用 Snackbar 和用户进行交互，在提示的时候加入一个交互按钮。
+
+由于 Snackbar 提示可能会遮盖悬浮按钮，可以使用 CoordinatorLayout 监听 Snackbar 的弹出事件，将悬浮按钮向上偏移。CoordinatorLayout 由 Design Support 库提供，是加强版的 FrameLayout。
+
+```xml
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/demo"
+            app:elevation="8dp"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+```
+
+## 卡片式布局
+
