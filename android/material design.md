@@ -1,4 +1,4 @@
-## Toolbar
+### Toolbar
 新建的项目默认会显示 ActionBar，这是在 AndroidManifest.xml 默认配置好的：
 ```xml
     <application
@@ -154,8 +154,8 @@ public class MainActivity extends AppCompatActivity {
 }
 ```
 
-## 滑动菜单
-### DrawerLayout
+### 滑动菜单
+#### DrawerLayout
 增加侧滑功能，修改 activity_main.xml：
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -240,7 +240,7 @@ public class MainActivity extends AppCompatActivity {
     }
 }
  ```
- ### NavigationView
+ #### NavigationView
  app/build.gradle 导入依赖：`implementation 'com.android.support:design:29.1.1'`
 activity_main.xml 代码如下：
 ```xml
@@ -348,7 +348,7 @@ public class MainActivity extends AppCompatActivity {
     }
 }
 ```
-## 悬浮按钮
+### 悬浮按钮
 
 activity_main.xml 代码：
 ```xml
@@ -455,5 +455,259 @@ public class MainActivity extends AppCompatActivity {
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 ```
 
-## 卡片式布局
+### 卡片式布局
+
+#### CardView
+
+类似 FrameLayout，额外提供了圆角和阴影等效果。示例代码 ToolbarTest。
+
+声明依赖库：
+
+```json
+dependencies {
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+}
+```
+
+Glide 是图片加载库。
+
+修改 activity_main.xml：
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </androidx.recyclerview.widget.RecyclerView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:src="@drawable/done"
+            app:elevation="8dp"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
+```
+
+实体类 Fruit：
+
+```java
+package com.tyson.toolbartest;
+
+public class Fruit {
+    private String name;
+    private int imageId;
+
+    public Fruit(String name, int imageId) {
+        this.name = name;
+        this.imageId = imageId;
+    }
+
+	//getter setter
+}
+```
+
+layout 目录新建 fruit_item.xml：
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="4dp">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/fruit_image"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop">
+        </ImageView>
+        <TextView
+            android:id="@+id/fruit_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:textSize="16sp">
+
+        </TextView>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
+```
+
+RecyclerView 适配器 FruitAdapter：
+
+```java
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
+    private Context mContext;
+
+    private List<Fruit> fruitList;
+
+    @NonNull
+    @Override
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (mContext == null) {
+            mContext = parent.getContext();
+        }
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fruit_item, parent, false);
+
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Fruit fruit = fruitList.get(position);
+        holder.fruitName.setText(fruit.getName());
+        Glide.with(mContext).load(fruit.getImageId()).into(holder.fruitImage);
+    }
+
+    public FruitAdapter(List<Fruit> fruitList) {
+        this.fruitList = fruitList;
+    }
+
+    @Override
+    public int getItemCount() {
+        return fruitList.size();
+    }
+
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        CardView cardView;
+        ImageView fruitImage;
+        TextView fruitName;
+
+        public ViewHolder(View view) {
+            super(view);
+            cardView = (CardView) view;
+            fruitImage = view.findViewById(R.id.fruit_image);
+            fruitName =  view.findViewById(R.id.fruit_name);
+        }
+    }
+}
+```
+
+修改 MainActivity 代码：
+
+```java
+public class MainActivity extends AppCompatActivity {
+
+    private DrawerLayout mDrawerLayout;
+
+    private Fruit[] fruits = {new Fruit("Apple", R.drawable.apple), new Fruit("Banana", R.drawable.banana),
+            new Fruit("Orange", R.drawable.orange), new Fruit("Watermelon", R.drawable.watermelon),
+            new Fruit("Pear", R.drawable.pear), new Fruit("Grape", R.drawable.grape),
+            new Fruit("Pineapple", R.drawable.pineapple), new Fruit("Strawberry", R.drawable.strawberry),
+            new Fruit("Cherry", R.drawable.cherry), new Fruit("Mango", R.drawable.mango)};
+
+    private List<Fruit> fruitList = new ArrayList<>();
+
+    private FruitAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ...
+
+        initFruits();
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2); //两行数据
+        recyclerView.setLayoutManager(layoutManager);
+        adapter = new FruitAdapter(fruitList);
+        recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        return true;
+    }
+
+    private void initFruits() {
+        fruitList.clear();
+        for (int i = 0; i < 50; i++) {
+            Random random = new Random();
+            int index = random.nextInt(fruits.length);
+            fruitList.add(fruits[index]);
+        }
+    }
+}
+
+```
+
+#### AppBarLayout
+
+上面例子 RecyclerView 会把 Toolbar 遮挡住。使用 AppBarLayout 可以解决这个问题。
+
+将 Toolbar 嵌套到 AppBarLayout 中，然后给 RecyclerView 指定属性 app:layout_behavior。
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_scrollFlags="scroll|enterAlways|snap"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
+```
+
+当 RecyclerView 滚动时会将滚动事件通知给 AppBarLayout。通过 AppBarLayout 内部的子控件 Toolbar 的 app:layout_scrollFlags 属性控制滚动时标题栏的显示。scroll 表示 RecyclerView 向上滚的时候，Toolbar 一起向上滚并隐藏；enterAlways 表示 RecyclerView 向下滚时，Toobar 跟着向下滚并重新显示；snap 表示 Toolbar 会根据滚动距离自动选择隐藏还是显示。
+
+
+
+### 下拉刷新
 
