@@ -711,3 +711,253 @@ public class MainActivity extends AppCompatActivity {
 
 ### 下拉刷新
 
+把下拉刷新的空间放到 SwipeRefreshLayout 中，此控件便可以支持下拉刷新。示例代码 ToolbarTest。
+
+修改 activity_main.xml：
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.drawerlayout.widget.DrawerLayout>
+```
+
+需要把 app:layout_behavior 移到 SwipeRefresh 中。
+
+修改 MainActivity：
+
+```java
+public class MainActivity extends AppCompatActivity {
+
+	//...
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        swipeRefresh = findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshFruits();
+            }
+        });
+
+		//...
+    }
+
+    private void refreshFruits() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initFruits();
+                        adapter.notifyDataSetChanged();
+                        swipeRefresh.setRefreshing(false);//表示刷新事件结束，隐藏刷新进度条
+                    }
+                });
+            }
+        });
+    }
+}
+
+```
+
+
+
+### 可折叠式标题栏
+
+CollapsingToolbarLayout 不能独立存在，只能作为 AppBarLayout 的直接子布局来使用，而 AppBarLayout 必须是 CoordinatorLayout 的子布局。
+
+新建 FruitActivity，修改布局文件 activity_fruit.xml：
+
+```xml
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <ImageView
+                android:id="@+id/fruit_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"/>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="35dp"
+                app:cardCornerRadius="4dp">
+                <TextView
+                    android:id="@+id/fruit_content_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_comment"
+        app:layout_anchor="@id/appBar"
+        app:layout_anchorGravity="bottom|end"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+```
+
+app:contentScrim 属性指定 CollaspingToolbarLayout 折叠状态和折叠之后的背景色。
+
+app:layout_scrollFlags 指定为 exitUntilCollapsed 表示当 CollaspingToolbarLayout 随着滚动完成折叠之后就保留在界面上，不再移出屏幕。
+
+app:layout_anchor 属性定义一个瞄点，将瞄点设置为 AppBarLayout，这样悬浮按钮就会出现在标题栏区域，app:layout_anchorGravity 将悬浮按钮定位在标题栏区域的右下角。
+
+FruitActivity 代码：
+
+```java
+public class FruitActivity extends AppCompatActivity {
+
+    public static final String FRUIT_NAME = "fruit_name";
+
+    public static final String FRUIT_IMAGE_ID = "fruit_image_id";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_fruit);
+
+        Intent intent = getIntent();
+        String fruitName = intent.getStringExtra(FRUIT_NAME);
+        int fruitImageId = intent.getIntExtra(FRUIT_IMAGE_ID, 0);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+        TextView fruitContentText = findViewById(R.id.fruit_content_text);
+        ImageView fruitImgView = findViewById(R.id.fruit_image_view);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        collapsingToolbar.setTitle(fruitName);
+
+        Glide.with(this).load(fruitImageId).into(fruitImgView);
+        String fruitContent = generateFruitContent(fruitName);
+        fruitContentText.setText(fruitContent);
+    }
+
+    private String generateFruitContent(String fruitName) {
+        StringBuilder fruitContent = new StringBuilder();
+        for (int i = 0; i < 500; i++) {
+            fruitContent.append(fruitName);
+        }
+
+        return fruitContent.toString();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home://处理HomeAsUp按钮点击事件
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
+```
+
+FruitAdapter 处理 RecyclerView 点击事件：
+
+```java
+public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
+    private Context mContext;
+
+    private List<Fruit> fruitList;
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if (mContext == null) {
+            mContext = parent.getContext();
+        }
+        View view = LayoutInflater.from(mContext).inflate(R.layout.fruit_item, parent, false);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int position = holder.getAdapterPosition();
+                Fruit fruit = fruitList.get(position);
+                Intent intent = new Intent(mContext, FruitActivity.class);
+                intent.putExtra(FruitActivity.FRUIT_NAME, fruit.getName());
+                intent.putExtra(FruitActivity.FRUIT_IMAGE_ID, fruit.getImageId());
+                mContext.startActivity(intent);
+            }
+        });
+        return holder;
+    }
+	...
+}
+```
+
