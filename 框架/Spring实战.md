@@ -47,6 +47,12 @@
         - [定义数据访问层](#定义数据访问层)
         - [定义查询方法](#定义查询方法)
         - [混合自定义的功能](#混合自定义的功能)
+- [Spring Security](#spring-security)
+    - [基于内存的用户存储](#基于内存的用户存储)
+    - [基于数据库表进行认证](#基于数据库表进行认证)
+    - [拦截请求](#拦截请求)
+    - [安全通道](#安全通道)
+    - [认证用户](#认证用户)
 
 <!-- /MarkdownTOC -->
 
@@ -3035,3 +3041,173 @@ repository-impl-postfix="Helper"/>
 ```
 
 设置成 Helper 后缀的话，则 Spring Data JPA 会查找名为 UserRepositoryHelper 的类，用它来匹配 UserRepository 接口。
+
+
+
+<a id="spring-security"></a>
+## Spring Security
+
+参考：[Spring Security](https://www.jianshu.com/p/e6655328b211)
+
+基于 Spring AOP 和 Servlet 规范中的 Filter 实现的安全框架。它能够在 web 请求级别和方法调用级别处理身份认证和授权。Spring Security 使用了依赖注入和面向切面的技术。
+
+添加依赖：
+
+```xml
+        <spring.security.version>3.2.3.RELEASE</spring.security.version>
+
+		<!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+```
+
+<a id="基于内存的用户存储"></a>
+### 基于内存的用户存储
+
+```java
+package com.tyson.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+
+@Configuration
+@EnableWebMvcSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //添加两个用户，密码都是password，一个角色是user，一个有两个角色user和admin
+        //roles方法是authorities方法简写形式role("USER")等价于authorities("ROLE_USER")
+        auth.inMemoryAuthentication().
+                withUser("user").password("password").roles("USER").and().
+                withUser("admin").password("password").roles("USER", "ADMIN");
+    }
+}
+```
+
+<a id="基于数据库表进行认证"></a>
+### 基于数据库表进行认证
+
+```java
+@Configuration
+@EnableWebMvcSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Autowired
+    DataSource dataSource;
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //passwordEncoder方法指定一个密码转换器
+        auth.jdbcAuthentication()
+                .dataSource(dataSource)
+                .usersByUsernameQuery(
+                        "select username, password from User where username=?"
+                ).authoritiesByUsernameQuery(
+                        "select username, 'ROLE_USER' from User where username=?"
+                ).passwordEncoder((new StandardPasswordEncoder("53cr3t")));
+    }
+}
+```
+
+<a id="拦截请求"></a>
+### 拦截请求
+
+对每个请求进行细粒度安全性控制的关键在于重载configure(HttpSecurity)方法。
+
+```java
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    //具体的访问路径放前面，最不具体的访问路径放最后（anyRequest）
+    http
+      .authorizeRequests()
+        .antMatchers("/").authenticated()
+        .antMatchers("/spitter/**", "/spitter/me").authenticated()//指定多个路径
+        .antMatchers(HttpMethod.POST, "/spittles").authenticated().hasRole("SPLITTER")//不仅需要认证，还要有SPLITTER角色
+        .anyRequest().permitAll();//其他请求无条件允许访问
+  }
+```
+
+使用 SpEL 声明访问权限：
+
+```java
+.antMatchers("/splitter/me").access("hasRole('ROLE_SPLITTER') and hasIpAddress('192.168.2.1')")
+```
+
+<a id="安全通道"></a>
+### 安全通道
+
+requiresChannel()方法会为选定的 URL 强制使用 HTTPS。
+
+```java
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    //具体的访问路径放前面，最不具体的访问路径放最后（anyRequest）
+    http
+      .authorizeRequests()
+        .antMatchers("/").authenticated()
+        .antMatchers("/spitter/**", "/spitter/me").authenticated()//指定多个路径
+        .antMatchers(HttpMethod.POST, "/spittles").authenticated().hasRole("SPLITTER")//不仅需要认证，还要有SPLITTER角色
+        .anyRequest().permitAll()//其他请求无条件允许访问
+        .and()
+        .requiresChannel()
+        .antMatchers("/spitter/from").requiresSecure();//需要走HTTPS
+  }
+```
+
+有些页面不需要通过 HTTPS 传送，如首页（不包含敏感信息），可以声明始终通过 HTTP 传送。此时尽管通过 https 访问首页，也会重定向到 http 通道。
+
+```java
+.antMatchers("/").requiresInsecure();
+```
+
+<a id="认证用户"></a>
+### 认证用户
+
+1、启动默认的登录页。
+
+2、自定义登录页
+
+3、拦截/logout请求
+
+4、logout成功后重定向到首页
+
+5、rememberMe 功能，通过在 cookie 存储 一个 token 实现。
+
+```java
+        http
+                .formLogin()//1
+                .loginPage("/login")//2
+                .and()
+                .logout()//3
+                .logoutSuccessUrl("/")//4
+                .and()
+                .rememberMe()//5
+                .tokenRepository(new InMemoryTokenRepositoryImpl())
+                .tokenValiditySeconds(2419200)
+                .key("spittrKey")
+                .and()
+                .httpBasic()//6
+                .realmName("Spittr")
+                .and()
+                .authorizeRequests()
+                .antMatchers("/").authenticated()
+                .antMatchers("/spitter/me").authenticated()
+                .antMatchers(HttpMethod.POST, "/spittles").hasRole("SPLITTER")
+                .anyRequest().permitAll()
+                .and()
+                .requiresChannel()
+                .antMatchers("/spitter/from").requiresSecure()//需要走HTTPS
+                .antMatchers("/").requiresInsecure();
+```
+
+
+
