@@ -86,6 +86,7 @@
         - [multi_match 查询](#multi_match-查询)
         - [多字段映射](#多字段映射)
         - [copy_to 定制组合 field](#copy_to-定制组合-field)
+- [springboot 集成 es](#springboot-集成-es)
 
 <!-- /MarkdownTOC -->
 [Elasticsearch 权威指南](https://www.elastic.co/guide/cn/elasticsearch/guide/current/_talking_to_elasticsearch.html)
@@ -94,6 +95,12 @@
 ## 基础
 
 Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 lucene 基础之上。Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引与搜索，但是它的目的是使全文检索变得简单， 通过隐藏 Lucene 的复杂性，取而代之的提供一套简单一致的 RESTful API。
+
+ES与mysql的对应关系：
+
+- index –> DB
+- type –> Table
+- Document –> row
 
 <a id="启动和关闭"></a>
 ### 启动和关闭
@@ -874,6 +881,8 @@ POST /website/_bulk
 
 <a id="搜索"></a>
 ## 搜索
+
+<a id="空搜索"></a>
 
 <a id="空搜索"></a>
 ### 空搜索
@@ -2142,6 +2151,9 @@ GET _search
 
 <a id=""></a>
 <a id=""></a>
+<a id=""></a>
+<a id=""></a>
+<a id=""></a>
 ### 
 
 <a id="多字段搜索"></a>
@@ -2402,4 +2414,9 @@ PUT /my_index
 first_name 是主字段，first_name.raw 是多字段。
 
 
+
+<a id="springboot-集成-es"></a>
+## springboot 集成 es
+
+[springboot 集成 es](https://blog.csdn.net/cwenao/article/details/54943505)
 
