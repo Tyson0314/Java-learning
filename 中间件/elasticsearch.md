@@ -102,7 +102,28 @@ ES与mysql的对应关系：
 - type –> Table
 - Document –> row
 
+### 概念
+
+[参考--阮一峰es教程](http://www.ruanyifeng.com/blog/2017/08/elasticsearch.html)
+
+1. node 和 cluster
+
+   Elastic 本质上是一个分布式数据库，允许多台服务器协同工作，每台服务器可以运行多个 Elastic 实例。单个 Elastic 实例称为一个节点（node）。一组节点构成一个集群（cluster）。
+
+2. Index
+
+   数据库的同义词。每个 Index （即数据库）的名字必须是小写。查看当前节点的所有index：`GET _cat/indices`
+
+3. Type
+
+   类似于表结构。不同的 Type 应该有相似的结构（schema），举例来说，`id`字段不能在这个组是字符串，在另一个组是数值。这是与关系型数据库的表的区别。性质完全不同的数据（比如`products`和`logs`）应该存成两个 Index，而不是一个 Index 里面的两个 Type。
+
+4. Document
+
+   单条的记录称为 Document。Document 可以分组，比如`weather`这个 Index 里面，可以按城市分组（北京和上海），这种分组就是 Type。同一个 Index 里面的 Document，不要求有相同的结构（scheme），但是最好保持相同，这样有利于提高搜索效率。
+
 <a id="启动和关闭"></a>
+
 ### 启动和关闭
 
 不用安装，解压即可。
@@ -135,6 +156,7 @@ http.port 是elasticsearch对外提供服务的http端口配置。
 transport.tcp.port 指定了elasticsearch集群内数据通讯使用的端口，默认情况下为9300。
 
 <a id="put"></a>
+
 ### PUT
 
 ```json
@@ -719,13 +741,14 @@ POST company/employee
 GET /company/employee/1?_source=first_name,interests
 ```
 
-只得到_source 字段：
+只得到_source 字段（即id为1的整个文档）：
 
 ```json
 GET /company/employee/1/_source
 ```
 
 <a id="取回多个文档"></a>
+
 ### 取回多个文档
 
 mget api 要求传入一个 docs 数组作为参数，可以通过 _source 指定返回字段。
@@ -879,35 +902,8 @@ POST /website/_bulk
 
 
 
-<a id="搜索"></a>
-## 搜索
-
-<a id="空搜索"></a>
-
-<a id="空搜索"></a>
-### 空搜索
-
-`GET /_search`，返回的 hits 数组包含所查询结果的前十个文档。
-
-`GET /_search?timeout=10ms`，在请求超时之前，Elasticsearch 将会返回已经成功从每个分片获取的结果。
-
-<a id="多索引多类型"></a>
-### 多索引多类型
-
-`GET /c*,g*/_search`，在以 c 开头和 g 开头的索引中搜索所有的类型。
-
-`GET /_all/employee,student/_search`，在所有索引中搜索 employee 和 student。
-
-<a id="轻量搜索"></a>
-### 轻量搜索
-
-查询 employee 类型的 last_name 字段为 dai 的所有文档：`GET company/employee/_search?q=last_name:dai`
-
-查询包含 dai 的所有文档：`GET /_search?q=dai`
-
-
-
 <a id="映射和分析"></a>
+
 ## 映射和分析
 
 映射：为了能够将时间域视为时间，数字域视为数字，字符串域视为全文或精确值字符串， Elasticsearch 需要知道每个域中数据的类型。这个信息包含在映射中。
@@ -1032,25 +1028,44 @@ Elasticsearch 支持 如下简单域类型：
 ```
 
 <a id="更新映射"></a>
+
 ### 更新映射
 
 我们可以更新一个映射来添加一个新域，但不能将一个存在的域从 `analyzed` 改为 `not_analyzed` ，否则索引的数据可能会出错，数据不能被正常的搜索。
 
-增加一个名为 tag 的 not_analyzed 的文本域：
+增加名为 tag 的 not_analyzed 的文本域：
 
 ```json
 PUT /gb/_mapping/tweet
 {
   "properties" : {
     "tag" : {
-      "type" :    "string",
+      "type" :    "text",
       "index":    "not_analyzed"
     }
   }
 }
 ```
 
+指定中文分词器：
+
+```json
+PUT /gb/_mapping/tweet
+{
+  "properties" : {
+      "user": {
+          "type": "text",
+          "analyzer": "ik_max_word",
+          "search_analyzer": "ik_max_word"
+      }
+  }
+}
+```
+
+`analyzer`是字段文本的分词器，`search_analyzer`是搜索词的分词器。`ik_max_word`分词器是插件`ik`提供的，可以对文本进行最大数量的分词。
+
 <a id="测试映射"></a>
+
 ### 测试映射
 
 ```json
@@ -1173,6 +1188,38 @@ Lucene 不理解内部对象。 Lucene 文档是由一组键值对列表组成�
 
 
 
+<a id="搜索"></a>
+
+## 搜索
+
+<a id="空搜索"></a>
+
+<a id="空搜索"></a>
+
+### 空搜索
+
+`GET /_search`，返回的 hits 数组包含所查询结果的前十个文档。
+
+`GET /_search?timeout=10ms`，在请求超时之前，Elasticsearch 将会返回已经成功从每个分片获取的结果。
+
+<a id="多索引多类型"></a>
+
+### 多索引多类型
+
+`GET /c*,g*/_search`，在以 c 开头和 g 开头的索引中搜索所有的类型。
+
+`GET /_all/employee,student/_search?size=1&from=1`，在所有索引中搜索 employee 和 student 类型。elasticsearch 默认一次返回10条结果，size 可以指定返回返回结果数量，from 指定位移。
+
+<a id="轻量搜索"></a>
+
+### 轻量搜索
+
+查询 employee 类型的 last_name 字段为 dai 的所有文档：`GET company/employee/_search?q=last_name:dai`
+
+查询包含 dai 的所有文档：`GET /_search?q=dai`
+
+
+
 <a id="请求体查询"></a>
 ## 请求体查询
 
@@ -1191,9 +1238,10 @@ GET _search
 
 
 <a id="提升权重"></a>
+
 ### 提升权重
 
-们可以通过指定 `boost` 来控制任何查询语句的相对的权重， `boost` 的默认值为 `1` ，大于 `1` 会提升一个语句的相对权重。
+我们可以通过指定 `boost` 来控制任何查询语句的相对的权重， `boost` 的默认值为 `1` ，大于 `1` 会提升一个语句的相对权重。
 
 ```json
 GET /company/employee/_search
@@ -1228,7 +1276,9 @@ GET /company/employee/_search
 ```
 
 <a id="理解查询语句"></a>
-### 理解查询语句
+### explain
+
+查询结果说明。
 
 ```json
 GET /_validate/query?explain
@@ -1276,7 +1326,7 @@ GET /_validate/query?explain
 <a id="排序与相关性"></a>
 ## 排序与相关性
 
-有时，相关性评分对你来说并没有意义。例如，下面的查询返回所有 `user_id` 字段包含 `1` 的结果：
+有时，_score 相关性评分对你来说并没有意义。例如，下面的查询返回所有 `user_id` 字段包含 `1` 的结果：
 
 ```json
 GET /_search
@@ -1343,7 +1393,7 @@ GET _search
 Query-string 搜索 也支持自定义排序，可以在查询字符串中使用 `sort` 参数：
 
 ```js
-GET /_search?sort=date:desc&sort=_score&q=search
+GET /_search?sort=hire_date:desc&sort=_score
 ```
 
 <a id="多值字段的排序"></a>
@@ -1561,7 +1611,7 @@ PUT /my_index/_mapping/my_type
 <a id="类型和映射"></a>
 ### 类型和映射
 
-同一个索引下，两个不同类型的字段相同，则映射也应该相同。因为 Lucene 会将同一个索引下的所有字段的映射扁平化，相同字段不同映射会导致冲突。
+同一个索引下，不同的类型type应该有相同的结构，映射也应该相同。因为 Lucene 会将同一个索引下的所有字段的映射扁平化，相同字段不同映射会导致冲突。
 
 ```json
 {
@@ -1623,6 +1673,7 @@ PUT /my_index/_mapping/my_type
 因此，类型不适合 *完全不同类型的数据* 。如果两个类型的字段集是互不相同的，这就意味着索引中将有一半的数据是空的（字段将是 *稀疏的* ），最终将导致性能问题。在这种情况下，最好是使用两个单独的索引。
 
 <a id="根对象"></a>
+
 ### 根对象
 
 映射最高的一层被称为根对象。它可能包含以下几项：
@@ -1783,18 +1834,7 @@ interests 为 listen、music 和 sport 的文档会被匹配。
 
 match 查询是对全文进行查询。
 
-```json
-GET _search
-{ 
-  "query" : {
-    "match": {
-      "first_name": "tyson sophia"
-    }
-  }
-}
-```
-
-多词查询：
+如果有多个搜索关键字， Elastic 认为它们是`or`关系。下面例子返回 interests 为 sport 或者 music 的文档。
 
 ```json
 GET _search
@@ -2014,7 +2054,7 @@ GET _search
 }
 ```
 
-bool 查询控制需要匹配的 should 语句的数量：
+bool 查询使用`minimum_should_match`控制需要匹配的 should 语句的数量：
 
 ```json
 GET /my_index/my_type/_search
@@ -2048,7 +2088,7 @@ GET /company/employee/_search
 }
 ```
 
-等价的 bool 查询：
+等价的 bool 查询（存在`must`，则对 `should` 语句的匹配没有要求，否则至少需要能够匹配其中的一条 `should` 语句）：
 
 ```json
 GET /company/employee/_search
@@ -2064,7 +2104,7 @@ GET /company/employee/_search
 }
 ```
 
-使用 and 操作符：
+使用 and 操作符，返回所有字段都匹配到的文档：
 
 ```json
 GET /company/employee/_search
@@ -2133,7 +2173,7 @@ GET /company/employee/_search
 <a id="constant_score-查询"></a>
 ### constant_score 查询
 
-constant_score 将一个不变的常量评分应用于所有匹配的文档。它被经常用于你只需要执行一个 filter 而没有其它查询（例如，评分查询）的情况下。
+constant_score 查询返回的文档`score`都是1。它经常用于只需要执行一个 filter 而没有其它查询的情况下。`score`会受到`boost`影响，出现 tyson 的文档`score`为1.2。
 
 ```json
 GET _search 
@@ -2149,14 +2189,10 @@ GET _search
 }
 ```
 
-<a id=""></a>
-<a id=""></a>
-<a id=""></a>
-<a id=""></a>
-<a id=""></a>
-### 
+
 
 <a id="多字段搜索"></a>
+
 ### 多字段搜索
 
 参考自：[best_fields most_fields cross_fields从内在实现看区别——本质就是前两者是以field为中心，后者是词条为中心](https://www.cnblogs.com/bonelee/p/6827068.html)
@@ -2419,4 +2455,71 @@ first_name 是主字段，first_name.raw 是多字段。
 ## springboot 集成 es
 
 [springboot 集成 es](https://blog.csdn.net/cwenao/article/details/54943505)
+
+[springboot整合elasticsearch5.x以及IK分词器做全文检索](https://blog.csdn.net/chenxihua1/article/details/94546282)
+
+
+
+## mall
+
+创建文档：
+
+```json
+POST /pms/product
+{
+    "productSn": "HNTBJ2E080A",
+    "brandId": 50,
+    "brandName": "海澜之家",
+    "productCategoryId": 8,
+    "productCategoryName": "T恤",
+    "pic": "http://macro-oss.oss-cn-shenzhen.aliyuncs.com/mall/images/20180615/5ac98b64N70acd82f.jpg!cc_350x449.jpg",
+    "name": "HLA海澜之家蓝灰花纹圆领针织布短袖T恤",
+    "subTitle": "2018夏季新品短袖T恤男HNTBJ2E080A 蓝灰花纹80 175/92A/L80A 蓝灰花纹80 175/92A/L",
+    "keywords": "",
+    "price": 98,
+    "sale": 0,
+    "newStatus": 0,
+    "recommandStatus": 0,
+    "stock": 100,
+    "promotionType": 0,
+    "sort": 0,
+    "attrValueList": [
+      {
+        "id": 183,
+        "productAttributeId": 24,
+        "value": null,
+        "type": 1,
+        "name": "商品编号"
+      },
+      {
+        "id": 184,
+        "productAttributeId": 25,
+        "value": "夏季",
+        "type": 1,
+        "name": "适用季节"
+      }
+    ]
+}
+```
+
+获取文档映射：`GET /pms/_mapping/product`
+
+按字段查询：`GET /pms/product/_search?q=subTitle:2018`
+
+match查询：
+
+```json
+GET /pms/product/_search
+{
+  "query": {
+   "match": {
+     "brandName": "小米"
+   }
+  }
+}
+```
+
+
+
+
 
