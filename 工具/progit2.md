@@ -209,9 +209,18 @@ git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合�
 
 给历史的某个提交打标签，如标记发布节点（v1.0等）。
 
-#### 列出标签
+tag标签可以帮助我们回退到某个版本的代码，我们通过tag的名称即可回退，而不需要根据某个提冗长的commit ID来回退：
 
-`git tag`
+- 查看本地tag：git tag
+- 新建tag：git tag -a v2.0 -m 'msg'
+- 推送指定tag至远程：git push origin v2.0
+- 推送本地所有tag至远程：git push origin --tags
+- 删除本地tag：git tag -d v2.0
+- 删除远程tag：git push origin --delete tag 2.0
+- 本地查看不同tag的代码：get checkout v1.0
+- 查看标签详情（包含commitId）：`git show v1.0`
+- 回退到某个版本：git reset --hard commitId
+- 获取远程分支：git fetch origin tag V2.0
 
 #### 创建标签
 
@@ -221,11 +230,11 @@ Git 使用两种主要类型的标签：轻量标签（lightweight）与附注�
 
 `git tag -a v1.4 -m 'my version 1.4'` -m 选项指定了一条将会存储在标签中的信息。
 
-使用 git show 命令可以看到标签信息与对应的提交信息。
+使用 git show v1.4 命令可以看到标签信息与对应的提交信息。
 
 ##### 轻量标签
 
-`git tag v1.4-tyson` 此时运行 `git tag v1.4-tyson`不会看到额外的标签信息，只显示提交信息。
+`git tag v1.4-tyson` 此时运行 `git show v1.4-tyson`不会看到额外的标签信息，只显示提交信息。
 
 #### 后期打标签
 
@@ -248,8 +257,7 @@ git push 命令并不会传送标签到远程仓库服务器上。在创建完�
 
 #### 检出标签
 
-如果你想要工
-作目录与仓库中特定的标签版本完全一样，可以使用 `git checkout -b [branchname] [tagname]` 在特定的标签上创建一个新分支：
+如果你想要工作目录与仓库中特定的标签版本完全一样，可以使用 `git checkout -b [branchname] [tagname]` 在特定的标签上创建一个新分支：
 
 ```powershell
 $ git checkout -b version2 v2.0.0
