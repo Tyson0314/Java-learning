@@ -2916,7 +2916,7 @@ public int setUsername(Long id, String username);
 
 **Specification**
 
-有时我们在查询某个实体的时候，给定的条件是不固定的，这是我们就需要动态构建相应的查询语句，在JPA2.0中我们可以通过Criteria接口查询。在Spring data JPA中相应的接口是JpaSpecificationExecutor，这个接口基本是围绕着Specification接口来定义的。 
+有时我们在查询某个实体的时候，给定的条件是不固定的，这时我们就需要动态构建相应的查询语句，在JPA2.0中我们可以通过Criteria接口查询。在Spring data JPA中相应的接口是JpaSpecificationExecutor，这个接口基本是围绕着Specification 复杂查询接口来定义的。 
 
 （1）定义。接口类需实现 JpaSpecificationExecutor 接口
 
@@ -2925,7 +2925,7 @@ public interface UserRepository extends JpaRepository<User, Long> , JpaSpecifica
 }
 ```
 
-（2）定义 Criteria 查询
+（2）定义 Criteria 查询（Criteria 查询采用面向对象的方式封装查询条件）
 
 ```java
 import com.tyson.domain.User;
@@ -3136,13 +3136,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   }
 ```
 
-使用 SpEL 声明访问权限：
+保护请求的配置方法：
+
+![img](../img/请求保护配置方法.png)
+
+###  使用Spring表达式进行安全保护
+
+上表提供的方法都是一维的，如果使用了hasRole() 方法限制特定角色，就无法使用 hasIpAddress() 限制特定的 ip 地址。借助 access() 和 SpEL 表达式可以实现多维的访问限制：
 
 ```java
 .antMatchers("/splitter/me").access("hasRole('ROLE_SPLITTER') and hasIpAddress('192.168.2.1')")
 ```
 
 <a id="安全通道"></a>
+
 ### 安全通道
 
 requiresChannel()方法会为选定的 URL 强制使用 HTTPS。
@@ -3209,5 +3216,126 @@ requiresChannel()方法会为选定的 URL 强制使用 HTTPS。
                 .antMatchers("/").requiresInsecure();
 ```
 
+### 方法级别安全
+
+Spring Security 使用Spring AOP保护方法调用——借助于对象代理和使用通知，能够确保只有具备适当权限的用户才能访问安全保护的方法。
+
+Spring Security提供了三种不同的安全注解：
+
+- Spring Security自带的@Secured注解；
+- JSR-250的@RolesAllowed注解；
+- 表达式驱动的注解，包括@PreAuthorize、@PostAuthorize、@PreFilter和@PostFilter。
+
+@Secured和@RolesAllowed方案类似，基于用户所授予的权限限制对方法的访问。@PreFilter/@和ostFilter能够过滤方法返回和传入方法的集合。
+
+#### @Secured
+
+要启用基于注解的方法安全性，关键之处在于要在配置类上使用@EnableGlobalMethodSecurity。
+
+```java
+@Configuration
+@EnableGlobalMethodSecurity(securedEnabled=true)
+public class SecuredConfig extends GlobalMethodSecurityConfiguration {
+
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+    .inMemoryAuthentication()
+      .withUser("user").password("password").roles("USER");
+  }
+}
+```
+
+GlobalMethodSecurityConfiguration 能够为方法级别的安全性提供更精细的配置。securedEnabled 属性的值为true，将会创建一个切点，Spring Security切面就会包装带有@Secured注解的方法。
+
+用户必须具备ROLE_SPITTER或ROLE_ADMIN权限才能触发addSpittle：
+
+```java
+  @Secured({"ROLE_SPITTER", "ROLE_ADMIN"})
+  public void addSpittle(Spittle spittle) {
+    System.out.println("Method was called successfully");
+  }
+```
+
+如果方法被没有认证的用户或没有所需权限的用户调用，保护这个方法的切面将抛出一个Spring Security异常（非检查型异常）。
+
+#### @RolesAllowed
+
+开启 @RolesAllowed 注解功能：
+
+```java
+@Configuration
+@EnableGlobalMethodSecurity(jsr250Enabled=true)
+public class JSR250Config extends GlobalMethodSecurityConfiguration {
+
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+    .inMemoryAuthentication()
+      .withUser("user").password("password").roles("USER");
+  }
+  
+  @Bean
+  public SpittleService spitterService() {
+    return new JSR250SpittleService();
+  }
+
+}
+```
+
+@Secured注解的不足之处在于它是Spring特定的注解。如果更倾向于使用Java标准定义的注解，应该考虑使用@RolesAllowed注解。
+
+```java
+  @RolesAllowed("ROLE_SPITTER")
+  public void addSpittle(Spittle spittle) {
+    System.out.println("Method was called successfully");
+  }
+```
+
+#### 使用表达式实现方法级别的安全性
+
+开启方法调用前后注解：
+
+```java
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled=true)
+public class ExpressionSecurityConfig extends GlobalMethodSecurityConfiguration {
+
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    auth
+    .inMemoryAuthentication()
+      .withUser("user").password("password").roles("USER");
+  }
+  
+  @Bean
+  public SpittleService spitterService() {
+    return new ExpressionSecuredSpittleService();
+  }
+
+}
+```
 
 
+
+![1588473763106](..\img\1588473763106.png)
+
+方法调用前检查，`#spittle.text.length()`检查传入方法的参数：
+
+```java
+  @PreAuthorize("(hasRole('ROLE_SPITTER') and #spittle.text.length() le 140) or hasRole('ROLE_PREMIUM')")
+  public void addSpittle(Spittle spittle) {
+    System.out.println("Method was called successfully");
+  }
+```
+
+进入方法以前过滤输入值：
+
+```java
+  @PreAuthorize("(hasRole('ROLE_SPITTER', 'ROLE_ADMIN')")
+  @PreFilter("hasRole('ROLE_ADMIN')" || "targetObject.spitter.username == principal.name")
+  public void addSpittle(Spittle spittle) {
+  }
+```
+
+@PreFilter注解能够保证传递给deleteSpittles()方法的列表中，只包含当前用户有权限删除的Spittle。targetObject是Spring Security提供的另外一个值，它代表了要进行计算的当前列表元素。
