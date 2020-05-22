@@ -973,21 +973,72 @@ LIKE很慢，最好是使用FULLTEXT而不是LIKE。
 
 ## B+树
 
-[Mysql B+索引](https://blog.csdn.net/chybin500/article/details/103057140)
+[Mysql B+索引](https://blog.csdn.net/chybin500/article/details/103057140) | [索引演化](https://juejin.im/post/5b08fcc86fb9a07a9b3666ac#heading-4) | [为什么MySQL数据库索引选择使用B+树？](https://www.cnblogs.com/tiancai/p/9024351.html)
 
-[MySQL索引背后的数据结构及算法原理](http://blog.codinglabs.org/articles/theory-of-mysql-index.html)
+MySQL中MyIsAM和InnoDB都是采用的B+树结构。不同的是前者是非聚集索引，后者主键是聚集索引，所谓聚集索引是物理地址连续存放的索引，在取区间的时候，查找速度非常快，但同样的，插入的速度也会受到影响而降低。聚集索引的物理位置使用链表来进行存储。
+
+### 索引的作用
+
+数据是存储在磁盘上的，操作系统读取磁盘的最小单位是块，如果没有索引，会加载所有的数据到内存，依次进行检索，加载的总数据会很多，磁盘IO多。
+
+### 索引实例
 
 col1 是主键，col2和col3 是普通字段。
 
 ![image-20200520234137916](..\img\image-20200520234137916.png)
 
-主索引 对应的 B+树 结构，每个叶子节点对应磁盘的一页，查询单条记录最多只需读取一次磁盘io：
+主索引 对应的 B+树 结构，每个节点对应磁盘的一页。
 
 ![image-20200520234200868](..\img\image-20200520234200868.png)
 
 对col3 建立一个单列索引，对应的B+树结构（图中叶子节点少画了Col2）：
 
 ![image-20200520234231001](..\img\image-20200520234231001.png)
+
+### 数据定位过程
+
+进行定位操作时，不再进行表扫描，而是进行索引扫描。非叶子节点都是索引块，叶子节点是索引和数据。
+
+第一种场景：索引精确查找
+
+```mysql
+select * from user_info where id = 23 ;
+```
+
+将根节点索引块读到内存, 逐层向下查找, 读取叶子节点Page,通过二分查找找到记录或未命中。
+
+![索引精确查找](https://user-gold-cdn.xitu.io/2018/5/26/1639b1b65e8e3aa7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+第二种场景：索引范围查找
+
+```msyql
+select * from user_info where id >= 18 and id < 22 ;
+```
+
+读取根节点至内存, 确定索引定位条件id=18, 找到满足条件第一个叶节点, 顺序扫描所有结果, 直到终止条件满足id >=22。
+
+![索引范围查找](https://user-gold-cdn.xitu.io/2018/5/26/1639b1b65e6f159a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+第三种场景：全表扫描
+
+```mysql
+select * from user_info where name = 'abc' ;
+```
+
+直接读取叶节点头结点， 顺序扫描， 返回符合条件记录， 到最终节点结束。
+
+![全表扫描](https://user-gold-cdn.xitu.io/2018/5/26/1639b1b67f61b3d3?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+第四中场景：二级索引查找
+
+```mysql
+create table table_x(int id primary key, varchar(64) name , key sec_index(name) ) ;
+select * from table_x where name = 'd' ;
+```
+
+通过二级索引查出对应主键（叶子节点是二级索引和主键，匹配的主键可能有多个），查主键索引得到数据， 二级索引可筛选掉大量无效记录，提高效率。
+
+![二级索引查找](https://user-gold-cdn.xitu.io/2018/5/26/1639b1b6958ddd6f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 ### 不用hash的原因
 
@@ -996,3 +1047,11 @@ col1 是主键，col2和col3 是普通字段。
 ### 带有顺序访问指针的B+Tree
 
 一般在数据库系统或文件系统中使用的B+Tree结构都在经典B+Tree的基础上进行了优化，增加了顺序访问指针。做这个优化的目的是为了提高区间访问的性能。比如要查询key为从18到49的所有数据记录，当找到18后，只需顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率。
+
+### B+树比B树更适合数据库索引
+
+由于B+树的数据都存储在叶子结点中，分支结点均为索引，方便扫库，只需要扫一遍叶子结点即可，但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来扫，所以B+树更加适合在区间查询的情况，而在数据库中基于范围的查询是非常频繁的，所以通常B+树用于数据库索引。
+
+B+树的节点只存储索引key值，具体信息的地址存在于叶子节点的地址中。这就使以页为单位的索引中可以存放更多的节点。减少更多的I/O支出。
+
+B+树的查询效率更加稳定，任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。
