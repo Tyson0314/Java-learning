@@ -967,7 +967,7 @@ RoleMapper.xml
 <a id="insert元素"></a>
 ### insert元素
 
-执行插入之后会返回一个整数，表示插入的记录数。
+执行插入之后会返回一个整数，表示插入的记录数。parameterType 为 role（mybatis-config.xml 定义的别名）。
 
 ```xml
     <insert id="insertRole" parameterType="role">
