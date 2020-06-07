@@ -628,6 +628,8 @@ SET cust_city = NULL
 WHERE cust_id = 1005;
 ```
 
+返回值是受影响的记录数。
+
 ### 删除数据
 
 如果想从表中删除所有行，不要使用DELETE。可使用TRUNCATE TABLE语句，它完成相同的工作，但速度更快（TRUNCATE实际是删除原来的表并重新创建一个表，而不是逐行删除表中的数据）。
