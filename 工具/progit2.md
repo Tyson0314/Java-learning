@@ -183,6 +183,12 @@ origin https://github.com/schacon/ticgit (push)
 
 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 origin 为简写。
 
+#### 修改远程仓库
+
+```git
+git remote set-url origin git@github.com:Tyson0314/Blog.git
+```
+
 #### pull 和 fetch
 
 从远程仓库获取数据：`git fetch [remote-name]`
