@@ -183,13 +183,18 @@ origin https://github.com/schacon/ticgit (push)
 
 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 origin 为简写。
 
-#### 抓取和拉取
+#### pull 和 fetch
 
 从远程仓库获取数据：`git fetch [remote-name]`
 
 git fetch 命令将数据拉取到你的本地仓库，但它并不会自动合并到你当前的工作。 你必须手动将其合并入你的工作。
 
 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
+
+```git
+git pull = git fetch + git merge FETCH_HEAD 
+git pull --rebase =  git fetch + git rebase FETCH_HEAD 
+```
 
 #### 推送到远程仓库
 
@@ -326,6 +331,33 @@ please contact us at support@github.com
 
 在你解决了所有文件里的冲突之后，对每个文件使用 git add 命令来将其标记为冲突已解决。然后输入 `git commit -m "merge branch iss53"`完成合并提交。
 
+#### merge 和 rebase 区别
+
+现在我们有这样的两个分支,test和master，提交如下：
+
+```bash
+       D---E test
+      /
+ A---B---C---F--- master
+```
+
+在master执行git merge test，会生成额外的提交节点G：
+
+```bash
+       D--------E
+      /          \
+ A---B---C---F----G---   test, master
+```
+
+在master执行git rebase test，本地提交以补丁形式打在分支的最后面：
+
+```bash
+A---B---D---E---C‘---F‘---   test, master
+```
+
+merge操作会生成一个新的节点，之前的提交分开显示。
+ 而rebase操作不会生成新的节点，是将两个分支融合成一个线性的提交。
+
 ### 删除分支
 
 `git branch -d iss53`
@@ -348,5 +380,41 @@ $ git branch
 $ git branch -v
 * master 22fb43d add file note.md
   tyson  22fb43d add file note.md
+```
+
+
+
+
+
+
+
+
+
+
+
+## 同步fork项目的更新
+
+关联远程仓库
+
+```git
+git remote add upstream https://xxx.com
+```
+
+拉取远程更新，存储在一个本地分支 upstream/master
+
+```git 
+git fetch upstream
+```
+
+如果不在本地分支，则切到本地分支
+
+```git
+git checkout master
+```
+
+把 upstream/master 分支合并到本地 master 上，这样就完成了同步
+
+```git
+git rebase upstream/master
 ```
 
