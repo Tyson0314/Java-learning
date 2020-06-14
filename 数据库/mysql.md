@@ -1,11 +1,105 @@
+<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
+
+- [简介](#简介)
+- [基本命令](#基本命令)
+    - [启动](#启动)
+    - [表](#表)
+    - [检索](#检索)
+    - [排序](#排序)
+    - [过滤](#过滤)
+        - [不匹配检查：](#不匹配检查：)
+        - [范围查询：](#范围查询：)
+        - [空值检查](#空值检查)
+        - [计算次序](#计算次序)
+        - [IN 操作符](#in-操作符)
+        - [NOT操作符](#not操作符)
+        - [LIKE操作符](#like操作符)
+        - [LIMIT](#limit)
+        - [正则表达式](#正则表达式)
+- [计算字段](#计算字段)
+    - [拼接字段](#拼接字段)
+    - [计算字段](#计算字段-1)
+- [函数](#函数)
+    - [文本处理](#文本处理)
+    - [日期处理函数](#日期处理函数)
+    - [数值处理函数](#数值处理函数)
+- [汇总数据](#汇总数据)
+    - [聚集函数](#聚集函数)
+- [分组](#分组)
+    - [过滤分组](#过滤分组)
+    - [having和where区别](#having和where区别)
+    - [SELECT 子句顺序](#select-子句顺序)
+- [子查询](#子查询)
+- [连接](#连接)
+    - [内连接](#内连接)
+    - [自连接](#自连接)
+    - [自然连接](#自然连接)
+    - [内连接](#内连接-1)
+    - [外连接](#外连接)
+    - [多表连接](#多表连接)
+- [组合查询](#组合查询)
+    - [UNION](#union)
+- [全文搜索](#全文搜索)
+- [表操作](#表操作)
+    - [创建表](#创建表)
+    - [更新表](#更新表)
+    - [约束](#约束)
+    - [删除表](#删除表)
+    - [重命名表](#重命名表)
+- [列操作](#列操作)
+    - [插入数据](#插入数据)
+    - [更新数据](#更新数据)
+    - [删除数据](#删除数据)
+    - [truncate、delete与drop区别](#truncate、delete与drop区别)
+- [引擎](#引擎)
+- [视图](#视图)
+    - [应用](#应用)
+    - [限制](#限制)
+    - [语法](#语法)
+    - [简化复杂连接](#简化复杂连接)
+    - [更新视图](#更新视图)
+- [存储过程](#存储过程)
+    - [创建](#创建)
+    - [调用](#调用)
+    - [删除](#删除)
+    - [参数](#参数)
+    - [实例](#实例)
+    - [检查](#检查)
+- [游标](#游标)
+    - [创建游标](#创建游标)
+    - [使用游标](#使用游标)
+- [触发器](#触发器)
+    - [创建](#创建-1)
+    - [删除](#删除-1)
+    - [使用触发器](#使用触发器)
+- [事务处理](#事务处理)
+    - [保留点](#保留点)
+- [权限](#权限)
+    - [管理用户](#管理用户)
+- [优化性能](#优化性能)
+- [B+树](#b树)
+    - [索引的作用](#索引的作用)
+    - [索引实例](#索引实例)
+    - [数据定位过程](#数据定位过程)
+    - [不用hash的原因](#不用hash的原因)
+    - [带有顺序访问指针的B+Tree](#带有顺序访问指针的btree)
+    - [B+树比B树更适合数据库索引](#b树比b树更适合数据库索引)
+    - [二级索引](#二级索引)
+    - [最左匹配](#最左匹配)
+    - [稠密索引](#稠密索引)
+
+<!-- /MarkdownTOC -->
+<a id="简介"></a>
 ## 简介
 
 SQL 结构化查询语言。
 
 
 
+<a id="基本命令"></a>
 ## 基本命令
 
+<a id="启动"></a>
 ### 启动
 
 启动服务：`service mysqld start`
@@ -14,6 +108,7 @@ SQL 结构化查询语言。
 
 启动客户端：`mysql -uroot -p`  -u 后不要有空格（Ubuntu有空格）
 
+<a id="表"></a>
 ### 表
 
 创建表：`create table user (id int, name varchar(10))`
@@ -24,6 +119,7 @@ SQL 结构化查询语言。
 
 `SHOW CREATE db` | `SHOW CREATE table`：显示创建特定数据库或表的MySQL语句
 
+<a id="检索"></a>
 ### 检索
 
 检索不同的行：
@@ -41,6 +137,7 @@ FROM products
 LIMIT 0, 5; #开始位置，行数|返回从第0行开始的5行数据
 ```
 
+<a id="排序"></a>
 ### 排序
 
 ```mysql
@@ -60,6 +157,7 @@ LIMIT 1; # 仅返回一行
 
 子句顺序：FORM -- ORDER BY -- LIMIT，顺序不对会报错。
 
+<a id="过滤"></a>
 ### 过滤
 
 子句操作符：
@@ -73,6 +171,7 @@ LIMIT 1; # 仅返回一行
 | <=      | 小于等于 |
 | BETWEEN | 两值之间 |
 
+<a id="不匹配检查："></a>
 #### 不匹配检查：
 
 ```mysql
@@ -81,6 +180,7 @@ FROM products
 WHERE vend_id <> 1003;
 ```
 
+<a id="范围查询："></a>
 #### 范围查询：
 
 ```mysql
@@ -89,6 +189,7 @@ FROM products
 WHERE prod_price BETWEEN 5 AND 10;
 ```
 
+<a id="空值检查"></a>
 #### 空值检查
 
 ```mysql
@@ -97,6 +198,7 @@ FROM products
 WHERE prod_price IS NULL;
 ```
 
+<a id="计算次序"></a>
 #### 计算次序
 
 ```mysql
@@ -105,6 +207,7 @@ FROM products
 WHERE vend_id = 1002 OR vend_id = 1003 AND prod_price >= 10; # AND优先级大于OR
 ```
 
+<a id="in-操作符"></a>
 #### IN 操作符
 
 ```mysql
@@ -116,6 +219,7 @@ ORDER BY prod_name;
 
 IN操作符一般比OR操作符清单执行更快。IN的最大优点是可以包含其他SELECT语句，使得能够更动态地建立WHERE子句。
 
+<a id="not操作符"></a>
 #### NOT操作符
 
 MySQL支持使用NOT 对IN 、BETWEEN 和EXISTS子句取反。
@@ -126,6 +230,7 @@ FROM products
 WHERE vend_id NOT IN (1002, 1003)
 ```
 
+<a id="like操作符"></a>
 #### LIKE操作符
 
 % 匹配0到多个任意字符。
@@ -146,10 +251,12 @@ WHERE prod_name LIKE '_jet_';
 
 通配符搜索比其他简单搜索耗时，不能过度使用通配符。
 
+<a id="limit"></a>
 #### LIMIT
 
 limit 0,4 ：从第0条记录开始，取4条
 
+<a id="正则表达式"></a>
 #### 正则表达式
 
 OR 匹配：
@@ -226,8 +333,10 @@ ORDER BY prod_name;
 SELECT 'hello' REGEXP '[0-9]';#REGEXP检查返回0或1；此处返回0
 ```
 
+<a id="计算字段"></a>
 ## 计算字段
 
+<a id="拼接字段"></a>
 ### 拼接字段
 
 MySQL使用Concat()函数实现拼接。
@@ -241,6 +350,7 @@ ORDER BY vend_name;
 返回值：`ACME (USA)`
 使用别名：`SELECT dept AS department FROM t_dept;`
 
+<a id="计算字段-1"></a>
 ### 计算字段
 
 ```mysql
@@ -249,8 +359,10 @@ FROM orderitems
 WHERE order_num = 2005;
 ```
 
+<a id="函数"></a>
 ## 函数
 
+<a id="文本处理"></a>
 ### 文本处理
 
 ```mysql
@@ -269,6 +381,7 @@ WHERE Soundex(cust_contact) = Soundex('Y Lie');
 
 返回数据：`Tyson Y lee`
 
+<a id="日期处理函数"></a>
 ### 日期处理函数
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200504231137490.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
@@ -288,12 +401,15 @@ FROM orders
 WHERE Year(order_date) = 2005 AND Month(order_date) = 9;
 ```
 
+<a id="数值处理函数"></a>
 ### 数值处理函数
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200504234157154.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
 
+<a id="汇总数据"></a>
 ## 汇总数据
 
+<a id="聚集函数"></a>
 ### 聚集函数
 
 AVG/COUNT/MAX/MIN/SUM
@@ -312,6 +428,7 @@ FROM products
 WHERE vend_id = 1003;
 ```
 
+<a id="分组"></a>
 ## 分组
 
 单独地使用group  by没意义，它只能显示出每组记录的第一条记录。
@@ -333,6 +450,7 @@ GROUP BY vend_id;
 
 GROUP BY子句必须出现在WHERE子句之后，ORDER BY子句之前。
 
+<a id="过滤分组"></a>
 ### 过滤分组
 
 having 用来分组查询后指定一些条件来输出查询结果，having作用和where类似，但是having只能用在group  by场合，并且必须位于group  by之后order  by之前。
@@ -344,6 +462,7 @@ GROUP BY cust_id
 HAVING COUNT(*) >= 2;
 ```
 
+<a id="having和where区别"></a>
 ### having和where区别
 
 ```mysql
@@ -369,6 +488,7 @@ HAVING COUNT(*) >= 2;
 
 WHERE子句过滤所有prod_price至少为10的行。然后按vend_id分组数据，HAVING子句过滤计数为2或2以上的分组。
 
+<a id="select-子句顺序"></a>
 ### SELECT 子句顺序
 
 ```mysql
@@ -383,6 +503,7 @@ LIMIT
 
 
 
+<a id="子查询"></a>
 ## 子查询
 
 由于性能的限制，不能嵌套太多的子查询。
@@ -397,8 +518,10 @@ WHERE order_num IN (SELECT order_num
 
 
 
+<a id="连接"></a>
 ## 连接
 
+<a id="内连接"></a>
 ### 内连接
 
 找出供应商生产的产品。
@@ -419,6 +542,7 @@ WHERE vendors.vend_id = products.vend_id;
 
 没有给出连接条件的话，会得到两张表的笛卡尔积。
 
+<a id="自连接"></a>
 ### 自连接
 
 找出生产nike的供应商生产的所有物品。
@@ -430,6 +554,7 @@ WHERE p1.vend_id = p2.vend_id
 	AND p2.prod_id = 'nike';
 ```
 
+<a id="自然连接"></a>
 ### 自然连接
 
 natural join是对两张表中字段名和数据类型都相同的字段进行**等值连接**，并返回符合条件的结果 。
@@ -442,6 +567,7 @@ SELECT * FROM role NATURAL JOIN user_role;
 
 ![image-20200608232951873](..\img\image-20200608232951873.png)
 
+<a id="内连接-1"></a>
 ### 内连接
 
 显示符合连接条件的记录。没有设置连接条件则返回笛卡尔积的结果。join 默认是 inner join。
@@ -465,6 +591,7 @@ SELECT * FROM role INNER JOIN user_role ON role.role_id = user_role.role_id
 
 ![image-20200608233400458](..\img\image-20200608233400458.png)
 
+<a id="外连接"></a>
 ### 外连接
 
 左外联接（Left Outer Join）：除了匹配2张表中相关联的记录外，还会匹配左表中剩余的记录，右表中未匹配到的字段用NULL表示。
@@ -479,6 +606,7 @@ FROM customers LEFT OUTER JOIN orders
 ON customers.cust_id = order.cust_id;
 ```
 
+<a id="多表连接"></a>
 ### 多表连接
 
 ```mysql
@@ -492,8 +620,10 @@ WHERE eteam.id = 'GRE'
 
 
 
+<a id="组合查询"></a>
 ## 组合查询
 
+<a id="union"></a>
 ### UNION
 
 UNION中的每个查询必须包含相同的列、表达式或聚集函数。列数据类型必须兼容。
@@ -517,6 +647,7 @@ UNION 默认会去掉重复的行，使用 UNION ALL可以返回所有匹配行�
 
 
 
+<a id="全文搜索"></a>
 ## 全文搜索
 
 为了进行全文本搜索，必须索引被搜索的列，而且要随着数据的改变不断地重新索引。在对表列进行适当设计后，MySQL会自动进行所有的索引和重新索引。
@@ -559,8 +690,10 @@ FROM productnotes;
 
 
 
+<a id="表操作"></a>
 ## 表操作
 
+<a id="创建表"></a>
 ### 创建表
 
 ```mysql
@@ -576,6 +709,7 @@ CREATE TABLE productnotes
 
 主键中只能使用NOT NULL值的列。
 
+<a id="更新表"></a>
 ### 更新表
 
 数据库表的更改不能撤销，应先做好备份。
@@ -614,6 +748,7 @@ MODIFY vend_phone CHAR(16);
 
 - 重新创建触发器、存储过程、索引和外键。
 
+<a id="约束"></a>
 ### 约束
 
 添加主键约束：
@@ -637,18 +772,22 @@ ALTER TABLE products
 ADD FOREIGN KEY(vendor_id) REFERENCES vendors(vendor_id);
 ```
 
+<a id="删除表"></a>
 ### 删除表
 
 `DROP TABLE cumstomers`
 
+<a id="重命名表"></a>
 ### 重命名表
 
 `RENAME TABLE cusmtomers TO cust`
 
 
 
+<a id="列操作"></a>
 ## 列操作
 
+<a id="插入数据"></a>
 ### 插入数据
 
 MySQL用单条INSERT语句处理多个插入比使用多条INSERT语句快。
@@ -664,6 +803,7 @@ INSERT INTO customers(cust_name,
 
 INSERT操作可能很耗时（特别是有很多索引需要更新时），而且它可能降低等待处理的SELECT语句的性能。降低INSERT语句的优先级：`INSERT LOW_PRIORITY INTO`
 
+<a id="更新数据"></a>
 ### 更新数据
 
 如果用UPDATE语句更新多行，并且在更新这些行中的一行或多行时出一个现错误，则整个UPDATE操作被取消。为了在发生错误时也继续进行更新，可使用IGNORE关键字：`UPDATE IGNORE customers...`
@@ -676,6 +816,7 @@ WHERE cust_id = 1005;
 
 返回值是受影响的记录数。
 
+<a id="删除数据"></a>
 ### 删除数据
 
 如果想从表中删除所有行，不要使用DELETE。可使用TRUNCATE TABLE语句，它完成相同的工作，但速度更快（TRUNCATE实际是删除原来的表并重新创建一个表，而不是逐行删除表中的数据）。
@@ -698,6 +839,7 @@ AND EXISTS
     WHERE b.id = a.id);
 ```
 
+<a id="truncate、delete与drop区别"></a>
 ### truncate、delete与drop区别
 
 相同点：
@@ -714,6 +856,7 @@ AND EXISTS
 
 
 
+<a id="引擎"></a>
 ## 引擎
 
 InnoDB是一个可靠的事务处理引擎，它不支持全文本搜索；
@@ -726,15 +869,18 @@ MyISAM是一个性能极高的引擎，它支持全文本搜索，但不支持�
 
 
 
+<a id="视图"></a>
 ## 视图
 
 视图为虚拟的表。视图提供了一种MySQL的SELECT语句层次的封装，可用来简化数据处理以及重新格式化基础数据或保护基础数据。
+<a id="应用"></a>
 ### 应用
 
 - 重用SQL语句。
 - 保护数据。可以给用户授予表的特定部分的访问权限而不是整个表的访问权限。
 - 更改数据格式和表示。视图可返回与底层表的表示和格式不同的数据。
 
+<a id="限制"></a>
 ### 限制
 
 - 与表一样，视图必须唯一命名
@@ -742,6 +888,7 @@ MyISAM是一个性能极高的引擎，它支持全文本搜索，但不支持�
 - 视图可以和表一起使用。例如，编写一条联结表和视图的SELECT语句。
 - ORDER BY可以用在视图中，但如果从该视图检索数据SELECT中也含有ORDER BY，那么该视图中的ORDER BY将被覆盖。
 
+<a id="语法"></a>
 ### 语法
 
 `CREATE VIEW`：创建视图
@@ -751,6 +898,7 @@ MyISAM是一个性能极高的引擎，它支持全文本搜索，但不支持�
 `DROP VIEW viewname`：删除视图
 
 `CREATE ORREPLACE VIEW`：更新视图，相当于先用`DROP`再用`CREATE`
+<a id="简化复杂连接"></a>
 ### 简化复杂连接
 创建一个视图，返回订购了任意产品的客户列表。
 ```mysql
@@ -766,16 +914,19 @@ SELECT cust_name, cust_contact
 FROM productcustomers
 WHERE prod_id = 'nike';
 ```
+<a id="更新视图"></a>
 ### 更新视图
 对视图增加或删除行，实际上是对其基表增加或删除行。视图主要用于数据检索。
 
 
+<a id="存储过程"></a>
 ## 存储过程
 
 为以后的使用而保存的一条或多条MySQL语句的集合。可将其视为批文件。
 为什么使用存储过程：
 - 把复杂处理进行封装，简化复杂的操作；
 - 提高性能，存储过程比单独SQL语句更快；
+<a id="创建"></a>
 ### 创建
 返回产品平均价格的存储过程：
 ```mysql
@@ -786,11 +937,14 @@ BEGIN
 END;
 ```
 BEGIN/END 用来限定存储过程体。此段代码仅创建了存储过程，未执行。
+<a id="调用"></a>
 ### 调用
 `CALL productpricing()`
+<a id="删除"></a>
 ### 删除
 存储过程在创建之后，被保存在服务器上以供使用，直至被删除。
 `DROP PROCEDURE productpricing IF EXISTS`
+<a id="参数"></a>
 ### 参数
 MySQL支持IN（传递给存储过程）、OUT（从存储过程传出）和INOUT（对存储过程传入和传出）类型的参数。
 接受订单号并返回该订单的金额：
@@ -808,6 +962,7 @@ END;
 ```
 调用存储过程：`CALL ordertotal(20, @total);`
 显示订单金额：`SELECT @total;`
+<a id="实例"></a>
 ### 实例
 获取订单税后金额（订单金额+税收）。
 ```mysql
@@ -836,6 +991,7 @@ END;
 CALL ordertotal(20005, 1, @total);
 SELECT @total;
 ```
+<a id="检查"></a>
 ### 检查
 创建存储过程的 CREATE 语句。
 ```mysql
@@ -843,8 +999,10 @@ SHOW CREATE PROCEDURE ordertotal;
 ```
 获得包括何时、由谁创建等详细信息的存储过程列表，使用`SHOW PROCEDURE STATUS LIKE 'ordertotal';`
 
+<a id="游标"></a>
 ## 游标
 存储了游标之后，应用程序可以根据需要滚动或浏览其中的数据。MySQL游标只能用于存储过程（和函数）。
+<a id="创建游标"></a>
 ### 创建游标
 DECLARE 命名游标。存储过程处理完成后，游标便消失（游标只存在于存储过程）。定义游标之后，便可以打开它。
 ```mysql
@@ -855,6 +1013,7 @@ BEGIN
 	SELECT order_num FROM orders;
 END;
 ```
+<a id="使用游标"></a>
 ### 使用游标
 `OPEN ordernumbers` 打开游标。
 `CLOSE ordernumbers` CLOSE释放游标使用的所有内部内存和资源。
@@ -894,8 +1053,10 @@ END;
 ```
 存储过程还在运行中创建了一个新表，。这个表将保存存储过程生成的结果。FETCH取每个order_num，然后用CALL执行另一个存储过程，计算每个订单税后金额。最后，用INSERT保存每个订单的订单号和金额。
 
+<a id="触发器"></a>
 ## 触发器
 提供SQL语句自动执行的功能。DELETE/INSERT/UPDATE支持触发器，其他SQL语句不支持。
+<a id="创建-1"></a>
 ### 创建
 创建触发器四要素：1.唯一的触发器名（MySQL5规定触发器名在表中唯一，数据库没要求）；2.触发器关联的表；3.相应的SQL语句；4.何时执行（处理之前或者之后）。
 ```mysql
@@ -903,9 +1064,11 @@ CREATE TRIGGER newproduct AFTER INSERT ON products #插入之后执行
 FOR EACH ROW SELECT 'product added'; #对每个插入行执行
 ```
 只有表支持触发器，视图不支持。单一触发器不能与多个事件或多个表关联，如果需要对INSERT和UPDATE操作执行触发器，则应该定义两个触发器。
+<a id="删除-1"></a>
 ### 删除
 `DROP TRIGGER newproduct`
 
+<a id="使用触发器"></a>
 ### 使用触发器
 
 INSERT 触发器可饮用名为 NEW  的虚拟表，访问被插入的行。NEW中的值也可以被更新（允许更改被插入的值）。
@@ -939,6 +1102,7 @@ FOR EACH ROW SET NEW.vend_state = Upper(NEW.vend_state);
 
 
 
+<a id="事务处理"></a>
 ## 事务处理
 
 事务处理可以用来维护数据库的完整性。它保证成批的MySQL操作要么完全执行，要么完全不执行。
@@ -956,6 +1120,7 @@ COMMIT;
 
 当COMMIT或ROLLBACK语句执行后，事务会自动关闭。
 
+<a id="保留点"></a>
 ### 保留点
 
 为了支持回退部分事务处理，必须能在事务处理块中合适的位置放置占位符。这样，如果需要回退，可以回退到某个占位符。
@@ -971,8 +1136,10 @@ ROLLBACK TO delete1;
 
 
 
+<a id="权限"></a>
 ## 权限
 
+<a id="管理用户"></a>
 ### 管理用户
 
 MySQL用户账号和信息存储在名为mysql的MySQL数据库中。获取用户账号列表。
@@ -1007,6 +1174,7 @@ GRANT和REVOKE可在几个层次上控制访问权限：
 
 
 
+<a id="优化性能"></a>
 ## 优化性能
 
 使用EXPLAIN语句让MySQL解释它将如何执行一条SELECT语句。
@@ -1017,18 +1185,29 @@ GRANT和REVOKE可在几个层次上控制访问权限：
 
 LIKE很慢，最好是使用FULLTEXT而不是LIKE。
 
+很多高性能的应用都会对关联查询进行分解，有如下的优势：
+1 、让缓存效率更高。如果某张表很少变化，那么基于该表的查询就可以重复利用查询缓存结果。
+2 、将查询分解后，执行单个查询可以减少锁的竞争。
+3 、在应用层做关联，可以更容易对数据库进行拆分，更容易做到高性能和可扩展。
+4 、查询本身效率也可能会有所提升。例如 IN()代替关联查询，可能比随机的关联更高效。
+5 、减少冗余记录得查询。
+6 、更进一步，这样做相当于在应用中实现了哈希关联，而不是使用 MySQL 得嵌套循环关联。某些场景哈希关联得效率要高很多。
 
 
+
+<a id="b树"></a>
 ## B+树
 
 [Mysql B+索引](https://blog.csdn.net/chybin500/article/details/103057140) | [索引演化](https://juejin.im/post/5b08fcc86fb9a07a9b3666ac#heading-4) | [为什么MySQL数据库索引选择使用B+树？](https://www.cnblogs.com/tiancai/p/9024351.html)
 
 MySQL中MyIsAM和InnoDB都是采用的B+树结构。不同的是前者是非聚集索引，后者主键是聚集索引，所谓聚集索引是物理地址连续存放的索引，在取区间的时候，查找速度非常快，但同样的，插入的速度也会受到影响而降低。聚集索引的物理位置使用链表来进行存储。
 
+<a id="索引的作用"></a>
 ### 索引的作用
 
 数据是存储在磁盘上的，操作系统读取磁盘的最小单位是块，如果没有索引，会加载所有的数据到内存，依次进行检索，加载的总数据会很多，磁盘IO多。
 
+<a id="索引实例"></a>
 ### 索引实例
 
 col1 是主键，col2和col3 是普通字段。
@@ -1043,6 +1222,7 @@ col1 是主键，col2和col3 是普通字段。
 
 ![image-20200520234231001](..\img\image-20200520234231001.png)
 
+<a id="数据定位过程"></a>
 ### 数据定位过程
 
 进行定位操作时，不再进行表扫描，而是进行索引扫描。非叶子节点都是索引块，叶子节点是索引和数据。
@@ -1088,14 +1268,17 @@ select * from table_x where name = 'd' ;
 
 ![二级索引查找](https://user-gold-cdn.xitu.io/2018/5/26/1639b1b6958ddd6f?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
+<a id="不用hash的原因"></a>
 ### 不用hash的原因
 
 查询某条数据，自然是hash算法快，但是我们平常用的查询往往不是只查询单条数据，而是order by，group by，< >这种排序查询，遇到这种情况，hash就会退化成O(n)，而树因为它的有序性依然保持O(log(n))高效率。如果索引的值有重复的话，会发生hash碰撞，导致查询效率降低。
 
+<a id="带有顺序访问指针的btree"></a>
 ### 带有顺序访问指针的B+Tree
 
 一般在数据库系统或文件系统中使用的B+Tree结构都在经典B+Tree的基础上进行了优化，增加了顺序访问指针。做这个优化的目的是为了提高区间访问的性能。比如要查询key为从18到49的所有数据记录，当找到18后，只需顺着节点和指针顺序遍历就可以一次性访问到所有数据节点，极大提到了区间查询效率。
 
+<a id="b树比b树更适合数据库索引"></a>
 ### B+树比B树更适合数据库索引
 
 由于B+树的数据都存储在叶子结点中，分支结点均为索引，方便扫库，只需要扫一遍叶子结点即可，但是B树因为其分支结点同样存储着数据，我们要找到具体的数据，需要进行一次中序遍历按序来扫，所以B+树更加适合在区间查询的情况，而在数据库中基于范围的查询是非常频繁的，所以通常B+树用于数据库索引。
@@ -1103,3 +1286,25 @@ select * from table_x where name = 'd' ;
 B+树的节点只存储索引key值，具体信息的地址存在于叶子节点的地址中。这就使以页为单位的索引中可以存放更多的节点。减少更多的I/O支出。
 
 B+树的查询效率更加稳定，任何关键字的查找必须走一条从根结点到叶子结点的路。所有关键字查询的路径长度相同，导致每一个数据的查询效率相当。
+
+<a id="二级索引"></a>
+### 二级索引
+聚簇索引和二级索引的非叶子节点都只存了索引列的值，聚簇索引叶子节点存有索引列和数据项，而二级索引的叶子节点存的是索引列和主键值。
+
+<a id="最左匹配"></a>
+### 最左匹配
+
+[最左匹配](https://www.zhihu.com/search?type=content&q=%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D)
+
+对(a, b) 建立索引，a 在索引树中是全局有序的，而 b 是全局无序，局部有序（当a相等时，会对b进行比较排序）。
+
+<a id="稠密索引"></a>
+### 稠密索引
+
+稠密索引：每个索引字段的值都对应一个索引项。
+
+![image-20200614165432775](..\img\image-20200614165432775.png)
+
+稀疏索引只包含了索引字段中一部分的值，通过这些值可以确定目标记录的范围，然后再到这个范围中顺序查找。
+
+![image-20200614165333479](..\img\image-20200614165333479.png)

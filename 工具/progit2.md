@@ -1,19 +1,86 @@
+<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
+
+- [git 简介](#git-简介)
+    - [存储原理](#存储原理)
+    - [git 快照](#git-快照)
+    - [本地执行](#本地执行)
+    - [三种状态](#三种状态)
+    - [配置](#配置)
+    - [获取帮助](#获取帮助)
+- [git 基础](#git-基础)
+    - [获取 git 仓库](#获取-git-仓库)
+    - [文件状态](#文件状态)
+    - [配置别名](#配置别名)
+    - [修改](#修改)
+        - [撤销修改](#撤销修改)
+    - [暂存](#暂存)
+        - [取消暂存](#取消暂存)
+    - [提交](#提交)
+        - [修改commit信息](#修改commit信息)
+        - [查看提交历史](#查看提交历史)
+    - [版本回退](#版本回退)
+    - [stash](#stash)
+    - [移除和移动](#移除和移动)
+        - [移除](#移除)
+        - [移动](#移动)
+    - [远程仓库](#远程仓库)
+        - [查看远程仓库](#查看远程仓库)
+        - [添加远程仓库](#添加远程仓库)
+        - [修改远程仓库](#修改远程仓库)
+        - [pull 和 fetch](#pull-和-fetch)
+        - [本地仓库上传git服务器](#本地仓库上传git服务器)
+        - [推送到远程仓库](#推送到远程仓库)
+        - [查看远程仓库](#查看远程仓库-1)
+        - [远程仓库移除和命名](#远程仓库移除和命名)
+    - [标签](#标签)
+        - [创建标签](#创建标签)
+            - [附注标签](#附注标签)
+            - [轻量标签](#轻量标签)
+    - [推送标签](#推送标签)
+        - [后期打标签](#后期打标签)
+        - [共享标签](#共享标签)
+        - [检出标签](#检出标签)
+    - [git 别名](#git-别名)
+- [git 分支](#git-分支)
+    - [分支创建](#分支创建)
+    - [分支切换](#分支切换)
+    - [分支合并](#分支合并)
+        - [合并冲突](#合并冲突)
+        - [merge 和 rebase 区别](#merge-和-rebase-区别)
+    - [删除分支](#删除分支)
+    - [分支管理](#分支管理)
+    - [远程分支](#远程分支)
+        - [推送](#推送)
+        - [跟踪分支](#跟踪分支)
+        - [fetch](#fetch)
+        - [pull](#pull)
+        - [删除远程分支](#删除远程分支)
+    - [创建远程分支](#创建远程分支)
+    - [cherry-pick](#cherry-pick)
+- [同步fork项目的更新](#同步fork项目的更新)
+
+<!-- /MarkdownTOC -->
+<a id="git-简介"></a>
 ## git 简介
 
 分布式版本控制系统：客户端并不只提取最新版本的文件快照，而是把代码仓库完整的镜像下来。当任何一处协同工作的服务器发生故障，都可以用任何一个镜像出来的本地仓库恢复。
 
+<a id="存储原理"></a>
 ### 存储原理
 
 git 在保存项目状态时，它主要对全部文件制作一个快照并保存这个快照的索引，如果文件没有被修改，git 不会重新存储这个文件，而是只保留一个链接指向之前存储的文件。
 
+<a id="git-快照"></a>
 ### git 快照
 
 快照就是将旧文件所占的空间保留下来，并且保存一个引用，而新文件中会继续使用与旧文件内容相同部分的磁盘空间，不同部分则写入新的磁盘空间。
 
+<a id="本地执行"></a>
 ### 本地执行
 
 在 git 中绝大多数的操作只需访问本地文件和资源，比如浏览项目的历史，git 不需要连接到服务器去获取历史，只需直接从本地数据库去获取。当没有网络时，我们可以将所做的更改先提交，直到有网络连接再上传，而像 subversion 和 CVS，我们可以修改文件，但是不能提交到本地库（本地库离线了）。
 
+<a id="三种状态"></a>
 ### 三种状态
 
 git 的三种状态：已提交（committed）、已修改（modified）和已暂存（staged）。已修改表示修改了文件，但还没保存到数据库。已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。已提交表示数据已经安全的保存到本地数据库。
@@ -22,6 +89,9 @@ git 的三种状态：已提交（committed）、已修改（modified）和已�
 
 ![git工作流程图](https://img2018.cnblogs.com/blog/1252910/201907/1252910-20190726163829113-2056815874.png)
 
+![Image](..\img\git-status.png)
+
+<a id="配置"></a>
 ### 配置
 
 设置用户名和邮箱地址：
@@ -37,20 +107,24 @@ git config --global user.email tysondai@outlook.com
 
 检查某一项配置：`git config user.name`
 
+<a id="获取帮助"></a>
 ### 获取帮助
 
 获取 config 命令的手册：`git help config`
 
 
 
+<a id="git-基础"></a>
 ## git 基础
 
+<a id="获取-git-仓库"></a>
 ### 获取 git 仓库
 
 在现有目录中初始化仓库：进入项目目录并输入`git init`
 
 克隆现有的仓库：`git clone https://github.com/...`
 
+<a id="文件状态"></a>
 ### 文件状态
 
 查看文件状态：`git status`
@@ -70,26 +144,49 @@ M lib/simplegit.rb
 
 新添加的未跟踪文件前面有 ?? 标记，新添加到暂存区中的文件前面有 A 标记，修改过的文件前面有 M 标记。 你可能注意到了 M 有两个可以出现的位置，出现在右边的 M 表示该文件被修改了但是还没放入暂存区，出现在靠左边的 M 表示该文件被修改了并放入了暂存区。
 
+<a id="配置别名"></a>
+### 配置别名
+
+`git config --global alias.st status `
+
+<a id="修改"></a>
+
+<a id="修改"></a>
 ### 修改
 
 要查看修改后尚未暂存的文件更新了哪些部分，直接输入`git diff`命令。
 
 若要查看已暂存的内容，可以用`git diff --staged`命令。
 
+<a id="撤销修改"></a>
 #### 撤销修改
 
 撤销修改：`git checkout -- file_name` 这是一个危险的命令，使用此命令之后，对文件所做的修改都要消失，不可恢复。
 
+撤销修改还可以使用 restore 命令（git2.23版本引入）。
+
+```java
+git restore --worktree demo.txt //撤销文件工作区的修改
+git restore --staged demo.txt //撤销暂存区的修改，将文件状态恢复到未add之前
+git restore -s HEAD~1 demo.txt //将当前工作区切换到上个 commit 版本，-s相当于--source
+git restore -s hadn12 demo.txt //将当前工作区切换到指定 commit id 的版本
+```
+
+<a id="暂存"></a>
+
+<a id="暂存"></a>
 ### 暂存
 
 `git add *`暂存工作目录文件。
 
+<a id="取消暂存"></a>
 #### 取消暂存
 
 如果暂存了两个文件，想要取消暂存其中一个文件，则可以通过以下命令实现：`git reset HEAD file_name`
 
 git reset 加上 --hard 选项可能导致工作目录中所有当前进度丢失。
 
+<a id="提交"></a>
 ### 提交
 
 任何未提交的修改丢失后很可能不可恢复。提交命令：`git commit -m "add readme.md"`
@@ -102,7 +199,8 @@ git commit 进入 vim 编辑器后的操作：
 2. 当你输入完之后，按下`Esc`键就可退出编辑状态，回到一般模式
 3. 输入:wq 或 :wq!（强行退出）
 
-#### 撤销提交
+<a id="修改commit信息"></a>
+#### 修改commit信息
 
 如果提交后发现漏掉某些文件，此时可以运用带有 --amend 选项的提交命令尝试重新提交：
 
@@ -114,6 +212,9 @@ git commit --amend
 
 提交信息写错，也可以运行`git commit --amend`，然后在 vim 窗口重新编辑提交信息即可更改提交信息。（按下字母键`i`或`a`或`o`，此时进入到可编辑状态，这时就可以输入你的注释；当你输入完之后，按下`Esc`键就可退出编辑状态，回到一般模式；输入:wq 或 :wq!）
 
+<a id="查看提交历史"></a>
+
+<a id="查看提交历史"></a>
 #### 查看提交历史
 
 `git log`列出所有提交的更新。
@@ -128,8 +229,35 @@ git commit --amend
 
 `git log --since=2.weeks` 按照时间作限制。
 
+<a id="版本回退"></a>
+### 版本回退
+
+```bash
+git reset --hard commit_id
+git reset --hard HEAD^^
+git reset --hard HEAD~100
+git reset HEAD readme.txt  //把暂存区的修改撤销掉（unstage）, 重新放入工作区 
+```
+
+<a id="stash"></a>
+### stash
+
+```bash
+git stash
+git stash pop stash@{id} //恢复后删除
+git stash apply stash@{id}  //恢复后不删除，需手动删除
+git stage drop
+git stash list //查看stash 列表
+```
+
+
+
+<a id="移除和移动"></a>
+
+<a id="移除和移动"></a>
 ### 移除和移动
 
+<a id="移除"></a>
 #### 移除
 
 从暂存区移除文件：`git rm readme.md`，然后提交。如果只是简单地从工作目录中手工删除文件，运行 git status 时就会在 “Changes not staged for commit”。
@@ -140,6 +268,7 @@ git commit --amend
 
 git rm 支持正则表达式：`git rm log/\*.log`。
 
+<a id="移动"></a>
 #### 移动
 
 对文件改名：`git mv README.md README`
@@ -154,10 +283,12 @@ git add README
 
 
 
+<a id="远程仓库"></a>
 ### 远程仓库
 
 远程仓库是指托管在因特网或者其他网络中的项目版本库。
 
+<a id="查看远程仓库"></a>
 #### 查看远程仓库
 
 列出远程服务器的简写：
@@ -175,20 +306,27 @@ origin https://github.com/schacon/ticgit (fetch)
 origin https://github.com/schacon/ticgit (push)
 ```
 
+<a id="添加远程仓库"></a>
 #### 添加远程仓库
 
-运行 `git remote add <shortname> <url>` 添加一个新的远程 Git 仓库，同时指定一个简写名称。
+运行 `git remote add <shortname> <url>` 添加远程 Git 仓库，同时指定一个简写名称。
 
 `git remote add pb https://github.com/paulboone/ticgit`可以在命令行中使用字符串 pb 来代替整个 URL。如`git fetch pb`。
 
 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 origin 为简写。
 
+取消关联Git仓库 `git remote remove origin`
+
+<a id="修改远程仓库"></a>
+
+<a id="修改远程仓库"></a>
 #### 修改远程仓库
 
 ```git
 git remote set-url origin git@github.com:Tyson0314/Blog.git
 ```
 
+<a id="pull-和-fetch"></a>
 #### pull 和 fetch
 
 从远程仓库获取数据：`git fetch [remote-name]`
@@ -202,20 +340,39 @@ git pull = git fetch + git merge FETCH_HEAD
 git pull --rebase =  git fetch + git rebase FETCH_HEAD 
 ```
 
+<a id="本地仓库上传git服务器"></a>
+#### 本地仓库上传git服务器
+
+```bash
+git init将目录变成本地仓库
+git add .
+git commit -m 'xxx'
+git remote add origin https://github.com/Tyson0314/profile
+git branch --set-upstream-to=origin/master master 
+git pull origin master --allow-unrelated-histories //不同项目合并
+git push -u origin master  //如果当前分支与多个主机存在追踪关系，则-u会指定一个默认主机，这样后面就可以不加任何参数使用git push。
+```
+
+<a id="推送到远程仓库"></a>
+
+<a id="推送到远程仓库"></a>
 #### 推送到远程仓库
 
 `git push [remote-name] [branch-name]`
 
+<a id="查看远程仓库-1"></a>
 #### 查看远程仓库
 
 `$ git remote show origin`
 
+<a id="远程仓库移除和命名"></a>
 #### 远程仓库移除和命名
 
 `$ git remote rename pb paul`
 
 `$ git remote rm paul`
 
+<a id="标签"></a>
 ### 标签
 
 给历史的某个提交打标签，如标记发布节点（v1.0等）。
@@ -233,20 +390,35 @@ tag标签可以帮助我们回退到某个版本的代码，我们通过tag的�
 - 回退到某个版本：git reset --hard commitId
 - 获取远程分支：git fetch origin tag V2.0
 
+<a id="创建标签"></a>
 #### 创建标签
 
 Git 使用两种主要类型的标签：轻量标签（lightweight）与附注标签（annotated）。一个轻量标签很像一个不会改变的分支 - 它只是一个特定提交的引用。然而，附注标签是存储在 Git 数据库中的一个完整对象。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard （GPG）签名与验证。 通常建议创建附注标签。
 
+创建的标签都只存储在本地，不会自动推送到远程。
+
+<a id="附注标签"></a>
 ##### 附注标签
 
 `git tag -a v1.4 -m 'my version 1.4'` -m 选项指定了一条将会存储在标签中的信息。
 
 使用 git show v1.4 命令可以看到标签信息与对应的提交信息。
 
+<a id="轻量标签"></a>
 ##### 轻量标签
 
 `git tag v1.4-tyson` 此时运行 `git show v1.4-tyson`不会看到额外的标签信息，只显示提交信息。
 
+<a id="推送标签"></a>
+### 推送标签
+
+推送某个标签到远程，使用命令`git push origin <tagname>`
+一次性推送全部尚未推送到远程的本地标签 `git push origin --tags`
+删除远程标签(先删除本地标签) `git push origin :refs/tags/<tagname>`
+
+<a id="后期打标签"></a>
+
+<a id="后期打标签"></a>
 #### 后期打标签
 
 ```powershell
@@ -260,12 +432,14 @@ d2ffb8c33978295aed189f5854857bc4e7b55358 add readme.md
 
 给 modified readme.md 打标签：` git tag -a v1.2 c1285b`
 
+<a id="共享标签"></a>
 #### 共享标签
 
 git push 命令并不会传送标签到远程仓库服务器上。在创建完标签后你必须显式地推送标签到共享服务器上：`git push origin v1.5`
 
 把所有不在远程仓库服务器上的标签全部传送到那里：`git push origin --tags`
 
+<a id="检出标签"></a>
 #### 检出标签
 
 如果你想要工作目录与仓库中特定的标签版本完全一样，可以使用 `git checkout -b [branchname] [tagname]` 在特定的标签上创建一个新分支：
@@ -275,6 +449,7 @@ $ git checkout -b version2 v2.0.0
 Switched to a new branch 'version2'
 ```
 
+<a id="git-别名"></a>
 ### git 别名
 
 取消暂存别名：`git config --global alias.unstage 'reset HEAD --'`
@@ -283,16 +458,23 @@ Switched to a new branch 'version2'
 
 
 
+<a id="git-分支"></a>
 ## git 分支
 
 Git 鼓励在工作流程中频繁地使用分支与合并。
 
 Git 保存的不是文件的变化或者差异，而是一系列不同时刻的文件快照。git 提交对象会包含一个指向暂存内容快照的指针。
 
+<a id="分支创建"></a>
 ### 分支创建
 
 `$ git branch testing`
 
+查看远程分支：`git branch -r`
+
+<a id="分支切换"></a>
+
+<a id="分支切换"></a>
 ### 分支切换
 
 `$ git checkout testing`
@@ -312,6 +494,7 @@ master 和 tyson 分支都指向校验和为 22fb43d 的提交对象。
 
 `$ git checkout -b iss53` 相当于 `git branch iss53` 加上 `git checkout iss53`
 
+<a id="分支合并"></a>
 ### 分支合并
 
 合并 iss53 分支到 master 分支：
@@ -321,6 +504,7 @@ git checkout master
 git merge iss53
 ```
 
+<a id="合并冲突"></a>
 #### 合并冲突
 
 当合并产生冲突时不会自动地创建一个新的合并提交。 Git 会暂停下来，等待你去解决合并产生的冲突。 你可以在合并冲突后的任意时刻使用 git status 命令来查看那些因包含合并冲突而处于 unmerged 状态的文件。
@@ -337,6 +521,7 @@ please contact us at support@github.com
 
 在你解决了所有文件里的冲突之后，对每个文件使用 git add 命令来将其标记为冲突已解决。然后输入 `git commit -m "merge branch iss53"`完成合并提交。
 
+<a id="merge-和-rebase-区别"></a>
 #### merge 和 rebase 区别
 
 现在我们有这样的两个分支,test和master，提交如下：
@@ -364,10 +549,16 @@ A---B---D---E---C‘---F‘---   test, master
 merge操作会生成一个新的节点，之前的提交分开显示。
  而rebase操作不会生成新的节点，是将两个分支融合成一个线性的提交。
 
+<a id="删除分支"></a>
 ### 删除分支
 
-`git branch -d iss53`
+删除本地分支：`git branch -d iss53`
 
+删除远程分支：`git push origin --delete master`
+
+<a id="分支管理"></a>
+
+<a id="分支管理"></a>
 ### 分支管理
 
 得到当前所有分支的一个列表：
@@ -388,8 +579,128 @@ $ git branch -v
   tyson  22fb43d add file note.md
 ```
 
+查看哪些分支已经合并到当前分支：
+
+```
+$git	branch	--merged		
+iss53 
+*master
+```
+
+查看所有包含未合并工作的分支：
+
+```
+$git branch --no-merged
+testing
+```
+
+如果分支包含未合并的工作，使用 `git branch -d testing` 删除时会出错，可以使用 `git branch -D testing`强制删除。
+
+<a id="远程分支"></a>
+### 远程分支
+
+<a id="推送"></a>
+#### 推送
+
+`git push origin master` 将本地的 master 分支推送到远程仓库 origin/master 分支。`git push origin tyson:tyson-branch` 将本地的 tyson 分支推送到远程仓库的 tyson-branch 分支。
+
+假如当前本地分支是 tyson，抓取远程仓库数据后，需要进行合并：
+
+```
+git fetch origin
+git merge origin/tyson
+```
+
+将本地的所有分支都推送到远程主机：`git push -all origin`
+
+强制推送：`git push --force origin`
+
+<a id="跟踪分支"></a>
+
+<a id="跟踪分支"></a>
+#### 跟踪分支
+
+```
+$ git checkout --track origin/tyson
+Branch tyson set up to track remote branch tyson from origin.
+Switched to a new branch 'tyson'
+```
+
+本地分支与远程分支设置为不同名字：
+
+```
+$ git checkout -b tyson-branch origin/tyson
+Branch tyson-branch set up to track remote branch tyson from origin.
+Switched to a new branch 'tyson-branch'
+```
+
+设置已有的本地分支跟踪一个刚刚拉取下来的远程分支，使用 -u 或 --set-upstream-to 选项：
+
+`git branch -u origin master`
+
+查看设置的所有跟踪分支：
+
+```
+$ git branch -vv
+iss53 7e424c3 [origin/iss53: ahead 2] forgot the brackets
+master 1ae2a45 [origin/master] deploying index fix
+* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should do it
+testing 5ea463a trying something new
+```
+
+这些数据是本地缓存的服务器数据，如果需要最新的数据，可以先运行：`git fetch --all` 然后再运行：`git branch -vv`
+
+<a id="fetch"></a>
+#### fetch
+
+git fetch 会将远程仓库的更新拉取到本地远程仓库的副本，不会自动合并到本地仓库。
+
+git fetch 步骤：
+
+```java
+git fetch origin master:tmp  //在本地新建一个tmp分支，并将远程origin仓库的master分支代码下载到本地tmp分支
+git diff tmp //来比较本地代码与刚刚从远程下载下来的代码的区别
+git merge tmp//合并tmp分支到本地的master分支
+git branch -d tmp//如果不想保留temp分支 可以用这步删除
+```
+
+<a id="pull"></a>
+#### pull
+
+`git pull` = `git fetch` + `git merge`
+
+<a id="删除远程分支"></a>
+#### 删除远程分支
+
+`git push origin --delete tyson` Git 服务器会保留数据一段时间，误删的远程分支很容易恢复。
+
+<a id="创建远程分支"></a>
+### 创建远程分支
+
+基于本地分支创建远程分支：`git push origin backup_foreign:backup_foreign`
+
+本地新分支和远程新分支关联：`git push --set-upstream origin backup_foreign`
+
+<a id="cherry-pick"></a>
+### cherry-pick
+
+参考自：[cherry-pick](https://juejin.im/post/5925a2d9a22b9d0058b0fd9b)
+
+可以用于将在其他分支上的 commit 修改，移植到当前的分支。
+
+`git cherry-pick <commit-id>`
+
+当执行完 cherry-pick 之后，将会自动生成一个新的 commit 进行提交，会有一个新的 commit ID，commit 信息与 cherry-pick 的 commit 信息一致。遇到冲突则解决冲突，然后 `git add 产生冲突的文件`，然后使用 `git cherry-pick --continue` 继续。这个过程中可以使用 `git cherry-pick --abort`，恢复分支到 cherry-pick 之前的状态。
+
+`git cherry-pick -x <commit_id>` 增加 -x 参数，表示保留原提交的作者信息进行提交。
+
+在 Git 1.7.2 版本开始，新增了支持批量 cherry-pick ，就是可以一次将一个连续的时间序列内的 commit ，设定一个开始和结束的 commit ，进行 cherry-pick 操作。
+
+`git cherry_pick <start-commit-id>…<end-commit-id>`
 
 
+
+<a id="同步fork项目的更新"></a>
 ## 同步fork项目的更新
 
 关联远程仓库

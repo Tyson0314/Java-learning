@@ -51,6 +51,8 @@
         - [游标](#游标)
     - [分页](#分页)
         - [RowBounds分页](#rowbounds分页)
+- [预编译](#预编译)
+- [{ } 解析成预编译语句（prepared statement）的参数标记符，传入参数之后不会重新编译sql。](#--解析成预编译语句（prepared-statement）的参数标记符，传入参数之后不会重新编译sql。)
 - [问题总结](#问题总结)
 
 <!-- /MarkdownTOC -->
@@ -2451,6 +2453,47 @@ public void getRoleByRoleNameTest() {
 测试结果返回五条记录。
 
 
+
+<a id="预编译"></a>
+## 预编译
+
+数据库接受到sql语句之后，需要词法和语义解析，优化sql语句，制定执行计划。这需要花费一些时间。但是很多情况，我们的一条sql语句可能会反复执行，预编译语句就是将这类语句中的`值用占位符替代`，可以视为将`sql语句模板化或者说参数化`。一次编译、多次运行，省去了解析优化等过程。
+
+预编译是通过PreparedStatement和占位符来实现的。
+
+预编译的作用：
+
+1. 预编译阶段可以优化 sql 的执行。预编译之后的 sql 多数情况下可以直接执行，数据库服务器不需要再次编译，可以提升性能。
+
+2. 预编译语句对象可以重复利用。把一个 sql 预编译后产生的 PreparedStatement 对象缓存下来，下次对于同一个sql，可以直接使用这个缓存的 PreparedState 对象。
+
+3. 防止SQL注入。使用预编译，而其后注入的参数将`不会再进行SQL编译`。也就是说其后注入进来的参数系统将不会认为它会是一条SQL语句，而默认其是一个参数。
+
+mybatis 默认情况下，将对所有的 sql 进行预编译。mybatis底层使用PreparedStatement，过程是先将带有占位符?的sql模板发送至mysql服务器，由服务器对此无参数的sql进行编译后，将编译结果缓存，然后直接执行带有真实参数的sql。
+
+<a id="--解析成预编译语句（prepared-statement）的参数标记符，传入参数之后不会重新编译sql。"></a>
+#{ } 解析成预编译语句（prepared statement）的参数标记符，传入参数之后不会重新编译sql。
+
+```mysql
+//sqlMap 中如下的 sql 语句
+select * from user where name = #{name};
+//解析成为预编译语句；编译好SQL语句再取值
+select * from user where name = ?;
+```
+
+${ } 仅仅为一个纯碎的 string 替换，在动态 SQL 解析阶段将会进行变量替换，会存在 sql 注入问题。
+
+```mysql
+select * from user where name = '${name}'
+//传递的参数为 "ruhua" 时,解析为如下，然后发送数据库服务器进行编译。取值以后再去编译SQL语句。
+select * from user where name = "ruhua";
+```
+
+${}可用于表名拼接。
+
+```mysql
+SELECT * FROM ${table}
+```
 
 
 

@@ -29,6 +29,7 @@
     - [使用JSR-303 Validation进行验证](#使用jsr-303-validation进行验证)
         - [自定义限制类型的注解](#自定义限制类型的注解)
         - [分组校验](#分组校验)
+- [RequestBody和RequestParam](#requestbody和requestparam)
 
 <!-- /MarkdownTOC -->
 
@@ -67,6 +68,7 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 
 <a id="spring-mvc环境搭建"></a>
 
+<a id="spring-mvc环境搭建"></a>
 ## Spring MVC环境搭建
 
 导入jar包：
@@ -640,6 +642,7 @@ key 为 mapping 的 URI pattern值,而 value为 ResourceHttpRequestHandler，
 
 <a id="urlbasedviewresolver"></a>
 
+<a id="urlbasedviewresolver"></a>
 ### UrlBasedViewResolver
 继承了AbstractCachingViewResolver，通过拼接资源的uri路径来展示视图。
 ```
@@ -744,6 +747,7 @@ Spring MVC 根据返回的逻辑视图名去寻找视图 bean 对象。
 
 <a id="resourcebundleviewresolver"></a>
 
+<a id="resourcebundleviewresolver"></a>
 ### ResourceBundleViewResolver
 继承了AbstractCachingViewResolver，需要一个properties文件定义逻辑视图名和View对象的对应关系，配置文件需放在classpath根目录下。
 ```
@@ -931,6 +935,7 @@ public class UserList {
 
 <a id="converter和formatter"></a>
 
+<a id="converter和formatter"></a>
 ## Converter和Formatter
 
 <a id="converter"></a>
@@ -1045,6 +1050,7 @@ spring配置文件。
 
 本节内容参考：[SpringMVC介绍之Validation](https://elim.iteye.com/blog/1812584)
 
+<a id="使用validator接口进行验证"></a>
 ### 使用Validator接口进行验证
 
 需要进行验证的实体类
@@ -1609,7 +1615,12 @@ public class Prop {
 
 
 
+<a id="requestbody和requestparam"></a>
+## RequestBody和RequestParam
 
+@RequestBody一般处理的是在ajax请求中声明contentType: "application/json; charset=utf-8"时候。也就是json数据或者xml数据。
+
+@RequestParam一般就是在ajax里面没有声明contentType的时候，为默认的`x-www-form-urlencoded`格式时。
 
 
 
