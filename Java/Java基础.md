@@ -16,7 +16,19 @@ Arrays.sort(jdArray, (int[] jd1, int[] jd2) -> {return jd1[0] - jd2[0];});
 
 
 
-## 数组集合转换
+## 数组操作
+
+数组遍历
+
+```java
+Arrays.asList(array).stream().forEach(System.out::println);
+```
+
+数组排序
+
+```java
+Arrays.sort(players,(String s1,String s2)->(s1.compareTo(s2)));
+```
 
 集合转数组：
 

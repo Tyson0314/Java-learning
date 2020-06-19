@@ -303,4 +303,8 @@ join...on tableA.column1 = tableB.column2 指定条件
 
 显性连接效率更高。
 
-## 
+
+
+## MVCC
+
+MVCC(`Multiversion concurrency control`) 就是 同一份数据临时保留多版本的一种方式，进而实现并发控制。在读写并存的时候，写操作会根据目前数据库的状态，创建一个新版本，在新版本上的数据进行操作，读操作则依旧访问旧版本的数据。
