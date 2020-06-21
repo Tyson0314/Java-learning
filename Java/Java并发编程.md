@@ -350,50 +350,7 @@ public class TaskExecutionWebServer {
 }
 ```
 
-通过 executor 方法将任务提交到工作队列中，工作线程不断从工作队列中取出任务并执行它们。
 
-Executor框架的内部使用了线程池机制，它在java.util.cocurrent 包下，通过该框架来控制线程的启动、执行和关闭，可以简化并发编程的操作。
-
-executor框架由3部分组成：任务、任务的执行、异步计算的结果
-
-- 任务。包括被执行任务需要实现的接口：Runnable和Callable接口。
-- 任务的执行。Executor接口是Executor框架的基础，它将任务的提交和执行分离开。ExecutorService接口继承于Executor，有两个实现类ThreadPoolExecutor和ScheduledThreadPoolExecutor。
-- 异步计算的结果。包括future接口和实现future接口的FutureTask。
-
-ThreadPoolExecutor是线程池的核心实现类，用来执行被提交的任务。
-
-<a id="线程池"></a>
-#### 线程池
-
-重用现有的线程，降低频繁创建销毁线程的开销；任务到达时，若有空闲的工作线程，则不用等待创建线程而延迟任务的执行。
-
-可以通过调用 Executors 中的静态工厂方法来创建线程池：
-
-工具类Executors可以创建三种类型的ThreadPoolExecutor。
-
-固定线程数的线程池。使用无界队列，运行中的线程池不会拒绝任务，即不会调用RejectedExecutionHandler.rejectedExecution()方法。
-
-```
-public static ExecutorService newFixedThreadPool(int nThreads) {
-	return new ThreadPoolExecutor(nThreads, nThreads, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-}
-```
-
-使用无界队列。线程池只有一个运行的线程，新来的任务放入工作队列，线程处理完任务就循环从队列里获取任务执行。该线程池能确保任务被顺序执行。
-
-```
-public static ExecutionService newSingleThreadExecutor() {
-	return new ThreadPoolExecutor(1, 1, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
-}
-```
-
-根据需要创建新线程的线程池。使用没有容量的SynchronousQueue作为线程池工作队列，当线程池有空闲线程，空闲线程会被回收；若任务提交的速度快于线程处理任务的速度时，CachedThreadPool会不断创建新线程。
-
-```
-public static ExecutorService newCachedThreadPool() {
-	return new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<Runnable>());
-}
-```
 
 <a id="延迟任务"></a>
 #### 延迟任务
@@ -403,20 +360,10 @@ Timer 类负责延迟任务和周期任务，然后 Timer 存在一些缺陷。�
 <a id="携带结果的-callable-和-future"></a>
 #### 携带结果的 Callable 和 Future
 
-Runnable 有一定的局限，它不能返回值或者抛出一个受检查的异常。许多人物都存在延迟的计算，如执行数据库查询、从网络获取资源和复杂的计算等。Callable 是一种可以返回值或抛出受检查异常的任务。
-
-Future 表示一个任务的生命周期，并提供了相应的方法来判断任务是否已经完成或取消，以及获取任务的结果或者取消任务。
-
 当提交一个Callable对象给ExecutorService，将得到一个Future对象，调用Future对象的get方法等待执行结果就好了。而 get 方法的行为取决于任务的状态（尚未开始、正在运行、已完成）。任务已完成，那么 get 会立即返回或者抛出异常；任务没有完成，get 将一直阻塞直到任务完成；任务抛出异常，那么 get 会将异常封装成 ExecutionException 重新抛出；任务被取消，那么 get 将抛出 CancellationExeception，此时通过 getCause 可以获取被封装的初始异常。
 
-Runnable和Callable的区别：当我们把Runnable或Callable的实现类submit给ThreadPoolExecutor或ScheduledPoolExecutor执行时，Runnable不会返回结果，Callable可以返回结果(FutureTask对象)。
-```
-Executors.callable(Runnable task);//将Runnable转化为Callable
-ExecutorService.execute(Runnable);
-ExecutorService.submit(Runnable/Callable);
-```
-
 <a id="为任务设置时限"></a>
+
 #### 为任务设置时限
 
 Future.get() 支持时间限制，当结果可用时，它将直接返回，如果在指定时间内没有计算出结果，那么将抛出 TimeoutException。
@@ -450,6 +397,7 @@ Page renderPageWithAd() throws InterruptedException {
 Java 没有提供任何机制来安全的终止线程，但它提供了中断机制，这是一种协作机制，能够使一个线程终止另一个线程的当前工作。
 
 <a id="任务取消"></a>
+
 #### 任务取消
 
 给任务设置某个“请求取消”的标志，而任务将定期查看该标志，如果设置了该标志，那么任务将提前结束。
@@ -493,47 +441,5 @@ public class TaskRunnable implements Runnable {
 }
 ```
 
-<a id="线程池的使用"></a>
-## 线程池的使用
 
-ThreadPoolExecutor 的通用构造函数：
 
-```
-public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler);
-```
-- corePoolSize：当有新任务时，如果线程池中线程数没有达到线程池的基本大小，则会创建新的线程执行任务，否则将任务放入阻塞队列。
-- maximumPoolSize：当阻塞队列填满时，如果线程池中线程数没有超过最大线程数，则会创建新的线程运行任务。否则根据拒绝策略处理新任务。
-- BlockingQueue：存储等待运行的任务。
-- keepAliveTime：线程空闲后，保持存活的时间。
-- TimeUnit：时间单位
-```
-TimeUnit.DAYS
-TimeUnit.HOURS
-TimeUnit.MINUTES
-TimeUnit.SECONDS
-TimeUnit.MILLISECONDS
-TimeUnit.MICROSECONDS
-TimeUnit.NANOSECONDS
-```
-- ThreadFactory：每当线程池创建一个新的线程时，都是通过线程工厂方法来完成的。在 ThreadFactory 中只定义了一个方法 newThread，每当线程池需要创建新线程就会调用它。
-```java
-public class MyThreadFactory implements ThreadFactory {
-    private final String poolName;
-    
-    public MyThreadFactory(String poolName) {
-        this.poolName = poolName;
-    }
-    
-    public Thread newThread(Runnable runnable) {
-        return new MyAppThread(runnable, poolName);//将线程池名字传递给构造函数，用于区分不同线程池的线程
-    }
-}
-```
-
-- RejectedExecutionHandler：当队列和线程池都满了时，根据拒绝策略处理新任务。
-```
-AbortPolicy：默认的策略，直接抛出RejectedExecutionException
-DiscardPolicy：不处理，直接丢弃
-DiscardOldestPolicy：将等待队列队首的任务丢弃，被拒绝的任务重新添加到等待队列
-CallerRunsPolicy：由调用线程处理该任务
-```

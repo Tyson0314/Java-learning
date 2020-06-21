@@ -203,6 +203,8 @@ long count = values.parallelStream().sorted().count();
 
 ## Map 集合
 
+不能在遍历的时候使用`map.remove()`删除元素，会抛 ConcurrentModificationException 异常。可以使用 `iterator.remove()` 安全删除数据。使用 lambda 的 removeIf 提前删除数据，或者使用 Stream 的 filter 过滤掉要删除的数据，然后再进行遍历，也是安全的。
+
 ```java
 Map<Integer, String> map = new HashMap<>();
 
@@ -214,6 +216,12 @@ for (int i = 0; i < 10; i++) {
 
 // forEach 可以很方便地对 map 进行遍历操作
 map.forEach((key, value) -> System.out.println(value));
+map.entrySet().stream().forEach((entry) -> System.out.println(entry.getKey()));
+
+//遍历前先移除key为1的键值
+map.keySet().removeIf(key -> key == 1);
+//过滤要删除的值，然后再进行遍历，才是安全的
+map.entrySet().stream().filter(m -> 1 != m.getKey()).foreach((entry) -> {});
 
 // computeIfPresent(), 当 key 存在时，才会做相关处理
 // 如下：对 key 为 3 的值，内部会先判断值是否存在，存在，则做 value + key 的拼接操作
