@@ -1,14 +1,306 @@
-## 对象克隆
+## Java特性
 
-实现对象克隆有两种方式：
+### 面向对象
 
-1. 实现Cloneable接口并重写Object类中的clone()方法；
+面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候一个一个依次调用就可以了。面向对象是把构成问题事务分解成各个对象，分别设计这些对象，然后将他们组装成有完整功能的系统。面向过程只用函数实现，面向对象是用类实现各个功能模块。
 
-2. 实现Serializable接口，通过对象的序列化和反序列化实现克隆，可以实现真正的深度克隆。
+例如五子棋，面向过程的设计思路就是首先分析问题的步骤：
+1、开始游戏，2、黑子先走，3、绘制画面，4、判断输赢，5、轮到白子，6、绘制画面，7、判断输赢，8、返回步骤2，9、输出最后结果。
+把上面每个步骤用分别的函数来实现，问题就解决了。
+而面向对象的设计则是从另外的思路来解决问题。整个五子棋可以分为：
+1、黑白双方
+2、棋盘系统，负责绘制画面
+3、规则系统，负责判定诸如犯规、输赢等。
+黑白双方负责接受用户输入，并告知棋盘系统棋子布局的变化，棋盘系统接收到了棋子的变化就要负责在屏幕上面显示出这种变化，同时利用规则系统来对棋局进行判定。
+
+### 面向对象特性
+
+面向对象四大特性：封装，继承，多态，抽象
+
+- 封装就是将类的信息隐藏在类内部，不允许外部程序直接访问，而是通过该类的方法实现对隐藏信息的操作和访问。 良好的封装能够减少耦合。
+- 继承是从已有的类中派生出新的类，新的类继承父类的属性和行为，并能扩展新的能力，大大增加程序的重用性和易维护性。在Java中是单继承的，也就是说一个子类只有一个父类。
+- 多态是同一个行为具有多个不同表现形式或形态的能力。在不修改程序代码的情况下改变程序运行时所绑定的具体代码。
+  实现多态的三要素：继承 重写 父类引用指向子类对象。
+  静态多态性：通过重载实现，相同的方法有不同的參数列表，可以根据参数的不同，做出不同的处理。
+  动态多态性：在子类中重写父类的方法。运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
+- 抽象。把客观事物用代码抽象出来。
+
+### 多态怎么实现
+
+Java提供了编译时多态和运行时多态两种多态机制。编译时多态通过重载实现，根据传入参数不同调用不同的方法。运行时多态通过重写来实现，在子类中重写父类的方法，运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
+
+### 接口与抽象类区别
+
+语法层面上
+1）抽象类可以提供成员方法的实现细节，而接口的方法中只能是抽象方法；
+2）抽象类中的成员变量可以是各种类型的，接口中的成员变量只能是public static final类型；
+3）接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；
+4）一个类只能继承一个抽象类，而一个类却可以实现多个接口。
+设计层面上的区别
+1）抽象层次不同。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口只是对类行为进行抽象。继承抽象类是一种"是不是"的关系，而接口实现则是 "有没有"的关系。如果一个类继承了某个抽象类，则子类必定是抽象类的种类，而接口实现则是具备不具备的关系，比如鸟是否能飞。
+2） 继承抽象类的是具有相似特点的类，而实现接口的却可以不同的类。
+
+- 门和警报的例子
+
+```
+class AlarmDoor extends Door implements Alarm {
+    //code
+}
+```
+
+### 接口的用处
+
+接口是对行为的抽象，通过接口可以实现不相关类的相同行为。
+通过接口可以知道一个类具有哪些行为特性。
+
+### 反射机制
+
+运行时动态获取类的信息和动态调用对象的方法的功能称为Java的反射机制。
+作用：根据配置文件(Spring的JavaBean)加载不同的类和调用不同的方法，避免在程序中硬编码，增加程序的灵活性。
 
 
 
-## 排序
+## 语法
+
+### static final
+
+基本数据类型用final修饰，则不能修改，是常量，对象引用用final修饰，则引用只能指向该对象，不能指向别的对象，但是对象本身可以修改。
+final方法不能被子类重写，final类不能被继承。
+static变量在初始化后可以修改，static修饰的属性、方法、代码段跟具体对象无关，通过类名即可调用static属性或方法。static不能修饰局部变量。
+
+### 泛型
+
+泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。编译时会进行类型擦除。
+
+### 访问修饰符
+
+访问修饰符public,private,protected,以及不写（默认）
+
+### 程序执行顺序
+
+1.静态属性，静态方法声明，静态代码块。
+2.动态属性，普通方法声明，非静态代码块。
+3.构造方法。
+
+
+
+## Exception
+
+所有异常继承了 Throwable。
+
+![异常层次结构](https://img2018.cnblogs.com/blog/1252910/201904/1252910-20190420203248534-1858171357.png)
+
+Error是程序无法处理的错误，如虚拟机运行错误、OutOfMemoryError。
+unchecked包括RuntimeException和Error类，其他所有异常称为检查（checked）异常。
+
+运行时异常和非运行时异常(checked)的区别：
+RuntimeException由程序错误导致，应该修正程序避免这类异常发生。
+checked Exception由具体的环境(读取的文件不存在或文件为空或sql异常)导致的异常。必须进行处理，不然编译不通过，可以catch或者throws。
+
+常见的RuntimeException：
+
+```java
+ClassCastException
+IndexOutOfBoundsException
+NullPointerException
+ArrayStoreException
+NumberFormatException
+ArithmeticException
+```
+
+throw：用于抛出一个具体的异常对象。
+throws：用在方法签名中，用于声明该方法可能抛出的异常。
+
+子类方法抛出的异常范围更加小，或者根本不抛异常。
+
+
+
+## 集合
+
+以 Map 结尾的类都实现了 Map 接口，其他所有的类都实现了 Collection 接口。
+
+![](../img/Java-Collections.jpeg)
+
+### hashMap
+
+从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的， 链表长度大于8就把链表转换为红黑树，红黑树节点个数小于6时转化为链表，防止频繁的转化。
+
+Hash算法：取key的hashCode值、高位运算、取模运算。
+
+```
+h=key.hashCode() //第一步 取hashCode值
+h^(h>>>16)  //第二步 高位参与运算
+return h&(length-1);  //第三步 取模运算
+```
+
+在JDK1.8的实现中，优化了高位运算的算法，通过hashCode()的高16位异或低16位实现的：这么做可以在数组比较小的时候，也能保证考虑到高低位都参与到Hash的计算中，可以减少冲突，同时不会有太大的开销。
+
+扩容机制：当数组元素个数大于threshold时，会进行扩容，使用2倍容量的数组代替原有数组，采用单链表头插入的方式将原数组元素拷贝到新数组，resize后，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。这一块就是JDK1.8新增的优化点。
+
+
+put方法流程图(单链表尾插入的方式，需要遍历链表，检查有没有重复的key)
+![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTI1MjkxMC8yMDE4MDkvMTI1MjkxMC0yMDE4MDkwMjE2MTY0MjIzNi0xMDAxNzA3MDUwLnBuZw?x-oss-process=image/format,png)
+
+http://www.importnew.com/20386.html
+https://www.cnblogs.com/yangming1996/p/7997468.html
+
+[HashMap 死循环](https://coolshell.cn/articles/9606.html)
+
+### hashSet
+
+对于 HashSet 而言，它是基于 HashMap 实现的。
+放入HashSet中的元素实际上由HashMap的key来保存，而HashMap的value则存储了一个静态的Object对象。
+
+### HashMap和HashTable
+
+HashMap和Hashtable都实现了Map接口
+
+1. HashMap可以接受为null的键值(key)和值(value)，key为null的键值对放在下标为0的头结点的链表中，而Hashtable则不行。
+2. HashMap是非线程安全的，HashTable是线程安全的。Jdk1.5提供了ConcurrentHashMap，它是HashTable的替代。
+3. 由于Hashtable是synchronized，所以在单线程环境下它比HashMap要慢。
+4. 哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值。
+5. 另一个区别是HashMap的迭代器是fail-fast迭代器，而Hashtable的enumerator迭代器不是fail-fast的。所以当有其它线程改变了HashMap的结构（增加或者移除元素），将会抛出ConcurrentModificationException，但迭代器本身的remove()方法移除元素则不会抛出ConcurrentModificationException异常。
+
+### LinkedHashMap底层实现
+
+HashMap是无序的，迭代HashMap所得到元素的顺序并不是它们最初放到HashMap的顺序，即不能保持它们的插入顺序。
+LinkedHashMap继承于HashMap，是HashMap和LinkedList的融合体，具备两者的特性。每次put操作都会将entry插入到双向链表的尾部。
+LinkedHashMap的Entry结构，before/after/hash/key/value/next(before/afer是LinkedHashMap独有的，用于维护整个双向链表)。
+![引自https://blog.csdn.net/justloveyou_/article/details/71713781](https://img-blog.csdn.net/20180921131709360?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+### ConcurrentHashMap 和 Hashtable 的key和value不能为null？
+
+HashMap.java 部分源码：
+
+```java
+    static final int hash(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);//key为null时，hash值为0
+    }
+```
+
+ConcurrentHashMap.java 部分源码：
+
+```java
+    /** Implementation for put and putIfAbsent */
+    final V putVal(K key, V value, boolean onlyIfAbsent) {
+        if (key == null || value == null) throw new NullPointerException();
+        int hash = spread(key.hashCode());
+        int binCount = 0;
+        ......
+    }
+```
+
+ConcurrentHashmap和Hashtable都支持并发，当你通过get(k)获取对应的value时，如果获取到的是null时，无法判断是key 对应的 value 为 null，还是这个 key 从来没有做过映射，在多线程里面是模糊不清的，所以不让put null。HashMap用于非并发场景，可以通过contains(key)来判断是否存在key。而支持并发的Map在调用m.get(key)之后，再调用m.contains(key)，两个调用之间可能有其他线程删除了key，得到的结果不准确，产生多线程安全问题。因此ConcurrentHashMap 和 Hashtable 的key和value不能为null。
+
+### treemap底层
+
+ 1. TreeMap是有序的key-value集合，通过红黑树实现。根据键的自然顺序进行排序或根据提供的Comparator进行排序。
+ 2. TreeMap继承了AbstractMap，实现了NavigableMap接口，支持一系列的导航方法，给定具体搜索目标，可以返回最接近的匹配项。如floorEntry()、ceilingEntry()分别返回小于等于、大于等于给定键关联的Map.Entry()对象，不存在则返回null。lowerKey()、floorKey、ceilingKey、higherKey()只返回关联的key。
+
+### list/hashset/hashmap排序
+
+https://blog.csdn.net/whuxiaoqiang/article/details/9371923
+
+
+
+## ThreadLocal
+线程本地变量。当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
+每个线程都有一个ThreadLocalMap(ThreadLocal内部类)，Map中元素的键为ThreadLocal，而值对应线程的变量副本。
+调用set()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.set(this, value)，this是ThreadLocal
+调用get()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.getEntry(this)，返回value
+
+```
+public class ThreadLocalDemo {
+    ThreadLocal<Long> longLocal = new ThreadLocal<>();
+
+    public void set() {
+        longLocal.set(Thread.currentThread().getId());
+    }
+    public Long get() {
+        return longLocal.get();
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        ThreadLocalDemo threadLocalDemo = new ThreadLocalDemo();
+        threadLocalDemo.set();
+        System.out.println(threadLocalDemo.get());
+
+        Thread thread = new Thread(() -> {
+            threadLocalDemo.set();
+            System.out.println(threadLocalDemo.get());
+        }
+        );
+
+        thread.start();
+        thread.join();
+
+        System.out.println(threadLocalDemo.get());
+    }
+}
+```
+threadLocals的类型ThreadLocalMap的键值为ThreadLocal对象，因为每个线程中可有多个threadLocal变量，如longLocal和stringLocal。
+
+
+## StringBuilder和StringBuffer
+- 字符串拼接性能：StringBuilder > StringBuffer > String
+- String 是final类，不能被继承，它是字符串常量，String对象一旦创建之后该对象是不可更改的，用+对String做拼接操作，实际上是先通过建立StringBuilder，然后调用append()做拼接操作，所以在大量字符串拼接的时候，会频繁创建StringBuilder，性能较差。
+- StringBuilder和StringBuffer的对象是字符串变量，对变量进行操作就是直接对该对象进行修改，所以速度要比String快很多。
+- 在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的，StringBuffer中很多方法带有synchronized关键字，可以保证线程安全。
+
+
+
+## 线程安全类
+
+线程安全：代码段在多线程下执行和在单线程下执行能获得一样的结果
+线程安全类：线程安全的类其方法是同步的，每次只能一个访问。是重量级对象，效率较低。
+- vector：比arraylist多了个同步化机制，效率较低
+- stack：堆栈类，由vector扩展而来
+- hashtable：hashtable不允许插入空值，hashmap允许
+- enumeration：枚举，相当于迭代器
+- StringBuffer
+
+Iterator和Enumeration的重要区别：
+- Enumeration为vector/hashtable等类提供遍历接口，Iterator为ArrayList/HashMap提供遍历接口。
+- Enumeration只能读集合中的数据，不能删除。
+- Enumeration是先进后出，而Iterator是先进先出。
+- Enumeration不支持fast-fail机制，不会抛ConcurrentModificationException。
+
+
+
+## object方法
+object常用方法：
+- toString()：默认输出对象地址
+- equals()：默认比较两个引用变量是否指向同一个对象（内存地址）
+- hashCode()：将与对象相关的信息映射成一个哈希值，默认的实现hashCode值是根据内存地址换算出来。
+- finalize()：用于垃圾回收
+- clone(): Java中要想自定义类的对象可以被复制，自定义类就必须实现Cloneable中的clone()方法。
+- getClass()：获得实例的类型的类，常用于java反射机制
+- wait()：当前线程释放锁，进入对象的等待队列
+- notify()：用于随机唤醒一个在对象上等待的线程
+
+### 为什么重写equals()要重写hashcode()
+
+equals与hashcode的关系：
+1、如果两个对象调用equals比较返回true，那么它们的hashCode值一定要相同；
+2、如果两个对象的hashCode相同，它们并不一定相同。
+
+hashcode方法主要是用来提升对象比较的效率，先进行hashcode()的比较，如果不相同，那就不必在进行equals的比较，这样就大大减少了equals比较的次数，当比较对象的数量很大的时候能提升效率。
+
+之所以重写equals()要重写hashcode()，是为了保证equals()方法返回true的情况下hashcode值也要一致，如果重写了equals()没有重写hashcode()，就会出现两个对象相等但hashcode()不相等的情况。这样，当用其中的一个对象作为键保存到hashMap、hashTable或hashSet中，再以另一个对象作为键值去查找他们的时候，则会查找不到。
+
+### ==和equals的区别
+
+对于基本数据类型，==比较的是他们的值，对于复合数据类型，==比较的是它们的存放地址(同一个new出来的对象)。
+equals()默认比较地址值，重写的话按照重写逻辑去比较。
+
+
+
+## 常见操作
+
+### 排序
+
+数组
 
 ```java
 Arrays.sort(jdArray, (int[] jd1, int[] jd2) -> {return jd1[0] - jd2[0];});
@@ -16,7 +308,7 @@ Arrays.sort(jdArray, (int[] jd1, int[] jd2) -> {return jd1[0] - jd2[0];});
 
 
 
-## 数组操作
+### 数组操作
 
 数组遍历
 
@@ -59,14 +351,14 @@ List<String> list = new ArrayList<String>(Arrays.asList(array))
 
 
 
-## 拷贝
+### 拷贝
 
-### 数组拷贝
+#### 数组拷贝
 
 ```java
 System.arraycopy(Object src, int srcPos, Object dest, int desPos, int length)
 Arrays.copyOf(originalArr, length) //length为拷贝的长度
-Arrays.copyOfRange(originalArr, from, length)
+Arrays.copyOfRange(originalArr, from, to); //from包含，to不包含
 ```
 
 二维数组拷贝：
@@ -79,7 +371,13 @@ for(int i = 0; i < arr.length; i++) {
 }
 ```
 
-### 对象拷贝
+#### 对象拷贝
+
+实现对象克隆有两种方式：
+
+1. 实现Cloneable接口并重写Object类中的clone()方法；
+
+2. 实现Serializable接口，通过对象的序列化和反序列化实现克隆，可以实现真正的深度克隆。
 
 实现cloneable接口，重写clone方法。
 
@@ -118,310 +416,49 @@ System.out.println(dog2); // Dog{id='1', name='Dog1 changed'}
 
 如果一个类引用了其他类，引用的类也需要实现cloneable接口，比较麻烦。可以将所有的类都实现Serializable接口，通过序列化反序列化实现对象的深度拷贝。
 
+### 序列化
 
+序列化：把内存中的对象转换为字节序列的过程称为对象的序列化。
 
-## Exception
-Error是程序无法处理的错误，如虚拟机运行错误、OutOfMemoryError。
-unchecked包括RuntimeException和Error类
+#### 什么情况下需要序列化？
 
-运行时异常和非运行时异常(checked)的区别：
-RuntimeException由程序错误导致，应该修正程序避免这类异常发生。
-checked Exception由具体的环境(读取的文件不存在或文件为空或sql异常)导致的异常。
-checked Exception必须进行处理，不然编译不通过，可以catch或者throws。
+当你想把的内存中的对象状态保存到一个文件中或者数据库中时候；
+当你想在网络上传送对象的时候；
 
-常见的运行时异常
-ClassCastException
-IndexOutOfBoundsException
-NullPointerException
-ArrayStoreException
-NumberFormatException
-ArithmeticException
+#### 如何实现序列化
 
-throw：用于抛出一个具体的异常对象。
-throws：用在方法签名中，用于声明该方法可能抛出的异常。
+实现Serializable接口即可。序列化的时候（如objectOutputStream.writeObject(user)），会判断user是否实现了Serializable（obj instanceof Serializable），如果对象没有实现Serializable接口，在序列化的时候会抛出NotSerializableException异常。
 
-子类方法抛出的异常范围更加小，或者根本不抛异常。
+#### serialVersionUID
 
-## static final
-基本数据类型用final修饰，则不能修改，是常量，对象引用用final修饰，则引用只能指向该对象，不能指向别的对象，但是对象本身可以修改。
-final方法不能被子类重写，final类不能被继承。
-static变量在初始化后可以修改，static修饰的属性、方法、代码段跟具体对象无关，通过类名即可调用static属性或方法。static不能修饰局部变量。
+当完成序列化之后，此时对对象进行修改，由于版本号问题，反序列化的时候会报错。可以在序列化对象添加 serialVersionUID，固定版本号，这样即便序列化对象做了修改，版本都是一致的，就能进行反序列化了。
 
-## 集合
+### 遍历
 
-### LinkedHashMap底层实现
+#### fast-fail
 
-HashMap是无序的，迭代HashMap所得到元素的顺序并不是它们最初放到HashMap的顺序，即不能保持它们的插入顺序。
-LinkedHashMap继承于HashMap，是HashMap和LinkedList的融合体，具备两者的特性。每次put操作都会将entry插入到双向链表的尾部。
-LinkedHashMap的Entry结构，before/after/hash/key/value/next(before/afer是LinkedHashMap独有的，用于维护整个双向链表)。
-![引自https://blog.csdn.net/justloveyou_/article/details/71713781](https://img-blog.csdn.net/20180921131709360?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-### hashMap
-
-从结构实现来讲，HashMap是数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的， 链表长度大于8就把链表转换为红黑树，红黑树节点个数小于6时转化为链表，防止频繁的转化。
-
-Hash算法：取key的hashCode值、高位运算、取模运算。
-
-```
-h=key.hashCode() //第一步 取hashCode值
-h^(h>>>16)  //第二步 高位参与运算
-return h&(length-1);  //第三步 取模运算
-```
-
-在JDK1.8的实现中，优化了高位运算的算法，通过hashCode()的高16位异或低16位实现的：这么做可以在数组比较小的时候，也能保证考虑到高低位都参与到Hash的计算中，可以减少冲突，同时不会有太大的开销。
-
-扩容机制：当数组元素个数大于threshold时，会进行扩容，使用2倍容量的数组代替原有数组，采用单链表头插入的方式将原数组元素拷贝到新数组，resize后，元素的位置要么是在原位置，要么是在原位置再移动2次幂的位置。resize的过程，均匀的把之前的冲突的节点分散到新的bucket了。这一块就是JDK1.8新增的优化点。
-
-
-put方法流程图(单链表尾插入的方式，需要遍历链表，检查有没有重复的key)
-![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTI1MjkxMC8yMDE4MDkvMTI1MjkxMC0yMDE4MDkwMjE2MTY0MjIzNi0xMDAxNzA3MDUwLnBuZw?x-oss-process=image/format,png)
-
-http://www.importnew.com/20386.html
-https://www.cnblogs.com/yangming1996/p/7997468.html
-
-[HashMap 死循环](https://coolshell.cn/articles/9606.html)
-
-### hashSet
-
-对于 HashSet 而言，它是基于 HashMap 实现的。
-放入HashSet中的元素实际上由HashMap的key来保存，而HashMap的value则存储了一个静态的Object对象。
-
-### HashMap和HashTable
-
-HashMap和Hashtable都实现了Map接口
-
-1. HashMap可以接受为null的键值(key)和值(value)，key为null的键值对放在下标为0的头结点的链表中，而Hashtable则不行。
-2. HashMap是非线程安全的，HashTable是线程安全的。Jdk1.5提供了ConcurrentHashMap，它是HashTable的替代。
-3. 由于Hashtable是synchronized，所以在单线程环境下它比HashMap要慢。
-4. 哈希值的使用不同，HashTable直接使用对象的hashCode。而HashMap重新计算hash值。
-5. 另一个区别是HashMap的迭代器是fail-fast迭代器，而Hashtable的enumerator迭代器不是fail-fast的。所以当有其它线程改变了HashMap的结构（增加或者移除元素），将会抛出ConcurrentModificationException，但迭代器本身的remove()方法移除元素则不会抛出ConcurrentModificationException异常。
-
-### ConcurrentHashMap 和 Hashtable 的key和value不能为null？
-
-HashMap.java 部分源码：
-
-```java
-    static final int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);//key为null时，hash值为0
-    }
-```
-
-ConcurrentHashMap.java 部分源码：
-
-```java
-    /** Implementation for put and putIfAbsent */
-    final V putVal(K key, V value, boolean onlyIfAbsent) {
-        if (key == null || value == null) throw new NullPointerException();
-        int hash = spread(key.hashCode());
-        int binCount = 0;
-        ......
-    }
-```
-
-ConcurrentHashmap和Hashtable都支持并发，当你通过get(k)获取对应的value时，如果获取到的是null时，无法判断是key 对应的 value 为 null，还是这个 key 从来没有做过映射，在多线程里面是模糊不清的，所以不让put null。HashMap用于非并发场景，可以通过contains(key)来判断是否存在key。而支持并发的Map在调用m.get(key)之后，再调用m.contains(key)，两个调用之间可能有其他线程删除了key，得到的结果不准确，产生多线程安全问题。因此ConcurrentHashMap 和 Hashtable 的key和value不能为null。
-
-### treemap底层
-
- 1. TreeMap是有序的key-value集合，通过红黑树实现。根据键的自然顺序进行排序或根据提供的Comparator进行排序。
- 2. TreeMap继承了AbstractMap，实现了NavigableMap接口，支持一系列的导航方法，给定具体搜索目标，可以返回最接近的匹配项。如floorEntry()、ceilingEntry()分别返回小于等于、大于等于给定键关联的Map.Entry()对象，不存在则返回null。lowerKey()、floorKey、ceilingKey、higherKey()只返回关联的key。
-
-### list/hashset/hashmap排序
-
-https://blog.csdn.net/whuxiaoqiang/article/details/9371923
-
-
-
-## fast-fail
-
-1. fast-fail是Java集合的一种错误机制。当多个线程对同一个集合进行操作时，就有可能会产生fast-fail事件。
+fast-fail是Java集合的一种错误机制。当多个线程对同一个集合进行操作时，就有可能会产生fast-fail事件。
 例如：当线程a正通过iterator遍历集合时，另一个线程b修改了集合的内容，此时modCount（记录集合操作过程的修改次数）会加1，不等于expectedModCount，那么线程a访问集合的时候，就会抛出ConcurrentModificationException，产生fast-fail事件。
-2. 解决方法
+
+解决方法：
+
 - 使用Colletions.synchronizedList方法或在修改集合内容的地方加上synchronized。这样的话，增删集合内容的同步锁会阻塞遍历操作，影响性能。
 - 使用CopyOnWriteArrayList来替换ArrayList。在对CopyOnWriteArrayList进行修改操作的时候，会拷贝一个新的数组，对新的数组进行操作，操作完成后再把引用移到新的数组。
 
-## fast-safe
-fail-safe ( 安全失败 )
-任何对集合结构的修改都会在一个复制的集合上进行修改，因此不会抛出ConcurrentModificationException。java.util.concurrent包下的容器都是安全失败的，可以在多线程下并发使用。常见的的使用fail-safe方式遍历的容器有`ConcerrentHashMap`和`CopyOnWriteArrayList`等。
+#### fast-safe
+
+采用安全失败机制的集合容器，在遍历时不是直接在集合内容上访问的，而是先copy原有集合内容，在拷贝的集合上进行遍历。
+
+由于迭代时是对原集合的拷贝的值进行遍历，所以在遍历过程中对原集合所作的修改并不能被迭代器检测到，所以不会出发`ConcurrentModificationException`。
+
+java.util.concurrent包下的容器都是安全失败的，可以在多线程下并发使用。常见的的使用fail-safe方式遍历的容器有`ConcerrentHashMap`和`CopyOnWriteArrayList`等。
 
 fail-safe机制有两个问题：（1）需要复制集合，产生大量的无效对象，开销大；（2）不能访问到修改后的内容 。
 
-## 多态怎么实现
-Java提供了编译时多态和运行时多态两种多态机制。编译时多态通过重载实现，根据传入参数不同调用不同的方法。运行时多态通过重写来实现，在子类中重写父类的方法，运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
+#### 移除集合元素
 
+遍历时安全的移除集合中的元素，要使用遍历器Iterator和iterator.remove()方法。next()必须在remove()之前调用。
 
-## 泛型
-泛型的本质是参数化类型，也就是说所操作的数据类型被指定为一个参数。编译时会进行类型擦除。
-
-## ==和equals的区别
-对于基本数据类型，==比较的是他们的值，对于复合数据类型，==比较的是它们的存放地址(同一个new出来的对象)。
-equals()默认比较地址值，重写的话按照重写逻辑去比较。
-
-## volatile
-![jmm模型](https://img-blog.csdn.net/20180922084352403?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-共享变量存储在主内存里，每个线程都有自己私有的本地内存，本地内存保存了共享变量的副本，线程对变量的操作都在本地内存中进行，不能直接读写主内存中的变量。
-
-volatile是轻量级的同步机制，volatile保证变量对所有线程的可见性，不保证原子性。
-1. 当写一个volatile变量时，JMM会把该线程对应的本地内存中的变量强制刷新到主内存中。
-2. 这个写操作会使其他线程中的缓存无效。
-3. volatile不能保证volatile变量复合操作的原子性(num++，读取/加一/赋值)，在多线程环境下，有可能线程A将num读取到本地内存中，此时其他线程可能已经将num增大了很多，线程A依然对过期的num进行自加，重新写到主存中，最终导致了num的结果不合预期。
-
-
-## synchonized
-Synchronized是Java并发编程中最常用的用于保证线程安全的方式。
-
-修饰普通方法
-修饰静态方法
-修饰修饰代码块
-
-重量级锁：当一个线程获取到锁时，其他线程都会被阻塞住，当持有锁的线程释放锁之后会唤醒这些线程，被唤醒的线程才有机会获取到锁。
-synchronized通过对象内部的监视器（monitor）实现，每个对象都有一个monitor，当对象的monitor被持有时，则它处于锁定的状态。代码块的同步是使用monitorenter和monitorexit指令实现的，monitorenter指令是在编译后插入到同步代码块的开始位置，而monitorexit是插入到方法结束处或异常处。
-synchronized和Lock能保证同一时刻只有一个线程获取锁然后执行同步代码，并且在释放锁之前会将对变量的修改刷新到主存当中，保证了可见性。
-
-https://www.cnblogs.com/csniper/p/5478572.html
-https://www.cnblogs.com/paddix/p/5367116.html
-
-
-
-## 为什么重写equals()要重写hashcode()
-equals与hashcode的关系：
-1、如果两个对象调用equals比较返回true，那么它们的hashCode值一定要相同；
-2、如果两个对象的hashCode相同，它们并不一定相同。
-
-hashcode方法主要是用来提升对象比较的效率，先进行hashcode()的比较，如果不相同，那就不必在进行equals的比较，这样就大大减少了equals比较的次数，当比较对象的数量很大的时候能提升效率。
-
-之所以重写equals()要重写hashcode()，是为了保证equals()方法返回true的情况下hashcode值也要一致，如果重写了equals()没有重写hashcode()，就会出现两个对象相等但hashcode()不相等的情况。这样，当用其中的一个对象作为键保存到hashMap、hashTable或hashSet中，再以另一个对象作为键值去查找他们的时候，则会查找不到。
-
-## ThreadLocal
-当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
-每个线程都有一个ThreadLocalMap(ThreadLocal内部类)，Map中元素的键为ThreadLocal，而值对应线程的变量副本。
-调用set()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.set(this, value)，this是ThreadLocal
-调用get()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.getEntry(this)，返回value
-
-```
-public class ThreadLocalDemo {
-    ThreadLocal<Long> longLocal = new ThreadLocal<>();
-
-    public void set() {
-        longLocal.set(Thread.currentThread().getId());
-    }
-    public Long get() {
-        return longLocal.get();
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        ThreadLocalDemo threadLocalDemo = new ThreadLocalDemo();
-        threadLocalDemo.set();
-        System.out.println(threadLocalDemo.get());
-
-        Thread thread = new Thread(() -> {
-            threadLocalDemo.set();
-            System.out.println(threadLocalDemo.get());
-        }
-        );
-
-        thread.start();
-        thread.join();
-
-        System.out.println(threadLocalDemo.get());
-    }
-}
-```
-threadLocals的类型ThreadLocalMap的键值为ThreadLocal对象，因为每个线程中可有多个threadLocal变量，如longLocal和stringLocal；
-[ThreadLocal](http://www.cnblogs.com/dolphin0520/p/3920407.html)
-
-## 接口的用处
-接口是对行为的抽象，通过接口可以实现不相关类的相同行为。
-通过接口可以知道一个类具有哪些行为特性(招牌)。
-
-## StringBuilder和StringBuffer
-- 字符串拼接性能：StringBuilder > StringBuffer > String
-- String 是final类，不能被继承，它是字符串常量，String对象一旦创建之后该对象是不可更改的，用+对String做拼接操作，实际上是先通过建立StringBuilder，然后调用append()做拼接操作，所以在大量字符串拼接的时候，会频繁创建StringBuilder，性能较差。
-- StringBuilder和StringBuffer的对象是字符串变量，对变量进行操作就是直接对该对象进行修改，所以速度要比String快很多。
-- 在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的，StringBuffer中很多方法带有synchronized关键字，可以保证线程安全。
-
-
-
-## 访问修饰符
-访问修饰符public,private,protected,以及不写（默认）
-
-## 反射机制
-运行时动态获取类的信息和动态调用对象的方法的功能称为Java的反射机制。
-作用：根据配置文件(Spring的JavaBean)加载不同的类和调用不同的方法，避免在程序中硬编码，增加程序的灵活性。
-
-## 程序执行顺序
-1.静态属性，静态方法声明，静态代码块。
-2.动态属性，普通方法声明，非静态代码块。
-3.构造方法。
-
-## 面向对象
-面向过程就是分析出解决问题所需要的步骤，然后用函数把这些步骤一步一步实现，使用的时候一个一个依次调用就可以了。面向对象是把构成问题事务分解成各个对象，分别设计这些对象，然后将他们组装成有完整功能的系统。面向过程只用函数实现，面向对象是用类实现各个功能模块。
-
-例如五子棋，面向过程的设计思路就是首先分析问题的步骤：
-1、开始游戏，2、黑子先走，3、绘制画面，4、判断输赢，5、轮到白子，6、绘制画面，7、判断输赢，8、返回步骤2，9、输出最后结果。
-把上面每个步骤用分别的函数来实现，问题就解决了。
-而面向对象的设计则是从另外的思路来解决问题。整个五子棋可以分为：
-1、黑白双方
-2、棋盘系统，负责绘制画面
-3、规则系统，负责判定诸如犯规、输赢等。
-黑白双方负责接受用户输入，并告知棋盘系统棋子布局的变化，棋盘系统接收到了棋子的变化就要负责在屏幕上面显示出这种变化，同时利用规则系统来对棋局进行判定。
-
-## 面向对象特性
-面向对象四大特性:封装  继承  多态  抽象
-- 封装就是将类的信息隐藏在类内部，不允许外部程序直接访问，而是通过该类的方法实现对隐藏信息的操作和访问。 良好的封装能够减少耦合。
-- 继承是从已有的类中派生出新的类，新的类继承父类的属性和行为，并能扩展新的能力，大大增加程序的重用性和易维护性。在Java中是单继承的，也就是说一个子类只有一个父类。
-- 多态是同一个行为具有多个不同表现形式或形态的能力。在不修改程序代码的情况下改变程序运行时所绑定的具体代码。
-实现多态的三要素：继承 重写 父类引用指向子类对象。
-静态多态性：通过重载实现，相同的方法有不同的參数列表，可以根据参数的不同，做出不同的处理。
-动态多态性：在子类中重写父类的方法。运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
-- 抽象。把客观事物用代码抽象出来。
-
-## 线程安全类
-线程安全：代码段在多线程下执行和在单线程下执行能获得一样的结果
-线程安全类：线程安全的类其方法是同步的，每次只能一个访问。是重量级对象，效率较低。
-- vector：比arraylist多了个同步化机制，效率较低
-- stack：堆栈类，由vector扩展而来
-- hashtable：hashtable不允许插入空值，hashmap允许
-- enumeration：枚举，相当于迭代器
-- StringBuffer
-
-Iterator和Enumeration的重要区别：
-- Enumeration为vector/hashtable等类提供遍历接口，Iterator为ArrayList/HashMap提供遍历接口。
-- Enumeration只能读集合中的数据，不能删除。
-- Enumeration是先进后出，而Iterator是先进先出。
-- Enumeration不支持fast-fail机制，不会抛ConcurrentModificationException。
-
-## object方法
-object三个常用方法
-- toString()：默认输出对象地址
-- equals()：判断两个引用变量是否指向同一个对象
-- hashCode()：将与对象相关的信息映射成一个哈希值
-默认的实现hashCode值是根据内存地址换算出来。
-重写了euqls方法的对象必须同时重写hashCode()方法
-- finalize()用于垃圾回收
-- clone(): Java中要想自定义类的对象可以被复制，自定义类就必须实现Cloneable中的clone()方法。
-- getClass()获得实例的类型的类,常用于java反射机制
-- wait()用于让当前线程进入对象的等待队列
-- notify()用于随机通知一个在对象上等待的线程获取操作权限
-
-## 接口与抽象类区别
-语法层面上
-1）抽象类可以提供成员方法的实现细节，而接口的方法中只能是抽象方法；
-2）抽象类中的成员变量可以是各种类型的，接口中的成员变量只能是public static final类型；
-3）接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；
-4）一个类只能继承一个抽象类，而一个类却可以实现多个接口。
-设计层面上的区别
-1）抽象层次不同。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口只是对类行为进行抽象。继承抽象类是一种"是不是"的关系，而接口实现则是 "有没有"的关系。如果一个类继承了某个抽象类，则子类必定是抽象类的种类，而接口实现则是具备不具备的关系，比如鸟是否能飞。
-2） 跨域不同。抽象类所跨域的是具有相似特点的类，而接口却可以跨域不同的类。
-- 门和警报的例子
-```
-class AlarmDoor extends Door implements Alarm {
-    //code
-}
-```
-
-
-## 移除集合中的元素
-安全的移除集合中的元素，要使用遍历器Iterator和iterator.remove()方法。next()必须在remove()之前调用。
 ```
 ArrayList<String> list = new ArrayList<String>(Arrays.asList("a","b","c","d"));
 Iterator<String> iter = list.iterator();
@@ -442,7 +479,7 @@ while(iter.hasNext()){
  - 动态代理：运行期间动态生成字节码，并加载到jvm中。
 
 jdk动态代理
-```
+```java
 static Object newProxyInstance(ClassLoader loader, Class<?>[] interfaces,   InvocationHandler h )
 ```
 ClassLoader loader:指定当前目标对象使用的类加载器
@@ -497,15 +534,6 @@ class MyInvacationHandler implements InvocationHandler {
 [动态代理](https://www.cnblogs.com/LCcnblogs/p/6823982.html)
 
 
-## 序列化
-序列化：把内存中的对象转换为字节序列的过程称为对象的序列化。
-**什么情况下需要序列化？**
-当你想把的内存中的对象状态保存到一个文件中或者数据库中时候；
-当你想在网络上传送对象的时候；
-**如何实现序列化**
-实现Serializable接口即可。序列化的时候（如objectOutputStream.writeObject(user)），会判断user是否实现了Serializable（obj instanceof Serializable），如果对象没有实现Serializable接口，在序列化的时候会抛出NotSerializableException异常。
-**serialVersionUID**
-当完成序列化之后，此时对对象进行修改，由于版本号问题，反序列化的时候会报错。可以在序列化对象添加 serialVersionUID，固定版本号，这样即便序列化对象做了修改，版本都是一致的，就能进行反序列化了。
 
 ## transient
 对象只要实现了Serilizable接口，这个对象就可以被序列化。有时类的某些属性不需要被序列化，比如用户有一些敏感信息（如密码，银行卡号等），不希望被序列化后在网络中传输，这时可以在相应的变量加上transient关键字。序列化对象的时候，这个属性就不会序列化到指定的目的地中。
