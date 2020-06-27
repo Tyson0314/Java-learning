@@ -1235,19 +1235,3 @@ show index from tblname;
 show keys from tblname;
 ```
 
-### explain
-
-输出 SELECT 语句执行的详细信息。
-
-```mysql
-explain select * from user_role where user_role_id = 1;
-+----+-------------+-----------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
-| id | select_type | table     | partitions | type  | possible_keys | key     | key_len | ref   | rows | filtered | Extra |
-+----+-------------+-----------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
-|  1 | SIMPLE      | user_role | NULL       | const | PRIMARY       | PRIMARY | 4       | const |    1 |   100.00 | NULL  |
-+----+-------------+-----------+------------+-------+---------------+---------+---------+-------+------+----------+-------+
-```
-
-possible_keys: 此次查询中可能选用的索引。
-
-key: 此次查询中确切使用到的索引。

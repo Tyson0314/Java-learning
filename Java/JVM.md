@@ -1,6 +1,34 @@
 ## 类文件结构
 魔数：class 文件标志。
+
+文件版本：高版本的 Java 虚拟机可以执行低版本编译器生成的 Class 文件，但是低版本的 Java 虚拟机不能执行高版本编译器生成的 Class 文件。
+
 常量池：存放字面量和符号引用。字面量类似于Java的常量，如字符串，声明为final的常量值等。符号引用包含三类：类和接口的全限定名，方法的名称和描述符，字段的名称和描述符。
+
+```java
+ClassFile {
+    u4             magic; //Class 文件的标志
+    u2             minor_version;//Class 的小版本号
+    u2             major_version;//Class 的大版本号
+    u2             constant_pool_count;//常量池的数量
+    cp_info        constant_pool[constant_pool_count-1];//常量池
+    u2             access_flags;//Class 的访问标记
+    u2             this_class;//当前类
+    u2             super_class;//父类
+    u2             interfaces_count;//接口
+    u2             interfaces[interfaces_count];//一个类可以实现多个接口
+    u2             fields_count;//Class 文件的字段属性
+    field_info     fields[fields_count];//一个类会可以有个字段
+    u2             methods_count;//Class 文件的方法数量
+    method_info    methods[methods_count];//一个类可以有个多个方法
+    u2             attributes_count;//此类的属性表中的属性数
+    attribute_info attributes[attributes_count];//属性表集合
+}
+```
+
+
+
+![](../img/class-structure.png)
 
 
 
