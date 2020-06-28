@@ -1,62 +1,3 @@
-<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
-
-- [Spring的核心](#spring的核心)
-- [装配bean](#装配bean)
-    - [自动装配bean](#自动装配bean)
-        - [验证自动装配](#验证自动装配)
-    - [通过Java代码装配bean](#通过java代码装配bean)
-    - [通过xml装配bean](#通过xml装配bean)
-        - [构造器注入](#构造器注入)
-        - [属性注入](#属性注入)
-    - [混合配置](#混合配置)
-        - [在JavaConfig中引用xml配置](#在javaconfig中引用xml配置)
-        - [在xml配置中引用JavaConfig](#在xml配置中引用javaconfig)
-- [高级装配](#高级装配)
-    - [自动装配的歧义性](#自动装配的歧义性)
-        - [标识首选的bean](#标识首选的bean)
-        - [限定自动装配的bean](#限定自动装配的bean)
-        - [创建自定义的限定符](#创建自定义的限定符)
-    - [bean的作用域](#bean的作用域)
-    - [运行时值注入](#运行时值注入)
-        - [注入外部的值](#注入外部的值)
-        - [使用Spring表达式语言进行装配](#使用spring表达式语言进行装配)
-- [面向切面](#面向切面)
-    - [AOP术语](#aop术语)
-    - [Spring对aop的支持](#spring对aop的支持)
-    - [通过切面选择连接点](#通过切面选择连接点)
-    - [使用注解创建切面](#使用注解创建切面)
-        - [定义切面](#定义切面)
-        - [创建环绕通知](#创建环绕通知)
-        - [处理通知中的参数](#处理通知中的参数)
-        - [通过注解引入新功能](#通过注解引入新功能)
-    - [在xml中声明切面](#在xml中声明切面)
-        - [声明通知](#声明通知)
-        - [创建环绕通知](#创建环绕通知-1)
-        - [为通知传递参数](#为通知传递参数)
-        - [通过切面引入新的功能](#通过切面引入新的功能)
-    - [注入AspectJ切面](#注入aspectj切面)
-- [后端中的 Spring](#后端中的-spring)
-    - [数据访问模板化](#数据访问模板化)
-    - [配置数据源](#配置数据源)
-    - [在 Spring 中集成 Hibernate](#在-spring-中集成-hibernate)
-    - [Spring 与 Java 持久化  API](#spring-与-java-持久化-api)
-        - [配置实体管理器工厂](#配置实体管理器工厂)
-        - [编写 JPA Repository](#编写-jpa-repository)
-    - [借助 Spring Data 实现自动化的 JPA Repository](#借助-spring-data-实现自动化的-jpa-repository)
-        - [Spring Data JPA 的核心接口](#spring-data-jpa-的核心接口)
-        - [定义数据访问层](#定义数据访问层)
-        - [定义查询方法](#定义查询方法)
-        - [混合自定义的功能](#混合自定义的功能)
-- [Spring Security](#spring-security)
-    - [基于内存的用户存储](#基于内存的用户存储)
-    - [基于数据库表进行认证](#基于数据库表进行认证)
-    - [拦截请求](#拦截请求)
-    - [安全通道](#安全通道)
-    - [认证用户](#认证用户)
-
-<!-- /MarkdownTOC -->
-
-<a id="spring的核心"></a>
 ## Spring的核心
 
 相对于EJB(Enterprise JaveBean)，Spring提供了更加轻量级和简单的编程模型。
@@ -114,14 +55,12 @@ aop允许你将遍布应用各处的功能（日志，事务管理）分离出�
 
 
 
-<a id="装配bean"></a>
 ## 装配bean
 
 Spring bean装配机制：1.自动装配；2.使用spring基于Java的配置(JavaConfig)；3.xml配置。
 
 我们应当尽可能使用自动装配的机制，显式配置越少越好。当自动装配行不通时，如使用第三方库的组件装配到应用，则需采用显式装配的方式，此时推荐使用类型安全并且比xml更为强大的JavaConfig。只有当需要使用便利的xml命名空间，并且在JavaConfig中没有同样的实现时，才应该使用xml。
 
-<a id="自动装配bean"></a>
 ### 自动装配bean
 
 实现自动装配bean 需要两点：1.开启组件扫描；2.给bean加自动装配的注解。
@@ -190,7 +129,6 @@ public class CDPlayerConfig {
 }
 ```
 
-<a id="验证自动装配"></a>
 #### 验证自动装配
 
 ```java
@@ -277,7 +215,6 @@ public class CDPlayerTest {
 }
 ```
 
-<a id="通过java代码装配bean"></a>
 ### 通过Java代码装配bean
 
 有些情况下无法使用自动装配，如要将第三方类库的组件装配到我们的应用，便无法使用自动装配。下面使用JavaConfig显式配置Spring。（JavaConfig是配置代码，应该放在单独的包中，与其他应用程序逻辑分离开。）
@@ -329,10 +266,8 @@ public void play() {
 }
 ```
 
-<a id="通过xml装配bean"></a>
 ### 通过xml装配bean
 
-<a id="构造器注入"></a>
 #### 构造器注入
 
 借助构造器注入初始化bean有两种方式：constructor-arg元素或者Spring3.0引入的c-命名空间。
@@ -517,7 +452,6 @@ public class EuropeCD implements CD {
 </bean>
 ```
 
-<a id="属性注入"></a>
 #### 属性注入
 
 除了可以通过构造器注入初始化bean以外，也可以通过属性注入初始化bean。通过属性注入，则类中不能有带参数的构造器，或者要显式声明无参的构造器。
@@ -642,10 +576,8 @@ applicationContext.xml
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190220152747529.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
 
-<a id="混合配置"></a>
 ### 混合配置
 
-<a id="在javaconfig中引用xml配置"></a>
 #### 在JavaConfig中引用xml配置
 
 假如CD使用xml配置，CDPlayer使用JavaConfig配置。
@@ -722,7 +654,6 @@ public void javaConfigImportXmlTest() {
 }
 ```
 
-<a id="在xml配置中引用javaconfig"></a>
 #### 在xml配置中引用JavaConfig
 
 假如CDPlayer使用player-config.xml配置，CD使用cd-config.xml配置，则在player-config.xml中需要用import元素引用cd-config文件，从而将CD注入到CDPlayer。
@@ -833,10 +764,8 @@ soundSystem-config.xml
 
 故无论是JavaConfig还是xml配置，都可以先创建一个根配置，在根配置里将多个装配类或者xml文件组合起来，同时可以在根配置打开组件扫描（通过\<context:component-scan/\>或者@ComponentScan）。
 
-<a id="高级装配"></a>
 ## 高级装配
 
-<a id="自动装配的歧义性"></a>
 ### 自动装配的歧义性
 
 编写Dessert接口，有三个实现Dessert的类：Cake、IceCream和Cookie。假如三个类都使用@Component注解，Spring在进行组件扫描时会为它们创建bean，这时如果Spring试图自动装配setDessert里面的Dessert参数时，这时Spring便不知道该使用哪个bean。
@@ -848,7 +777,6 @@ public void setDessert(Dessert dessert) {
 }
 ```
 
-<a id="标识首选的bean"></a>
 #### 标识首选的bean
 
 通过设置其中某个bean为首选的bean可避免自动装配的歧义性。
@@ -895,7 +823,6 @@ xml配置使用primary属性。
 <bean id="cookie" class="com.tyson.pojo.Cookie" primary="true"/>
 ```
 
-<a id="限定自动装配的bean"></a>
 #### 限定自动装配的bean
 
 @Primary只能标识一个首选的bean，当首选的bean存在有多个时，这种方法便失效。Spring的限定符可以在可选的bean进行缩小范围，最终使得只有一个bean符合限定条件。
@@ -912,7 +839,6 @@ public void setDessert(Dessert dessert) {
 
 这种方式setDessert方法上所指定的限定符和要注入的bean名称是紧耦合的。如果类名称修改则会导致限定符失效。
 
-<a id="创建自定义的限定符"></a>
 #### 创建自定义的限定符
 
 为bean设置自己的限定符。
@@ -1036,7 +962,6 @@ public class IceCream implements Dessert {
 
 使用自定义注解更为安全。
 
-<a id="bean的作用域"></a>
 ### bean的作用域
 
 默认情况下，Spring应用上下文所有的bean都是以单例的形式创建。不管给定的bean注入到其他bean多少次，每次注入的都是同一个实例。
@@ -1098,12 +1023,10 @@ public CDPlayer cdPlayer(CD cd) {
 <bean id="cd" class="com.tyson.pojo.EasonCD" scope="prototype"/>
 ```
 
-<a id="运行时值注入"></a>
 ### 运行时值注入
 
 依赖注入，是将一个bean引用注入到另一个bean的属性或者构造器参数， 是一个对象和另一个对象进行关联。bean装配是将一个值注入到bean的属性或者构造器参数中。
 
-<a id="注入外部的值"></a>
 #### 注入外部的值
 
 使用JavaConfig的方式装配EasonCD bean。通过Environment类获得app.properties定义的属性值。
@@ -1242,9 +1165,7 @@ public void test1() {
 </bean>
 ```
 
-<a id="使用spring表达式语言进行装配"></a>
 
-<a id="使用spring表达式语言进行装配"></a>
 #### 使用Spring表达式语言进行装配
 
 Spring3引入了Spring表达式语言SpEL，它在将值装配到bean属性和构造器参数过程中所使用的表达式会在运行时计算得到值。
@@ -1268,7 +1189,6 @@ public EasonCD(@Value("#{systemProperties['song']}") String song,
 </bean>
 ```
 
-<a id="面向切面"></a>
 ## 面向切面
 
 依赖注入实现了对象之间的解耦。AOP可以实现横切关注点和它们所影响的对象之间的解耦。
@@ -1279,7 +1199,6 @@ public EasonCD(@Value("#{systemProperties['song']}") String song,
 
 横切关注点可以被模块化为特殊的类，这些类称之为切面。这样做有两个好处：每个关注点都集中到一个地方，不会分散到多处代码；服务模块更简洁，因为它们只包含核心功能的代码，而非核心功能的代码被转移到切面了。
 
-<a id="aop术语"></a>
 ### AOP术语
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190223083512446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
@@ -1302,7 +1221,6 @@ Spring切面定义了五种类型的通知：前置通知，后置通知，返�
 - 类加载期：切面在目标对象被加载到JVM时被织入。这种方式需要特殊的类加载器，它可以在目标类被引入应用之前增强目标类的字节码。
 - 运行期：切面在应用运行的某个时刻被织入。一般情况下，在织入切面时，AOP容器会为目标对象动态创建一个代理对象。Spring AOP就是以这种方式织入切面的。
 
-<a id="spring对aop的支持"></a>
 ### Spring对aop的支持
 
 **Spring提供了4种类型的aop支持：**
@@ -1317,7 +1235,6 @@ Spring aop构建在动态代理基础之上，因此Spring对aop的支持局限�
 
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20190227162637751.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
 
-<a id="通过切面选择连接点"></a>
 ### 通过切面选择连接点
 
 在Spring aop中，要使用AspectJ的切点表达式语言来定义切点。Spring仅支持AspectJ切点指示器的一个子集。下表列出Spring AOP支持的AspectJ切点指示器。
@@ -1378,12 +1295,10 @@ execution(* com.tyson.aop.Performance.perform(..))
     and !bean('drum')
 ```
 
-<a id="使用注解创建切面"></a>
 ### 使用注解创建切面
 
 使用注解创建切面是AspectJ 5引入的关键特性，通过少量的注解便可以把Java类转变为切面。
 
-<a id="定义切面"></a>
 #### 定义切面
 
 使用aop相关注解需先导入依赖。
@@ -1596,9 +1511,7 @@ performing magic...
 clap clap clap!
 ```
 
-<a id="创建环绕通知"></a>
 
-<a id="创建环绕通知"></a>
 #### 创建环绕通知
 
 使用环绕通知重新实现Audience切面。
@@ -1627,7 +1540,6 @@ public class Audience {
 }
 ```
 
-<a id="处理通知中的参数"></a>
 #### 处理通知中的参数
 
 被通知方法含有参数，切面可以访问和使用传给被通知方法的参数。下面使用TrackCounter类记录磁道播放的次数。其中被通知方法playTrack方法有形参trackNum。
@@ -1724,7 +1636,6 @@ public class TrackCounterTest {
 }
 ```
 
-<a id="通过注解引入新功能"></a>
 #### 通过注解引入新功能
 
 利用引入的功能，切面可以为Spring bean添加新方法。
@@ -1786,7 +1697,6 @@ public class ConcertConfig {
     }
 ```
 
-<a id="在xml中声明切面"></a>
 ### 在xml中声明切面
 
 在不能为通知类添加注解的时候，就只能使用xml配置。Spring的AOP配置元素如下：
@@ -1827,7 +1737,6 @@ public class Audience {
 }
 ```
 
-<a id="声明通知"></a>
 #### 声明通知
 
 通过xml将无注解的Audience声明为切面。
@@ -1860,7 +1769,6 @@ public class Audience {
 </beans>
 ```
 
-<a id="创建环绕通知-1"></a>
 #### 创建环绕通知
 
 ```java
@@ -1907,7 +1815,6 @@ public class Audience {
 </beans>
 ```
 
-<a id="为通知传递参数"></a>
 #### 为通知传递参数
 
 同样使用TrackCounter记录磁道播放的次数。无注解的TrackCounter如下：
@@ -1958,7 +1865,6 @@ public class TrackCounter {
 </beans>
 ```
 
-<a id="通过切面引入新的功能"></a>
 #### 通过切面引入新的功能
 
 concert-config.xml
@@ -2007,7 +1913,6 @@ concert-config.xml
     }
 ```
 
-<a id="注入aspectj切面"></a>
 ### 注入AspectJ切面
 
 Spring AOP是功能比较弱的AOP解决方案，AspectJ提供了Spring AOP所不支持的许多类型的切点。如当我们需要在创建对象时应用通知，使用构造器切点很容易实现，而Spring AOP不支持构造器切点，所以基于代理的Spring  AOP不能把通知应用于对象的创建过程。此时可以使用AspectJ实现。
@@ -2128,17 +2033,14 @@ performance构造器调用之后
 criticism: deserve
 ```
 
-<a id="后端中的-spring"></a>
 ## 后端中的 Spring
 
-<a id="数据访问模板化"></a>
 ### 数据访问模板化
 
 Spring 将数据访问过程分为两个部分：模板（template）和回调（callback），Spring 的模板类处理数据访问的固定部分，如事务控制、资源管理和处理异常；应用程序相关的数据访问，如语句、参数绑定以及处理结果集，在回调的实现中处理。
 
 针对不同的持久化平台，Spring 提供了不同的持久化模板。如果直接使用 JDBC，则可以使用 JdbcTemplate。如果想要使用对象关系映射框架，可以使用 JpaTemplate 和 HibernateTemplate。
 
-<a id="配置数据源"></a>
 ### 配置数据源
 
 Spring 提供了配置数据源 bean  的多种方式：
@@ -2147,7 +2049,6 @@ Spring 提供了配置数据源 bean  的多种方式：
 - 通过 JNDI （Java Naming and Directory Interface）查找的数据源
 - 连接池的数据源
 
-<a id="在-spring-中集成-hibernate"></a>
 ### 在 Spring 中集成 Hibernate
 
 本节参考自：[spring+springmvc+hibernate 整合](https://www.cnblogs.com/xuezhajun/p/7687230.html)
@@ -2358,7 +2259,6 @@ public class People {
 }
 ```
 
-<a id="spring-与-java-持久化-api"></a>
 ### Spring 与 Java 持久化  API
 
 JPA 基于 POJO 的持久化机制。JPA 是一种规范，而 Hibernate 是它的一种实现。除了 Hibernate，还有 EclipseLink，OpenJPA 等可供选择，所以使用 JPA 的一个好处是，可以更换实现而不必改动太多代码。
@@ -2395,7 +2295,6 @@ JPA 基于 POJO 的持久化机制。JPA 是一种规范，而 Hibernate 是它�
 
 在 Spring 中使用 JPA 的第一步是要在 Spring 应用的上下文将实体管理器工厂（entity manager factory）按照 Bean 的形式进行配置。
 
-<a id="配置实体管理器工厂"></a>
 #### 配置实体管理器工厂
 
 基于 JPA 的应用程序需要通过 EntityManegerFactory 获取 EntityManager 实例。JPA 定义了两种类型的EntityManagerFactory：
@@ -2558,7 +2457,6 @@ c3p0.acquireRetryAttempts=30
 c3p0.acquireRetryDelay=1000  
 ```
 
-<a id="编写-jpa-repository"></a>
 ####  编写 JPA Repository
 
 UserRepository 接口代码：
@@ -2681,12 +2579,10 @@ public class JpaTest {
 }
 ```
 
-<a id="借助-spring-data-实现自动化的-jpa-repository"></a>
 ### 借助 Spring Data 实现自动化的 JPA Repository
 
 Spring Data JPA 是Spring基于ORM框架、JPA规范封装的一套 JPA 应用框架，可使开发者用极简的代码即可实现对数据的访问和操作。
 
-<a id="spring-data-jpa-的核心接口"></a>
 #### Spring Data JPA 的核心接口
 
 - Repository：最顶层的接口，是一个空的接口，目的是为了统一所有Repository的类型，且能让组件扫描的时候自动识别。
@@ -2696,7 +2592,6 @@ Spring Data JPA 是Spring基于ORM框架、JPA规范封装的一套 JPA 应用�
 - JpaSpecificationExecutor：用来做负责查询的接口
 - Specification：是 Spring Data JPA 提供的一个查询规范，Criteria 查询
 
-<a id="定义数据访问层"></a>
 #### 定义数据访问层
 
 引入依赖：
@@ -2810,7 +2705,6 @@ public class SpringDataJpaConfig {
 
 UserReposity 扩展了 Repository 接口，当Spring Data 扫描到它后，会为它创建 UserRepository 的实现类，其中包含了继承自 JpaRepository、PagingAndSortingRepository 和 CrudRepository 的18个方法。Repository 的 实现类是在应用启动时生成的，不是在构建时通过代码生成技术生成，也不是在接口调用时才创建的。
 
-<a id="定义查询方法"></a>
 #### 定义查询方法
 
 **根据属性名查询**
@@ -2966,7 +2860,6 @@ public void testSpecification() {
 }
 ```
 
-<a id="混合自定义的功能"></a>
 #### 混合自定义的功能
 
 当所需的功能无法用 Spring Data 的方法命名约定来描述，并且无法用@Query 注解来实现，这时我们只能使用较低层级的 JPA 的方法。
@@ -3044,7 +2937,6 @@ repository-impl-postfix="Helper"/>
 
 
 
-<a id="spring-security"></a>
 ## Spring Security
 
 参考：[Spring Security](https://www.jianshu.com/p/e6655328b211)
@@ -3070,7 +2962,6 @@ repository-impl-postfix="Helper"/>
         </dependency>
 ```
 
-<a id="基于内存的用户存储"></a>
 ### 基于内存的用户存储
 
 ```java
@@ -3095,7 +2986,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-<a id="基于数据库表进行认证"></a>
 ### 基于数据库表进行认证
 
 ```java
@@ -3118,7 +3008,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
-<a id="拦截请求"></a>
 ### 拦截请求
 
 对每个请求进行细粒度安全性控制的关键在于重载configure(HttpSecurity)方法。
@@ -3148,7 +3037,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 .antMatchers("/splitter/me").access("hasRole('ROLE_SPLITTER') and hasIpAddress('192.168.2.1')")
 ```
 
-<a id="安全通道"></a>
 
 ### 安全通道
 
@@ -3176,7 +3064,6 @@ requiresChannel()方法会为选定的 URL 强制使用 HTTPS。
 .antMatchers("/").requiresInsecure();
 ```
 
-<a id="认证用户"></a>
 ### 认证用户
 
 1、启动默认的登录页。

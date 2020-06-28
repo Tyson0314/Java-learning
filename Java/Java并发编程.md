@@ -1,41 +1,11 @@
-<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
-
-- [共享对象](#共享对象)
-    - [非原子的64位操作](#非原子的64位操作)
-    - [volatile](#volatile)
-    - [this 引用逸出](#this-引用逸出)
-    - [安全的对象构造过程](#安全的对象构造过程)
-    - [ThreadLocal](#threadlocal)
-- [容器](#容器)
-    - [间接的迭代操作](#间接的迭代操作)
-    - [ConcurrentHashMap](#concurrenthashmap)
-    - [Copy-On-Write](#copy-on-write)
-    - [同步工具类](#同步工具类)
-        - [信号量](#信号量)
-    - [缓存系统](#缓存系统)
-- [任务执行](#任务执行)
-    - [Executor 框架](#executor-框架)
-        - [线程池](#线程池)
-        - [延迟任务](#延迟任务)
-        - [携带结果的 Callable 和 Future](#携带结果的-callable-和-future)
-        - [为任务设置时限](#为任务设置时限)
-    - [取消与关闭](#取消与关闭)
-        - [任务取消](#任务取消)
-        - [阻塞和中断](#阻塞和中断)
-- [线程池的使用](#线程池的使用)
-
-<!-- /MarkdownTOC -->
-<a id="共享对象"></a>
 ## 共享对象
 
-<a id="非原子的64位操作"></a>
 ### 非原子的64位操作
 
 在多线程程序使用共享且可变的64位数据类型的变量是不安全的。
 
 
 
-<a id="this-引用逸出"></a>
 ### this 引用逸出
 
 参考自：[this 引用逸出](https://www.cnblogs.com/whatisjava/archive/2013/05/29/3106336.html)
@@ -68,7 +38,6 @@ public class ThisEscape {
 }
 ```
 
-<a id="安全的对象构造过程"></a>
 ### 安全的对象构造过程
 
 使用工厂方法来防止 this 引用在构造过程中逸出。
@@ -109,7 +78,6 @@ public class SafeListener {
 
 构造好了 SafeListener 对象（通过构造器构造）之后，才启动了监听线程，也就确保了构造完成之后再使用SafeListener对象。
 
-<a id="threadlocal"></a>
 ### ThreadLocal
 
 当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
@@ -153,10 +121,8 @@ main: 1
  */
 ```
 
-<a id="容器"></a>
 ## 容器
 
-<a id="间接的迭代操作"></a>
 ### 间接的迭代操作
 
 调用容器的 toString 方法会迭代容器。容器的 hashcode 和 equals 方法也会间接的进行迭代操作。
@@ -171,7 +137,6 @@ public class HiddenIterator {
 }
 ```
 
-<a id="concurrenthashmap"></a>
 ### ConcurrentHashMap
 多线程环境下，使用Hashmap进行put操作会引起死循环。
 CocurrentHashMap利用锁分段技术增加了锁的数目，从而使争夺同一把锁的线程的数目得到控制。
@@ -191,7 +156,6 @@ put 操作会对当前的table进行无条件自循环直到put成功，可以�
 5）如果该链表的数量大于阈值8，就要先转换成黑红树的结构
 6）如果添加成功就调用 addCount 方法统计size，并且检查是否需要扩容
 
-<a id="copy-on-write"></a>
 ### Copy-On-Write
 写时复制。当我们往容器添加元素时，不直接往容器添加，而是先将当前容器进行复制，复制出一个新的容器，然后往新的容器添加元素，添加完元素之后，再将原容器的引用指向新容器。这样做的好处就是可以对 Copy-On-Write 容器进行并发的读而不需要加锁，因为当前容器不会被修改。
 
@@ -203,10 +167,8 @@ CopyOnWriteArrayList中add方法添加的时候是需要加锁的。读的时候
 - 内存占用问题。由于CopyOnWrite的写时复制机制，在进行写操作的时候，内存里会同时驻扎两个对象的内存。
 - 旧的对象和新写入的对象数据一致性问题。CopyOnWrite容器只能保证数据的最终一致性，不能保证数据的实时一致性。
 
-<a id="同步工具类"></a>
 ### 同步工具类
 
-<a id="信号量"></a>
 #### 信号量
 
 信号量 Semaphore 用来控制同时访问某个特定资源的操作数量，或者同时执行某个指定操作的数量。
@@ -251,7 +213,6 @@ public class BoundedHashSet<T> {
 }
 ```
 
-<a id="缓存系统"></a>
 ### 缓存系统
 
 假设有一个高计算开销的 compute 函数，我们可以将计算结果保存在 Map 中，调用 compute 时先检查 Map 是否存在需要的结果。使用 ConturrentHashMap 可以提高系统的并发能力。假如两个线程同时调用 compute ，则相同的数据会被计算多次，使用 FutureTask 可以避免这个问题。
@@ -299,10 +260,8 @@ public class Memorizer<A, V> implements Computable<A, V> {
 }
 ```
 
-<a id="任务执行"></a>
 ## 任务执行
 
-<a id="executor-框架"></a>
 ### Executor 框架
 
 1.5后引入的 Executor 框架的最大优点是把任务的提交和执行解耦。Executor 是任务执行的抽象，，使用 Runnable 或 Callable 来表示任务。
@@ -331,17 +290,14 @@ public class TaskExecutionWebServer {
 
 
 
-<a id="延迟任务"></a>
 #### 延迟任务
 
 Timer 类负责延迟任务和周期任务，然后 Timer 存在一些缺陷。现在一般使用 ScheduledThreadPoolExecutor 来代替它，通过 ScheduledThreadPoolExecutor 的构造函数或者 Executors.newScheduledThreadPool 工厂方法来创建该类的对象（不推荐，见阿里编码规范）。
 
-<a id="携带结果的-callable-和-future"></a>
 #### 携带结果的 Callable 和 Future
 
 当提交一个Callable对象给ExecutorService，将得到一个Future对象，调用Future对象的get方法等待执行结果就好了。而 get 方法的行为取决于任务的状态（尚未开始、正在运行、已完成）。任务已完成，那么 get 会立即返回或者抛出异常；任务没有完成，get 将一直阻塞直到任务完成；任务抛出异常，那么 get 会将异常封装成 ExecutionException 重新抛出；任务被取消，那么 get 将抛出 CancellationExeception，此时通过 getCause 可以获取被封装的初始异常。
 
-<a id="为任务设置时限"></a>
 
 #### 为任务设置时限
 
@@ -370,18 +326,15 @@ Page renderPageWithAd() throws InterruptedException {
 }
 ```
 
-<a id="取消与关闭"></a>
 ### 取消与关闭
 
 Java 没有提供任何机制来安全的终止线程，但它提供了中断机制，这是一种协作机制，能够使一个线程终止另一个线程的当前工作。
 
-<a id="任务取消"></a>
 
 #### 任务取消
 
 给任务设置某个“请求取消”的标志，而任务将定期查看该标志，如果设置了该标志，那么任务将提前结束。
 
-<a id="阻塞和中断"></a>
 #### 阻塞和中断
 
 如果任务中调用了一个阻塞方法，那么任务有可能永远不会检查取消标志，因此永远不会结束。通过中断机制可以避免这个问题。一些特殊的阻塞库的方法支持中断。

@@ -1,97 +1,5 @@
-<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
-
-- [基础](#基础)
-    - [启动和关闭](#启动和关闭)
-    - [配置文件](#配置文件)
-    - [PUT](#put)
-    - [GET](#get)
-    - [全文搜索](#全文搜索)
-    - [高亮搜索](#高亮搜索)
-    - [分析](#分析)
-    - [分布式特性](#分布式特性)
-- [集群原理](#集群原理)
-    - [术语](#术语)
-        - [节点](#节点)
-        - [分片](#分片)
-    - [集群健康](#集群健康)
-    - [索引](#索引)
-    - [故障转移](#故障转移)
-    - [单机多节点](#单机多节点)
-- [数据输入与输出](#数据输入与输出)
-    - [文档元数据](#文档元数据)
-    - [创建新文档](#创建新文档)
-    - [取回文档](#取回文档)
-    - [取回多个文档](#取回多个文档)
-    - [删除文档](#删除文档)
-    - [检查文档是否存在](#检查文档是否存在)
-    - [更新文档](#更新文档)
-        - [更新和冲突](#更新和冲突)
-    - [批量操作](#批量操作)
-- [分布式文档存储](#分布式文档存储)
-    - [路由文档到分片](#路由文档到分片)
-- [搜索](#搜索)
-    - [空搜索](#空搜索)
-    - [多索引多类型](#多索引多类型)
-    - [轻量搜索](#轻量搜索)
-- [映射和分析](#映射和分析)
-    - [核心简单域类型](#核心简单域类型)
-    - [查看映射](#查看映射)
-    - [自定义映射器](#自定义映射器)
-        - [index](#index)
-        - [analyzer](#analyzer)
-    - [更新映射](#更新映射)
-    - [测试映射](#测试映射)
-    - [分析器](#分析器)
-        - [测试分析器](#测试分析器)
-    - [复杂核心域类型](#复杂核心域类型)
-        - [多值域](#多值域)
-    - [内部对象](#内部对象)
-- [请求体查询](#请求体查询)
-    - [空查询](#空查询)
-    - [提升权重](#提升权重)
-    - [理解查询语句](#理解查询语句)
-    - [查询和过滤器的区别](#查询和过滤器的区别)
-- [排序与相关性](#排序与相关性)
-    - [按照字段的值排序](#按照字段的值排序)
-    - [多级排序](#多级排序)
-    - [多值字段的排序](#多值字段的排序)
-    - [字符串排序](#字符串排序)
-- [索引管理](#索引管理)
-    - [创建索引](#创建索引)
-    - [删除索引](#删除索引)
-    - [索引设置](#索引设置)
-    - [配置分析器](#配置分析器)
-        - [自定义分析器](#自定义分析器)
-    - [类型和映射](#类型和映射)
-    - [根对象](#根对象)
-- [分片内部原理](#分片内部原理)
-    - [倒排索引](#倒排索引)
-- [深入搜索](#深入搜索)
-    - [精确值查找](#精确值查找)
-        - [term 查询文本](#term-查询文本)
-        - [terms 查询](#terms-查询)
-    - [全文搜索](#全文搜索-1)
-        - [match 查询](#match-查询)
-    - [range 查询](#range-查询)
-        - [数字范围](#数字范围)
-        - [日期范围](#日期范围)
-    - [分页](#分页)
-    - [exists 查询](#exists-查询)
-    - [bool 组合查询](#bool-组合查询)
-    - [如何使用 bool 查询](#如何使用-bool-查询)
-    - [constant_score 查询](#constant_score-查询)
-    - [](#)
-    - [多字段搜索](#多字段搜索)
-        - [多字符串查询](#多字符串查询)
-        - [multi_match 查询](#multi_match-查询)
-        - [多字段映射](#多字段映射)
-        - [copy_to 定制组合 field](#copy_to-定制组合-field)
-- [springboot 集成 es](#springboot-集成-es)
-
-<!-- /MarkdownTOC -->
 [Elasticsearch 权威指南](https://www.elastic.co/guide/cn/elasticsearch/guide/current/_talking_to_elasticsearch.html)
 
-<a id="基础"></a>
 ## 基础
 
 Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 lucene 基础之上。Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引与搜索，但是它的目的是使全文检索变得简单， 通过隐藏 Lucene 的复杂性，取而代之的提供一套简单一致的 RESTful API。
@@ -122,7 +30,6 @@ ES与mysql的对应关系：
 
    单条的记录称为 Document。Document 可以分组，比如`weather`这个 Index 里面，可以按城市分组（北京和上海），这种分组就是 Type。同一个 Index 里面的 Document，不要求有相同的结构（scheme），但是最好保持相同，这样有利于提高搜索效率。
 
-<a id="启动和关闭"></a>
 
 ### 启动和关闭
 
@@ -134,7 +41,6 @@ ES与mysql的对应关系：
 
 启动 head 插件：到 head 安装目录下运行`grunt server`
 
-<a id="配置文件"></a>
 ### 配置文件
 
 安装目录config下的 elasticsearch.yml 可以配置集群的信息，如cluster.name 和 node.name。
@@ -155,7 +61,6 @@ http.port 是elasticsearch对外提供服务的http端口配置。
 
 transport.tcp.port 指定了elasticsearch集群内数据通讯使用的端口，默认情况下为9300。
 
-<a id="put"></a>
 
 ### PUT
 
@@ -172,7 +77,6 @@ PUT /company/employee/1
 
 company：索引名称，employee：类型名称，1是 ID。
 
-<a id="get"></a>
 ### GET
 
 ```json
@@ -279,7 +183,6 @@ GET /company/employee/_search
 }
 ```
 
-<a id="全文搜索"></a>
 ### 全文搜索
 
 传统数据库确实很难搞定的任务。
@@ -297,7 +200,6 @@ GET /company/employee/_search
 
 返回`"about": "rock climbing"`和`"about": "rock albums"`两条记录，默认按照每个文档跟查询的匹配程度排序。
 
-<a id="高亮搜索"></a>
 ### 高亮搜索
 
 ```json
@@ -358,7 +260,6 @@ GET /company/employee/_search
 }
 ```
 
-<a id="分析"></a>
 ### 分析
 
 Elasticsearch 有一个功能叫聚合（aggregations），允许我们基于数据生成一些精细的分析结果。聚合与 SQL 中的 `GROUP BY` 类似但更强大。
@@ -535,20 +436,16 @@ GET company/employee/_search
   }
 ```
 
-<a id="分布式特性"></a>
 ### 分布式特性
 
 Elasticsearch 可以横向扩展至数百（甚至数千）的服务器节点，同时可以处理PB级数据。
 
-<a id="集群原理"></a>
 ## 集群原理
 
 ElasticSearch 的主旨是随时可用和按需扩容。扩容可以通过购买性能更强大（ *垂直扩容* ） 或者数量更多的服务器（ *水平扩容*  ）来实现。
 
-<a id="术语"></a>
 ### 术语
 
-<a id="节点"></a>
 #### 节点
 
 一个运行中的 Elasticsearch 实例称为节点，而集群是由一个或者多个拥有相同 `cluster.name` 配置的节点组成， 它们共同承担数据和负载的压力。当有节点加入集群中或者从集群中移除节点时，集群将会重新平均分布所有的数据。
@@ -559,7 +456,6 @@ ElasticSearch 的主旨是随时可用和按需扩容。扩容可以通过购买
 
 获取节点信息：`http://localhost:9200/_cluster/state/nodes?pretty`，pretty 用于换行。
 
-<a id="分片"></a>
 #### 分片
 
 每个节点可以分配一个或多个分片。分片是数据的容器，文档保存在分片内，分片又被分配到集群内的各个节点里。 当你的集群规模扩大或者缩小时， Elasticsearch 会自动的在各节点中迁移分片，使得数据仍然均匀分布在集群里。
@@ -568,7 +464,6 @@ ElasticSearch 的主旨是随时可用和按需扩容。扩容可以通过购买
 
 一个副本分片只是一个主分片的拷贝。 副本分片作为硬件故障时保护数据不丢失的冗余备份，并为搜索和返回文档等读操作提供服务。
 
-<a id="集群健康"></a>
 ### 集群健康
 
 `GET /_cluster/health`
@@ -602,7 +497,6 @@ status 字段表示当前集群总体是否正常，它有三个值：
 2. yellow，所有的主分片都正常运行，但不是所有的副本分片都正常运行。
 3. red，有主分片不能正常运行。
 
-<a id="索引"></a>
 ### 索引
 
 往 elasticsearch 添加数据时需要用到索引，索引是指向一个或多个分片的逻辑命名空间。一个分片是一个 Lucene 的实例，以及它本身就是一个完整的搜索引擎。
@@ -621,12 +515,10 @@ status 字段表示当前集群总体是否正常，它有三个值：
 
 当前我们的集群是正常运行的，但是在硬件故障时有丢失数据的风险。
 
-<a id="故障转移"></a>
 ### 故障转移
 
 可以在同一个目录下开启另一个节点，副本分片会被分配到这个节点上，此时计算有硬件故障也不会丢失数据。
 
-<a id="单机多节点"></a>
 ### 单机多节点
 
 node1 的 elasticsearch.yml  做如下配置：
@@ -671,10 +563,8 @@ http.cors.allow-origin: "*"
 
 
 
-<a id="数据输入与输出"></a>
 ## 数据输入与输出
 
-<a id="文档元数据"></a>
 ### 文档元数据
 
 一个文档不仅包含数据，也包含元数据。三个必须的元数据元素如下：\_index、\_type和_id。
@@ -683,7 +573,6 @@ http.cors.allow-origin: "*"
 
 \_type在索引中对数据进行逻辑分区，如产品下面还可以分为很多子类。一个 `_type` 命名可以是大写或者小写，但是不能以下划线或者句号开头，不应该包含逗号， 并且长度限制为256个字符。
 
-<a id="创建新文档"></a>
 ### 创建新文档
 
 使用 PUT 请求，需要定义 _id：
@@ -732,7 +621,6 @@ POST company/employee
 }
 ```
 
-<a id="取回文档"></a>
 ### 取回文档
 
 返回文档的一部分：
@@ -747,7 +635,6 @@ GET /company/employee/1?_source=first_name,interests
 GET /company/employee/1/_source
 ```
 
-<a id="取回多个文档"></a>
 
 ### 取回多个文档
 
@@ -793,7 +680,6 @@ GET /company/employee/_mget
 }
 ```
 
-<a id="删除文档"></a>
 ### 删除文档
 
 `DELETE company/employee/1`，删除文档，版本号会增加。
@@ -815,14 +701,12 @@ GET /company/employee/_mget
 }
 ```
 
-<a id="检查文档是否存在"></a>
 ### 检查文档是否存在
 
 `HEAD /company/employee/1`
 
 返回结果：`200 - OK`
 
-<a id="更新文档"></a>
 ### 更新文档
 
 文档是不可变的，不能被修改，只能被替换。 `update` API 必须遵循同样的规则。 从外部来看，我们在一个文档的某个位置进行部分更新。然而在内部， `update` API 简单使用 *检索-修改-重建索引* 的处理过程。
@@ -837,7 +721,6 @@ POST company/employee/1/_update
 }
 ```
 
-<a id="更新和冲突"></a>
 #### 更新和冲突
 
 ```json
@@ -850,7 +733,6 @@ POST company/employee/1/_update?retry_on_conflict=5
 }
 ```
 
-<a id="批量操作"></a>
 ### 批量操作
 
 语法：
@@ -890,10 +772,8 @@ POST /website/_bulk
 
 
 
-<a id="分布式文档存储"></a>
 ## 分布式文档存储
 
-<a id="路由文档到分片"></a>
 ### 路由文档到分片
 
 文档所在分片的位置通过这个公式计算：`shard = hash(routing) % number_of_primary_shards`，rounting 默认是文档的 _id，可以设置成自定义的值。创建索引的时候就确定好主分片的数量，并且永远不会改变这个数量：因为如果数量变化了，那么所有之前路由的值都会无效，文档也再也找不到了。
@@ -902,7 +782,6 @@ POST /website/_bulk
 
 
 
-<a id="映射和分析"></a>
 
 ## 映射和分析
 
@@ -910,7 +789,6 @@ POST /website/_bulk
 
 分析：将一块文本分成适合于倒排索引的独立的词条，然后将这些词条统一化为标准格式以提高它们的“可搜索性”。
 
-<a id="核心简单域类型"></a>
 ### 核心简单域类型
 
 Elasticsearch 支持 如下简单域类型：
@@ -933,7 +811,6 @@ Elasticsearch 支持 如下简单域类型：
 
 如果你通过引号( `"123"` )索引一个数字，它会被映射为 `string` 类型，而不是 `long` 。但是，如果这个域已经映射为 `long` ，那么 Elasticsearch 会尝试将这个字符串转化为 long ，如果无法转化，则抛出一个异常。
 
-<a id="查看映射"></a>
 ### 查看映射
 
 `GET /company/_mapping/employee`
@@ -986,12 +863,10 @@ Elasticsearch 支持 如下简单域类型：
 }
 ```
 
-<a id="自定义映射器"></a>
 ### 自定义映射器
 
 `string` 类型域会被认为包含全文。它们的值在索引前，会通过 一个分析器，针对于这个域的查询在搜索前也会经过一个分析器。string 域映射的两个最重要的属性是 index 和 analyzer。
 
-<a id="index"></a>
 #### index
 
 `index` 属性控制怎样索引字符串。它有三个值：
@@ -1013,7 +888,6 @@ Elasticsearch 支持 如下简单域类型：
 
 其他简单类型（例如 `long` ， `double` ， `date` 等）也接受 `index` 参数，但有意义的值只有 `no` 和 `not_analyzed` ， 因为它们永远不会被分析。
 
-<a id="analyzer"></a>
 #### analyzer
 
 对于 `analyzed` 字符串域，用 `analyzer` 属性指定在搜索和索引时使用的分析器。默认， Elasticsearch 使用 `standard` 分析器， 但你可以指定一个内置的分析器替代它，例如 `whitespace` 、 `simple` 和 `english`：
@@ -1027,7 +901,6 @@ Elasticsearch 支持 如下简单域类型：
 }
 ```
 
-<a id="更新映射"></a>
 
 ### 更新映射
 
@@ -1064,7 +937,6 @@ PUT /gb/_mapping/tweet
 
 `analyzer`是字段文本的分词器，`search_analyzer`是搜索词的分词器。`ik_max_word`分词器是插件`ik`提供的，可以对文本进行最大数量的分词。
 
-<a id="测试映射"></a>
 
 ### 测试映射
 
@@ -1078,7 +950,6 @@ GET /gb/_analyze
 
  `tag` 域产生单独的词条 `Black-cats` 。
 
-<a id="分析器"></a>
 ### 分析器
 
 分析器的三个功能：
@@ -1104,7 +975,6 @@ date 域包含一个精确值：单独的词条 `2014-09-15`。
 
 _all 域是一个全文域，所以分词进程将日期转化为三个词条： `2014`， `09`， 和 `15`。
 
-<a id="测试分析器"></a>
 #### 测试分析器
 
 ```json
@@ -1145,15 +1015,12 @@ GET /_analyze
 }
 ```
 
-<a id="复杂核心域类型"></a>
 ### 复杂核心域类型
 
-<a id="多值域"></a>
 #### 多值域
 
 `{ "tag": [ "search", "nosql" ]}`
 
-<a id="内部对象"></a>
 ### 内部对象
 
 ```json
@@ -1188,13 +1055,10 @@ Lucene 不理解内部对象。 Lucene 文档是由一组键值对列表组成�
 
 
 
-<a id="搜索"></a>
 
 ## 搜索
 
-<a id="空搜索"></a>
 
-<a id="空搜索"></a>
 
 ### 空搜索
 
@@ -1202,7 +1066,6 @@ Lucene 不理解内部对象。 Lucene 文档是由一组键值对列表组成�
 
 `GET /_search?timeout=10ms`，在请求超时之前，Elasticsearch 将会返回已经成功从每个分片获取的结果。
 
-<a id="多索引多类型"></a>
 
 ### 多索引多类型
 
@@ -1210,7 +1073,6 @@ Lucene 不理解内部对象。 Lucene 文档是由一组键值对列表组成�
 
 `GET /_all/employee,student/_search?size=1&from=1`，在所有索引中搜索 employee 和 student 类型。elasticsearch 默认一次返回10条结果，size 可以指定返回返回结果数量，from 指定位移。
 
-<a id="轻量搜索"></a>
 
 ### 轻量搜索
 
@@ -1220,10 +1082,8 @@ Lucene 不理解内部对象。 Lucene 文档是由一组键值对列表组成�
 
 
 
-<a id="请求体查询"></a>
 ## 请求体查询
 
-<a id="空查询"></a>
 ### 空查询
 
 ```json
@@ -1237,7 +1097,6 @@ GET _search
 
 
 
-<a id="提升权重"></a>
 
 ### 提升权重
 
@@ -1275,7 +1134,6 @@ GET /company/employee/_search
 }
 ```
 
-<a id="理解查询语句"></a>
 ### explain
 
 查询结果说明。
@@ -1316,14 +1174,12 @@ GET /_validate/query?explain
 }
 ```
 
-<a id="查询和过滤器的区别"></a>
 ### 查询和过滤器的区别
 
 查询会计算得分，而过滤不计算得分，过滤器所需处理更少，所以过滤器可以比普通查询更快。而且过滤器可以被缓存。
 
 
 
-<a id="排序与相关性"></a>
 ## 排序与相关性
 
 有时，_score 相关性评分对你来说并没有意义。例如，下面的查询返回所有 `user_id` 字段包含 `1` 的结果：
@@ -1343,7 +1199,6 @@ GET /_search
 }
 ```
 
-<a id="按照字段的值排序"></a>
 ### 按照字段的值排序
 
 按照 hire_date 排序。
@@ -1366,7 +1221,6 @@ GET _search
 }
 ```
 
-<a id="多级排序"></a>
 ### 多级排序
 
 首先按第一个条件排序，仅当结果集的第一个 `sort` 值完全相同时才会按照第二个条件进行排序，以此类推。
@@ -1396,7 +1250,6 @@ Query-string 搜索 也支持自定义排序，可以在查询字符串中使用
 GET /_search?sort=hire_date:desc&sort=_score
 ```
 
-<a id="多值字段的排序"></a>
 ### 多值字段的排序
 
 对于数字或日期，你可以将多值字段减为单值，这可以通过使用 `min` 、 `max` 、 `avg` 或是 `sum` 排序模式。 例如你可以按照每个 hire_date 字段中的最早日期进行排序，通过以下方法：
@@ -1410,7 +1263,6 @@ GET /_search?sort=hire_date:desc&sort=_score
 }
 ```
 
-<a id="字符串排序"></a>
 ### 字符串排序
 
 为了对字符串字段进行排序，需要用两种方式对同一个字符串进行索引： `analyzed` 用于搜索， `not_analyzed` 用于排序。
@@ -1450,10 +1302,8 @@ GET /_search
 
 
 
-<a id="索引管理"></a>
 ## 索引管理
 
-<a id="创建索引"></a>
 ### 创建索引
 
 ```json
@@ -1472,7 +1322,6 @@ PUT /my_index
 
 `action.auto_create_index: false`
 
-<a id="删除索引"></a>
 ### 删除索引
 
 `DELETE /company,student`
@@ -1481,7 +1330,6 @@ PUT /my_index
 
 `DELETE /_all` 或 `DELETE /*`
 
-<a id="索引设置"></a>
 ### 索引设置
 
 number_of_shards：每个索引的主分片数，默认值是 `5` 。这个配置在索引创建后不能修改。
@@ -1509,10 +1357,8 @@ PUT /my_temp_index/_settings
 }
 ```
 
-<a id="配置分析器"></a>
 ### 配置分析器
 
-<a id="自定义分析器"></a>
 #### 自定义分析器
 
 ，一个分析器组合了三种函数：字符过滤器、分词器和词单元过滤器， 三种函数按照顺序被执行。
@@ -1608,7 +1454,6 @@ PUT /my_index/_mapping/my_type
 }
 ```
 
-<a id="类型和映射"></a>
 ### 类型和映射
 
 同一个索引下，不同的类型type应该有相同的结构，映射也应该相同。因为 Lucene 会将同一个索引下的所有字段的映射扁平化，相同字段不同映射会导致冲突。
@@ -1672,7 +1517,6 @@ PUT /my_index/_mapping/my_type
 
 因此，类型不适合 *完全不同类型的数据* 。如果两个类型的字段集是互不相同的，这就意味着索引中将有一半的数据是空的（字段将是 *稀疏的* ），最终将导致性能问题。在这种情况下，最好是使用两个单独的索引。
 
-<a id="根对象"></a>
 
 ### 根对象
 
@@ -1685,10 +1529,8 @@ PUT /my_index/_mapping/my_type
 
 
 
-<a id="分片内部原理"></a>
 ## 分片内部原理
 
-<a id="倒排索引"></a>
 ### 倒排索引
 
 倒排索引包含一个有序列表，列表包含所有文档出现过的不重复个体，或称为 *词项* ，对于每一个词项，包含了它所有曾出现过文档的列表。
@@ -1701,10 +1543,8 @@ PUT /my_index/_mapping/my_type
 
 
 
-<a id="深入搜索"></a>
 ## 深入搜索
 
-<a id="精确值查找"></a>
 ### 精确值查找
 
 term 查询被用于精确值匹配，这些精确值可能是数字、时间、布尔或者那些 `not_analyzed` 的字符串。
@@ -1739,7 +1579,6 @@ GET company/employee/_search
 }
 ```
 
-<a id="term-查询文本"></a>
 #### term 查询文本
 
 删除旧索引（因为旧索引字段都是 analyzed 的，它的映射不正确）然后创建一个能正确映射的新索引：
@@ -1790,7 +1629,6 @@ GET /my_store/products/_search
 }
 ```
 
-<a id="terms-查询"></a>
 #### terms 查询
 
 允许指定多值进行匹配。如果这个字段包含了指定值中的任何一个值，那么这个文档满足条件。
@@ -1826,10 +1664,8 @@ GET /my_store/products/_search
 
 interests 为 listen、music 和 sport 的文档会被匹配。
 
-<a id="全文搜索-1"></a>
 ### 全文搜索
 
-<a id="match-查询"></a>
 #### match 查询
 
 match 查询是对全文进行查询。
@@ -1879,12 +1715,10 @@ GET _search
 }
 ```
 
-<a id="range-查询"></a>
 ### range 查询
 
 查询找出那些落在指定区间内的数字或者时间。
 
-<a id="数字范围"></a>
 #### 数字范围
 
 ```json
@@ -1907,7 +1741,6 @@ GET company/employee/_search
 
 `gt`：大于；`gte`：大于或等于；`lt`：小于；`lte`：小于或等于。
 
-<a id="日期范围"></a>
 #### 日期范围
 
 ```json
@@ -1928,7 +1761,6 @@ GET company/employee/_search
 }
 ```
 
-<a id="分页"></a>
 ### 分页
 
 请求得到 1 到 3 页的结果：
@@ -1939,7 +1771,6 @@ GET /_search?size=5&from=5
 GET /_search?size=5&from=10
 ```
 
-<a id="exists-查询"></a>
 ### exists 查询
 
 查询字段 interests 中不为空的文档：
@@ -1976,7 +1807,6 @@ GET /company/employee/_search
 }
 ```
 
-<a id="bool-组合查询"></a>
 ### bool 组合查询
 
 bool 查询允许在单独的查询中组合任意数量的查询，适用于将不同查询字符串映射到不同字段的情况。bool 查询接收如下参数：
@@ -2072,7 +1902,6 @@ GET /my_index/my_type/_search
 }
 ```
 
-<a id="如何使用-bool-查询"></a>
 ### 如何使用 bool 查询
 
 多次 match 查询：
@@ -2170,7 +1999,6 @@ GET /company/employee/_search
 }
 ```
 
-<a id="constant_score-查询"></a>
 ### constant_score 查询
 
 constant_score 查询返回的文档`score`都是1。它经常用于只需要执行一个 filter 而没有其它查询的情况下。`score`会受到`boost`影响，出现 tyson 的文档`score`为1.2。
@@ -2191,7 +2019,6 @@ GET _search
 
 
 
-<a id="多字段搜索"></a>
 
 ### 多字段搜索
 
@@ -2203,7 +2030,6 @@ GET _search
 
 跨字段 cross_fields：每个查询的单词都出现在不同的字段中。*cross_fields类型采用了一种以词条为中心(Term-centric)的方法，这种方法和best_fields及most_fields采用的以字段为中心(Field-centric)的方法有很大的区别。它将所有的字段视为一个大的字段，然后在任一字段中搜索每个词条。
 
-<a id="多字符串查询"></a>
 #### 多字符串查询
 
 ```json
@@ -2234,7 +2060,6 @@ GET /_search
 }
 ```
 
-<a id="multi_match-查询"></a>
 #### multi_match 查询
 
 multi_match 查询可以在多个字段上执行相同的 match 查询。`multi_match` 多匹配查询的类型有三种：`best_fields` 、 `most_fields` 和 `cross_fields` （最佳字段、多数字段、跨字段）。
@@ -2288,7 +2113,6 @@ GET company/employee/_search
 }
 ```
 
-<a id="多字段映射"></a>
 #### 多字段映射
 
 对字段索引两次： 一次使用词干模式以及一次非词干模式。
@@ -2362,7 +2186,6 @@ GET /my_index/_search
 }
 ```
 
-<a id="copy_to-定制组合-field"></a>
 #### copy_to 定制组合 field
 
 定制组合 field 与 cross_field 跨字段查询类似，根据两者的实际性能选择具体方案。
@@ -2451,7 +2274,6 @@ first_name 是主字段，first_name.raw 是多字段。
 
 
 
-<a id="springboot-集成-es"></a>
 ## springboot 集成 es
 
 [springboot 集成 es](https://blog.csdn.net/cwenao/article/details/54943505)

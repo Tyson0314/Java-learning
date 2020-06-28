@@ -1,26 +1,3 @@
-Redis入门指南总结
-<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
-
-- [简介](#简介)
-- [启动与停止](#启动与停止)
-- [数据类型](#数据类型)
-    - [字符串类型](#字符串类型)
-    - [散列类型](#散列类型)
-    - [列表类型](#列表类型)
-    - [集合类型](#集合类型)
-    - [有序集合类型](#有序集合类型)
-    - [排序](#排序)
-- [事务](#事务)
-- [消息队列](#消息队列)
-- [持久化](#持久化)
-    - [RDB方式](#rdb方式)
-    - [AOF方式](#aof方式)
-- [集群](#集群)
-
-<!-- /MarkdownTOC -->
-
----
-<a id="简介"></a>
 
 ## 简介
 Redis是一个高性能的key-value数据库。Redis对数据的操作都是原子性的。
@@ -52,7 +29,6 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 2. 数据需要做结构化查询，复杂查询
 3. 要求事务性、一致性
 
-<a id="启动与停止"></a>
 ## 启动与停止
 **启动**
 
@@ -70,7 +46,6 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 
 `redis-cli SHUTDOWN`
 
-<a id="数据类型"></a>
 ## 数据类型
 Redis支持五种数据类型：
 
@@ -80,7 +55,6 @@ Redis支持五种数据类型：
 - set（集合）
 - zset(sorted set)
 
-<a id="字符串类型"></a>
 ### 字符串类型
 > 常用命令：set, get, incr, incrby, desr, keys, append, strlen
 
@@ -115,7 +89,6 @@ INCRBY num 2.7 //增加指定浮点数
 `FLUSHALL` 删除所有数据库中的key  
 
 
-<a id="散列类型"></a>
 ### 散列类型
 > 常用命令：hset, hget, hmset, hmget, hgetall, hdel, hkeys, hvals
 
@@ -144,7 +117,6 @@ HVALS car //获取value
 HLEN car  //长度
 ```
 
-<a id="列表类型"></a>
 ### 列表类型
 > 常用命令：lpush, rpush, lpop, rpop, lrange, lrem
 
@@ -196,7 +168,6 @@ LINDEX numbers -1  //返回指定索引的元素，index是负数则从右边开
 LSET numbers 1 7   //把索引为1的元素的值赋值成7
 ```
 
-<a id="集合类型"></a>
 ### 集合类型
 > 常用命令：sadd, srem, smembers, scard, sismember, sdiff
 
@@ -234,7 +205,6 @@ SUNION setA setB //并集运算
 
 `SPOP letters`
 
-<a id="有序集合类型"></a>
 ### 有序集合类型
 > 常用命令：zadd, zrem, zscore, zrange
 
@@ -293,7 +263,6 @@ ZRANK scoreboard Tyson    //按从小到大的顺序获取元素排名
 ZREVRANK scoreboard Tyson //按从大到小的顺序获取元素排名
 ```
 
-<a id="排序"></a>
 ### 排序
 ```
 LPUSH myList 4 8 2 3 6
@@ -324,7 +293,6 @@ GET参数命令作用是使SORT命令的返回结果是GET参数指定的键值�
 
 `EXPIRE resultCache 10 //STORE结合EXPIRE可以缓存排序结果`
 
-<a id="事务"></a>
 ## 事务
 事务的原理是将一个事务的命令发送给Redis，然后再让Redis依次执行这些命令。
 
@@ -353,7 +321,6 @@ SETEX password 60 123abc //SETEX可以在设置键的同时设置它的生存时
 >EXPIRE时间单位是秒，PEXPIRE时间单位是毫秒。
 >在键未过期前可以重新设置过期时间，过期之后则键被销毁。
 
-<a id="消息队列"></a>
 ## 消息队列
 使用一个列表，让生产者将任务使用LPUSH命令放进列表，消费者不断用RPOP从列表取出任务。
 
@@ -378,10 +345,8 @@ UNSUBSCRIBE channel1 //退订通过SUBSCRIBE命令订阅的频道。
 >退订通过PSUBSCRIBE命令按照某种规则订阅的频道。其中订阅规则要
 >进行严格的字符串匹配，`PUNSUBSCRIBE *`无法退订`channel?*`规则。
 
-<a id="持久化"></a>
 ## 持久化
 Redis支持两种方式的持久化，一种是RDB的方式，一种是AOF的方式。前者会根据指定的规则“定时”将内存中的数据存储在硬盘上，而后者在每次执行完命令后将命令记录下来。一般将两者结合使用。
-<a id="rdb方式"></a>
 
 ### RDB方式
 RDB 是 Redis 默认的持久化方案。在指定的时间间隔内，执行指定次数的写操作，则会将内存中的数据写入到磁盘中。即在指定目录下生成一个dump.rdb文件。Redis 重启会通过加载dump.rdb文件恢复数据。
@@ -401,7 +366,6 @@ RDB 是 Redis 默认的持久化方案。在指定的时间间隔内，执行指
 
 Redis启动时会读取RDB快照文件，将数据从硬盘载入内存。通过RDB方式的持久化，一旦Redis异常退出，就会丢失最近一次快照以后更改的数据。
 
-<a id="aof方式"></a>
 ### AOF方式
 默认情况下Redis没有开启AOF（append only file）方式的持久化，可以通过appendonly参数启用`appendonly yes`。开启AOF方式持久化后每执行一条会更改Redis的数据的命令，Redis就会将该命令写进硬盘中的AOF文件。由于操作系统的缓存机制，数据并没有真正的写进硬盘，而是进入了系统的硬盘缓存。默认情况下系统每30秒会执行一次同步操作。为了防止硬盘缓存数据丢失，可以在Redis写入AOF文件后主动要求系统将硬盘缓存同步到硬盘上。可以通过`appendfsync`参数设置同步的时机。
 
@@ -411,7 +375,6 @@ appendfsync everysec  //保证了性能也保证了安全
 appendfsync no //由操作系统决定何时进行同步操作
 ```
 
-<a id="集群"></a>
 ## 集群
 **主从复制**
 

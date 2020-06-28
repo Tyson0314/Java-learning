@@ -1,41 +1,5 @@
-<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
-
-- [Spring Boot基础](#spring-boot基础)
-    - [特点](#特点)
-- [Spring Boot核心](#spring-boot核心)
-    - [基本配置](#基本配置)
-    - [外部配置](#外部配置)
-    - [日志配置](#日志配置)
-    - [Profile配置](#profile配置)
-    - [Spring Boot运行原理](#spring-boot运行原理)
-        - [实现自动配置](#实现自动配置)
-- [Spring Boot的Web开发](#spring-boot的web开发)
-    - [Thymeleaf 模板引擎](#thymeleaf-模板引擎)
-        - [Thymeleaf 基础知识](#thymeleaf-基础知识)
-        - [与 Spring MVC 集成](#与-spring-mvc-集成)
-        - [Spring Boot 的 Thymeleaf 支持](#spring-boot-的-thymeleaf-支持)
-        - [实战](#实战)
-    - [Web 相关配置](#web-相关配置)
-        - [Spring Boot 提供的自动配置](#spring-boot-提供的自动配置)
-        - [实现自己的 MVC 配置](#实现自己的-mvc-配置)
-        - [注册 Servlet、Filter、Listener](#注册-servlet、filter、listener)
-    - [Tomcat配置](#tomcat配置)
-        - [配置 Tomcat](#配置-tomcat)
-        - [替换 Tomcat](#替换-tomcat)
-- [Spring Boot 的数据访问](#spring-boot-的数据访问)
-    - [Docker 常用命令及参数](#docker-常用命令及参数)
-        - [Docker 镜像命令](#docker-镜像命令)
-        - [Docker 容器命令](#docker-容器命令)
-    - [Spring Boot 对 Spring Data JPA 的支持](#spring-boot-对-spring-data-jpa-的支持)
-        - [JDBC 的自动配置](#jdbc-的自动配置)
-        - [对 JPA 的自动配置](#对-jpa-的自动配置)
-        - [对 Spring Data JPA 的自动配置](#对-spring-data-jpa-的自动配置)
-
-<!-- /MarkdownTOC -->
-<a id="spring-boot基础"></a>
 ## Spring Boot基础
 理念：习惯优于配置，内置习惯性配置，无需手动进行配置。使用Spring boot可以很快创建一个独立运行、准生产级别的基于Spring框架的项目，不需要或者只需很少的Spring配置。
-<a id="特点"></a>
 ### 特点
 - springboot项目可以以jar包的形式独立运行，直接运行main或使用命令java -jar xx.jar就可以运行项目；
 - 快速搭建spring应用环境，简化复杂的环境配置；
@@ -44,10 +8,8 @@
 
 
 
-<a id="spring-boot核心"></a>
 ## Spring Boot核心
 
-<a id="基本配置"></a>
 ### 基本配置
 
 Spring Boot通常有个Application入口类：
@@ -146,7 +108,6 @@ Spring Boot提倡零配置，但实际项目中可能需要使用xml配置，此
 @ImportResource({"classpath:xxx-context.xml", "classpath:yyy-context.xml"})
 ```
 
-<a id="外部配置"></a>
 ### 外部配置
 
 **命令行参数配置**
@@ -274,7 +235,6 @@ public class SpringbootDemoApplication {
 
 @EnableConfigurationProperties注解将带有@ConfigurationProperties注解的类注入为Spring容器的Bean。
 
-<a id="日志配置"></a>
 ### 日志配置
 
 Spring Boot 支持 Log4J、Logback、Java Util Logging、Log4J2 作为日志框架，无论使用哪种日志框架，Spring Boot 已为当前使用日志框架的控制台输出及文件输出做好了配置。默认情况下，Spring Boot 使用 Logback 作为日志框架，日志级别为 INFO。
@@ -300,7 +260,6 @@ logging.pattern.console=%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg
 logging.pattern.file=%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n
 ```
 
-<a id="profile配置"></a>
 ### Profile配置
 
 Profile 是 Spring 用来针对不同环境对不同配置提供支持的，全局Profile配置使用 application-{profile}.properties（如application-prod.properties）。通过在 application.properties 中设置spring.profiles.active=prod 来制定活动的Profile。
@@ -332,7 +291,6 @@ spring.profiles.active=prod
 2019-03-03 09:17:11.007  INFO 17812 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
 ```
 
-<a id="spring-boot运行原理"></a>
 ### Spring Boot运行原理
 
 在 application.properties 中设置属性 debug=true，可以在控制台查看已启用和未启用的自动配置。
@@ -383,7 +341,6 @@ org.springframework.boot.autoconfigure.dao.PersistenceExceptionTranslationAutoCo
 ...
 ```
 
-<a id="实现自动配置"></a>
 #### 实现自动配置
 
 实现当某个类存在时，自动配置这个类的bean，并且可以在application.properties中配置bean的属性。
@@ -563,17 +520,14 @@ public class SpringbootDemoApplication {
 hello.msg=tyson
 ```
 
-<a id="spring-boot的web开发"></a>
 ## Spring Boot的Web开发
 
 spring-boot-starter-web 为我们提供了嵌入的 tomcat 和 Spring MVC 的依赖。
 
-<a id="thymeleaf-模板引擎"></a>
 ### Thymeleaf 模板引擎
 
 JSP 在内嵌的 Servlet 容器上运行会存在一些问题（内嵌 Tomcat、Jetty 不支持以 jar 形式运行 JSP，Undertow 不支持 JSP）。Spring Boot 提供了大量的模板引擎，包含 FreeMarker、Groovy、Thymeleaf、Velocity 和 Mustache，Spring Boot 中推荐使用 Thymeleaf 作为模板引擎，因为 Thymeleaf 提供了完美的 Spring MVC 的支持。
 
-<a id="thymeleaf-基础知识"></a>
 #### Thymeleaf 基础知识
 
 Thymeleaf 是 Java 类库，它是一个 xml/xhtml/html5 的模板引擎，可以作为 MVC 的 Web 应用的 view 层。Thymeleaf  还提供了额外的模块与 Spring MVC 集成，使用 Thymeleaf 完全可以替代 JSP。
@@ -679,7 +633,6 @@ Thymeleaf 是 Java 类库，它是一个 xml/xhtml/html5 的模板引擎，可�
 </li>
 ```
 
-<a id="与-spring-mvc-集成"></a>
 #### 与 Spring MVC 集成
 
 在 Spring MVC 中，若我们需要集成一个模板引擎的话，需要定义 ViewResolver，而 ViewResolver 需要定义一个 View。在 Spring MVC 中集成 Thymeleaf 非常简单，Thymeleaf 为我们定义好了 org.thymeleaf.spring4.view .ThymeleafView 和 org.thymeleaf.spring4.view.ThymeleafViewResolver（默认使用 ThymeleafView 作为 View）。Thymeleaf 给我们提供了一个 SpringTemplateEngine 类，用来驱动 Spring MVC 下使用 Thymeleaf 模板引擎，另外提供了一个 TemplateResolver 用来设置通用的模板引擎（包含前缀、后缀等）。
@@ -760,7 +713,6 @@ public class ThymeleafConfig {
 }
 ```
 
-<a id="spring-boot-的-thymeleaf-支持"></a>
 #### Spring Boot 的 Thymeleaf 支持
 
 Spring Boot 通过 org.springframework.boot.autoconfigure.thymeleaf 包对 Thymeleaf 进行了自动配置，通过ThymeleafAutoConfiguration 类对集成所需的 Bean 进行自动配置，包括 templateResolver、templateEngine 和 thymeleafViewResolvers 的配置。通过 ThymeleafProperties 来设置属性以及默认配置。
@@ -792,7 +744,6 @@ public class ThymeleafProperties {
 }
 ```
 
-<a id="实战"></a>
 #### 实战
 
 1. 引入依赖
@@ -873,10 +824,8 @@ public class PersonController {
 }
 ```
 
-<a id="web-相关配置"></a>
 ### Web 相关配置
 
-<a id="spring-boot-提供的自动配置"></a>
 #### Spring Boot 提供的自动配置
 
 WebMvcAutoConfiguration 及 WebMvcProperties 定义了 Web 相关的自动配置。
@@ -950,7 +899,6 @@ public void addFormatters(FormatterRegistry registry) {
 
 当我们访问应用根目录 http://localhost:8080/ 时，会直接映射。
 
-<a id="实现自己的-mvc-配置"></a>
 #### 实现自己的 MVC 配置
 
 当 Spring Boot 提供的 Spring MVC 不符合要求时，可以通过一个配置类（注解有@Configuration 的类）加上@EnableWebMvc 注解来实现完全自己控制的 MVC 配置。**
@@ -971,7 +919,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 重写的 addViewControllers 方法并不会覆盖 WebMvcAutocConfiguration 中的 addViewControllers（此方法中，Spring Boot 将“/”映射到 index.html），即我们自己的配置和 Spring Boot 的自动配置同时生效。
 
-<a id="注册-servlet、filter、listener"></a>
 #### 注册 Servlet、Filter、Listener
 
 当使用嵌入式的 Servlet 容器时，通过将 Servlet、Filter 和 Listener 声明为 Spring Bean 达到注册的效果；或者注册 ServletRegistrationBean、FilterRegistrationBean 和 ServletRegistrationBean 的 Bean。
@@ -1007,10 +954,8 @@ public ServletListenerRegistrationBean<ZzListener> zzListenerServletRegistration
 }
 ```
 
-<a id="tomcat配置"></a>
 ### Tomcat配置
 
-<a id="配置-tomcat"></a>
 #### 配置 Tomcat
 
 关于 Tomcat 的所有属性都在 org.springframework.boot.autoconfigure.web.ServerPr=8080operties 配置类中做了定义，只需在 application.properties 配置即可。通用的 Servlet 容器配置都以 "server" 作为前缀，而 Tomcat 特有的配置都以 "server.tomcat" 作为前缀。
@@ -1025,7 +970,6 @@ server.tomcat.uri-encoding=UTF-8
 server.tomcat.compression=off #是否开启压缩，默认是关闭
 ```
 
-<a id="替换-tomcat"></a>
 #### 替换 Tomcat
 
 Spring Boot 默认使用 Tomcat 作为内嵌的 Servlet 容器，如果要使用 Jetty 或者 Undertow 为容器，只需修改 spring-boot-start-web 的依赖即可。
@@ -1082,13 +1026,10 @@ INFO 21724 --- [           main] o.s.b.web.embedded.jetty.JettyWebServer  : Jett
 </dependency>
 ```
 
-<a id="spring-boot-的数据访问"></a>
 ## Spring Boot 的数据访问
 
-<a id="docker-常用命令及参数"></a>
 ### Docker 常用命令及参数
 
-<a id="docker-镜像命令"></a>
 #### Docker 镜像命令
 
 （1）**Docker 镜像检索**
@@ -1123,7 +1064,6 @@ docker rmi image-id
 docker rmi ${docker images -q}
 ```
 
-<a id="docker-容器命令"></a>
 #### Docker 容器命令
 
 （1）容器基本操作
@@ -1198,12 +1138,10 @@ docker exec -it container-id/container-name bash
 
 登录后可以在容器中进行常规的 Linux 系统操作命令。
 
-<a id="spring-boot-对-spring-data-jpa-的支持"></a>
 ### Spring Boot 对 Spring Data JPA 的支持
 
 JPA 是一个基于 O/R 映射的标准规范（不提供实现）。Spring Data JPA 是 Spring Data 的一个子项目，它通过提供基于 JPA 的Repository 极大地减少了 JPA 作为数据访问方案的代码量。
 
-<a id="jdbc-的自动配置"></a>
 #### JDBC 的自动配置
 
 spring-boot-starter-data-jpa 依赖于 spring-boot-starter-jdbc，Spring Boot 对 JDBC 做了一些自动配置，源码在 org.springframework.boot.autoconfigure.jdbc 下。
@@ -1236,7 +1174,6 @@ public class JdbcProperties {
 
 
 
-<a id="对-jpa-的自动配置"></a>
 #### 对 JPA 的自动配置
 
 Spring Boot 对 JPA 的自动配置放置在 org.springframework.boot.autoconfiguration.orm.jpa 下，从HibernateJpaAutoConfiguration 可以看出，Spring Boot 默认的 JPA 实现是Hibernate。
@@ -1263,7 +1200,6 @@ public class JpaProperties {
 
 在 JpaBaseConfiguration 类中，Spring Boot 为我们创建了 transactionManager、jpaVendorAdapter、entityManagerFactory 等 bean。JpaBaseConfiguration 还有 getPackagesToScan 方法，可以自动扫描有@Entity 注解的实体类。
 
-<a id="对-spring-data-jpa-的自动配置"></a>
 #### 对 Spring Data JPA 的自动配置
 
 Spring Boot 对 Spring Data JPA 的自动配置放置在 org.springframework.boot.autoconfigure.data.jpa 中。JpaRepositoriesAutoConfiguration 是依赖于 HibernateJpaAutoConfiguration 配置的，且 Spring Boot 自动开启了对 Spring Data JPA 的支持，无需在配置类显式声明@EnableJpaRepositories。

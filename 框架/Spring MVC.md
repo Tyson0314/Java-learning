@@ -1,42 +1,7 @@
-<!-- MarkdownTOC autoanchor="true" autolink="true" uri_encoding="false" -->
-
-- [Spring MVC处理流程](#spring-mvc处理流程)
-- [Spring MVC和Struts的区别](#spring-mvc和struts的区别)
-- [Spring MVC环境搭建](#spring-mvc环境搭建)
-- [处理器映射器和适配器](#处理器映射器和适配器)
-    - [非注解的处理器映射器和适配器](#非注解的处理器映射器和适配器)
-    - [注解的处理器映射器和适配器](#注解的处理器映射器和适配器)
-- [前端控制器](#前端控制器)
-    - [对静态资源的处理](#对静态资源的处理)
-- [视图解析器](#视图解析器)
-    - [AbstractCachingViewResolver](#abstractcachingviewresolver)
-    - [UrlBasedViewResolver](#urlbasedviewresolver)
-    - [InternalResourceViewResolver](#internalresourceviewresolver)
-    - [XmlViewResolver](#xmlviewresolver)
-    - [BeanNameViewResolver](#beannameviewresolver)
-    - [ResourceBundleViewResolver](#resourcebundleviewresolver)
-    - [FreeMarkerViewResolver](#freemarkerviewresolver)
-- [请求映射](#请求映射)
-- [参数绑定](#参数绑定)
-    - [简单类型参数绑定](#简单类型参数绑定)
-    - [包装类型参数绑定](#包装类型参数绑定)
-    - [集合类型参数绑定](#集合类型参数绑定)
-- [Converter和Formatter](#converter和formatter)
-    - [Converter](#converter)
-    - [Formatter](#formatter)
-- [验证器](#验证器)
-    - [使用Validator接口进行验证](#使用validator接口进行验证)
-    - [使用JSR-303 Validation进行验证](#使用jsr-303-validation进行验证)
-        - [自定义限制类型的注解](#自定义限制类型的注解)
-        - [分组校验](#分组校验)
-- [RequestBody和RequestParam](#requestbody和requestparam)
-
-<!-- /MarkdownTOC -->
-
+## 简介
 
 Spring MVC是一种基于MVC架构模式的轻量级Web框架。
 
-<a id="spring-mvc处理流程"></a>
 ## Spring MVC处理流程
 
 Spring MVC的处理过程：首先控制器接收用户的请求，调用相应的模型来进行业务处理，并返回数据给控制器。控制器调用相应的视图来显示处理的结果，并通过视图呈现给用户。
@@ -54,7 +19,6 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 
 
 
-<a id="spring-mvc和struts的区别"></a>
 ## Spring MVC和Struts的区别
 
 1. Spring MVC是基于方法开发，Struts2是基于类开发的。
@@ -66,9 +30,7 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 3. Struts2 的核心是基于一个Filter即StrutsPreparedAndExcuteFilter，Spring MVC的核心是基于一个Servlet即DispatcherServlet(前端控制器)。
 4. Struts处理速度稍微比Spring MVC慢，Struts使用了Struts标签，加载数据较慢。
 
-<a id="spring-mvc环境搭建"></a>
 
-<a id="spring-mvc环境搭建"></a>
 ## Spring MVC环境搭建
 
 导入jar包：
@@ -335,14 +297,12 @@ public class UserController implements Controller {
 
 
 
-<a id="处理器映射器和适配器"></a>
 ## 处理器映射器和适配器
 
 在Spring MVC核心jar包中有一个默认的配置文件**DispatcherServlet.properties**(org.springframework.wen.servlet包下)，当核心配置文件springmvc.xml没有配置处理器映射器和适配器时，会使用默认配置。
 
 
 
-<a id="非注解的处理器映射器和适配器"></a>
 ### 非注解的处理器映射器和适配器
 常用的处理器映射器有BeanNameUrlHandlerMapping，SimpleUrlHandlerMapping，ControllerClassNameHandlerMapping。
 ```
@@ -366,7 +326,6 @@ public class UserController implements Controller {
     <bean class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
 ```
 
-<a id="注解的处理器映射器和适配器"></a>
 ### 注解的处理器映射器和适配器
 方式一（常用的配置方式）：annotation-driven标签会自动注册RequestMappingHandlerMapping与RequestMappingHandlerAdapter两个Bean，这是Spring MVC为@Controller分发请求所必需的，并且提供了数据绑定支持，@NumberFormat支持，@DateTimeFormat支持，@Valid支持读写XML的支持（JAXB）和读写JSON的支持（默认Jackson）等功能。
 ```
@@ -410,7 +369,6 @@ public class UserController {
 ```
 
 
-<a id="前端控制器"></a>
 ## 前端控制器
 前端控制器DispatcherServlet类最核心的方法是doDispatch()。
 
@@ -487,7 +445,6 @@ public class UserController {
     }
 ```
 
-<a id="对静态资源的处理"></a>
 ### 对静态资源的处理
 
 web.xml中DispatcherServlet的配置如下：
@@ -627,22 +584,17 @@ key 为 mapping 的 URI pattern值,而 value为 ResourceHttpRequestHandler，
 
 
 
-<a id="视图解析器"></a>
 
-<a id="视图解析器"></a>
 ## 视图解析器
 视图解析器ViewResolver的作用是把逻辑视图名称解析成具体的View对象，让View对象去解析视图，并将带有数据的视图反馈给客户端。
 
 常用的视图解析器类有AbstractCachingViewResolver，UrlBasedViewResolver，InternalResourceViewResolver，XmlViewResolver，BeanNameViewResolver，ResorceBundleViewResolver，FreeMarkerViewResolver和VelocityViewResolver。
 
 
-<a id="abstractcachingviewresolver"></a>
 ### AbstractCachingViewResolver
 抽象类，实现了该抽象类的视图解析器会将其曾经解析过的视图进行缓存。
 
-<a id="urlbasedviewresolver"></a>
 
-<a id="urlbasedviewresolver"></a>
 ### UrlBasedViewResolver
 继承了AbstractCachingViewResolver，通过拼接资源的uri路径来展示视图。
 ```
@@ -657,7 +609,6 @@ key 为 mapping 的 URI pattern值,而 value为 ResourceHttpRequestHandler，
 UrlBasedViewResolver支持返回的视图名称中含有"redirect:"和"forward:"前缀，支持视图的重定向和内部跳转设置。
 
 
-<a id="internalresourceviewresolver"></a>
 ### InternalResourceViewResolver
 内部资源视图解析器，最常用的视图解析器类型。它是UrlBasedViewResolver的子类。
 
@@ -672,7 +623,6 @@ UrlBasedViewResolver支持返回的视图名称中含有"redirect:"和"forward:"
 当Controller处理器方法返回名为"login"的视图时，InternalResourceViewResolver会将"login"解析成一个InternalResourceView对象，然后将返回的模型数据存放到对应的HttpServletRequest属性中，最后利用RequestDispatcher把请求forward到"/WEB-INF/jsp/login.jsp"上。
 
 
-<a id="xmlviewresolver"></a>
 ### XmlViewResolver
 继承了AbstractCachingViewResolver，使用XmlViewResolver需要添加一个xml配置文件，用来定义视图的bean对象。当获得Controller方法返回的视图名称后，XmlViewResolver会在指定的配置文件中寻找对应名称的bean配置，解析并处理该视图。
 ```
@@ -697,7 +647,6 @@ UrlBasedViewResolver支持返回的视图名称中含有"redirect:"和"forward:"
 ```
 
 
-<a id="beannameviewresolver"></a>
 ### BeanNameViewResolver
 通过把返回的逻辑视图名称去匹配定义好的视图bean对象。BeanNameViewResolver要求视图bean对象都定义在Spring的application context中。
 ```
@@ -745,9 +694,7 @@ public class MyViewController {
 
 Spring MVC 根据返回的逻辑视图名去寻找视图 bean 对象。
 
-<a id="resourcebundleviewresolver"></a>
 
-<a id="resourcebundleviewresolver"></a>
 ### ResourceBundleViewResolver
 继承了AbstractCachingViewResolver，需要一个properties文件定义逻辑视图名和View对象的对应关系，配置文件需放在classpath根目录下。
 ```
@@ -766,7 +713,6 @@ login.url=/hello.html
 ```
 
 
-<a id="freemarkerviewresolver"></a>
 ### FreeMarkerViewResolver
 FreeMarkViewResolver会将Controller返回的逻辑视图信息解析成FreeMarkerView类型。它是UrlBasedViewResolver的子类。
 
@@ -800,7 +746,6 @@ springmvc.xml配置
 建议在ViewResolver中，将InternalResourceViewResolver解析器优先级设置为最低，因为该解析器能解析所有类型的视图，并返回一个不为空的View对象。
 
 
-<a id="请求映射"></a>
 ## 请求映射
 在使用annotation-driven标签时，处理器Handler的类型要符合annotation-driven标签指定的处理器映射器和适配器的类型。annotation-driven标签指定的默认处理器映射器和适配器在Spring3.1之前为DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter，在Spring3.1之后为RequestMappingHandlerMapping和RequestMappingHandlerAdapter。
 
@@ -845,12 +790,10 @@ consumes属性表示处理请求的提交内容类型（Content-Type），例如
 ```
 
 
-<a id="参数绑定"></a>
 ## 参数绑定
 当用户发送请求时，前端控制器会请求处理器映射器返回一个处理器链，然后请求处理器适配器执行相应的Handler。此时，HandlerAdapter会调用Spring MVC提供的参数绑定组件将请求的key/value数据绑定到Controller处理器方法对应的形参上。
 
 
-<a id="简单类型参数绑定"></a>
 ### 简单类型参数绑定
 通过RequestParam将某个请求参数绑定到方法的形参上。value属性不指定时，则请求参数名称要与形参名称相同。required参数表示是否必须传入。defaultValue参数可以指定参数的默认值。
 ```
@@ -873,7 +816,6 @@ consumes属性表示处理请求的提交内容类型（Content-Type），例如
 
 
 
-<a id="包装类型参数绑定"></a>
 ### 包装类型参数绑定
 
 ```
@@ -893,7 +835,6 @@ name属性名称与User类属性对应，Spring MVC的HandlerAdapter会解析请
 ```
 
 
-<a id="集合类型参数绑定"></a>
 ### 集合类型参数绑定
 ```
     @RequestMapping("/findUsers")
@@ -933,12 +874,9 @@ public class UserList {
 
 
 
-<a id="converter和formatter"></a>
 
-<a id="converter和formatter"></a>
 ## Converter和Formatter
 
-<a id="converter"></a>
 ### Converter
 
 将字符串转化成日期格式，可通过编写Converter接口的实现类来实现。
@@ -988,7 +926,6 @@ public class StringToDateConverter implements Converter<String, Date> {
 <mvc:annotation-driven conversion-service="conversionService"/>
 ```
 
-<a id="formatter"></a>
 ### Formatter
 
 Formatter和Converter一样，也是将一种类型转化为另一种类型。但Formatter的源类型必须是String，而Converter适用于各种类型的源类型。Formatter更适合于web层。
@@ -1043,14 +980,11 @@ spring配置文件。
     </bean>
 ```
 
-<a id="验证器"></a>
 ## 验证器
 
-<a id="使用validator接口进行验证"></a>
 
 本节内容参考：[SpringMVC介绍之Validation](https://elim.iteye.com/blog/1812584)
 
-<a id="使用validator接口进行验证"></a>
 ### 使用Validator接口进行验证
 
 需要进行验证的实体类
@@ -1198,7 +1132,6 @@ public class UserController {
 
 
 
-<a id="使用jsr-303-validation进行验证"></a>
 ### 使用JSR-303 Validation进行验证
 
 JSR-303是一个数据验证的规范，Spring没有对这一规范进行实现，当我们在Spring MVC使用JSR-303的时候需要提供一个对JSR-303规范的实现，Hibernate Validator实现了这一规范。
@@ -1326,7 +1259,6 @@ public class UserController {
 | **@Pattern(value)**           | 限制必须符合指定的正则表达式                                 |
 | **@Size(max,min)**            | 限制字符长度必须在min到max之间                               |
 
-<a id="自定义限制类型的注解"></a>
 #### 自定义限制类型的注解
 
 除了JSR-303原生支持的限制类型之外我们还可以定义自己的限制类型。定义自己的限制类型首先我们得定义一个该种限制类型的注解，而且该注解需要使用@Constraint标注。下面定义一个表示金额的限制类型。
@@ -1505,7 +1437,6 @@ public class MoneyValidator implements ConstraintValidator<Money, Double> {
 }  
 ```
 
-<a id="分组校验"></a>
 #### 分组校验
 
 POJO有多个属性，分组校验可以使得Controller的方法只校验POJO的某个属性，而不是校验所有的属性。
@@ -1615,7 +1546,6 @@ public class Prop {
 
 
 
-<a id="requestbody和requestparam"></a>
 ## RequestBody和RequestParam
 
 @RequestBody一般处理的是在ajax请求中声明contentType: "application/json; charset=utf-8"时候。也就是json数据或者xml数据。
