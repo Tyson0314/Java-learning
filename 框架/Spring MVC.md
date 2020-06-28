@@ -1,3 +1,41 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+- [Spring MVC处理流程](#spring-mvc%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B)
+- [Spring MVC和Struts的区别](#spring-mvc%E5%92%8Cstruts%E7%9A%84%E5%8C%BA%E5%88%AB)
+- [Spring MVC环境搭建](#spring-mvc%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)
+- [处理器映射器和适配器](#%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8%E5%92%8C%E9%80%82%E9%85%8D%E5%99%A8)
+  - [非注解的处理器映射器和适配器](#%E9%9D%9E%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8%E5%92%8C%E9%80%82%E9%85%8D%E5%99%A8)
+  - [注解的处理器映射器和适配器](#%E6%B3%A8%E8%A7%A3%E7%9A%84%E5%A4%84%E7%90%86%E5%99%A8%E6%98%A0%E5%B0%84%E5%99%A8%E5%92%8C%E9%80%82%E9%85%8D%E5%99%A8)
+- [前端控制器](#%E5%89%8D%E7%AB%AF%E6%8E%A7%E5%88%B6%E5%99%A8)
+  - [对静态资源的处理](#%E5%AF%B9%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E7%9A%84%E5%A4%84%E7%90%86)
+- [视图解析器](#%E8%A7%86%E5%9B%BE%E8%A7%A3%E6%9E%90%E5%99%A8)
+  - [AbstractCachingViewResolver](#abstractcachingviewresolver)
+  - [UrlBasedViewResolver](#urlbasedviewresolver)
+  - [InternalResourceViewResolver](#internalresourceviewresolver)
+  - [XmlViewResolver](#xmlviewresolver)
+  - [BeanNameViewResolver](#beannameviewresolver)
+  - [ResourceBundleViewResolver](#resourcebundleviewresolver)
+  - [FreeMarkerViewResolver](#freemarkerviewresolver)
+- [请求映射](#%E8%AF%B7%E6%B1%82%E6%98%A0%E5%B0%84)
+- [参数绑定](#%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A)
+  - [简单类型参数绑定](#%E7%AE%80%E5%8D%95%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A)
+  - [包装类型参数绑定](#%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A)
+  - [集合类型参数绑定](#%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B%E5%8F%82%E6%95%B0%E7%BB%91%E5%AE%9A)
+- [Converter和Formatter](#converter%E5%92%8Cformatter)
+  - [Converter](#converter)
+  - [Formatter](#formatter)
+- [验证器](#%E9%AA%8C%E8%AF%81%E5%99%A8)
+  - [使用Validator接口进行验证](#%E4%BD%BF%E7%94%A8validator%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81)
+  - [使用JSR-303 Validation进行验证](#%E4%BD%BF%E7%94%A8jsr-303-validation%E8%BF%9B%E8%A1%8C%E9%AA%8C%E8%AF%81)
+    - [自定义限制类型的注解](#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%99%90%E5%88%B6%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%B3%A8%E8%A7%A3)
+    - [分组校验](#%E5%88%86%E7%BB%84%E6%A0%A1%E9%AA%8C)
+- [RequestBody和RequestParam](#requestbody%E5%92%8Crequestparam)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 Spring MVC是一种基于MVC架构模式的轻量级Web框架。

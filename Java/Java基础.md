@@ -1,3 +1,53 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [Java特性](#java%E7%89%B9%E6%80%A7)
+  - [面向对象](#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1)
+  - [面向对象特性](#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%89%B9%E6%80%A7)
+  - [多态怎么实现](#%E5%A4%9A%E6%80%81%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0)
+  - [接口与抽象类区别](#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%8C%BA%E5%88%AB)
+  - [接口的用处](#%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%94%A8%E5%A4%84)
+  - [反射机制](#%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6)
+- [语法](#%E8%AF%AD%E6%B3%95)
+  - [static final](#static-final)
+  - [泛型](#%E6%B3%9B%E5%9E%8B)
+  - [访问修饰符](#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)
+  - [程序执行顺序](#%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F)
+- [Exception](#exception)
+- [集合](#%E9%9B%86%E5%90%88)
+  - [hashMap](#hashmap)
+  - [hashSet](#hashset)
+  - [HashMap和HashTable](#hashmap%E5%92%8Chashtable)
+  - [LinkedHashMap底层实现](#linkedhashmap%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0)
+  - [ConcurrentHashMap 和 Hashtable 的key和value不能为null？](#concurrenthashmap-%E5%92%8C-hashtable-%E7%9A%84key%E5%92%8Cvalue%E4%B8%8D%E8%83%BD%E4%B8%BAnull)
+  - [treemap底层](#treemap%E5%BA%95%E5%B1%82)
+  - [list/hashset/hashmap排序](#listhashsethashmap%E6%8E%92%E5%BA%8F)
+- [ThreadLocal](#threadlocal)
+- [StringBuilder和StringBuffer](#stringbuilder%E5%92%8Cstringbuffer)
+- [线程安全类](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%B1%BB)
+- [object方法](#object%E6%96%B9%E6%B3%95)
+  - [为什么重写equals()要重写hashcode()](#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E5%86%99equals%E8%A6%81%E9%87%8D%E5%86%99hashcode)
+  - [==和equals的区别](#%E5%92%8Cequals%E7%9A%84%E5%8C%BA%E5%88%AB)
+- [常见操作](#%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C)
+  - [排序](#%E6%8E%92%E5%BA%8F)
+  - [数组操作](#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C)
+  - [拷贝](#%E6%8B%B7%E8%B4%9D)
+    - [数组拷贝](#%E6%95%B0%E7%BB%84%E6%8B%B7%E8%B4%9D)
+    - [对象拷贝](#%E5%AF%B9%E8%B1%A1%E6%8B%B7%E8%B4%9D)
+  - [序列化](#%E5%BA%8F%E5%88%97%E5%8C%96)
+    - [什么情况下需要序列化？](#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E5%BA%8F%E5%88%97%E5%8C%96)
+    - [如何实现序列化](#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BA%8F%E5%88%97%E5%8C%96)
+    - [serialVersionUID](#serialversionuid)
+  - [遍历](#%E9%81%8D%E5%8E%86)
+    - [fast-fail](#fast-fail)
+    - [fast-safe](#fast-safe)
+    - [移除集合元素](#%E7%A7%BB%E9%99%A4%E9%9B%86%E5%90%88%E5%85%83%E7%B4%A0)
+- [代理](#%E4%BB%A3%E7%90%86)
+- [transient](#transient)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## Java特性
 
 ### 面向对象

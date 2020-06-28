@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+  - [基本命令](#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
+  - [配置文件](#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
+- [应用](#%E5%BA%94%E7%94%A8)
+  - [动静分离](#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB)
+- [后端部署](#%E5%90%8E%E7%AB%AF%E9%83%A8%E7%BD%B2)
+- [前端部署](#%E5%89%8D%E7%AB%AF%E9%83%A8%E7%BD%B2)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 [Nginx入门指南](https://juejin.im/post/5e982d4b51882573b0474c07#heading-1)

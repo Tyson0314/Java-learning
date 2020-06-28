@@ -1,3 +1,13 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+- [工作原理](#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86)
+- [基本命令](#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 Android调试桥，用于与设备进行通信。adb命令用于执行各种设备操作，可以在设备上运行各种命令。主要包含三个组件：
 - 客户端：计算机上运行，用于发送adb命令；

@@ -1,3 +1,30 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [共享对象](#%E5%85%B1%E4%BA%AB%E5%AF%B9%E8%B1%A1)
+  - [非原子的64位操作](#%E9%9D%9E%E5%8E%9F%E5%AD%90%E7%9A%8464%E4%BD%8D%E6%93%8D%E4%BD%9C)
+  - [this 引用逸出](#this-%E5%BC%95%E7%94%A8%E9%80%B8%E5%87%BA)
+  - [安全的对象构造过程](#%E5%AE%89%E5%85%A8%E7%9A%84%E5%AF%B9%E8%B1%A1%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B)
+  - [ThreadLocal](#threadlocal)
+- [容器](#%E5%AE%B9%E5%99%A8)
+  - [间接的迭代操作](#%E9%97%B4%E6%8E%A5%E7%9A%84%E8%BF%AD%E4%BB%A3%E6%93%8D%E4%BD%9C)
+  - [ConcurrentHashMap](#concurrenthashmap)
+  - [Copy-On-Write](#copy-on-write)
+  - [同步工具类](#%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7%E7%B1%BB)
+    - [信号量](#%E4%BF%A1%E5%8F%B7%E9%87%8F)
+  - [缓存系统](#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F)
+- [任务执行](#%E4%BB%BB%E5%8A%A1%E6%89%A7%E8%A1%8C)
+  - [Executor 框架](#executor-%E6%A1%86%E6%9E%B6)
+    - [延迟任务](#%E5%BB%B6%E8%BF%9F%E4%BB%BB%E5%8A%A1)
+    - [携带结果的 Callable 和 Future](#%E6%90%BA%E5%B8%A6%E7%BB%93%E6%9E%9C%E7%9A%84-callable-%E5%92%8C-future)
+    - [为任务设置时限](#%E4%B8%BA%E4%BB%BB%E5%8A%A1%E8%AE%BE%E7%BD%AE%E6%97%B6%E9%99%90)
+  - [取消与关闭](#%E5%8F%96%E6%B6%88%E4%B8%8E%E5%85%B3%E9%97%AD)
+    - [任务取消](#%E4%BB%BB%E5%8A%A1%E5%8F%96%E6%B6%88)
+    - [阻塞和中断](#%E9%98%BB%E5%A1%9E%E5%92%8C%E4%B8%AD%E6%96%AD)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 共享对象
 
 ### 非原子的64位操作

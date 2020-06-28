@@ -1,3 +1,48 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [概述](#%E6%A6%82%E8%BF%B0)
+  - [分层](#%E5%88%86%E5%B1%82)
+  - [封装](#%E5%B0%81%E8%A3%85)
+  - [分用](#%E5%88%86%E7%94%A8)
+  - [端口号](#%E7%AB%AF%E5%8F%A3%E5%8F%B7)
+- [链路层](#%E9%93%BE%E8%B7%AF%E5%B1%82)
+  - [SLIP](#slip)
+  - [PPP 点对点协议](#ppp-%E7%82%B9%E5%AF%B9%E7%82%B9%E5%8D%8F%E8%AE%AE)
+  - [以太网](#%E4%BB%A5%E5%A4%AA%E7%BD%91)
+- [网际协议](#%E7%BD%91%E9%99%85%E5%8D%8F%E8%AE%AE)
+  - [IP 首部](#ip-%E9%A6%96%E9%83%A8)
+  - [IP 路由选择](#ip-%E8%B7%AF%E7%94%B1%E9%80%89%E6%8B%A9)
+  - [子网寻址](#%E5%AD%90%E7%BD%91%E5%AF%BB%E5%9D%80)
+- [ARP](#arp)
+  - [工作原理](#%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86)
+  - [分组格式](#%E5%88%86%E7%BB%84%E6%A0%BC%E5%BC%8F)
+  - [ARP 代理](#arp-%E4%BB%A3%E7%90%86)
+- [RARP](#rarp)
+  - [分组格式](#%E5%88%86%E7%BB%84%E6%A0%BC%E5%BC%8F-1)
+- [ICMP](#icmp)
+  - [ICMP 报文类型](#icmp-%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B)
+  - [ICMP 地址掩码请求与应答](#icmp-%E5%9C%B0%E5%9D%80%E6%8E%A9%E7%A0%81%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%BA%94%E7%AD%94)
+  - [ICMP 时间戳请求与应答](#icmp-%E6%97%B6%E9%97%B4%E6%88%B3%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%BA%94%E7%AD%94)
+  - [ICMP 端口不可达差错](#icmp-%E7%AB%AF%E5%8F%A3%E4%B8%8D%E5%8F%AF%E8%BE%BE%E5%B7%AE%E9%94%99)
+- [Traceroute](#traceroute)
+- [IP 选路](#ip-%E9%80%89%E8%B7%AF)
+- [广播和多播](#%E5%B9%BF%E6%92%AD%E5%92%8C%E5%A4%9A%E6%92%AD)
+- [IGMP](#igmp)
+- [UDP](#udp)
+  - [特点](#%E7%89%B9%E7%82%B9)
+  - [首部](#%E9%A6%96%E9%83%A8)
+- [TCP](#tcp)
+  - [特点](#%E7%89%B9%E7%82%B9-1)
+  - [停止等待协议](#%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E5%8D%8F%E8%AE%AE)
+  - [首部](#%E9%A6%96%E9%83%A8-1)
+- [DNS](#dns)
+- [TFTP](#tftp)
+- [BOOTP](#bootp)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 概述
 
 ### 分层

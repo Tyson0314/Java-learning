@@ -1,3 +1,25 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+- [启动与停止](#%E5%90%AF%E5%8A%A8%E4%B8%8E%E5%81%9C%E6%AD%A2)
+- [数据类型](#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
+  - [字符串类型](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B)
+  - [散列类型](#%E6%95%A3%E5%88%97%E7%B1%BB%E5%9E%8B)
+  - [列表类型](#%E5%88%97%E8%A1%A8%E7%B1%BB%E5%9E%8B)
+  - [集合类型](#%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B)
+  - [有序集合类型](#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E7%B1%BB%E5%9E%8B)
+  - [排序](#%E6%8E%92%E5%BA%8F)
+- [事务](#%E4%BA%8B%E5%8A%A1)
+- [消息队列](#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97)
+- [持久化](#%E6%8C%81%E4%B9%85%E5%8C%96)
+  - [RDB方式](#rdb%E6%96%B9%E5%BC%8F)
+  - [AOF方式](#aof%E6%96%B9%E5%BC%8F)
+- [集群](#%E9%9B%86%E7%BE%A4)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 ## 简介
 Redis是一个高性能的key-value数据库。Redis对数据的操作都是原子性的。

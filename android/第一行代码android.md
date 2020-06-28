@@ -1,3 +1,57 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+  - [四大组件](#%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6)
+  - [项目结构](#%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84)
+    - [AndroidManifest](#androidmanifest)
+    - [res目录](#res%E7%9B%AE%E5%BD%95)
+    - [build.gradle](#buildgradle)
+  - [日志工具](#%E6%97%A5%E5%BF%97%E5%B7%A5%E5%85%B7)
+- [活动](#%E6%B4%BB%E5%8A%A8)
+  - [基本用法](#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95)
+    - [在活动中使用 Toast](#%E5%9C%A8%E6%B4%BB%E5%8A%A8%E4%B8%AD%E4%BD%BF%E7%94%A8-toast)
+    - [在活动中使用 Menu](#%E5%9C%A8%E6%B4%BB%E5%8A%A8%E4%B8%AD%E4%BD%BF%E7%94%A8-menu)
+    - [销毁一个活动](#%E9%94%80%E6%AF%81%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8)
+  - [使用 intent 在活动在穿梭](#%E4%BD%BF%E7%94%A8-intent-%E5%9C%A8%E6%B4%BB%E5%8A%A8%E5%9C%A8%E7%A9%BF%E6%A2%AD)
+    - [显式 Intent](#%E6%98%BE%E5%BC%8F-intent)
+    - [隐式 Intent](#%E9%9A%90%E5%BC%8F-intent)
+    - [隐式 Intent的用法](#%E9%9A%90%E5%BC%8F-intent%E7%9A%84%E7%94%A8%E6%B3%95)
+    - [向下一个活动传递数据](#%E5%90%91%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE)
+    - [返回数据给上一个活动](#%E8%BF%94%E5%9B%9E%E6%95%B0%E6%8D%AE%E7%BB%99%E4%B8%8A%E4%B8%80%E4%B8%AA%E6%B4%BB%E5%8A%A8)
+- [布局](#%E5%B8%83%E5%B1%80)
+  - [LinearLayout](#linearlayout)
+  - [RelativeLayout](#relativelayout)
+  - [FrameLayout](#framelayout)
+  - [百分比布局](#%E7%99%BE%E5%88%86%E6%AF%94%E5%B8%83%E5%B1%80)
+  - [自定义控件](#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6)
+    - [引入布局](#%E5%BC%95%E5%85%A5%E5%B8%83%E5%B1%80)
+    - [创建自定义控件](#%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6)
+  - [ListView](#listview)
+  - [RecyclerView](#recyclerview)
+    - [点击事件](#%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6)
+  - [聊天应用](#%E8%81%8A%E5%A4%A9%E5%BA%94%E7%94%A8)
+- [手机多媒体](#%E6%89%8B%E6%9C%BA%E5%A4%9A%E5%AA%92%E4%BD%93)
+  - [通知](#%E9%80%9A%E7%9F%A5)
+    - [摄像头拍照](#%E6%91%84%E5%83%8F%E5%A4%B4%E6%8B%8D%E7%85%A7)
+    - [相册选择相片](#%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E7%9B%B8%E7%89%87)
+    - [音频播放](#%E9%9F%B3%E9%A2%91%E6%92%AD%E6%94%BE)
+- [网络技术](#%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF)
+  - [WebView](#webview)
+  - [HttpURLConnection](#httpurlconnection)
+  - [OkHttp](#okhttp)
+  - [HttpUtil](#httputil)
+- [高级技巧](#%E9%AB%98%E7%BA%A7%E6%8A%80%E5%B7%A7)
+  - [全局获取 Context](#%E5%85%A8%E5%B1%80%E8%8E%B7%E5%8F%96-context)
+  - [使用 Intent 传递对象](#%E4%BD%BF%E7%94%A8-intent-%E4%BC%A0%E9%80%92%E5%AF%B9%E8%B1%A1)
+    - [Serializable](#serializable)
+    - [Parcelable](#parcelable)
+  - [日志工具](#%E6%97%A5%E5%BF%97%E5%B7%A5%E5%85%B7-1)
+  - [创建定时任务](#%E5%88%9B%E5%BB%BA%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 Android 大致分为四层构架：Linux 内核层、系统运行库层、应用框架层和应用层。

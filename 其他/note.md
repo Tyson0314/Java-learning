@@ -1,3 +1,17 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [RESTful](#restful)
+- [JWT](#jwt)
+  - [原理](#%E5%8E%9F%E7%90%86)
+- [金额使用decimal存储类型的缺点](#%E9%87%91%E9%A2%9D%E4%BD%BF%E7%94%A8decimal%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BC%BA%E7%82%B9)
+- [Maven的作用](#maven%E7%9A%84%E4%BD%9C%E7%94%A8)
+- [为什么使用消息队列](#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97)
+- [秒杀系统](#%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## RESTful
 
 [RESTful API](https://www.zhihu.com/question/28557115)

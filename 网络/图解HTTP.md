@@ -1,3 +1,50 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+  - [URI和URL](#uri%E5%92%8Curl)
+    - [URI 格式](#uri-%E6%A0%BC%E5%BC%8F)
+- [简单的HTTP协议](#%E7%AE%80%E5%8D%95%E7%9A%84http%E5%8D%8F%E8%AE%AE)
+  - [请求](#%E8%AF%B7%E6%B1%82)
+  - [响应](#%E5%93%8D%E5%BA%94)
+  - [首部](#%E9%A6%96%E9%83%A8)
+    - [通用首部字段](#%E9%80%9A%E7%94%A8%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5)
+    - [请求首部字段](#%E8%AF%B7%E6%B1%82%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5)
+    - [响应首部字段](#%E5%93%8D%E5%BA%94%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5)
+    - [实体首部字段](#%E5%AE%9E%E4%BD%93%E9%A6%96%E9%83%A8%E5%AD%97%E6%AE%B5)
+    - [Cookie相关的首部](#cookie%E7%9B%B8%E5%85%B3%E7%9A%84%E9%A6%96%E9%83%A8)
+  - [请求URI定位资源](#%E8%AF%B7%E6%B1%82uri%E5%AE%9A%E4%BD%8D%E8%B5%84%E6%BA%90)
+  - [HTTP方法](#http%E6%96%B9%E6%B3%95)
+  - [持久连接](#%E6%8C%81%E4%B9%85%E8%BF%9E%E6%8E%A5)
+  - [Cookie](#cookie)
+  - [编码提升传输速率](#%E7%BC%96%E7%A0%81%E6%8F%90%E5%8D%87%E4%BC%A0%E8%BE%93%E9%80%9F%E7%8E%87)
+  - [multipart 多部分对象集合](#multipart-%E5%A4%9A%E9%83%A8%E5%88%86%E5%AF%B9%E8%B1%A1%E9%9B%86%E5%90%88)
+  - [范围请求](#%E8%8C%83%E5%9B%B4%E8%AF%B7%E6%B1%82)
+  - [内容协商返回最合适的内容](#%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86%E8%BF%94%E5%9B%9E%E6%9C%80%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AE%B9)
+- [状态码](#%E7%8A%B6%E6%80%81%E7%A0%81)
+  - [2xx 成功](#2xx-%E6%88%90%E5%8A%9F)
+  - [3xx 重定向](#3xx-%E9%87%8D%E5%AE%9A%E5%90%91)
+  - [4xx 客户端错误](#4xx-%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%94%99%E8%AF%AF)
+  - [5xx 服务器错误](#5xx-%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%94%99%E8%AF%AF)
+- [Web 服务器](#web-%E6%9C%8D%E5%8A%A1%E5%99%A8)
+  - [代理](#%E4%BB%A3%E7%90%86)
+  - [网关](#%E7%BD%91%E5%85%B3)
+  - [隧道](#%E9%9A%A7%E9%81%93)
+- [HTTPS](#https)
+  - [公开密钥加密](#%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86)
+- [认证机制](#%E8%AE%A4%E8%AF%81%E6%9C%BA%E5%88%B6)
+  - [BASIC 认证](#basic-%E8%AE%A4%E8%AF%81)
+  - [DIGEST 认证](#digest-%E8%AE%A4%E8%AF%81)
+  - [SSL 客户端认证](#ssl-%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AE%A4%E8%AF%81)
+  - [基于表单认证](#%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E8%AE%A4%E8%AF%81)
+- [基于 HTTP 的功能追加协议](#%E5%9F%BA%E4%BA%8E-http-%E7%9A%84%E5%8A%9F%E8%83%BD%E8%BF%BD%E5%8A%A0%E5%8D%8F%E8%AE%AE)
+  - [WebSocket](#websocket)
+  - [Web 服务器管理文件的 WebDAV](#web-%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%AE%A1%E7%90%86%E6%96%87%E4%BB%B6%E7%9A%84-webdav)
+- [Web 的攻击技术](#web-%E7%9A%84%E6%94%BB%E5%87%BB%E6%8A%80%E6%9C%AF)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 访问baidu.com的过程：

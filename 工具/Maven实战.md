@@ -1,3 +1,45 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+  - [配置](#%E9%85%8D%E7%BD%AE)
+- [入门](#%E5%85%A5%E9%97%A8)
+  - [编写测试代码](#%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81)
+    - [添加 junit 依赖](#%E6%B7%BB%E5%8A%A0-junit-%E4%BE%9D%E8%B5%96)
+    - [编译](#%E7%BC%96%E8%AF%91)
+    - [测试代码](#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81)
+    - [执行测试](#%E6%89%A7%E8%A1%8C%E6%B5%8B%E8%AF%95)
+    - [`mvn clean test`](#mvn-clean-test)
+    - [打包和安装](#%E6%89%93%E5%8C%85%E5%92%8C%E5%AE%89%E8%A3%85)
+- [依赖](#%E4%BE%9D%E8%B5%96)
+  - [依赖范围 scope](#%E4%BE%9D%E8%B5%96%E8%8C%83%E5%9B%B4-scope)
+  - [传递性依赖](#%E4%BC%A0%E9%80%92%E6%80%A7%E4%BE%9D%E8%B5%96)
+  - [排除依赖](#%E6%8E%92%E9%99%A4%E4%BE%9D%E8%B5%96)
+  - [优化依赖](#%E4%BC%98%E5%8C%96%E4%BE%9D%E8%B5%96)
+- [仓库](#%E4%BB%93%E5%BA%93)
+  - [本地仓库](#%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93)
+  - [远程仓库](#%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93)
+    - [认证和部署](#%E8%AE%A4%E8%AF%81%E5%92%8C%E9%83%A8%E7%BD%B2)
+  - [镜像](#%E9%95%9C%E5%83%8F)
+- [生命周期](#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+  - [三套生命周期](#%E4%B8%89%E5%A5%97%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+  - [命令行与生命周期](#%E5%91%BD%E4%BB%A4%E8%A1%8C%E4%B8%8E%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+- [插件](#%E6%8F%92%E4%BB%B6)
+  - [内置绑定](#%E5%86%85%E7%BD%AE%E7%BB%91%E5%AE%9A)
+  - [自定义绑定](#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%91%E5%AE%9A)
+  - [命令行插件配置](#%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%8F%92%E4%BB%B6%E9%85%8D%E7%BD%AE)
+  - [插件全局配置](#%E6%8F%92%E4%BB%B6%E5%85%A8%E5%B1%80%E9%85%8D%E7%BD%AE)
+- [聚合](#%E8%81%9A%E5%90%88)
+- [继承](#%E7%BB%A7%E6%89%BF)
+  - [依赖管理](#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86)
+  - [import 导入依赖管理](#import-%E5%AF%BC%E5%85%A5%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86)
+  - [插件管理](#%E6%8F%92%E4%BB%B6%E7%AE%A1%E7%90%86)
+- [测试](#%E6%B5%8B%E8%AF%95)
+  - [跳过测试](#%E8%B7%B3%E8%BF%87%E6%B5%8B%E8%AF%95)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 Maven 是强大的构建工具，能够帮我们自动化构建过程--清理、编译、测试、打包和部署。比如测试，我们无需告诉 maven 如何去测试，只需遵循 maven 的约定编写好测试用例，当我们运行构建的时候，这些测试就会自动运行。
