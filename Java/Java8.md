@@ -113,7 +113,7 @@ class Person {
 
 ## Stream
 
-使用 `java.util.Stream` 对一个包含一个或多个元素的集合做各种操作。只能对实现了 `java.util.Collection` 接口的类做流的操作。`Map` 不支持 `Stream` 流。`Stream` 流支持同步执行，也支持并发执行。
+使用 `java.util.Stream` 对一个包含一个或多个元素的集合做各种操作，原集合不变，返回新集合。只能对实现了 `java.util.Collection` 接口的类做流的操作。`Map` 不支持 `Stream` 流。`Stream` 流支持同步执行，也支持并发执行。
 
 ### Filter 过滤
 
@@ -131,7 +131,7 @@ stringCollection.add("bbb2");
 stringCollection.add("ddd1");
 ```
 
-Filter` 的入参是一个 `Predicate，用于筛选出我们需要的集合元素。
+Filter` 的入参是一个 `Predicate，用于筛选出我们需要的集合元素。原集合不变。
 
 ```java
 stringCollection
@@ -144,6 +144,8 @@ stringCollection
 
 ### Sorted 排序
 
+自然排序，不改变原集合，返回排序后的集合。
+
 ```java
 stringCollection
     .stream()
@@ -152,6 +154,21 @@ stringCollection
     .forEach(System.out::println);
 
 // "aaa1", "aaa2"
+```
+
+逆序排序：
+
+```java
+stringCollection
+    .stream()
+    .sorted(Comparator.reverseOrder());
+```
+
+对元素某个字段排序：
+
+```java
+list.stream().sorted(Comparator.comparing(Student::getAge).reversed());
+list.stream().sorted(Comparator.comparing(Student::getAge));
 ```
 
 ### Map 转换
