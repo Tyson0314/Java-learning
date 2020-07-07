@@ -9,6 +9,7 @@
   - [动静分离](#%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB)
 - [后端部署](#%E5%90%8E%E7%AB%AF%E9%83%A8%E7%BD%B2)
 - [前端部署](#%E5%89%8D%E7%AB%AF%E9%83%A8%E7%BD%B2)
+- [多站点配置](#%E5%A4%9A%E7%AB%99%E7%82%B9%E9%85%8D%E7%BD%AE)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -151,3 +152,87 @@ server{ } 其实是包含在 http{ } 内部的。每一个 server{ } 是一个�
    ```
 
    
+
+## 多站点配置
+
+nginx 配置：
+
+1. /usr/local/nginx/conf/nginx.conf 中 http 节点增加`include /usr/local/nginx/my-conf/*.conf` 不同站点使用不同的配置文件。
+
+   ```
+   
+   http {
+       include       mime.types;
+       default_type  application/octet-stream;
+       keepalive_timeout  65;
+   
+       include /usr/local/nginx/my-conf/*.conf; #配置多个站点
+       
+   	server {
+   		xxx
+   	}
+   	xxx
+   }
+   ```
+
+2. 新建usr/local/nginx/my-conf/blog.conf，配置nginx：
+
+   ```
+   #blog
+   server {
+       listen       80;
+       server_name  localhost;
+       #访问vue项目
+       location / {
+           root   /home/blog/dist;
+           index  index.html;
+       }
+       #将api转发到后端
+       location /api/ {
+           proxy_pass http://129.204.179.3:8001/;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header REMOTE-HOST $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+       #转发图片请求到后端
+       location /img/ {
+           proxy_pass http://129.204.179.3:8001/img/;
+       }
+   }
+   
+   ```
+
+后端部署：
+
+1. idea--maven--project name--lifecycle--package，打包项目，在target目录生成 jar 包，拷贝到服务器。这里存放到 /home/blog 目录下。
+
+2. 导入项目 sql 文件 `source blog.sql`。
+
+3. 运行 jar 包。
+
+   ```
+   #不挂断地运行命令；&表示后台运行；输出都将附加到当前目录的 nohup.out 文件
+   nohup java -jar blog-springboot-1.0.jar &
+   
+   #结束运行
+   PID=$(ps -ef | grep blog-springboot-1.0.jar | grep -v grep | awk '{ print $2 }')
+   if [ -z "$PID" ]
+   then
+   echo Application is already stopped
+   else
+   echo kill -9 $PID
+   kill -9 $PID
+   fi
+   ```
+
+前端部署：运行 `npm run build` 生成 dist 文件夹，将 dist 文件夹下面的文件拷贝到 /home/blog/dist 目录。
+
+环境准备：启动 mysql、redis、rabbitmq 等。
+
+```bash
+service mysqld start
+/sbin/service rabbitmq-server start
+```
+
+启动 nginx：`安装目录/sbin/nginx`

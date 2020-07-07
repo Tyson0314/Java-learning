@@ -43,10 +43,10 @@
     - [fast-fail](#fast-fail)
     - [fast-safe](#fast-safe)
     - [移除集合元素](#%E7%A7%BB%E9%99%A4%E9%9B%86%E5%90%88%E5%85%83%E7%B4%A0)
-- [代理](#%E4%BB%A3%E7%90%86)
 - [transient](#transient)
 - [工具类](#%E5%B7%A5%E5%85%B7%E7%B1%BB)
   - [Arrays.sort()](#arrayssort)
+  - [归并与快速排序](#%E5%BD%92%E5%B9%B6%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
 - [IO流](#io%E6%B5%81)
   - [同步异步](#%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5)
   - [阻塞非阻塞](#%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E)
@@ -531,69 +531,6 @@ while(iter.hasNext()){
 
 
 
-## 代理
-代理就是客户端不直接调用实际对象，而是通过调用代理对象，间接调用实际的对象。
-
- - 静态代理：静态代理在编译时已经实现，编译完成后代理类的class文件已经存在。
- - 动态代理：运行期间动态生成字节码，并加载到jvm中。
-
-jdk动态代理
-```java
-static Object newProxyInstance(ClassLoader loader, Class<?>[] interfaces,   InvocationHandler h )
-```
-ClassLoader loader:指定当前目标对象使用的类加载器
-Class<?>[] interfaces:目标对象实现的接口的类型
-InvocationHandler h:当代理对象调用目标对象的方法时,会触发事件处理器的invoke方法()
-```
-public class DynamicProxyDemo {
-
-    public static void main(String[] args) {
-        //被代理的对象
-        MySubject realSubject = new RealSubject();
-
-        //调用处理器
-        MyInvacationHandler handler = new MyInvacationHandler(realSubject);
-
-        MySubject subject = (MySubject) Proxy.newProxyInstance(realSubject.getClass().getClassLoader(),
-                realSubject.getClass().getInterfaces(), handler);
-
-        System.out.println(subject.getClass().getName());
-        subject.rent();
-    }
-}
-
-interface MySubject {
-    public void rent();
-}
-class RealSubject implements MySubject {
-
-    @Override
-    public void rent() {
-        System.out.println("rent my house");
-    }
-}
-class MyInvacationHandler implements InvocationHandler {
-
-    private Object subject;
-
-    public MyInvacationHandler(Object subject) {
-        this.subject = subject;
-    }
-
-    @Override
-    public Object invoke(Object object, Method method, Object[] args) throws Throwable {
-        System.out.println("before renting house");
-        //当代理对象调用真实对象的方法时，就会调用代理对象关联的handler对象的invoke方法
-        Object o = method.invoke(subject, args);
-        System.out.println("after rentint house");
-        return o;
-    }
-}
-```
-[动态代理](https://www.cnblogs.com/LCcnblogs/p/6823982.html)
-
-
-
 ## transient
 对象只要实现了Serilizable接口，这个对象就可以被序列化。有时类的某些属性不需要被序列化，比如用户有一些敏感信息（如密码，银行卡号等），不希望被序列化后在网络中传输，这时可以在相应的变量加上transient关键字。序列化对象的时候，这个属性就不会序列化到指定的目的地中。
 
@@ -605,11 +542,21 @@ class MyInvacationHandler implements InvocationHandler {
 
 底层原理：
 
-判断数组的长度是否大于286，大于则使用归并排序
+1. 判断数组的长度是否大于286，大于则使用归并排序
 
-判断数组长度是否小于47，小于则直接采用插入排序，对于小数组来说，插入排序效率更高
+2. 判断数组长度是否小于47，小于则直接采用插入排序，对于小数组来说，插入排序效率更高
 
-否则采用双轴快排，使用两个pivot，每轮把数组分成3段，在没有明显增加比较次数的情况下巧妙地减少了递归次数。
+3. 否则采用双轴快排，使用两个pivot，每轮把数组分成3段，在没有明显增加比较次数的情况下巧妙地减少了递归次数。
+
+Collections.sort方法底层就是调用的Arrays.sort方法。
+
+### 归并与快速排序
+
+归并排序相对而言比较次数比快速排序少，移动次数比快速排序多。
+
+对大数组排序。快速排序的sort()采用递归实现，数组规模太大时会发生堆栈溢出，而归并排序sort()采用非递归实现，不存在此问题。
+
+快速排序是不稳定的，而归并排序是稳定的。这里的稳定是指比较相等的数据在排序之后仍然按照排序之前的前后顺序排列。
 
 
 

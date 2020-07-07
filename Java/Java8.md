@@ -16,6 +16,7 @@
   - [Reduce](#reduce)
 - [Parallel-Streams 并行流](#parallel-streams-%E5%B9%B6%E8%A1%8C%E6%B5%81)
 - [Map 集合](#map-%E9%9B%86%E5%90%88)
+- [函数式编程](#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
