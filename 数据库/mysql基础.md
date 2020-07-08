@@ -5,6 +5,7 @@
 - [简介](#%E7%AE%80%E4%BB%8B)
 - [基本命令](#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
   - [启动](#%E5%90%AF%E5%8A%A8)
+  - [数据库操作](#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%93%8D%E4%BD%9C)
   - [表](#%E8%A1%A8)
   - [检索](#%E6%A3%80%E7%B4%A2)
   - [排序](#%E6%8E%92%E5%BA%8F)
@@ -101,6 +102,15 @@ SQL 结构化查询语言。
 关闭服务：`service mysqld stop`
 
 启动客户端：`mysql -uroot -p`  -u 后不要有空格（Ubuntu有空格）
+
+### 数据库操作
+
+```mysql
+SHOW DATABASES;
+CREATE DATABASE db_name;
+USE db_name;
+DROP DATABASE db_name;
+```
 
 ### 表
 

@@ -59,6 +59,7 @@
     - [删除远程分支](#%E5%88%A0%E9%99%A4%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
   - [创建远程分支](#%E5%88%9B%E5%BB%BA%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
   - [cherry-pick](#cherry-pick)
+  - [补丁](#%E8%A1%A5%E4%B8%81)
 - [同步fork项目的更新](#%E5%90%8C%E6%AD%A5fork%E9%A1%B9%E7%9B%AE%E7%9A%84%E6%9B%B4%E6%96%B0)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -634,6 +635,12 @@ git branch -d tmp//如果不想保留temp分支 可以用这步删除
 
 `git cherry_pick <start-commit-id>…<end-commit-id>`
 
+### 补丁
+
+Git apply 是必须从`git diff`中获得patch才能打上。需要自己重新 commit。
+
+Git am是多了一个commit格式的邮件信息，这样的patch是从`git format–patch`获得的。保留 commit 信息。
+
 
 
 ## 同步fork项目的更新
@@ -661,4 +668,6 @@ git checkout master
 ```git
 git rebase upstream/master
 ```
+
+
 

@@ -23,6 +23,8 @@
   - [ConcurrentHashMap 和 Hashtable 的key和value不能为null？](#concurrenthashmap-%E5%92%8C-hashtable-%E7%9A%84key%E5%92%8Cvalue%E4%B8%8D%E8%83%BD%E4%B8%BAnull)
   - [treemap底层](#treemap%E5%BA%95%E5%B1%82)
   - [list/hashset/hashmap排序](#listhashsethashmap%E6%8E%92%E5%BA%8F)
+  - [Stack](#stack)
+  - [ArrayDeque](#arraydeque)
 - [ThreadLocal](#threadlocal)
 - [StringBuilder和StringBuffer](#stringbuilder%E5%92%8Cstringbuffer)
 - [线程安全类](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%B1%BB)
@@ -260,6 +262,26 @@ ConcurrentHashmap和Hashtable都支持并发，当你通过get(k)获取对应的
 ### list/hashset/hashmap排序
 
 https://blog.csdn.net/whuxiaoqiang/article/details/9371923
+
+### Stack
+
+Stack继承自 Vector 类，peek()、pop()、push()和 search()都是同步方法。Vector底层用数组实现（默认长度为10）。效率较低，不推荐使用。
+
+### ArrayDeque
+
+ArrayDeque实现了双端队列，内部使用循环数组实现，默认大小为16。
+
+特点：
+
+1. 在两端添加、删除元素的效率较高
+
+2. 根据元素内容查找和删除的效率比较低。
+
+3. 没有索引位置的概念，不能根据索引位置进行操作。
+
+ArrayDeque和LinkedList都实现了Deque接口，如果只需要从两端进行操作，ArrayDeque效率更高一些。如果同时需要根据索引位置进行操作，或者经常需要在中间进行插入和删除（LinkedList有相应的 api，如add(int index, E e)），则应该选LinkedList。
+
+ArrayDeque和LinkedList都是线程不安全的，可以使用Collections工具类中synchronizedXxx()转换成线程同步。
 
 
 

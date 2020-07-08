@@ -2,6 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
 
+- [函数式编程](#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B)
 - [Lambda 表达式](#lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F)
 - [函数式接口](#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3)
 - [内置的函数式接口](#%E5%86%85%E7%BD%AE%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3)
@@ -16,9 +17,27 @@
   - [Reduce](#reduce)
 - [Parallel-Streams 并行流](#parallel-streams-%E5%B9%B6%E8%A1%8C%E6%B5%81)
 - [Map 集合](#map-%E9%9B%86%E5%90%88)
-- [函数式编程](#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B)
+- [函数式编程](#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+## 函数式编程
+
+面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程会多写很多可能是重复的代码行。
+
+```java
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("do something...");
+            }
+        };
+
+```
+
+函数式编程：在某些编程语言中，如js、c++，我们可以直接写一个函数，然后在需要的时候进行调用，即函数式编程。
+
+
 
 ## Lambda 表达式
 
@@ -35,7 +54,7 @@ names.sort((a, b) -> b.compareTo(a));
 
 ## 函数式接口
 
-函数式接口（Functional Interface）就是只包含一个抽象方法的声明。只有那些函数式接口才能缩写成 Lambda 表示式。
+函数式接口（Functional Interface）就是只包含一个抽象方法的接口。只有函数式接口才能缩写成 Lambda 表达式。
 
 ```java
 @FunctionalInterface //定义为一个函数式接口，如果添加了第二个抽象方法，编译器会立刻抛出错误提示。

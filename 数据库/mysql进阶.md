@@ -576,6 +576,17 @@ ref_or_null：类似 ref，会额外搜索包含`NULL`值的行。
 
 index_merge：使用了索引合并优化方法，查询使用了两个以上的索引。
 
+id 主键，value_id 非唯一索引。
+
+```mysql
+mysql> explain select content from litemall_comment where value_id = 1181000 and id > 1000;
++----+-------------+------------------+------------+-------------+------------------+------------------+---------+------+------+----------+------------------------------------------------+
+| id | select_type | table            | partitions | type        | possible_keys    | key              | key_len | ref  | rows | filtered | Extra                                          |
++----+-------------+------------------+------------+-------------+------------------+------------------+---------+------+------+----------+------------------------------------------------+
+|  1 | SIMPLE      | litemall_comment | NULL       | index_merge | PRIMARY,id_value | id_value,PRIMARY | 8,4     | NULL |    1 |   100.00 | Using intersect(id_value,PRIMARY); Using where |
++----+-------------+------------------+------------+-------------+------------------+------------------+---------+------+------+----------+------------------------------------------------+
+```
+
 range：针对一个有索引的字段，给定范围检索数据。
 
 ![image-20200626182924293](../img/explain-range.png)
@@ -611,6 +622,22 @@ using where：查询时未找到可用的索引，进而通过`where`条件过�
 Using where&Using index：查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过**索引扫描**找到符合条件的数据，也不需要回表查询数据。
 
 using temporary：表示查询后结果需要使用临时表来存储，一般在排序或者分组查询时用到。
+
+filesort：Using filesort 是Mysql里一种速度比较慢的外部排序，很多时候，我们可以通过优化索引来尽量避免出现Using filesort，从而提高速度。
+
+[filesort](https://juejin.im/entry/5795faaa0a2b580061c980aa)
+
+在使用order by关键字的时候，如果待排序的内容不能由所使用的索引直接完成排序的话，MySQL有可能就要进行文件排序。
+
+```mysql
+EXPLAIN SELECT * FROM test WHERE a=1 ORDER BY b;
+```
+
+通过将 where 子句的字段和 order by 子句的字段建立联合索引（order by子句字段需放在联合索引的最后），可以让排序变得更快。
+
+```mysql
+ALTER TABLE test ADD index a_b(a,b);
+```
 
 
 
