@@ -17,6 +17,7 @@
   - [数据库自增ID](#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%87%AA%E5%A2%9Eid)
   - [基于Redis模式](#%E5%9F%BA%E4%BA%8Eredis%E6%A8%A1%E5%BC%8F)
   - [雪花算法](#%E9%9B%AA%E8%8A%B1%E7%AE%97%E6%B3%95)
+- [foeach和for的效率](#foeach%E5%92%8Cfor%E7%9A%84%E6%95%88%E7%8E%87)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -186,3 +187,11 @@ String uuid = UUID.randomUUID().toString().replaceAll("-","");
 ### 雪花算法
 
 ![](https://user-gold-cdn.xitu.io/2020/2/16/1704bd6d27b09766?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+
+
+
+## foeach和for的效率
+
+1、foreach适用于数组或实现了iterator的集合类。foreach就是使用Iterator接口来实现对集合的遍历的。
+
+2、在用foreach循环遍历一个集合时，不能改变集合中的元素，如增加元素、修改元素。否则会抛出ConcurrentModificationException异常。普通 for 循环遍历过程可以修改元素。

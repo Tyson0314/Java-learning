@@ -635,6 +635,8 @@ git branch -d tmp//如果不想保留temp分支 可以用这步删除
 
 `git cherry_pick <start-commit-id>…<end-commit-id>`
 
+cherry-pick 操作的是某一个或某几个 commit，rebase 操作的是整个分支。
+
 ### 补丁
 
 Git apply 是必须从`git diff`中获得patch才能打上。需要自己重新 commit。
