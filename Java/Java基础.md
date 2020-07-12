@@ -17,6 +17,7 @@
 - [Exception](#exception)
 - [ThreadLocal](#threadlocal)
 - [StringBuilder和StringBuffer](#stringbuilder%E5%92%8Cstringbuffer)
+  - ["+"和 StringBuilder](#%E5%92%8C-stringbuilder)
 - [线程安全类](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%B1%BB)
 - [object方法](#object%E6%96%B9%E6%B3%95)
   - [为什么重写equals()要重写hashcode()](#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E5%86%99equals%E8%A6%81%E9%87%8D%E5%86%99hashcode)
@@ -40,6 +41,8 @@
   - [Arrays.sort()](#arrayssort)
   - [归并与快速排序](#%E5%BD%92%E5%B9%B6%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
 - [IO流](#io%E6%B5%81)
+  - [InputStream 和 OutputStream](#inputstream-%E5%92%8C-outputstream)
+  - [Reader 和 Writer](#reader-%E5%92%8C-writer)
   - [同步异步](#%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5)
   - [阻塞非阻塞](#%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E)
   - [BIO](#bio)
@@ -209,6 +212,12 @@ threadLocals的类型ThreadLocalMap的键值为ThreadLocal对象，因为每个�
 - String 是final类，不能被继承，它是字符串常量，String对象一旦创建之后该对象是不可更改的，用+对String做拼接操作，实际上是先通过建立StringBuilder，然后调用append()做拼接操作，所以在大量字符串拼接的时候，会频繁创建StringBuilder，性能较差。
 - StringBuilder和StringBuffer的对象是字符串变量，对变量进行操作就是直接对该对象进行修改，所以速度要比String快很多。
 - 在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的，StringBuffer中很多方法带有synchronized关键字，可以保证线程安全。
+
+### "+"和 StringBuilder
+
+操作符"+"连接字符串会先创建String对象，再把拼接后的内容赋值给新的对象，在频繁修改的情况下会常量大量的对象，性能较差。
+
+StringBuilder 在拼接时不是使用 String 存储，而是放到一个char数组（默认大小为16），不需要额外创建对象，拼接效率较高。
 
 
 
@@ -465,6 +474,27 @@ Collections.sort方法底层就是调用的Arrays.sort方法。
 
 ## IO流
 
+继承自 InputStream 或 Reader 的类都具有 read() 方法，用于读取单个字节或者字节数组；继承自 OutputStream 或 Writer 的类都含有 write() 方法，用于写单个字节或字节数组。
+
+### InputStream 和 OutputStream 
+
+InputStream 用来表示那些从不同数据源产生输入的类。这些数据源包括：1.字节数组；2.String 对象；3.文件；4.管道；5.一个由其他种类的流组成的序列。
+
+InputStream 类有一个抽象方法：`abstract int read()`，这个方法将读入并返回一个字节，或者在遇到输入源结尾时返回-1。
+
+OutputStream 决定了输出所要去的目标：字节数组、文件或管道。OutputStream 的 `abstract void write(int b)` 可以向某个输出位置写出一个字节。
+
+read() 和 write() 方法在执行时都将阻塞，等待数据被读入或者写出。
+
+### Reader 和 Writer
+
+字符流是由通过字节流转换得到的，转化过程耗时，而且容易出现乱码问题。I/O 流提供了一个直接操作字符的接口，方便我们平时对字符进行流操作。如果音频文件、图片等媒体文件用字节流比较好，如果涉及到字符的话使用字符流比较好。
+
+```java
+abstract int read();
+abstract void write(char c);
+```
+
 ### 同步异步
 
 同步，就是在发出一个*调用*时，在没有得到结果之前，该*调用*就不返回。
@@ -487,11 +517,17 @@ Collections.sort方法底层就是调用的Arrays.sort方法。
 
 NIO是一种同步非阻塞的I/O模型，在Java 1.4 中引入了 NIO 框架，对应 java.nio 包，提供了 Channel , Selector，Buffer等抽象。
 
-Buffer：在NIO厍中，所有数据都是用缓冲区处理的。在读取数据时，它是直接读到缓冲区中的; 在写入数据时，写入到缓冲区中。任何时候访问NIO中的数据，都是通过缓冲区进行操作。
+NIO与IO区别:
 
-Channel：NIO 通过Channel（通道） 进行读写。通道是双向的，可读也可写，而流的读写是单向的。无论读写，通道只能和Buffer交互。因为 Buffer，通道可以异步地读写。
+- IO是面向流的，NIO是面向缓冲区的；
+- IO流是阻塞的，NIO流是不阻塞的;
+- NIO有选择器，而IO没有。
 
-Selector：选择器用于使用单个线程处理多个通道。因此，它需要较少的线程来处理这些通道。线程之间的切换对于操作系统来说是昂贵的。 因此，为了提高系统效率选择器是有用的。
+Buffer：Buffer用于和Channel交互。从Channel中读取数据到Buffer里，从Buffer把数据写入到Channel。
+
+Channel：NIO 通过Channel（通道） 进行读写。通道是双向的，可读也可写，而流的读写是单向的。无论读写，通道只能和Buffer交互。
+
+Selector：使用更少的线程来就可以来处理通道了，相比使用多个线程，避免了线程上下文切换带来的开销。
 
 ### AIO
 

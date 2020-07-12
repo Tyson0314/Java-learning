@@ -61,7 +61,6 @@
   - [日志](#%E6%97%A5%E5%BF%97)
     - [logback](#logback)
 - [字符串](#%E5%AD%97%E7%AC%A6%E4%B8%B2)
-  - ["+"和 StringBuilder](#%E5%92%8C-stringbuilder)
   - [格式化输出](#%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA)
     - [printf() 和 format()](#printf-%E5%92%8C-format)
     - [Formatter](#formatter)
@@ -1519,7 +1518,7 @@ assert x >= 0 : x;//将x的值传递给AssertError异常
 
 #### 启用和禁用断言
 
-默认情况下，断言被禁用，可以在运行程序时用`-eableassertions`或`-ea`选项启用。
+默认情况下，断言被禁用，可以在运行程序时用`-eableassertions`或`-ea`选项启用。idea --> run configuration --> vm options 添加 `-ea` 开启断言。 
 
 `java -enableassertions MyApp`
 
@@ -1582,10 +1581,6 @@ Layout用于自定义日志输出格式。
 ## 字符串
 
 String 对象是不可变的。String 类中会修改 String 的方法都会创建一个全新的 String 对象。
-
-### "+"和 StringBuilder
-
-操作符"+"连接字符串会产生许多中间对象，使用 StringBuilder 的 append()方法拼接字符串会更加高效。
 
 ### 格式化输出
 
@@ -2468,7 +2463,7 @@ list.add(new Fruit())不能添加，是因为容器内存放的是Apple的**所�
 
 数组的 length 是数组的大小，不是实际保存的元素个数。
 
-基本类型数组不显式初始化，会被自动初始化成初值。对象数组则会被初始化成 null。
+如果不显式初始化，基本类型数组会被自动初始化成初值，对象数组则会被初始化成 null。
 
 ### 复制数组
 
@@ -2494,7 +2489,7 @@ dest = [47, 47, 47, 47, 47, 47, 47, 99, 99, 99]
  */
 ```
 
-基本类型数组和对象数组都可以复制。复5制对象只是复制对象引用，即浅复制。System.arraycopy() 不会执行自动包装和自动拆包，两个数组需要具有相同的数据类型。
+基本类型数组和对象数组都可以复制。复制对象只是复制对象引用，即浅复制。System.arraycopy() 不会执行自动包装和自动拆包，两个数组需要具有相同的数据类型。
 
 ### Arrays 工具
 
@@ -3062,7 +3057,7 @@ public class Synchronization {
 
 #### 快速报错机制
 
- fast-fail 是 Java 容器的一种保护机制。当多个线程对同一个集合进行操作时，就有可能会产生 fast-fail 事件。例如：当线程a正通过 iterator 遍历集合时，另一个线程b修改了集合的内容（modCount 不等于expectedModCount），那么线程a访问集合的时候，就会抛出 ConcurrentModificationException，产生 fast-fail 事件。
+ fast-fail 是 Java 容器的一种保护机制。当多个线程对同一个集合进行操作时，就有可能会产生 fast-fail 事件。例如：当线程a正通过 iterator 遍历集合时，另一个线程b修改了集合的内容（modCount 不等于expectedModCount），那么线程a在遍历的时候会抛出 ConcurrentModificationException，产生 fast-fail 事件。
 
 ```java
 public class FastFail {
@@ -3084,7 +3079,7 @@ public class FastFail {
 **多线程并发修改容器的方法：**
 
 - 使用`Colletions.synchronizedList()`方法或在修改集合内容的地方加上 synchronized。这样的话，增删集合内容的同步锁会阻塞遍历操作，影响性能。
-- 使用 CopyOnWriteArrayList 来替换 ArrayList。在对 CopyOnWriteArrayList 进行修改操作的时候，会拷贝一个新的数组，对新的数组进行操作，操作完成后再把引用移到新的数组。
+- 使用 CopyOnWriteArrayList 来替换 ArrayList。在对 CopyOnWriteArrayList 进行修改操作的时候，会拷贝一个新的集合，对新的集合进行操作，操作完成后再把引用指向新的集合。
 
 ### Java 1.0/1.1 的容器
 
@@ -3092,7 +3087,7 @@ public class FastFail {
 
 参考自：[JAVA中BitSet使用](https://blog.csdn.net/xv1356027897/article/details/79518647)
 
-位图，数据的存在性可以使用bit位上的1或0来表示，一个long型数字占用64位空间，那么一个long型数字（4个字节）就可以保存64个数字的“存在性”状态（无碰撞冲突时，即true、false状态）。BitSet内部是一个long[]数组，数组的大小由 BitSet 接收的最大数字决定，这个数组将数字分段表示[0,63],[64,127],[128,191]...。即long[0]用来存储[0,63]这个范围的数字的“存在性”，long[1]用来存储[64,127]，依次递推。
+位图，数据的存在性可以使用bit位上的1或0来表示，一个long型数字占用64位空间，那么一个long型数字就可以保存64个数字的“存在性”状态（true or false）。BitSet内部是一个long[]数组，数组的大小由 BitSet 接收的最大数字决定，这个数组将数字分段表示[0,63],[64,127],[128,191]...。即long[0]用来存储[0,63]这个范围的数字的“存在性”，long[1]用来存储[64,127]，依次递推。
 
 ```java
 public class BitSetDemo {
@@ -3151,11 +3146,13 @@ InputStream 用来表示那些从不同数据源产生输入的类。这些数�
 
 InputStream 类有一个抽象方法：`abstract int read()`，这个方法将读入并返回一个字节，或者在遇到输入源结尾时返回-1。
 
-OutputStream 决定了输出所要去的目标：字节数组、文件或管道。OutputStream 的 `abstract void write(int b)` 可以向某个输出位置写出一个字节。read() 和 write() 方法在执行时都将阻塞，至少字节被读入或者写出。
+OutputStream 决定了输出所要去的目标：字节数组、文件或管道。OutputStream 的 `abstract void write(int b)` 可以向某个输出位置写出一个字节。
+
+read() 和 write() 方法在执行时都将阻塞，等待数据被读入或者写出。
 
 #### Reader 和 Writer
 
-设计 Reader 和 Writer 继承结构主要是为了国际化。老的 I/O 流继承层级结构只支持8位字节流，并且不能很好的处理16位的 Unicode 字符（两个字节）。由于 Unicode 用于字符国际化（Java 本身的 char 也是16位的 Unicode），所以添加 Reader 和 Writer 继承层次结构就是为了在所有的 I/O 操作中都支持 Unicode。另外，新类库的设计使得它的操作比旧类库更快。
+字符流是由通过字节流转换得到的，转化过程耗时，而且容易出现乱码问题。I/O 流提供了一个直接操作字符的接口，方便我们平时对字符进行流操作。如果音频文件、图片等媒体文件用字节流比较好，如果涉及到字符的话使用字符流比较好。
 
 ```java
 abstract int read();
