@@ -152,7 +152,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.117 sec
     </build>
 ```
 
-执行 test 之前会先执行 compile，执行 package 会先执行 test，执行 install 会先执行 package。
+执行顺序：compile->test->package->install
 
 
 
@@ -333,9 +333,7 @@ maven 的生命周期和插件相互绑定，用以完成具体的构建任务�
 
 ### 自定义绑定
 
-内置绑定无法完成一些任务，如创建项目的源码 jar 包，此时需要用户自行配置。maven-source-plugin 可以完成这个任务，它的 jar-no-fork 目标能够将项目的主代码打包成 jar 文件，可以将其绑定到 default 生命周期的 verify 阶段，在执行完
-
-测试和安装构件之前创建源码 jar 包。
+内置绑定无法完成一些任务，如创建项目的源码 jar 包，此时需要用户自行配置。maven-source-plugin 可以完成这个任务，它的 jar-no-fork 目标能够将项目的主代码打包成 jar 文件，可以将其绑定到 default 生命周期的 verify 阶段，在执行完测试和安装构件之前创建源码 jar 包。
 
 ```xml
     <build>
@@ -447,7 +445,7 @@ accout-aggregator 的版本号要跟各个模块版本号相同，packaging 的�
 
 ### 依赖管理
 
-有时子模块不需要继承父pom文件声明的一些公共依赖，就可以通过dependencyManagement标签实现。在父pom文件配置了dependencyManagement之后，dependencyManagement元素下的依赖声明不会引入依赖，只有在子模块也声明了依赖，才会引入依赖。父POM使用dependencyManagement能够统一项目范围中依赖的版本。
+使用dependencyManagement可以统一管理项目的版本号，确保应用的各个项目的依赖和版本一致，不用每个模块项目都弄一个版本号，不利于管理，当需要变更版本号的时候只需要在父类容器里更新，不需要任何一个子项目的修改；如果某个子项目需要另外一个特殊的版本号时，只需要在自己的模块dependencies中声明一个版本号即可。子类就会使用子类声明的版本号，不继承于父类版本号。
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -517,13 +515,18 @@ accout-aggregator 的版本号要跟各个模块版本号相同，packaging 的�
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
+            <artifactId>spring-core</artifactId> <!--会继承父pom的spring-core的version，统一版本-->
         </dependency>
     </dependencies>
 </project>
 ```
 
 springframework 依赖的 version 继承自父模块，可以省略，可避免各个子模块使用依赖版本不一致的情况。
+
+与dependencies区别：
+
+1)Dependencies相对于dependencyManagement，所有生命在dependencies里的依赖都会自动引入，并默认被所有的子项目继承。
+2)dependencyManagement里只是声明依赖，并不自动实现引入，因此子项目需要显示的声明需要用的依赖。如果不在子项目中声明依赖，是不会从父项目中继承下来的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom;另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。
 
 ### import 导入依赖管理
 

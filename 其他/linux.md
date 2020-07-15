@@ -132,8 +132,8 @@ redis-cli #启动redis客户端
 
 ```bash
 service mysqld stop
-/sbin/service rabbitmq-server stop
-redis-cli shutdown #关闭redis服务
+/sbin/service rabbitmq-server stop #service是个文件，路径/usr/sbin/service，根目录下有/sbin链接到/usr/sbin，可以在任何文件夹使用此命令
+redis-cli -a password shutdown #关闭redis服务，没有设置密码则直接redis-cli shutdown
 ```
 
 [redis安装](https://cloud.tencent.com/developer/article/1119337)
@@ -142,14 +142,27 @@ redis-cli shutdown #关闭redis服务
 
 ## 进程端口
 
-查看进程命令：`ps -ef | grep nginx` -e显示所有进程，-f显示进程对应的命令行
-查看端口信息：`netstat -tunlp |grep 8000`
+查看所有进程：`ps -ef` -e显示所有进程，-f显示进程对应的命令行
+
+查看特定进程：`ps -ef | grep nginx`
+
+根据进程号查看进程信息：`ps aux | grep pid`
 
 正常结束进程：`kill -15 pid` 默认-15（SIGTERM）可以省略
 
 杀死进程：`kill -9 pid` -9（SIGKILL）强制中断
 
 放通端口：iptables -I INPUT -p TCP --dport 8013 -j ACCEPT
+
+查看监听的端口：`netstat -tunlp`
+
+查看端口信息：`netstat -tunlp | grep 8000`
+
+- -t - 显示 TCP 端口。
+- -u - 显示 UDP 端口。
+- -n - 显示数字地址而不是主机名。
+- -l - 仅显示侦听端口。
+- -p - 显示进程的 PID 和名称。仅当以 root 或 sudo 用户身份运行命令时，才会显示此信息。
 
 
 

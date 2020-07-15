@@ -29,6 +29,8 @@ nginx安装目录：usr/local/nginx
 
 重启nginx：安装目录/sbin/nginx -s reload
 
+查看nginx是否正在运行：`netstat -anput | grep nginx`
+
 ### 配置文件
 
 配置文件路径：`/usr/local/nginx/conf/nginx.conf`

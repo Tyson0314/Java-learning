@@ -23,7 +23,7 @@
 
 ## 函数式编程
 
-面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程会多写很多可能是重复的代码行。
+面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程可能需要多写重复的代码行。
 
 ```java
         Runnable runnable = new Runnable() {
@@ -37,17 +37,8 @@
 
 函数式编程：在某些编程语言中，如js、c++，我们可以直接写一个函数，然后在需要的时候进行调用，即函数式编程。
 
-
-
-## Lambda 表达式
-
-[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
-
 ```java
-List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
-
-Collections.sort(names, (String a, String b) -> b.compareTo(a));
-names.sort((a, b) -> b.compareTo(a));
+Runnable runnable = () => { System.out.println("do something..."); }
 ```
 
 
@@ -127,6 +118,19 @@ class Person {
         return this.firstName;
     }
 }
+```
+
+
+
+## Lambda 表达式
+
+[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
+
+```java
+List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+
+Collections.sort(names, (String a, String b) -> b.compareTo(a));
+names.sort((a, b) -> b.compareTo(a));
 ```
 
 
@@ -245,6 +249,52 @@ Optional<String> reduced =
 
 reduced.ifPresent(System.out::println);
 // "aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"
+```
+
+### flatMap
+
+flatMap 用于将多个Stream连接成一个Stream。比如把几个小的list转换到一个大的list。
+
+```java
+@Test  
+public void testMapAndFlatMap() {  
+    List<String> words = new ArrayList<String>();  
+    words.add("hello");  
+    words.add("word");  
+
+    //将words数组中的元素再按照字符拆分，然后字符去重，最终达到["h", "e", "l", "o", "w", "r", "d"]  
+    //如果使用map，是达不到直接转化成List<String>的结果  
+    List<String> stringList = words.stream()  
+        .flatMap(word -> Arrays.stream(word.split("")))  
+        .distinct()  
+        .collect(Collectors.toList());  
+    stringList.forEach(e -> System.out.println(e));  
+}
+
+//another demo
+//把几个小的list转换到一个大的list。
+public class Test {
+
+    public static void main(String args[]) {
+
+        List<String> teamIndia = Arrays.asList("Virat", "Dhoni", "Jadeja");
+        List<String> teamAustralia = Arrays.asList("Warner", "Watson", "Smith");
+        List<String> teamEngland = Arrays.asList("Alex", "Bell", "Broad");
+        
+        List<List<String>> playersInWorldCup2016 = new ArrayList<>();
+        playersInWorldCup2016.add(teamIndia);
+        playersInWorldCup2016.add(teamAustralia);
+        playersInWorldCup2016.add(teamEngland);
+        
+        // Now let's do this in Java 8 using FlatMap
+        List<String> flatMapList = playersInWorldCup2016.stream()
+                                                        .flatMap(pList -> pList.stream())
+                                                        .collect(Collectors.toList());
+        
+        System.out.println(flatMapList);
+    }
+
+}
 ```
 
 
