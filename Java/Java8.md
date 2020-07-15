@@ -120,6 +120,55 @@ class Person {
 }
 ```
 
+### Consumer
+
+Consumer 接口接收一个泛型参数，然后调用 accept，对这个参数做一系列的操作。
+
+```java
+@FunctionalInterface
+public interface Consumer<T> {
+ 
+    
+    void accept(T t);
+ 
+    default Consumer<T> andThen(Consumer<? super T> after) {
+        Objects.requireNonNull(after);
+        return (T t) -> { accept(t); after.accept(t); };
+    }
+}
+
+ Consumer<Integer> consumer = x -> {
+            int a = x + 2;
+            System.out.println(a);// 12
+            System.out.println(a + "_");// 12_
+        };
+        consumer.accept(10); //调用了accept控制台才会输出
+```
+
+主要是对入参做一些操作，在stream里，主要是用于forEach，对传入的参数，做一系列的业务操作。
+
+```java
+// CopyOnWriteArrayList
+public void forEach(Consumer<? super E> action) {
+    if (action == null) throw new NullPointerException();
+    Object[] elements = getArray();
+    int len = elements.length;
+    for (int i = 0; i < len; ++i) {
+        @SuppressWarnings("unchecked") E e = (E) elements[i];
+        action.accept(e);
+    }
+}
+
+CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
+list.add(1);
+list.add(2);
+//forEach需要传入Consumer参数
+list
+    .stream()
+    .forEach(System.out::println);
+list.forEach(System.out::println);
+```
+
 
 
 ## Lambda 表达式

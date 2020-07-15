@@ -81,7 +81,7 @@
 
 ### 多态怎么实现
 
-Java提供了编译时多态和运行时多态两种多态机制。编译时多态通过重载实现，根据传入参数不同调用不同的方法。运行时多态通过重写来实现，在子类中重写父类的方法，运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
+Java提供了编译时多态和运行时多态两种多态机制。编译时多态通过重载实现，根据传入参数不同调用不同的方法。运行时多态通过重写来实现，在子类中重写父类的方法，运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。	
 
 ### 接口与抽象类区别
 
@@ -114,7 +114,7 @@ class AlarmDoor extends Door implements Alarm {
 
 
 
-## 语法
+## 基础
 
 ### static final
 
@@ -136,13 +136,15 @@ static变量在初始化后可以修改，static修饰的属性、方法、代�
 2.动态属性，普通方法声明，非静态代码块。
 3.构造方法。
 
+### transient
 
+对象只要实现了Serilizable接口，这个对象就可以被序列化。有时类的某些属性不需要被序列化，比如用户有一些敏感信息（如密码，银行卡号等），不希望被序列化后在网络中传输，这时可以在相应的变量加上transient关键字。序列化对象的时候，这个属性就不会序列化到指定的目的地中。
 
-## Exception
+### Exception
 
 所有异常继承了 Throwable。
 
-![异常层次结构](https://img2018.cnblogs.com/blog/1252910/201904/1252910-20190420203248534-1858171357.png)
+![异常层次结构](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWcyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTI1MjkxMC8yMDE5MDQvMTI1MjkxMC0yMDE5MDQyMDIwMzI0ODUzNC0xODU4MTcxMzU3LnBuZw?x-oss-process=image/format,png)
 
 Error是程序无法处理的错误，如虚拟机运行错误、OutOfMemoryError。
 unchecked包括RuntimeException和Error类，其他所有异常称为检查（checked）异常。
@@ -167,13 +169,96 @@ throws：用在方法签名中，用于声明该方法可能抛出的异常。
 
 子类方法抛出的异常范围更加小，或者根本不抛异常。
 
+### object方法
+
+object常用方法：
+
+- toString()：默认输出对象地址
+- equals()：默认比较两个引用变量是否指向同一个对象（内存地址）
+- hashCode()：将与对象相关的信息映射成一个哈希值，默认的实现hashCode值是根据内存地址换算出来。
+- finalize()：用于垃圾回收
+- clone(): Java中要想自定义类的对象可以被复制，自定义类就必须实现Cloneable中的clone()方法。
+- getClass()：获得实例的类型的类，常用于java反射机制
+- wait()：当前线程释放锁，进入对象的等待队列
+- notify()：用于随机唤醒一个在对象上等待的线程
+
+### equals()和hashcode()
+
+equals与hashcode的关系：
+1、如果两个对象调用equals比较返回true，那么它们的hashCode值一定要相同；
+2、如果两个对象的hashCode相同，它们并不一定相同。
+
+hashcode方法主要是用来提升对象比较的效率，先进行hashcode()的比较，如果不相同，那就不必在进行equals的比较，这样就大大减少了equals比较的次数，当比较对象的数量很大的时候能提升效率。
+
+之所以重写equals()要重写hashcode()，是为了保证equals()方法返回true的情况下hashcode值也要一致，如果重写了equals()没有重写hashcode()，就会出现两个对象相等但hashcode()不相等的情况。这样，当用其中的一个对象作为键保存到hashMap、hashTable或hashSet中，再以另一个对象作为键值去查找他们的时候，则会查找不到。
+
+### ==和equals
+
+对于基本数据类型，==比较的是他们的值，对于复合数据类型，==比较的是它们的存放地址(同一个new出来的对象)。
+equals()默认比较地址值，重写的话按照重写逻辑去比较。
+
+### String拼接
+
+#### StringBuilder和StringBuffer
+
+- 字符串拼接性能：StringBuilder > StringBuffer > String
+- String 是final类，不能被继承，它是字符串常量，String对象一旦创建之后该对象是不可更改的，用+对String做拼接操作，实际上是先通过建立StringBuilder，然后调用append()做拼接操作，所以在大量字符串拼接的时候，会频繁创建StringBuilder，性能较差。
+- StringBuilder和StringBuffer的对象是字符串变量，对变量进行操作就是直接对该对象进行修改，所以速度要比String快很多。
+- 在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的，StringBuffer中很多方法带有synchronized关键字，可以保证线程安全。
+
+#### +和StringBuilder
+
+操作符"+"连接字符串会先创建String对象，再把拼接后的内容赋值给新的对象，在频繁修改的情况下会常量大量的对象，性能较差。
+
+StringBuilder 在拼接时不是使用 String 存储，而是放到一个char数组（默认大小为16），不需要额外创建对象，拼接效率较高。
+
 
 
 ## ThreadLocal
-线程本地变量。当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
+线程本地变量。当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程。
 每个线程都有一个ThreadLocalMap(ThreadLocal内部类)，Map中元素的键为ThreadLocal，而值对应线程的变量副本。
-调用set()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.set(this, value)，this是ThreadLocal
+
+![image-20200715234257808](../img/threadlocal.png)
+
+调用threadLocal.set()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.set(this, value)，this是ThreadLocal
+
+```java
+public void set(T value) {
+    Thread t = Thread.currentThread();
+    ThreadLocalMap map = getMap(t);
+    if (map != null)
+        map.set(this, value);
+    else
+        createMap(t, value);
+}
+
+ThreadLocalMap getMap(Thread t) {
+    return t.threadLocals;
+}
+
+void createMap(Thread t, T firstValue) {
+    t.threadLocals = new ThreadLocalMap(this, firstValue);
+}
+```
 调用get()-->调用getMap(Thread)-->返回当前线程的ThreadLocalMap<ThreadLocal, value>-->map.getEntry(this)，返回value
+
+```java
+    public T get() {
+        Thread t = Thread.currentThread();
+        ThreadLocalMap map = getMap(t);
+        if (map != null) {
+            ThreadLocalMap.Entry e = map.getEntry(this);
+            if (e != null) {
+                @SuppressWarnings("unchecked")
+                T result = (T)e.value;
+                return result;
+            }
+        }
+        return setInitialValue();
+    }
+```
+
+threadLocals的类型ThreadLocalMap的键为ThreadLocal对象，因为每个线程中可有多个threadLocal变量，如longLocal和stringLocal。
 
 ```
 public class ThreadLocalDemo {
@@ -204,29 +289,22 @@ public class ThreadLocalDemo {
     }
 }
 ```
-threadLocals的类型ThreadLocalMap的键值为ThreadLocal对象，因为每个线程中可有多个threadLocal变量，如longLocal和stringLocal。
+### 内存泄漏
 
+每个Thread都有⼀个ThreadLocalMap的内部属性，⼀个线程⽆论有多少ThreadLocal，都是保存在这个map中的。map的key是ThreaLocal，为弱引用，值是Object 。在GC的时候会⾃动回收key，但是注意value不会被回收，这样便一直存在一条强引用链的关系：Thread --> ThreadLocalMap-->Entry-->Value，所以在线程的⽣命周期内，value⽆法被回收，就会有可能导致出现内存泄漏。
 
-## StringBuilder和StringBuffer
-- 字符串拼接性能：StringBuilder > StringBuffer > String
-- String 是final类，不能被继承，它是字符串常量，String对象一旦创建之后该对象是不可更改的，用+对String做拼接操作，实际上是先通过建立StringBuilder，然后调用append()做拼接操作，所以在大量字符串拼接的时候，会频繁创建StringBuilder，性能较差。
-- StringBuilder和StringBuffer的对象是字符串变量，对变量进行操作就是直接对该对象进行修改，所以速度要比String快很多。
-- 在线程安全上，StringBuilder是线程不安全的，而StringBuffer是线程安全的，StringBuffer中很多方法带有synchronized关键字，可以保证线程安全。
+![image-20200715235804982](../img/threadlocal-oom.png)
 
-### "+"和 StringBuilder
-
-操作符"+"连接字符串会先创建String对象，再把拼接后的内容赋值给新的对象，在频繁修改的情况下会常量大量的对象，性能较差。
-
-StringBuilder 在拼接时不是使用 String 存储，而是放到一个char数组（默认大小为16），不需要额外创建对象，拼接效率较高。
+解决⽅法：每次使⽤完ThreadLocal就调⽤它的remove(ThreadLocal<?> key)⽅法，手动将对应的键值对删除，从⽽避免内存泄漏。
 
 
 
 ## 线程安全类
 
 线程安全：代码段在多线程下执行和在单线程下执行能获得一样的结果
-线程安全类：线程安全的类其方法是同步的，每次只能一个访问。是重量级对象，效率较低。
+线程安全类：线程安全的类其方法是同步的，每次有只能一个线程访问，效率较低。
 - vector：比arraylist多了个同步化机制，效率较低
-- stack：堆栈类，由vector扩展而来
+- stack：堆栈类，继承自vector
 - hashtable：hashtable不允许插入空值，hashmap允许
 - enumeration：枚举，相当于迭代器
 - StringBuffer
@@ -236,34 +314,6 @@ Iterator和Enumeration的重要区别：
 - Enumeration只能读集合中的数据，不能删除。
 - Enumeration是先进后出，而Iterator是先进先出。
 - Enumeration不支持fast-fail机制，不会抛ConcurrentModificationException。
-
-
-
-## object方法
-object常用方法：
-- toString()：默认输出对象地址
-- equals()：默认比较两个引用变量是否指向同一个对象（内存地址）
-- hashCode()：将与对象相关的信息映射成一个哈希值，默认的实现hashCode值是根据内存地址换算出来。
-- finalize()：用于垃圾回收
-- clone(): Java中要想自定义类的对象可以被复制，自定义类就必须实现Cloneable中的clone()方法。
-- getClass()：获得实例的类型的类，常用于java反射机制
-- wait()：当前线程释放锁，进入对象的等待队列
-- notify()：用于随机唤醒一个在对象上等待的线程
-
-### 为什么重写equals()要重写hashcode()
-
-equals与hashcode的关系：
-1、如果两个对象调用equals比较返回true，那么它们的hashCode值一定要相同；
-2、如果两个对象的hashCode相同，它们并不一定相同。
-
-hashcode方法主要是用来提升对象比较的效率，先进行hashcode()的比较，如果不相同，那就不必在进行equals的比较，这样就大大减少了equals比较的次数，当比较对象的数量很大的时候能提升效率。
-
-之所以重写equals()要重写hashcode()，是为了保证equals()方法返回true的情况下hashcode值也要一致，如果重写了equals()没有重写hashcode()，就会出现两个对象相等但hashcode()不相等的情况。这样，当用其中的一个对象作为键保存到hashMap、hashTable或hashSet中，再以另一个对象作为键值去查找他们的时候，则会查找不到。
-
-### ==和equals的区别
-
-对于基本数据类型，==比较的是他们的值，对于复合数据类型，==比较的是它们的存放地址(同一个new出来的对象)。
-equals()默认比较地址值，重写的话按照重写逻辑去比较。
 
 
 
@@ -317,7 +367,7 @@ List<String> list = Arrays.asList(array);
 代替方案：
 
 ```java
-List<String> list = new ArrayList<String>(Arrays.asList(array))
+List<String> list = new ArrayList<String>(Arrays.asList(array));
 ```
 
 
@@ -402,29 +452,29 @@ System.out.println(dog2); // Dog{id='1', name='Dog1 changed'}
 
 #### serialVersionUID
 
-当完成序列化之后，此时对对象进行修改，由于版本号问题，反序列化的时候会报错。可以在序列化对象添加 serialVersionUID，固定版本号，这样即便序列化对象做了修改，版本都是一致的，就能进行反序列化了。
+serialVersionUID 是 Java 为每个序列化类产生的版本标识，可用来保证在反序列时，发送方发送的和接受方接收的是可兼容的对象。类的serialVersionUID的默认值完全依赖于Java编译器的实现。当完成序列化之后，此时对对象进行修改，由编译器生成的serialVersionUID会改变，这样反序列化的时候会报错。可以在序列化对象中添加 serialVersionUID，固定版本号，这样即便序列化对象做了修改，版本都是一致的，就能进行反序列化了。
 
 ### 遍历
 
 #### fast-fail
 
 fast-fail是Java集合的一种错误机制。当多个线程对同一个集合进行操作时，就有可能会产生fast-fail事件。
-例如：当线程a正通过iterator遍历集合时，另一个线程b修改了集合的内容，此时modCount（记录集合操作过程的修改次数）会加1，不等于expectedModCount，那么线程a访问集合的时候，就会抛出ConcurrentModificationException，产生fast-fail事件。
+例如：当线程a正通过iterator遍历集合时，另一个线程b修改了集合的内容，此时modCount（记录集合操作过程的修改次数）会加1，不等于expectedModCount，那么线程a访问集合的时候，就会抛出ConcurrentModificationException，产生fast-fail事件。边遍历边修改集合也会产生fast-fail事件。
 
 解决方法：
 
 - 使用Colletions.synchronizedList方法或在修改集合内容的地方加上synchronized。这样的话，增删集合内容的同步锁会阻塞遍历操作，影响性能。
 - 使用CopyOnWriteArrayList来替换ArrayList。在对CopyOnWriteArrayList进行修改操作的时候，会拷贝一个新的数组，对新的数组进行操作，操作完成后再把引用移到新的数组。
 
-#### fast-safe
+#### fail-safe
 
-采用安全失败机制的集合容器，在遍历时不是直接在集合内容上访问的，而是先copy原有集合内容，在拷贝的集合上进行遍历。
+fail-safe允许在遍历的过程中对容器中的数据进行修改。因为采用安全失败机制的集合容器，在遍历时不是直接在集合内容上访问的，而是先copy原有集合内容，在拷贝的集合上进行遍历。
 
-由于迭代时是对原集合的拷贝的值进行遍历，所以在遍历过程中对原集合所作的修改并不能被迭代器检测到，所以不会出发`ConcurrentModificationException`。
+由于迭代时是对原集合的拷贝的值进行遍历，所以在遍历过程中对原集合所作的修改并不能被迭代器检测到，所以不会触发`ConcurrentModificationException`。
 
 java.util.concurrent包下的容器都是安全失败的，可以在多线程下并发使用。常见的的使用fail-safe方式遍历的容器有`ConcerrentHashMap`和`CopyOnWriteArrayList`等。
 
-fail-safe机制有两个问题：（1）需要复制集合，产生大量的无效对象，开销大；（2）不能访问到修改后的内容 。
+fail-safe机制有两个问题：（1）需要复制集合，产生大量的无效对象，内存开销大；（2）不能访问到修改后的内容 。
 
 #### 移除集合元素
 
@@ -440,11 +490,6 @@ while(iter.hasNext()){
     }
 }
 ```
-
-
-
-## transient
-对象只要实现了Serilizable接口，这个对象就可以被序列化。有时类的某些属性不需要被序列化，比如用户有一些敏感信息（如密码，银行卡号等），不希望被序列化后在网络中传输，这时可以在相应的变量加上transient关键字。序列化对象的时候，这个属性就不会序列化到指定的目的地中。
 
 
 
@@ -497,17 +542,17 @@ abstract void write(char c);
 
 ### 同步异步
 
-同步，就是在发出一个*调用*时，在没有得到结果之前，该*调用*就不返回。
+同步：发出一个调用时，在没有得到结果之前，该调用就不返回。
 
-异步过程调用发出后，调用者不会立刻得到结果。而是在*调用*发出后，*被调用者*通过状态、通知来通知调用者，或通过回调函数处理这个调用。
+异步：在调用发出后，被调用者返回结果之后会通知调用者，或通过回调函数处理这个调用。
 
 ### 阻塞非阻塞
 
-阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会返回。
+阻塞调用是指调用结果返回之前，当前线程会被挂起。调用线程只有在得到结果之后才会恢复运行。
 
 非阻塞调用指在不能立刻得到结果之前，该调用不会阻塞当前线程。
 
-同步就是烧开水，要自己来看开没开；异步就是水开了，然后水壶响了通知你水开了（回调通知）。阻塞是烧开水的过程中，你不能干其他事情（即你被阻塞住了）；非阻塞是烧开水的过程里可以干其他事情。
+同步就是烧开水，要自己来看开没开；异步就是水开了，然后水壶响了通知你水开了（回调通知）。阻塞是烧开水的过程中，你不能干其他事情，必须在旁边等着；非阻塞是烧开水的过程里可以干其他事情。
 
 ### BIO
 
@@ -536,5 +581,7 @@ Selector：使用更少的线程来就可以来处理通道了，相比使用多
 ### BIO/NIO/AIO区别
 
 同步阻塞IO : 用户进程发起一个IO操作以后，必须等待IO操作的真正完成后，才能继续运行。
-同步非阻塞IO: 非阻塞同步通信模式，客户端与服务器通过Channel连接，采用多路复用器轮询注册的Channel。提高吞吐量和可靠性。用户进程发起一个IO操作以后，可做其它事情，但用户进程需要经常询问IO操作是否完成，这样造成不必要的CPU资源浪费。
+同步非阻塞IO: 客户端与服务器通过Channel连接，采用多路复用器轮询注册的Channel。提高吞吐量和可靠性。用户进程发起一个IO操作以后，可做其它事情，但用户进程需要经常询问IO操作是否完成，这样造成不必要的CPU资源浪费。
 异步非阻塞IO: 非阻塞异步通信模式，NIO的升级版，采用异步通道实现异步通信，其read和write方法均是异步方法。用户进程发起一个IO操作然后，立即返回，等IO操作真正的完成以后，应用程序会得到IO操作完成的通知。类比Future模式。
+
+
