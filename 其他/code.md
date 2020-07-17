@@ -146,3 +146,109 @@ class Solution {
 }
 ```
 
+
+
+## 排序
+
+### 冒泡排序
+
+```java
+    public void bubbleSort(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        boolean flag;
+        for (int i = arr.length - 1; i > 0; i--) {
+            flag = false;
+            for (int j = 0; j < i; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int tmp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = tmp;
+                    flag = true;
+                }
+            }
+            if (!flag) {
+                return;
+            }
+        }
+    }
+```
+
+### 插入排序
+
+```java
+    public void insertSort(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            int tmp = arr[i];
+            int j = i;
+            for (; j > 0 && tmp < arr[j - 1]; j--) {
+                arr[j] = arr[j - 1];
+            }
+            arr[j] = tmp;
+        }
+    }
+```
+
+### 选择排序
+
+```java
+    public void selectionSort(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[i] > arr[j]) {
+                    int tmp = arr[i];
+                    arr[i] = arr[j];
+                    arr[j] = tmp;
+                }
+            }
+        }
+    }
+```
+
+### 快速排序
+
+```java
+    public void quickSort(int[] arr) {
+        if (arr == null) {
+            return;
+        }
+        quickSortHelper(arr, 0, arr.length - 1);
+    }
+    private void quickSortHelper(int[] arr, int left, int right) {
+        if (left > right) {
+            return;
+        }
+        int tmp = arr[left];
+        int i = left;
+        int j = right;
+        while (i < j) {
+            while (i < j && arr[j] >= tmp) {
+                j--;
+            }
+            while (i < j && arr[i] <= tmp) {
+                i++;
+            }
+            if (i < j) {
+                int tmp1 = arr[i];
+                arr[i] = arr[j];
+                arr[j] = tmp1;
+            } else {
+                break;
+            }
+        }
+
+        arr[left] = arr[j];
+        arr[j] = tmp;
+
+        quickSortHelper(arr, left, i - 1);
+        quickSortHelper(arr, i + 1, right);
+    }
+```
+
