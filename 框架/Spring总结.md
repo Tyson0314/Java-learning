@@ -153,9 +153,102 @@ ApplicationEventPublisherAware，可以在 Bean 中得到应用上下文的事�
 
 ### BeanFactory和FactoryBean
 
-BeanFactory： 用于管理Bean的工厂。
+BeanFactory：管理Bean的容器，Spring中生成的Bean都是由这个接口的实现来管理的。
 
-FactoryBean：用来暴露bean实例的接口。在某些情况下，实例化Bean过程⽐较复杂，如果按照传统的⽅式，则需要在`<bean>`中提供⼤量的配置信息。可以通过实现 FactoryBean 来简化实例化过程比较复杂的bean的创建。
+FactoryBean：通常是用来创建比较复杂的bean，一般的bean 直接用xml配置即可，但如果一个bean的创建过程中涉及到很多其他的bean 和复杂的逻辑，直接用xml配置比较麻烦，这时可以考虑用FactoryBean。
+
+当配置文件中bean标签的class属性配置的实现类是FactoryBean时，通过 getBean()方法返回的不是FactoryBean本身，而是调用FactoryBean#getObject()方法所返回的对象，相当于FactoryBean#getObject()代理了getBean()方法。如果想得到FactoryBean必须使用 '&' + beanName 的方式获取。
+
+Mybatis 提供了 SqlSessionFactoryBean，可以简化 SqlSessionFactory 的配置：
+
+```java
+public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, InitializingBean, ApplicationListener<ApplicationEvent> {
+
+  private static final Log LOGGER = LogFactory.getLog(SqlSessionFactoryBean.class);
+
+  private Resource configLocation;
+
+  private Configuration configuration;
+
+  private Resource[] mapperLocations;
+
+  private DataSource dataSource;
+
+  private TransactionFactory transactionFactory;
+
+  private Properties configurationProperties;
+
+  private SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
+
+  private SqlSessionFactory sqlSessionFactory;
+  ...
+}
+```
+
+在 xml 配置 SqlSessionFactoryBean：
+
+```xml
+<bean id="tradeSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <property name="dataSource" ref="trade" />
+    <property name="mapperLocations" value="classpath*:mapper/trade/*Mapper.xml" />
+    <property name="configLocation" value="classpath:mybatis-config.xml" />
+    <property name="typeAliasesPackage" value="com.bytebeats.mybatis3.domain.trade" />
+</bean>
+```
+
+Spring 将会在应用启动时创建 `SqlSessionFactory`，并使用 `sqlSessionFactory` 这个名字存储起来。
+
+#### FactoryBean使用
+
+[FactoryBean使用](https://www.cnblogs.com/davidwang456/p/3688250.html)
+
+如果使用传统方式配置下面Car的\<bean>时，Car的每个属性分别对应一个\<property>元素标签。
+
+```java
+public   class  Car  {    
+       private   int maxSpeed ;    
+       private  String brand ;    
+       private   double price ; 
+}
+```
+
+如果用FactoryBean的方式实现就会灵活一些，下例通过逗号分割符的方式一次性地为Car的所有属性指定配置值：
+
+```java
+public   class  CarFactoryBean  implements  FactoryBean<Car>  {    
+    private  String carInfo ;    
+    public  Car getObject ()   throws  Exception  {    
+        Car car =  new  Car () ;    
+        String []  infos =  carInfo .split ( "," ) ;    
+        car.setBrand ( infos [ 0 ]) ;    
+        car.setMaxSpeed ( Integer. valueOf ( infos [ 1 ])) ;    
+        car.setPrice ( Double. valueOf ( infos [ 2 ])) ;    
+        return  car;    
+    }    
+    public  Class<Car> getObjectType ()   {    
+        return  Car. class ;    
+    }    
+    public   boolean  isSingleton ()   {    
+        return   false ;    
+    }    
+    public  String getCarInfo ()   {    
+        return   this . carInfo ;    
+    }    
+    
+    // 接受逗号分割符设置属性信息    
+    public   void  setCarInfo ( String carInfo )   {    
+        this . carInfocarInfo  = carInfo;    
+    }    
+}
+```
+
+xml 配置 CarFactoryBean：
+
+```xml
+<bean id="car" class="com.test.factorybean.CarFactoryBean" carInfo="超级跑车,400,2000000"/> 
+```
+
+当调用getBean("car") 时，Spring通过反射机制发现CarFactoryBean实现了FactoryBean的接口，这时Spring容器就调用接口方法CarFactoryBean#getObject()方法返回。如果希望获取CarFactoryBean的实例，则需要在使getBean(beanName) 方法时在beanName前显示的加上 "&" 前缀，例如getBean("&car")。
 
 
 
@@ -277,7 +370,12 @@ xml配置文件：
     </bean>
 ```
 
+### @Autowired和@Resource
 
+@Autowired注解是按照类型（byType）装配依赖对象的,但是存在多个类型⼀致的bean，⽆法通过byT ype注⼊时，就会再使⽤byName来注⼊，如果还是⽆法判断注⼊哪个bean则会UnsatisfiedDependencyException。
+@Resource会⾸先按照byName来装配，如果找不到bean，会⾃动byType再找⼀次。
+
+### 声明bean注解
 
 Spring 容器通过xml的bean标签配置和java注解两种方式声明的Bean对象。Spring的框架中提供了与@Component注解等效的用于声明bean的三个注解，@Repository 用于对DAO实现类进行标注，@Service 用于对Service实现类进行标注，@Controller 用于对Controller实现类进行标注。同时还可以给定一个bean名称，如果没有提供名称，那么默认情况下就是一个简单的类名(第一个字符小写)变成Bean名称。
 
@@ -328,26 +426,39 @@ session 作用域：每当创建一个新的HTTP Session时就会创建一个Ses
 
 ## 设计模式
 
-简单工厂：BeanFactory 就是简单工厂模式的体现，根据传入一个唯一标识来获得Bean 对象。
-工厂方法（factory method）：FactoryBean 就是典型的工厂方法模式。
-单例：保证一个类仅有一个实例，并提供一个访问它的全局访问点。如bean 的创建，
-Spring 依赖注入Bean 实例默认是单例的。
-适配器（adapter）：aop 的处理中有adapter 模式的例子，由于Advisor 链需要的是MethodInterceptor
-（拦截器）对象，所以每一个Advisor 中的Advice 都要适配成对应的MethodInterceptor 对象。
-HandlerAdapter，适配不同类型的控制器。
-包装器（decorator）：spring 中用到的包装器模式在类名上有两种表现：一种是类名中含有Wrapper，
-另一种是类名中含有decorator。基本上都是动态的给一个对象添加一些额外的职责。
-代理（proxy）：spring 的proxy 模式在aop 中的体现，比如JdkDynamicAopProxy 和Cglib2AopProxy。
-观察者（observer）：spring 中observer 模式常用的地方是listener 的实现，如ApplicationListener。
-策略（strategy）：spring 中在实例化对象的时候用到了strategy 模式，如SimpleInstantiationStrategy。
+[spring设计模式](https://blog.csdn.net/caoxiaohong1005/article/details/80039656) | [Springmvc适配器模式](https://blog.csdn.net/u010288264/article/details/53835185)
 
-模板方法（template method）：定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。Template
-method 使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。Template method
-模式一般是需要继承的。下面举一个不继承的实现例子：spring 中的jdbctemplate 在用这个类的时
-候因为这个类的方法太多，并不想继承这个类，这时候我们可以把变化的东西抽出来作为一个参数传入jdbctemplate 的方法中。但是变化的东西是一段代码，而且这段代码会用到jdbctemplate 中
-的变量。那我们就可以用回调对象，在这个回调对象中定义一个操作jdbctemplate 中变量的方法，
-我们去实现这个方法，就把变化的东西集中到这里了。然后我们再传入这个回调对象到
-jdbctemplate，从而完成调用。
+- 简单工厂：BeanFactory 就是简单工厂模式的体现，根据传入一个唯一标识来获得Bean 对象。
+
+- 工厂方法：FactoryBean 就是典型的工厂方法模式。spring在使用getBean()调用获得该bean时，会自动调用该bean的getObject()方法。每个 Bean 都会对应一个 FactoryBean，如 SqlSessionFactory 对应 SqlSessionFactoryBean。
+
+- 单例：保证一个类仅有一个实例，并提供一个访问它的全局访问点。Spring 创建 Bean 实例默认是单例的。
+
+- 适配器：SpringMVC中的适配器HandlerAdatper。每一个 Controller 对应一种 HandlerAdapter 实现类，让适配器代替执行 handle() 方法。这样在扩展Controller 时，只需要增加一个适配器类就完成了SpringMVC的扩展了。常用的处理器适配器：SimpleControllerHandlerAdapter，HttpRequestHandlerAdapter，AnnotationMethodHandlerAdapter。
+
+  ```java
+  public class HttpRequestHandlerAdapter implements HandlerAdapter {
+  
+  	@Override
+  	public boolean supports(Object handler) {
+  		return (handler instanceof HttpRequestHandler);
+  	}
+  
+  	@Override
+  	@Nullable
+  	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)
+  			throws Exception {
+  
+  		((HttpRequestHandler) handler).handleRequest(request, response);
+  		return null;
+  	}
+  ```
+
+- 代理：spring 的 aop 使用了动态代理，有两种方式JdkDynamicAopProxy 和Cglib2AopProxy。
+
+- 观察者（observer）：spring 中observer 模式常用的地方是listener 的实现，如ApplicationListener。
+
+- 模板方法（template method）：spring 中的 jdbctemplate。
 
 
 
@@ -374,3 +485,62 @@ Spring声明式事务使得我们无需要去处理获得连接、关闭连接�
 使用PROPAGATION_REQUIRES_NEW时，内层事务与外层事务是两个独立的事务。一旦内层事务进行了提交后，外层事务不能对其进行回滚。两个事务互不影响。
 
 使用PROPAGATION_NESTED时，外层事务的回滚可以引起内层事务的回滚。而内层事务的异常并不会导致外层事务的回滚，它是一个真正的嵌套事务。
+
+
+
+## 循环依赖
+
+[图解spring循环依赖](https://juejin.im/post/5e927e27f265da47c8012ed9#heading-5) | [循环依赖](https://blog.csdn.net/u010853261/article/details/77940767)
+
+构造器的循环依赖：这种依赖spring是处理不了的，直接抛出BeanCurrentlylnCreationException异常。
+
+单例模式下属性注入的循环依赖：通过“三级缓存”处理循环依赖。 
+
+非单例循环依赖：无法处理。
+
+### 初始化
+
+spring单例对象的初始化大略分为三步：
+
+1. createBeanInstance：实例化，其实也就是调用对象的构造方法实例化对象
+2. populateBean：填充属性，这一步主要是多bean的依赖属性进行填充
+3. initializeBean：调用spring xml中的init 方法。
+
+this.singletonsCurrentlyInCreation.add(String beanName)将当前正在创建的bean标识符记录在缓存中，如果在将标识符记录到缓存的过程中发现自己已经在缓存中，则说明存在循环依赖，将抛出BeanCurrentlylnCreationException 异常表示循环依赖。创建完成的bean将会从缓存中清除。
+
+### 三级缓存
+
+Spring为了解决单例的循环依赖问题，使用了三级缓存。
+
+singletonObjects：完成了初始化的单例对象map，bean name --> bean instance
+
+earlySingletonObjects ：完成实例化未初始化的单例对象map，bean name --> bean instance
+
+singletonFactories ： 单例对象工厂map，bean name --> ObjectFactory
+
+在调用createBeanInstance进行实例化之后，会调用addSingletonFactory，将单例对象放到singletonFactories中。
+
+```java
+protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFactory) {
+    Assert.notNull(singletonFactory, "Singleton factory must not be null");
+    synchronized (this.singletonObjects) {
+        if (!this.singletonObjects.containsKey(beanName)) {
+            this.singletonFactories.put(beanName, singletonFactory);
+            this.earlySingletonObjects.remove(beanName);
+            this.registeredSingletons.add(beanName);
+        }
+    }
+}
+```
+
+假如A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象。
+
+1. A首先完成了初始化的第一步，并且将自己添加到singletonFactories中
+
+2. 进行初始化的第二步，发现自己依赖对象B，此时就尝试去get(B)
+3. 发现B还没有被实例化，对B进行实例化
+4. 然后B在初始化的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，尝试二级缓存earlySingletonObjects（也没有），尝试三级缓存singletonFactories，由于A通过ObjectFactory将自己提前曝光了，所以B能够通过ObjectFactory.getObject拿到A对象
+5. B拿到A对象后顺利完成了初始化阶段1、2、3，完全初始化之后将自己放入到一级缓存singletonObjects中。
+6. 此时返回A中，A此时能拿到B的对象顺利完成自己的初始化阶段2、3，最终A也完成了初始化，进去了一级缓存singletonObjects中，由于B拿到了A的对象引用，所以B现在持有的A对象也完成了初始化。
+
+由此看出，属性注入的循环依赖主要是通过singletonFactories来实现的。所以构造器注入的不能循环依赖，因为对象在实例化完成之后，即调用了createBeanInstance之后，才会被添加到singletonFactories中，而对象依赖使用构造器注入的话，不会使用到singletonFactories，循环依赖会抛BeanCurrentlylnCreationException异常。

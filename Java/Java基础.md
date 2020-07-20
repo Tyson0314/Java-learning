@@ -201,6 +201,8 @@ equals()默认比较地址值，重写的话按照重写逻辑去比较。
 
 #### StringBuilder和StringBuffer
 
+- 底层都是char数组实现的
+
 - 字符串拼接性能：StringBuilder > StringBuffer > String
 - String 是final类，不能被继承，它是字符串常量，String对象一旦创建之后该对象是不可更改的，用+对String做拼接操作，实际上是先通过建立StringBuilder，然后调用append()做拼接操作，所以在大量字符串拼接的时候，会频繁创建StringBuilder，性能较差。
 - StringBuilder和StringBuffer的对象是字符串变量，对变量进行操作就是直接对该对象进行修改，所以速度要比String快很多。
@@ -289,6 +291,8 @@ public class ThreadLocalDemo {
     }
 }
 ```
+ThreadLocal 并不是用来解决共享资源的多线程访问的问题，因为每个线程中的资源只是副本，并不共享。因此ThreadLocal适合作为线程上下文变量，简化线程内传参。
+
 ### 内存泄漏
 
 每个Thread都有⼀个ThreadLocalMap的内部属性，⼀个线程⽆论有多少ThreadLocal，都是保存在这个map中的。map的key是ThreaLocal，为弱引用，值是Object 。在GC的时候会⾃动回收key，但是注意value不会被回收，这样便一直存在一条强引用链的关系：Thread --> ThreadLocalMap-->Entry-->Value，所以在线程的⽣命周期内，value⽆法被回收，就会有可能导致出现内存泄漏。
