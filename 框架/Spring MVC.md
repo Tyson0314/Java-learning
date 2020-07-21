@@ -42,7 +42,15 @@ Spring MVC是一种基于MVC架构模式的轻量级Web框架。
 
 ## Spring MVC处理流程
 
-Spring MVC的处理过程：首先控制器接收用户的请求，调用相应的模型来进行业务处理，并返回数据给控制器。控制器调用相应的视图来显示处理的结果，并通过视图呈现给用户。
+Spring MVC的处理过程：
+
+1. DispatcherServlet 接收用户的请求
+2. 找到用于处理request的 handler 和 Interceptors，构造成 HandlerExecutionChain 执行链
+3. 找到 handler 相对应的 HandlerAdapter
+4. 执行所有注册拦截器的preHandler方法
+5. 调用 HandlerAdapter 的 handle() 方法处理请求，返回 ModelAndView
+6. 倒序执行所有注册拦截器的postHandler方法
+7. 请求视图解析和视图渲染
 
 ![Spring MVC处理流程](https://img-blog.csdnimg.cn/20190125180502787.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
 
@@ -50,7 +58,7 @@ Spring MVC的处理过程：首先控制器接收用户的请求，调用相应�
 
 - 前端控制器（DispatcherServlet）：接收用户请求，给用户返回结果。
 - 处理器映射器（HandlerMapping）：根据请求的url路径，通过注解或者xml配置，寻找匹配的Handler。
-- 处理器适配器（HandlerAdapter）：根据特定规则执行相关的Handler。
+- 处理器适配器（HandlerAdapter）：Handler 的适配器，调用 handler 的方法处理请求。
 - 处理器（Handler）：执行相关的请求处理逻辑，并返回相应的数据和视图信息，将其封装到ModelAndView对象中。
 - 视图解析器（ViewResolver）：将逻辑视图名解析成真正的视图View。
 - 视图（View）：接口类，实现类可支持不同的View类型（JSP、FreeMarker、Excel等）。

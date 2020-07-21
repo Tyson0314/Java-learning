@@ -434,13 +434,37 @@ session 作用域：每当创建一个新的HTTP Session时就会创建一个Ses
 
 - 单例：保证一个类仅有一个实例，并提供一个访问它的全局访问点。Spring 创建 Bean 实例默认是单例的。
 
-- 适配器：SpringMVC中的适配器HandlerAdatper。每一个 Controller 对应一种 HandlerAdapter 实现类，让适配器代替执行 handle() 方法。这样在扩展Controller 时，只需要增加一个适配器类就完成了SpringMVC的扩展了。常用的处理器适配器：SimpleControllerHandlerAdapter，HttpRequestHandlerAdapter，AnnotationMethodHandlerAdapter。
+- 适配器：SpringMVC中的适配器HandlerAdatper。由于 Controller 有不同的实现方式，处理请求的方法不是确定的，如果需要直接调用Controller方法，那么需要调用的时候使用if else来进行判断是哪一种子类然后调用相应的方法。当增加新的 Controller，需要修改原来的逻辑，违反了开闭原则（对修改关闭，对扩展开放）。
 
   ```java
+  if(mappedHandler.getHandler() instanceof MultiActionController){  
+     ((MultiActionController)mappedHandler.getHandler()).xxx  
+  }else if(mappedHandler.getHandler() instanceof XXX){  
+      ...  
+  }else if(...){  
+     ...  
+  }
+  ```
+
+  为此，Spring提供了一个适配器接口，每一种 Controller 对应一种 HandlerAdapter 实现类，当请求过来，SpringMVC会根据请求request获取相应的Controller（getHandler方法），然后通过getHandlerAdapter()获取该Controller对应的 HandlerAdapter，最后调用适配器的 handle() 处理请求（实际上调用的是Controller的handleRequest()）。
+
+  添加新的 Controller 时，只需要增加一个适配器类就可以，无需修改原有的逻辑。
+
+  常用的处理器适配器：SimpleControllerHandlerAdapter，HttpRequestHandlerAdapter，AnnotationMethodHandlerAdapter。
+
+  ```java
+  // Determine handler for the current request.
+  mappedHandler = getHandler(processedRequest);
+  
+  HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
+  
+  // Actually invoke the handler.
+  mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
+  
   public class HttpRequestHandlerAdapter implements HandlerAdapter {
   
   	@Override
-  	public boolean supports(Object handler) {
+  	public boolean supports(Object handler) {//handler是被适配的对象，这里使用的是对象的适配器模式
   		return (handler instanceof HttpRequestHandler);
   	}
   
