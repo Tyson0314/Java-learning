@@ -252,3 +252,53 @@ class Solution {
     }
 ```
 
+### 归并排序
+
+```java
+public class MergeSort {
+    public void mergeSort(int[] arr) {
+        if (arr == null || arr.length == 0) {
+            return;
+        }
+        int[] tmpArr = new int[arr.length];
+        mergeSort(arr, tmpArr, 0, arr.length - 1);
+    }
+
+    private void mergeSort(int[] arr, int[] tmpArr, int left, int right) {
+        if (left < right) {
+            int mid = (left + right) >> 1;
+            mergeSort(arr, tmpArr, left, mid);
+            mergeSort(arr, tmpArr, mid + 1, right);
+            merge(arr, tmpArr, left, mid, right);
+        }
+    }
+
+    private void merge(int[] arr, int[] tmpArr, int left, int mid, int right) {
+        int i = left;
+        int j = mid + 1;
+        int tmpIndex = left;
+        while (i <= mid && j <= right) {
+            if (arr[i] < arr[j]) {
+                tmpArr[tmpIndex++] = arr[i];
+                i++;
+            } else {
+                tmpArr[tmpIndex++] = arr[j];
+                j++;
+            }
+        }
+
+        while (i <= mid) {
+            tmpArr[tmpIndex++] = arr[i++];
+        }
+
+        while (j <= right) {
+            tmpArr[tmpIndex++] = arr[j++];
+        }
+
+        for (int m = left; m <= right; m++) {
+            arr[m] = tmpArr[m];
+        }
+    }
+}
+```
+

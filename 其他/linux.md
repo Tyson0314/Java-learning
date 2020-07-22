@@ -113,6 +113,7 @@ chmod +x xxx
 chmod u+x shutdown
 sudo chmod 744 hello.c
 sudo chown tyson hello.c
+chown mysql slow.log
 ```
 
 

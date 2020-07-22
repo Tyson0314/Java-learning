@@ -23,7 +23,7 @@
 
 ## 函数式编程
 
-面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程可能需要多写重复的代码行。
+面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程会多写很多可能是重复的代码行。
 
 ```java
         Runnable runnable = new Runnable() {
@@ -37,8 +37,17 @@
 
 函数式编程：在某些编程语言中，如js、c++，我们可以直接写一个函数，然后在需要的时候进行调用，即函数式编程。
 
+
+
+## Lambda 表达式
+
+[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
+
 ```java
-Runnable runnable = () => { System.out.println("do something..."); }
+List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+
+Collections.sort(names, (String a, String b) -> b.compareTo(a));
+names.sort((a, b) -> b.compareTo(a));
 ```
 
 
@@ -120,6 +129,7 @@ class Person {
 }
 ```
 
+
 ### Consumer
 
 Consumer 接口接收一个泛型参数，然后调用 accept，对这个参数做一系列的操作。
@@ -168,21 +178,6 @@ list
     .forEach(System.out::println);
 list.forEach(System.out::println);
 ```
-
-
-
-## Lambda 表达式
-
-[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
-
-```java
-List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
-
-Collections.sort(names, (String a, String b) -> b.compareTo(a));
-names.sort((a, b) -> b.compareTo(a));
-```
-
-
 
 ## Stream
 
@@ -300,6 +295,7 @@ reduced.ifPresent(System.out::println);
 // "aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"
 ```
 
+
 ### flatMap
 
 flatMap 用于将多个Stream连接成一个Stream。比如把几个小的list转换到一个大的list。
@@ -345,9 +341,6 @@ public class Test {
 
 }
 ```
-
-
-
 ## Parallel-Streams 并行流
 
 `stream` 流是支持**顺序**和**并行**的。顺序流操作是单线程操作，而并行流是通过多线程来处理的，处理速度更快。
@@ -416,39 +409,3 @@ map.get(9);             // val9
 map.merge(9, "concat", (value, newValue) -> value.concat(newValue));
 map.get(9);             // val9concat
 ```
-
-
-
-## 函数式编程
-
-将函数作为参数。
-
-```java
-import java.util.function.Predicate;
-
-/**
- * - 1.判断传入的字符串的长度是否大于5
- * - 2.判断传入的参数是否是偶数
- * - 3.判断数字是否大于10
- */
-public class PredicateTestThree {
-
-    public static void main(String[] args) {
-
-        PredicateTestThree predicate = new PredicateTestThree();
-
-        /** - 1.判断传入的字符串的长度是否大于5 */
-        System.out.println(predicate.judgeConditionByFunction(12345,value -> String.valueOf(value).length() > 5));
-        /** - 2.判断传入的参数是否是奇数 */
-        System.out.println(predicate.judgeConditionByFunction(4,value -> value % 2 == 0));
-        /** - 3.判断数字是否大于10 */
-        System.out.println(predicate.judgeConditionByFunction(-1, value-> value > 10));
-    }
-
-    public boolean judgeConditionByFunction(int value,Predicate<Integer> predicate) {
-        return predicate.test(value);
-    }
-}
-
-```
-

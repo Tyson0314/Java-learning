@@ -355,7 +355,7 @@ git push -u origin master  //如果当前分支与多个主机存在追踪关系
 
 #### 远程仓库移除和命名
 
-`$ git remote rename pb paul`
+`$ git remote rename old-name new-name`
 
 `$ git remote rm paul`
 
@@ -476,6 +476,7 @@ git checkout master
 git merge iss53
 ```
 
+squash merge：合并多个 commit 为一个，合并完需要重新提交，会修改原 commit 的提交信息，包括 author。
 #### 合并冲突
 
 当合并产生冲突时不会自动地创建一个新的合并提交。 Git 会暂停下来，等待你去解决合并产生的冲突。 你可以在合并冲突后的任意时刻使用 git status 命令来查看那些因包含合并冲突而处于 unmerged 状态的文件。
@@ -492,7 +493,7 @@ please contact us at support@github.com
 
 在你解决了所有文件里的冲突之后，对每个文件使用 git add 命令来将其标记为冲突已解决。然后输入 `git commit -m "merge branch iss53"`完成合并提交。
 
-#### merge 和 rebase 区别
+### rebase
 
 现在我们有这样的两个分支,test和master，提交如下：
 
