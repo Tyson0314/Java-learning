@@ -756,12 +756,9 @@ ADD FOREIGN KEY(vendor_id) REFERENCES vendors(vendor_id);
 MySQL用单条INSERT语句处理多个插入比使用多条INSERT语句快。
 
 ```mysql
-INSERT INTO customers(cust_name,
-                     cust_city)
-                     VALUES('Tyson',
-                           'GD'),
-                           ('sophia',
-                           'GZ');
+INSERT INTO customers(cust_name, cust_city)
+	VALUES('Tyson', 'GD'),
+		('sophia','GZ');
 ```
 
 INSERT操作可能很耗时（特别是有很多索引需要更新时），而且它可能降低等待处理的SELECT语句的性能。降低INSERT语句的优先级：`INSERT LOW_PRIORITY INTO`

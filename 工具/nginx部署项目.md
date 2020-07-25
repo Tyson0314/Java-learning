@@ -39,7 +39,7 @@ nginx安装目录：usr/local/nginx
 
 配置文件介绍：
 
-```json
+```
 server {  
         # 当nginx接到请求后，会匹配其配置中的service模块
         # 匹配方法就是将请求携带的host和port去跟配置中的server_name和listen相匹配
@@ -62,7 +62,7 @@ server{ } 其实是包含在 http{ } 内部的。每一个 server{ } 是一个�
 
 ![1588431199776](..\img\1588431199776.png)
 
-静态请求直接从 nginx 服务器所设定的根目录路径去取对应的资源，动态请求转发给真实的后台（前面所说的应用服务器，如图中的Tomcat）去处理。不仅能给应用服务器减轻压力，将后台api接口服务化，还能将前后端代码分开并行开发和部署。
+静态请求直接从 nginx 服务器所设定的根目录路径去取对应的资源，动态请求转发给后端去处理。不仅能给应用服务器减轻压力，将后台api接口服务化，还能将前后端代码分开并行开发和部署。
 
 ## 后端部署
 
@@ -122,7 +122,7 @@ server{ } 其实是包含在 http{ } 内部的。每一个 server{ } 是一个�
 
 3. 配置 nginx。
 
-   ```json
+   ```
        server {
            listen 80; #localhost:80请求nginx服务器时，该请求就会被匹配进该代码块的 server{ } 中执行。
            server_name  localhost;
@@ -162,7 +162,6 @@ nginx 配置：
 1. /usr/local/nginx/conf/nginx.conf 中 http 节点增加`include /usr/local/nginx/my-conf/*.conf` 不同站点使用不同的配置文件。
 
    ```
-   
    http {
        include       mime.types;
        default_type  application/octet-stream;

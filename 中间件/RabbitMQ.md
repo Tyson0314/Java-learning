@@ -8,7 +8,7 @@ Message：由消息头和消息体组成。消息体是不透明的，而消息�
 
 Publisher：消息的生产者。
 
-Exchange：接收消息并将路由到一个或多个Queue。
+Exchange：接收消息并将消息分发到一个或多个Queue。
 
 Binding：通过Binding将Exchange和Queue关联，这样Exchange就知道如何将消息准确的推送到Queue中去。
 
@@ -34,7 +34,7 @@ Exchange规则。
 | -------- | ------------------------------------------------------------ |
 | fanout   | 把所有发送到该Exchange的消息路由到所有与它绑定的Queue中      |
 | direct   | Routing Key==Binding Key                                     |
-| topic    | 我这里自己总结的简称模糊匹配                                 |
+| topic    | 模糊匹配                                                     |
 | headers  | Exchange不依赖于routing key与binding key的匹配规则来路由消息，而是根据发送的消息内容中的headers属性进行匹配。 |
 
 ### direct
