@@ -81,7 +81,7 @@ git 在保存项目状态时，它主要对全部文件制作一个快照并保�
 
 ### 三种状态
 
-git 的三种状态：已提交（committed）、已修改（modified）和已暂存（staged）。已修改表示修改了文件，但还没保存到数据库。已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。已提交表示数据已经安全的保存到本地数据库。
+git 的三种状态：已修改（modified）、已暂存（staged）和已提交（committed）。已修改表示修改了文件，但还没保存到数据库。已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。已提交表示数据已经安全的保存到本地数据库。
 
 基本的 git 工作流程：在工作目录修改文件；暂存文件，将文件快照放到暂存区域；提交更新到本地库。暂存区是一个文件，保存了下次将提交的文件列表信息，一般在 git 仓库目录中。
 
@@ -142,15 +142,11 @@ M lib/simplegit.rb
 `git config --global alias.st status `
 
 
-### 修改
+### 工作区
 
-要查看修改后尚未暂存的文件更新了哪些部分，直接输入`git diff`命令。
+查看工作区修改：`git diff`
 
-若要查看已暂存的内容，可以用`git diff --staged`命令。
-
-#### 撤销修改
-
-撤销修改：`git checkout -- file_name` 这是一个危险的命令，会撤销工作区的修改，不可恢复。
+撤销工作区修改：`git checkout -- file_name`，会撤销工作区的修改，不可恢复，不会撤销暂存区修改。
 
 撤销修改还可以使用 restore 命令（git2.23版本引入）。
 
@@ -162,39 +158,37 @@ git restore -s hadn12 demo.txt //将当前工作区切换到指定 commit id 的
 ```
 
 
-### 暂存
+### 暂存区
 
 `git add *`暂存工作目录文件。
 
-#### 取消暂存
+查看暂存区修改：`git diff --staged`
 
-如果暂存了两个文件，想要取消暂存其中一个文件，则可以通过以下命令实现：`git reset HEAD file_name`
+撤销暂存区修改/unstage：`git reset HEAD file_name`，将文件修改移出暂存区，放到工作区。
 
-git reset 加上 --hard 选项可能导致工作目录中所有当前进度丢失。
+git reset 加上 --hard 选项会导致工作目录中所有修改丢失。
 
 ### 提交
 
 任何未提交的修改丢失后很可能不可恢复。提交命令：`git commit -m "add readme.md"`
 
-`git commit -a -m "xxx"` 相当于`git add`和`git commit -m "xxx"`，将 tracked 的文件直接提交。注意，untracked 的文件不可以使用此命令直接提交。
+`git commit -a -m "xxx"` 相当于`git add`和`git commit -m "xxx"`，将 tracked 的文件直接提交。untracked 的文件无法使用此命令直接提交，需先执行 git add 命令，再执行 git commit。
 
 git commit 进入 vim 编辑器后的操作：
 
-1. 按下字母键`i`或`a`或`o`，此时进入到可编辑状态，这时就可以输入你的注释
-2. 当你输入完之后，按下`Esc`键就可退出编辑状态，回到一般模式
-3. 输入:wq 或 :wq!（强行退出）
+1. 按下字母键`i`或`a`或`o`，进入到可编辑状态
+2. 输入完成后，按下`Esc`键就可退出编辑状态，回到一般模式
+3. 输入:wq 或 :wq!（强行退出，不保存）
 
 #### 修改commit信息
 
-如果提交后发现漏掉某些文件，此时可以运用带有 --amend 选项的提交命令尝试重新提交：
+如果提交后发现漏掉某些文件或者提交信息写错，使用`git commit --amend`重新提交：
 
 ```powershell
 git commit -m 'initial commit'
 git add forgotten_file
 git commit --amend
 ```
-
-提交信息写错，也可以运行`git commit --amend`，然后在 vim 窗口重新编辑提交信息即可更改提交信息。（按下字母键`i`或`a`或`o`，此时进入到可编辑状态，这时就可以输入你的注释；当你输入完之后，按下`Esc`键就可退出编辑状态，回到一般模式；输入:wq 或 :wq!）
 
 
 #### 查看提交历史
@@ -217,7 +211,7 @@ git commit --amend
 git reset --hard commit_id
 git reset --hard HEAD^^
 git reset --hard HEAD~100
-git reset HEAD readme.txt  //把暂存区的修改撤销掉（unstage）, 重新放入工作区 
+git reset HEAD readme.txt  //把暂存区的修改撤销掉（unstage）, 重新放到工作区 
 ```
 
 ### stash
@@ -230,7 +224,7 @@ git stash pop stash@{id} //恢复后删除
 git stash apply stash@{id}  //恢复后不删除，需手动删除
 git stage drop
 git stash list //查看stash 列表
-git stash show -p stash@{0} //查看stash具体内容
+git stash show -p stash@{0} //查看stash具体内容，-p查看diff，stash@{0}可以省略
 ```
 
 
@@ -239,13 +233,9 @@ git stash show -p stash@{0} //查看stash具体内容
 
 `git rm readme.md`：文件未被修改过，从暂存区移除文件，然后提交，相当于 `rm readme.md`和`git add .`。如果只是简单地从工作目录中手工删除文件，运行 git status 时就会在 “Changes not staged for commit”。
 
-`git rm --cached`：文件被修改过，则必须要用强制删除选项 -f 。 这是一种安全特性，用于防止误删还没有添加到暂存区的数据，这样的数据不能被 Git 恢复。
-
-`git rm --cached README.md`：让文件保留在工作区，但是不想让 Git 继续跟踪。可以使用 --cached 选项来实现。
+`git rm --cached README.md`：让文件保留在工作区，但是不想让 Git 继续跟踪。可以使用 --cached 选项来实现。文件被修改过，还没有放进暂存区，则必须要用强制删除选项 -f ，以防止误删还没有添加到暂存区的数据，这样的数据不能被 Git 恢复。
 
 git rm 支持正则表达式：`git rm log/\*.log`。
-
-
 
 对文件改名：`git mv README.md README`
 
@@ -323,9 +313,9 @@ git remote set-url origin git@github.com:Tyson0314/Blog.git
 
 从远程仓库获取数据：`git fetch [remote-name]`
 
-git fetch 命令将数据拉取到你的本地仓库，但它并不会自动合并到你当前的工作。 你必须手动将其合并入你的工作。
+git fetch 命令将数据拉取到本地仓库，但它并不会自动合并到本地分支，必须手动将其合并本地分支。
 
-git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
+git pull 通常会从远程仓库拉取数据并自动尝试合并到当前所在的分支。
 
 ```git
 git pull = git fetch + git merge FETCH_HEAD 

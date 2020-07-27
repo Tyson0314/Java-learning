@@ -375,7 +375,7 @@ xml配置文件：
 @Autowired注解是按照类型（byType）装配依赖对象的,但是存在多个类型⼀致的bean，⽆法通过byT ype注⼊时，就会再使⽤byName来注⼊，如果还是⽆法判断注⼊哪个bean则会UnsatisfiedDependencyException。
 @Resource会⾸先按照byName来装配，如果找不到bean，会⾃动byType再找⼀次。
 
-### 声明bean注解
+### 声明Bean注解
 
 Spring 容器通过xml的bean标签配置和java注解两种方式声明的Bean对象。Spring的框架中提供了与@Component注解等效的用于声明bean的三个注解，@Repository 用于对DAO实现类进行标注，@Service 用于对Service实现类进行标注，@Controller 用于对Controller实现类进行标注。同时还可以给定一个bean名称，如果没有提供名称，那么默认情况下就是一个简单的类名(第一个字符小写)变成Bean名称。
 
@@ -393,6 +393,35 @@ xml配置 bean：
 ```xml
 <bean id="userService" class="com.zejian.spring.springIoc.service.impl.UserServiceImpl" />
 ```
+
+### @Bean和@Component
+
+都是使用注解定义 Bean。@Bean 是使用 Java 代码装配 Bean，@Component 是自动装配 Bean。
+
+@Component 注解用在类上，表明一个类会作为组件类，并告知Spring要为这个类创建bean，每个类对应一个 Bean。
+
+@Bean 注解用在方法上，表示这个方法会返回一个 Bean。@Bean 需要在配置类中使用，即类上需要加上@Configuration注解。
+
+```java
+@Component
+public class Student {
+    private String name = "lkm";
+ 
+    public String getName() {
+        return name;
+    }
+}
+
+@Configuration
+public class WebSocketConfig {
+    @Bean
+    public Student student(){
+        return new Student();
+    }
+}
+```
+
+@Bean 注解更加灵活。当需要将第三方类装配到 Spring 容器中，因为没办法源代码上添加@Component注解，只能使用@Bean 注解的方式，当然也可以使用 xml 的方式。
 
 
 

@@ -236,4 +236,4 @@ service mysqld start
 /sbin/service rabbitmq-server start
 ```
 
-启动 nginx：`安装目录/sbin/nginx`
+启动 nginx：`安装目录/sbin/nginx`	
