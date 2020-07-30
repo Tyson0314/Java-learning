@@ -9,19 +9,23 @@
   - [接口与抽象类区别](#%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%8C%BA%E5%88%AB)
   - [接口的用处](#%E6%8E%A5%E5%8F%A3%E7%9A%84%E7%94%A8%E5%A4%84)
   - [反射机制](#%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6)
-- [语法](#%E8%AF%AD%E6%B3%95)
+- [基础](#%E5%9F%BA%E7%A1%80)
   - [static final](#static-final)
   - [泛型](#%E6%B3%9B%E5%9E%8B)
   - [访问修饰符](#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6)
   - [程序执行顺序](#%E7%A8%8B%E5%BA%8F%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F)
-- [Exception](#exception)
+  - [transient](#transient)
+  - [Exception](#exception)
+  - [object方法](#object%E6%96%B9%E6%B3%95)
+  - [equals()和hashcode()](#equals%E5%92%8Chashcode)
+  - [==和equals](#%E5%92%8Cequals)
+  - [String拼接](#string%E6%8B%BC%E6%8E%A5)
+    - [StringBuilder和StringBuffer](#stringbuilder%E5%92%8Cstringbuffer)
+    - [+和StringBuilder](#%E5%92%8Cstringbuilder)
 - [ThreadLocal](#threadlocal)
-- [StringBuilder和StringBuffer](#stringbuilder%E5%92%8Cstringbuffer)
-  - ["+"和 StringBuilder](#%E5%92%8C-stringbuilder)
+  - [内存泄漏](#%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F)
+  - [使用场景](#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF)
 - [线程安全类](#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%B1%BB)
-- [object方法](#object%E6%96%B9%E6%B3%95)
-  - [为什么重写equals()要重写hashcode()](#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%87%8D%E5%86%99equals%E8%A6%81%E9%87%8D%E5%86%99hashcode)
-  - [==和equals的区别](#%E5%92%8Cequals%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [常见操作](#%E5%B8%B8%E8%A7%81%E6%93%8D%E4%BD%9C)
   - [排序](#%E6%8E%92%E5%BA%8F)
   - [数组操作](#%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C)
@@ -34,9 +38,8 @@
     - [serialVersionUID](#serialversionuid)
   - [遍历](#%E9%81%8D%E5%8E%86)
     - [fast-fail](#fast-fail)
-    - [fast-safe](#fast-safe)
+    - [fail-safe](#fail-safe)
     - [移除集合元素](#%E7%A7%BB%E9%99%A4%E9%9B%86%E5%90%88%E5%85%83%E7%B4%A0)
-- [transient](#transient)
 - [工具类](#%E5%B7%A5%E5%85%B7%E7%B1%BB)
   - [Arrays.sort()](#arrayssort)
   - [归并与快速排序](#%E5%BD%92%E5%B9%B6%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
@@ -295,11 +298,22 @@ ThreadLocal 并不是用来解决共享资源的多线程访问的问题，因�
 
 ### 内存泄漏
 
-每个Thread都有⼀个ThreadLocalMap的内部属性，⼀个线程⽆论有多少ThreadLocal，都是保存在这个map中的。map的key是ThreaLocal，为弱引用，值是Object 。在GC的时候会⾃动回收key，但是注意value不会被回收，这样便一直存在一条强引用链的关系：Thread --> ThreadLocalMap-->Entry-->Value，所以在线程的⽣命周期内，value⽆法被回收，就会有可能导致出现内存泄漏。
+每个Thread都有⼀个ThreadLocalMap的内部属性，map的key是ThreaLocal，定义为弱引用，value是强引用类型。GC的时候会⾃动回收key，而value的回收取决于Thread对象的生命周期。一般会通过线程池的方式复用Thread对象节省资源，这也就导致了Thread对象的生命周期比较长，这样便一直存在一条强引用链的关系：Thread --> ThreadLocalMap-->Entry-->Value，随着任务的执行，value就有可能越来越多且无法释放，最终导致内存泄漏。
 
 ![image-20200715235804982](../img/threadlocal-oom.png)
 
-解决⽅法：每次使⽤完ThreadLocal就调⽤它的remove(ThreadLocal<?> key)⽅法，手动将对应的键值对删除，从⽽避免内存泄漏。
+解决⽅法：每次使⽤完ThreadLocal就调⽤它的remove()⽅法，手动将对应的键值对删除，从⽽避免内存泄漏。
+
+```java
+currentTime.set(System.currentTimeMillis());
+result = joinPoint.proceed();
+Log log = new Log("INFO",System.currentTimeMillis() - currentTime.get());
+currentTime.remove();
+```
+
+### 使用场景
+
+ThreadLocal 适用场景：每个线程需要有自己单独的实例，且需要在多个方法中共享实例，即同时满足实例在线程间的隔离与方法间的共享。比如Java web应用中，每个线程有自己单独的 Session 实例，就可以使用ThreadLocal来实现。
 
 
 

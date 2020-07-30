@@ -938,7 +938,7 @@ public void addFormatters(FormatterRegistry registry) {
 
 #### 实现自己的 MVC 配置
 
-当 Spring Boot 提供的 Spring MVC 不符合要求时，可以通过一个配置类（注解有@Configuration 的类）加上@EnableWebMvc 注解来实现完全自己控制的 MVC 配置。**
+当 Spring Boot 提供的 Spring MVC 不符合要求时，可以通过一个配置类（注解有@Configuration 的类）加上@EnableWebMvc 注解来实现完全自己控制的 MVC 配置。
 
 要想保留 Spring Boot 提供的 MVC 配置，同时增加额外的配置，可以通过定义一个配置类并继承 WebMvcConfigurerAdapter，无需使用@EnableWebMvc注解。
 
@@ -1069,19 +1069,19 @@ INFO 21724 --- [           main] o.s.b.web.embedded.jetty.JettyWebServer  : Jett
 
 #### Docker 镜像命令
 
-（1）**Docker 镜像检索**
+（1）Docker 镜像检索
 
 ```powershell
 docker search redis
 ```
 
-（2）**镜像下载**
+（2）镜像下载
 
 ```powershell
 docker pull redis
 ```
 
-（3）**镜像列表**
+（3）镜像列表
 
 ```powershell
 docker images
@@ -1089,13 +1089,13 @@ docker images
 
 （4）删除镜像
 
-**删除指定镜像：**
+删除指定镜像：
 
 ```powershell
 docker rmi image-id
 ```
 
-**删除所有镜像：**
+删除所有镜像：
 
 ```powershell
 docker rmi ${docker images -q}
@@ -1105,7 +1105,7 @@ docker rmi ${docker images -q}
 
 （1）容器基本操作
 
-**运行容器**，Docker 会为我们生成唯一的标识。
+运行容器，Docker 会为我们生成唯一的标识。
 
 ```powershell
 docker run --name container-name -d image-name
@@ -1113,13 +1113,13 @@ docker run --name container-name -d image-name
 
 （2）容器列表
 
-**查看运行中的容器列表：**
+查看运行中的容器列表：
 
 ```powershell
 docker ps
 ```
 
-**查看运行和停止状态的容器：**
+查看运行和停止状态的容器：
 
 ```powershell
 docker ps -a
@@ -1127,21 +1127,19 @@ docker ps -a
 
 （3）停止和启动容器
 
-**停止容器：**
+停止容器：
 
 ```powershell
 docker stop container-name/container-id
 ```
 
-**启动容器：**
+启动容器：
 
 ```powershell
 docker start container-name/container-id
 ```
 
-**端口映射：**
-
-Docker 容器中运行的软件所使用的端口，在本机和本机的局域网是不能访问的，需要将 Docker 容器的端口映射到当前主机的端口上，这样我们在本机和本机的局域网才能访问该软件。
+端口映射：Docker 容器中运行的软件所使用的端口，在本机和本机的局域网是不能访问的，需要将 Docker 容器的端口映射到当前主机的端口上，这样我们在本机和本机的局域网才能访问该软件。
 
 映射容器的6379端口到虚拟机的6378端口上：
 
@@ -1149,25 +1147,25 @@ Docker 容器中运行的软件所使用的端口，在本机和本机的局域�
 docker run -d -p 6378:6379 --name port-redis resdis
 ```
 
-**删除单个容器：**
+删除单个容器：
 
 ```powershell
 docker rm container-id
 ```
 
-**删除所有容器：**
+删除所有容器：
 
 ```powershell
 docker rm ${docker ps -a -q}
 ```
 
-**查看容器日志：**
+查看容器日志：
 
 ```powershell
 docker logs container-name/container-id
 ```
 
-**登录容器：**
+登录容器：
 
 ```powershell
 docker exec -it container-id/container-name bash
@@ -1242,8 +1240,3 @@ public class JpaProperties {
 Spring Boot 对 Spring Data JPA 的自动配置放置在 org.springframework.boot.autoconfigure.data.jpa 中。JpaRepositoriesAutoConfiguration 是依赖于 HibernateJpaAutoConfiguration 配置的，且 Spring Boot 自动开启了对 Spring Data JPA 的支持，无需在配置类显式声明@EnableJpaRepositories。
 
 在 Spring Boot 下使用 Spring Data JPA，首先在项目的 maven 依赖里添加 spring-boot-starter-data-jpa，然后只需定义DataSource、实体类和数据访问层，在需要使用数据访问的地方注入数据访问层的 Bean 即可。
-
-
-
-
-

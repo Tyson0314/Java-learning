@@ -149,6 +149,8 @@ redis-cli -a password shutdown #关闭redis服务，没有设置密码则直接r
 
 根据进程号查看进程信息：`ps aux | grep pid`
 
+根据进程号查找线程：`ps -T -p xxx`
+
 正常结束进程：`kill -15 pid` 默认-15（SIGTERM）可以省略
 
 杀死进程：`kill -9 pid` -9（SIGKILL）强制中断

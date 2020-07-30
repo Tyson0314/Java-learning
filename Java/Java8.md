@@ -8,6 +8,7 @@
 - [内置的函数式接口](#%E5%86%85%E7%BD%AE%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3)
   - [Predicate 断言](#predicate-%E6%96%AD%E8%A8%80)
   - [Comparator](#comparator)
+  - [Consumer](#consumer)
 - [Stream](#stream)
   - [Filter 过滤](#filter-%E8%BF%87%E6%BB%A4)
   - [Sorted 排序](#sorted-%E6%8E%92%E5%BA%8F)
@@ -15,9 +16,9 @@
   - [Match 匹配](#match-%E5%8C%B9%E9%85%8D)
   - [Count 计数](#count-%E8%AE%A1%E6%95%B0)
   - [Reduce](#reduce)
+  - [flatMap](#flatmap)
 - [Parallel-Streams 并行流](#parallel-streams-%E5%B9%B6%E8%A1%8C%E6%B5%81)
 - [Map 集合](#map-%E9%9B%86%E5%90%88)
-- [函数式编程](#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B-1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

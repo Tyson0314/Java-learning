@@ -7,6 +7,12 @@
 - [树的遍历](#%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86)
   - [前序遍历](#%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86)
   - [后序遍历](#%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86)
+- [排序](#%E6%8E%92%E5%BA%8F)
+  - [冒泡排序](#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F)
+  - [插入排序](#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F)
+  - [选择排序](#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F)
+  - [快速排序](#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F)
+  - [归并排序](#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

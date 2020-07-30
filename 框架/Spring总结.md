@@ -13,11 +13,18 @@
   - [Bean生命周期](#bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
   - [aware接口](#aware%E6%8E%A5%E5%8F%A3)
   - [BeanFactory和FactoryBean](#beanfactory%E5%92%8Cfactorybean)
+    - [FactoryBean使用](#factorybean%E4%BD%BF%E7%94%A8)
 - [自动装配](#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D)
+  - [@Autowired和@Resource](#autowired%E5%92%8Cresource)
+  - [声明Bean注解](#%E5%A3%B0%E6%98%8Ebean%E6%B3%A8%E8%A7%A3)
+  - [@Bean和@Component](#bean%E5%92%8Ccomponent)
 - [bean的作用域](#bean%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F)
 - [设计模式](#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
 - [事务](#%E4%BA%8B%E5%8A%A1)
   - [事务传播行为](#%E4%BA%8B%E5%8A%A1%E4%BC%A0%E6%92%AD%E8%A1%8C%E4%B8%BA)
+- [循环依赖](#%E5%BE%AA%E7%8E%AF%E4%BE%9D%E8%B5%96)
+  - [初始化](#%E5%88%9D%E5%A7%8B%E5%8C%96)
+  - [三级缓存](#%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -121,10 +128,10 @@ loadBeanDefinitions 采用了模板模式，具体加载 BeanDefinition 的逻�
 2.依赖注入，设置属性
 
 3.如果Bean实现了BeanNameAware接口，Spring将Bean实例名称传递给setBeanName()方法
-（实现BeanNameAware主要是为了通过Bean的引用来获得Bean的实例名称）
+（实现BeanNameAware接口的Bean能够在初始化时知道自己在BeanFactory中对应的名字。）
 
 4.如果Bean实现了BeanFactoryAware接口，Spring将调用setBeanDactory(BeanFactory bf)方法并把BeanFactory容器实例作为参数传入。
-（实现BeanFactoryAware 主要目的是为了获取Spring容器，如Bean通过Spring容器发布事件等）
+（实现BeanFactoryAware接口的Bean能够在初始化时知道自己所在的BeanFactory的名字）
 
 5.如果Bean实现了ApplicationContextAware接口，Spring容器将调用setApplicationContext(ApplicationContext ctx)方法，把应用上下文作为参数传入。
 (作用与BeanFactory类似都是为了获取Spring容器)
@@ -143,11 +150,11 @@ loadBeanDefinitions 采用了模板模式，具体加载 BeanDefinition 的逻�
 
 ### aware接口
 
-通过 aware 接口实现 Bean直接操作 ioc 容器。
+对于应用程序来说，应该尽量减少对Sping Api的耦合程度，然而有些时候为了运用Spring所提供的一些功能，有必要让Bean了解Spring容器对其进行管理的细节信息，如让Bean知道在容器中是以那个名称被管理的，或者让Bean知道BeanFactory或者ApplicationContext的存在，也就是让该Bean可以取得BeanFactory或者ApplicationContext的实例，如果Bean可以意识到这些对象，那么就可以在Bean的某些动作发生时，做一些如事件发布等操作。
 
-BeanNameAware，在 Bean 中得到它在 ioc 容器中的 Bean 实例的名称。
+BeanNameAware：如果某个bean需要访问配置文件中本身bean的id属性，这个Bean类通过实现该接口。通过setBeanName方法可以让bean获取得自身的id属性。
 
-ApplicationContextAware，可以在 Bean 中得到 Bean 所在的应用上下文，从而直接在 Bean 中使用应用上下文的服务。
+ApplicationContextAware，在Bean类被初始化后，将会注入applicationContext实例，从而可以直接在 Bean 中使用应用上下文的服务。
 
 ApplicationEventPublisherAware，可以在 Bean 中得到应用上下文的事件发布器，从而可以在 Bean 中发布应用上下文的事件。
 
@@ -155,7 +162,7 @@ ApplicationEventPublisherAware，可以在 Bean 中得到应用上下文的事�
 
 BeanFactory：管理Bean的容器，Spring中生成的Bean都是由这个接口的实现来管理的。
 
-FactoryBean：通常是用来创建比较复杂的bean，一般的bean 直接用xml配置即可，但如果一个bean的创建过程中涉及到很多其他的bean 和复杂的逻辑，直接用xml配置比较麻烦，这时可以考虑用FactoryBean。
+FactoryBean：通常是用来创建比较复杂的bean，一般的bean 直接用xml配置即可，但如果一个bean的创建过程中涉及到很多其他的bean 和复杂的逻辑，直接用xml配置比较麻烦，这时可以考虑用FactoryBean，可以隐藏实例化复杂Bean的细节。
 
 当配置文件中bean标签的class属性配置的实现类是FactoryBean时，通过 getBean()方法返回的不是FactoryBean本身，而是调用FactoryBean#getObject()方法所返回的对象，相当于FactoryBean#getObject()代理了getBean()方法。如果想得到FactoryBean必须使用 '&' + beanName 的方式获取。
 
@@ -164,24 +171,28 @@ Mybatis 提供了 SqlSessionFactoryBean，可以简化 SqlSessionFactory 的配�
 ```java
 public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, InitializingBean, ApplicationListener<ApplicationEvent> {
 
-  private static final Log LOGGER = LogFactory.getLog(SqlSessionFactoryBean.class);
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    notNull(dataSource, "Property 'dataSource' is required");
+    notNull(sqlSessionFactoryBuilder, "Property 'sqlSessionFactoryBuilder' is required");
+    state((configuration == null && configLocation == null) || !(configuration != null && configLocation != null),
+              "Property 'configuration' and 'configLocation' can not specified with together");
 
-  private Resource configLocation;
+    this.sqlSessionFactory = buildSqlSessionFactory();
+  }
+    
+  protected SqlSessionFactory buildSqlSessionFactory() throws IOException {
+	//复杂逻辑
+  }
+    
+  @Override
+  public SqlSessionFactory getObject() throws Exception {
+    if (this.sqlSessionFactory == null) {
+      afterPropertiesSet();
+    }
 
-  private Configuration configuration;
-
-  private Resource[] mapperLocations;
-
-  private DataSource dataSource;
-
-  private TransactionFactory transactionFactory;
-
-  private Properties configurationProperties;
-
-  private SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
-
-  private SqlSessionFactory sqlSessionFactory;
-  ...
+    return this.sqlSessionFactory;
+  }
 }
 ```
 
@@ -372,7 +383,7 @@ xml配置文件：
 
 ### @Autowired和@Resource
 
-@Autowired注解是按照类型（byType）装配依赖对象的,但是存在多个类型⼀致的bean，⽆法通过byT ype注⼊时，就会再使⽤byName来注⼊，如果还是⽆法判断注⼊哪个bean则会UnsatisfiedDependencyException。
+@Autowired注解是按照类型（byType）装配依赖对象的,但是存在多个类型⼀致的bean，⽆法通过byType注⼊时，就会再使⽤byName来注⼊，如果还是⽆法判断注⼊哪个bean则会UnsatisfiedDependencyException。
 @Resource会⾸先按照byName来装配，如果找不到bean，会⾃动byType再找⼀次。
 
 ### 声明Bean注解

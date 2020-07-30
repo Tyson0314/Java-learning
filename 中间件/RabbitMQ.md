@@ -1,3 +1,28 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+  - [基本概念](#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+  - [什么时候使用MQ](#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8mq)
+- [Exchange 类型](#exchange-%E7%B1%BB%E5%9E%8B)
+  - [direct](#direct)
+  - [fanout](#fanout)
+  - [topic](#topic)
+  - [headers](#headers)
+- [消息丢失](#%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1)
+  - [生产者确认机制](#%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6)
+  - [路由不可达消息](#%E8%B7%AF%E7%94%B1%E4%B8%8D%E5%8F%AF%E8%BE%BE%E6%B6%88%E6%81%AF)
+    - [Return消息机制](#return%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6)
+    - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
+  - [消费者手动消息确认](#%E6%B6%88%E8%B4%B9%E8%80%85%E6%89%8B%E5%8A%A8%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4)
+  - [持久化](#%E6%8C%81%E4%B9%85%E5%8C%96)
+- [消费端限流](#%E6%B6%88%E8%B4%B9%E7%AB%AF%E9%99%90%E6%B5%81)
+  - [消息过期时间](#%E6%B6%88%E6%81%AF%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4)
+- [死信队列](#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 [RabbitMQ基础](https://www.jianshu.com/p/79ca08116d57)
 
 [Springboot整合RabbitMQ](https://blog.csdn.net/qq_35387940/article/details/100514134)
@@ -79,7 +104,10 @@ headers类型的Exchange不依赖于routing key与binding key的匹配规则来�
 
 生产者发送消息到队列，无法确保发送的消息成功的到达server。
 
-解决方法：开启生产者确认机制，只要消息成功到达server并找到交换机之后（不用到达相应的Queue），RabbitMQ就会发送一个ack给生产者（即使消息没有Queue接收，也会发送ack），生产者就知道消息已经到达server了。如果没有找到对应的交换机，就会发送一条nack消息，提示找不到交换机。
+解决方法：
+
+1. 事务机制。在一条消息发送之后会使发送端阻塞，等待RabbitMQ的回应，之后才能继续发送下一条消息。性能差。
+2. 开启生产者确认机制，只要消息成功到达server并找到交换机之后（不用到达相应的Queue），RabbitMQ就会发送一个ack给生产者（即使消息没有Queue接收，也会发送ack），生产者就知道消息已经到达server了。如果没有找到对应的交换机，就会发送一条nack消息，提示找不到交换机。
 
 生产者可以通过调用channel.confirmSelect()方法将信道设置为confirm模式。在 Springboot 是通过 publisher-confirms 参数来设置 confirm 模式：
 
@@ -178,7 +206,9 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 建议 Exchange 也设置持久化。将交换机的属性数据存储在磁盘上，当 MQ 的服务器发生意外或关闭之后，在重启 RabbitMQ 时不需要重新手动或重启应用去创建交换机了，交换机会自动被创建。
 
-其实消息在正确存入RabbitMQ之后，还需要有一段时间（这个时间很短，但不可忽视）才能存入磁盘之中，RabbitMQ并不是为每条消息都做fsync的处理，可能仅仅保存到cache中而不是物理磁盘上，在这段时间内RabbitMQ broker发生crash, 消息保存到cache但是还没来得及落盘，那么这些消息将会丢失。那么这个怎么解决呢？首先可以引入RabbitMQ的mirrored-queue即镜像队列，这个相当于配置了副本，当master在此特殊时间内crash掉，可以自动切换到slave，这样有效的保障了HA, 除非整个集群都挂掉，这样也不能完全的100%保障RabbitMQ不丢消息，但比没有mirrored-queue的要好很多。
+消息在到达RabbitMQ之后，不会立即刷新到磁盘，如果在消息写入磁盘之前RabbitMQ挂掉，那么这些消息将会丢失。通过publisher的confirm机制能够确保客户端知道哪些message已经存入磁盘，但是此时因为MQ单点故障导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到cluster中其他的节点之上。如果集群中的一个节点失效了，queue能自动地切换到镜像中的另一个节点以保证服务的可用性。
+
+通常每一个镜像队列都包含一个master和多个slave，分别对应于不同的节点。发送到镜像队列的所有消息总是被直接发送到master和所有的slave之上。除了publish外所有动作都只会向master发送，然后由master将命令执行的结果广播给slave，从镜像队列中的消费操作实际上是在master上执行的。
 
 
 ## 消费端限流

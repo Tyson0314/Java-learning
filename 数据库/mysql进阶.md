@@ -22,6 +22,7 @@
     - [覆盖索引](#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95)
   - [索引失效](#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88)
   - [最左匹配](#%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D)
+  - [什么情况下需要建索引？什么情况下不建？](#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E5%BB%BA%E7%B4%A2%E5%BC%95%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%BB%BA)
 - [乐观锁悲观锁](#%E4%B9%90%E8%A7%82%E9%94%81%E6%82%B2%E8%A7%82%E9%94%81)
 - [存储引擎](#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E)
   - [InnoDB](#innodb)
@@ -54,6 +55,7 @@
   - [Server 层基本组件介绍](#server-%E5%B1%82%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D)
   - [查询语句执行流程](#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B)
   - [更新语句执行过程](#%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B)
+- [慢查询](#%E6%85%A2%E6%9F%A5%E8%AF%A2)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
