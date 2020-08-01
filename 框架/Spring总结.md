@@ -11,7 +11,7 @@
   - [BeanDefinition](#beandefinition)
   - [容器初始化](#%E5%AE%B9%E5%99%A8%E5%88%9D%E5%A7%8B%E5%8C%96)
   - [Bean生命周期](#bean%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
-  - [aware接口](#aware%E6%8E%A5%E5%8F%A3)
+  - [Aware接口](#aware%E6%8E%A5%E5%8F%A3)
   - [BeanFactory和FactoryBean](#beanfactory%E5%92%8Cfactorybean)
     - [FactoryBean使用](#factorybean%E4%BD%BF%E7%94%A8)
 - [自动装配](#%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D)
@@ -125,38 +125,52 @@ loadBeanDefinitions 采用了模板模式，具体加载 BeanDefinition 的逻�
 
 1.对Bean进行实例化
 
-2.依赖注入，设置属性
+2.依赖注入
 
-3.如果Bean实现了BeanNameAware接口，Spring将Bean实例名称传递给setBeanName()方法
-（实现BeanNameAware接口的Bean能够在初始化时知道自己在BeanFactory中对应的名字。）
+3.如果Bean实现了BeanNameAware接口，Spring将调用setBeanName()，设置 Bean id（xml文件中bean标签的id）
 
-4.如果Bean实现了BeanFactoryAware接口，Spring将调用setBeanDactory(BeanFactory bf)方法并把BeanFactory容器实例作为参数传入。
-（实现BeanFactoryAware接口的Bean能够在初始化时知道自己所在的BeanFactory的名字）
+4.如果Bean实现了BeanFactoryAware接口，Spring将调用setBeanFactory()
 
-5.如果Bean实现了ApplicationContextAware接口，Spring容器将调用setApplicationContext(ApplicationContext ctx)方法，把应用上下文作为参数传入。
-(作用与BeanFactory类似都是为了获取Spring容器)
+5.如果Bean实现了ApplicationContextAware接口，Spring容器将调用setApplicationContext()
 
-6.如果Bean实现了BeanPostProcess接口，Spring将调用它们的postProcessBeforeInitialization（预初始化）方法
-（作用是在Bean实例创建成功后对进行增强处理，如对Bean进行修改，增加某个功能）
+6.如果存在BeanPostProcessor，Spring将调用它们的postProcessBeforeInitialization（预初始化）方法，在Bean初始化前对其进行处理
 
-7.如果Bean实现了InitializingBean接口，Spring将调用它们的afterPropertiesSet方法，作用与在配置文件中对Bean使用init-method声明初始化的作用一样，都是在Bean的全部属性设置成功后执行的初始化方法。
+7.如果Bean实现了InitializingBean接口，Spring将调用它的afterPropertiesSet方法，然后调用xml定义的 init-method 方法，两个方法作用类似，都是在初始化 bean 的时候执行
 
-8.如果Bean实现了BeanPostProcess接口，Spring将调用它们的postProcessAfterInitialization（后初始化）方法
-（作用与6的一样，只不过6是在Bean初始化前执行的，而这个是在Bean初始化后执行的，时机不同 )
+8.如果存在BeanPostProcessor，Spring将调用它们的postProcessAfterInitialization（后初始化）方法，在Bean初始化后对其进行处理
 
-9.Bean 驻留在应用上下文中给应用使用，直到应用上下文被销毁
+9.Bean初始化完成，供应用使用，直到应用被销毁
 
-10.如果Bean实现了DispostbleBean接口，Spring将调用它的destory方法，作用与在配置文件中对Bean使用destory-method属性的作用一样，都是在Bean实例销毁前执行的方法。
+10.如果Bean实现了DisposableBean接口，Spring将调用它的destory方法，然后调用在xml中定义的 destory-method 方法，这两个方法作用类似，都是在Bean实例销毁前执行。
 
-### aware接口
+```java
+public interface BeanPostProcessor {
+	@Nullable
+	default Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
+		return bean;
+	}
+
+	@Nullable
+	default Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
+		return bean;
+	}
+
+}
+
+public interface InitializingBean {
+	void afterPropertiesSet() throws Exception;
+}
+```
+
+### Aware接口
 
 对于应用程序来说，应该尽量减少对Sping Api的耦合程度，然而有些时候为了运用Spring所提供的一些功能，有必要让Bean了解Spring容器对其进行管理的细节信息，如让Bean知道在容器中是以那个名称被管理的，或者让Bean知道BeanFactory或者ApplicationContext的存在，也就是让该Bean可以取得BeanFactory或者ApplicationContext的实例，如果Bean可以意识到这些对象，那么就可以在Bean的某些动作发生时，做一些如事件发布等操作。
 
-BeanNameAware：如果某个bean需要访问配置文件中本身bean的id属性，这个Bean类通过实现该接口。通过setBeanName方法可以让bean获取得自身的id属性。
+BeanNameAware：通过调用setBeanName()可以让bean获取自身的id属性。
 
-ApplicationContextAware，在Bean类被初始化后，将会注入applicationContext实例，从而可以直接在 Bean 中使用应用上下文的服务。
+ApplicationContextAware：通过调用 setApplicationContext() 设置应用上下文实例，从而可以直接在 Bean 中使用应用上下文的服务。
 
-ApplicationEventPublisherAware，可以在 Bean 中得到应用上下文的事件发布器，从而可以在 Bean 中发布应用上下文的事件。
+ApplicationEventPublisherAware：通过调用 setApplicationEventPublisher() 给 Bean 设置事件发布器，从而可以在 Bean 中发布应用上下文的事件。
 
 ### BeanFactory和FactoryBean
 
@@ -438,7 +452,7 @@ public class WebSocketConfig {
 
 ## bean的作用域
 
-Spring创建bean默认是单例，每一个Bean的实例只会被创建一次，通过代码获取的bean，都是同一个Bean的实例。可使用＜bean＞标签的scope属性来指定一个Bean的作用域。
+Spring创建bean默认是单例，每一个Bean的实例只会被创建一次，通过getBean()获取的是同一个Bean的实例。可使用＜bean＞标签的scope属性来指定一个Bean的作用域。
 
 ```xml
 <!-- 作用域：prototype -->
@@ -454,9 +468,9 @@ public class AccountDaoImpl {
 }
 ```
 
-当一个Bean被设置为prototype 后Spring就不会对一个bean的整个生命周期负责，容器在创建完一个prototype实例后，将它交给客户端，随后就对该prototype实例不闻不问了。慎用。
+容器在创建完一个prototype实例后，就不会去管理这个bean了，会把它交给应用自己去管理。
 
-一般情况下，对有状态的bean应该使用prototype作用域，而对无状态的bean则应该使用singleton作用域。所谓有状态就是该bean有保存信息的能力，不能共享，否则会造成线程安全问题，而无状态则不保存信息，是线程安全的，可以共享，spring中大部分bean都是Singleton，整个生命周期过程只会存在一个。
+一般情况下，对有状态的bean应该使用prototype作用域，而对无状态的bean则应该使用singleton作用域。所谓有状态就是该bean保存有自己的信息，不能共享，否则会造成线程安全问题。而无状态则不保存信息，可以共享，spring中大部分bean都是单例的，整个生命周期过程只会存在一个。
 
 request作用域：对于每次HTTP请求到达应用程序，Spring容器会创建一个全新的Request作用域的bean实例，且该bean实例仅在当前HTTP request内有效，整个请求过程也只会使用相同的bean实例，而其他请求HTTP请求则创建新bean的实例，当处理请求结束，request作用域的bean实例将被销毁。
 
@@ -468,13 +482,21 @@ session 作用域：每当创建一个新的HTTP Session时就会创建一个Ses
 
 [spring设计模式](https://blog.csdn.net/caoxiaohong1005/article/details/80039656) | [Springmvc适配器模式](https://blog.csdn.net/u010288264/article/details/53835185)
 
-- 简单工厂：BeanFactory 就是简单工厂模式的体现，根据传入一个唯一标识来获得Bean 对象。
+- 简单工厂：BeanFactory 就是简单工厂模式的体现，根据传入一个唯一标识来获得 Bean 对象。
+
+  ```java
+  	@Override
+  	public Object getBean(String name) throws BeansException {
+  		assertBeanFactoryActive();
+  		return getBeanFactory().getBean(name);
+  	}
+  ```
 
 - 工厂方法：FactoryBean 就是典型的工厂方法模式。spring在使用getBean()调用获得该bean时，会自动调用该bean的getObject()方法。每个 Bean 都会对应一个 FactoryBean，如 SqlSessionFactory 对应 SqlSessionFactoryBean。
 
-- 单例：保证一个类仅有一个实例，并提供一个访问它的全局访问点。Spring 创建 Bean 实例默认是单例的。
+- 单例：一个类仅有一个实例，提供一个访问它的全局访问点。Spring 创建 Bean 实例默认是单例的。
 
-- 适配器：SpringMVC中的适配器HandlerAdatper。由于 Controller 有不同的实现方式，处理请求的方法不是确定的，如果需要直接调用Controller方法，那么需要调用的时候使用if else来进行判断是哪一种子类然后调用相应的方法。当增加新的 Controller，需要修改原来的逻辑，违反了开闭原则（对修改关闭，对扩展开放）。
+- 适配器：SpringMVC中的适配器HandlerAdatper。由于应用会有多个Controller实现，如果需要直接调用Controller方法，那么需要先判断是由哪一个Controller处理请求，然后调用相应的方法。当增加新的 Controller，需要修改原来的逻辑，违反了开闭原则（对修改关闭，对扩展开放）。
 
   ```java
   if(mappedHandler.getHandler() instanceof MultiActionController){  
@@ -482,18 +504,16 @@ session 作用域：每当创建一个新的HTTP Session时就会创建一个Ses
   }else if(mappedHandler.getHandler() instanceof XXX){  
       ...  
   }else if(...){  
-     ...  
+      ...  
   }
   ```
 
-  为此，Spring提供了一个适配器接口，每一种 Controller 对应一种 HandlerAdapter 实现类，当请求过来，SpringMVC会根据请求request获取相应的Controller（getHandler方法），然后通过getHandlerAdapter()获取该Controller对应的 HandlerAdapter，最后调用适配器的 handle() 处理请求（实际上调用的是Controller的handleRequest()）。
-
-  添加新的 Controller 时，只需要增加一个适配器类就可以，无需修改原有的逻辑。
+  为此，Spring提供了一个适配器接口，每一种 Controller 对应一种 HandlerAdapter 实现类，当请求过来，SpringMVC会调用getHandler()获取相应的Controller，然后获取该Controller对应的 HandlerAdapter，最后调用HandlerAdapter的handle()方法处理请求，实际上调用的是Controller的handleRequest()。每次添加新的 Controller 时，只需要增加一个适配器类就可以，无需修改原有的逻辑。
 
   常用的处理器适配器：SimpleControllerHandlerAdapter，HttpRequestHandlerAdapter，AnnotationMethodHandlerAdapter。
 
   ```java
-  // Determine handler for the current request.
+// Determine handler for the current request.
   mappedHandler = getHandler(processedRequest);
   
   HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
@@ -517,10 +537,10 @@ session 作用域：每当创建一个新的HTTP Session时就会创建一个Ses
   		return null;
   	}
   ```
-
+  
 - 代理：spring 的 aop 使用了动态代理，有两种方式JdkDynamicAopProxy 和Cglib2AopProxy。
 
-- 观察者（observer）：spring 中observer 模式常用的地方是listener 的实现，如ApplicationListener。
+- 观察者（observer）：spring 中 observer 模式常用的地方是 listener 的实现，如ApplicationListener。
 
 - 模板方法（template method）：spring 中的 jdbctemplate。
 
@@ -528,7 +548,11 @@ session 作用域：每当创建一个新的HTTP Session时就会创建一个Ses
 
 ## 事务
 
-Spring事务机制主要包括 声明式事务和编程式事务。
+事务就是一系列的操作原子执行。
+
+Spring事务机制主要包括声明式事务和编程式事务。
+
+声明式事务将事务管理代码从业务方法中分离出来，通过aop进行封装。用 @Transactional 注解开启声明式事务。
 
 Spring声明式事务使得我们无需要去处理获得连接、关闭连接、事务提交和回滚等这些操作。
 
@@ -536,13 +560,13 @@ Spring声明式事务使得我们无需要去处理获得连接、关闭连接�
 
 在TransactionDefinition接口中定义了七个事务传播行为：
 
-1. PROPAGATION_REQUIRED 如果存在一个事务，则支持当前事务。如果没有事务则开启一个新的事务。
+1. PROPAGATION_REQUIRED 如果存在一个事务，则支持当前事务。如果没有事务则开启一个新的事务。如果嵌套调用的两个方法都加了事务注解，并且运行在相同线程中，则这两个方法使用相同的事务中。如果运行在不同线程中，则会开启新的事务。
 2. PROPAGATION_SUPPORTS 如果存在一个事务，支持当前事务。如果没有事务，则非事务的执行。
-3. PROPAGATION_MANDATORY 如果已经存在一个事务，支持当前事务。如果没有一个活动的事务，则抛出异常`IllegalTransactionStateException`。
+3. PROPAGATION_MANDATORY 如果已经存在一个事务，支持当前事务。如果不存在事务，则抛出异常`IllegalTransactionStateException`。
 4. PROPAGATION_REQUIRES_NEW 总是开启一个新的事务。需要使用JtaTransactionManager作为事务管理器。
 5. PROPAGATION_NOT_SUPPORTED 总是非事务地执行，并挂起任何存在的事务。需要使用JtaTransactionManager作为事务管理器。
 6. PROPAGATION_NEVER 总是非事务地执行，如果存在一个活动事务，则抛出异常。
-7. PROPAGATION_NESTED如果一个活动的事务存在，则运行在一个嵌套的事务中. 如果没有活动事务, 则按TransactionDefinition.PROPAGATION_REQUIRED 属性执行。
+7. PROPAGATION_NESTED 如果一个活动的事务存在，则运行在一个嵌套的事务中。如果没有活动事务, 则按PROPAGATION_REQUIRED 属性执行。
 
 **PROPAGATION_NESTED 与PROPAGATION_REQUIRES_NEW的区别:**
 
@@ -556,9 +580,9 @@ Spring声明式事务使得我们无需要去处理获得连接、关闭连接�
 
 [图解spring循环依赖](https://juejin.im/post/5e927e27f265da47c8012ed9#heading-5) | [循环依赖](https://blog.csdn.net/u010853261/article/details/77940767)
 
-构造器的循环依赖：这种依赖spring是处理不了的，直接抛出BeanCurrentlylnCreationException异常。
+构造器注入的循环依赖：spring处理不了，直接抛出BeanCurrentlylnCreationException异常。
 
-单例模式下属性注入的循环依赖：通过“三级缓存”处理循环依赖。 
+单例模式下属性注入的循环依赖：通过三级缓存处理循环依赖。 
 
 非单例循环依赖：无法处理。
 
@@ -566,11 +590,11 @@ Spring声明式事务使得我们无需要去处理获得连接、关闭连接�
 
 spring单例对象的初始化大略分为三步：
 
-1. createBeanInstance：实例化，其实也就是调用对象的构造方法实例化对象
-2. populateBean：填充属性，这一步主要是多bean的依赖属性进行填充
-3. initializeBean：调用spring xml中的init 方法。
+1. createBeanInstance：实例化bean，使用构造方法创建对象，为对象分配内存。
+2. populateBean：进行依赖注入。
+3. initializeBean：初始化bean。
 
-this.singletonsCurrentlyInCreation.add(String beanName)将当前正在创建的bean标识符记录在缓存中，如果在将标识符记录到缓存的过程中发现自己已经在缓存中，则说明存在循环依赖，将抛出BeanCurrentlylnCreationException 异常表示循环依赖。创建完成的bean将会从缓存中清除。
+this.singletonsCurrentlyInCreation.add(String beanName)将当前正在创建的bean id记录在缓存中，如果在记录的过程中发现自己已经在缓存中，则说明存在循环依赖，将抛出BeanCurrentlylnCreationException 异常表示循环依赖。创建完成的bean将会从缓存中清除。
 
 ### 三级缓存
 
@@ -597,14 +621,15 @@ protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFa
 }
 ```
 
-假如A的某个field或者setter依赖了B的实例对象，同时B的某个field或者setter依赖了A的实例对象。
+假如A依赖了B的实例对象，同时B也依赖A的实例对象。
 
-1. A首先完成了初始化的第一步，并且将自己添加到singletonFactories中
-
-2. 进行初始化的第二步，发现自己依赖对象B，此时就尝试去get(B)
+1. A首先完成了实例化，并且将自己添加到singletonFactories中
+2. 接着进行依赖注入，发现自己依赖对象B，此时就尝试去get(B)
 3. 发现B还没有被实例化，对B进行实例化
-4. 然后B在初始化的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，尝试二级缓存earlySingletonObjects（也没有），尝试三级缓存singletonFactories，由于A通过ObjectFactory将自己提前曝光了，所以B能够通过ObjectFactory.getObject拿到A对象
-5. B拿到A对象后顺利完成了初始化阶段1、2、3，完全初始化之后将自己放入到一级缓存singletonObjects中。
-6. 此时返回A中，A此时能拿到B的对象顺利完成自己的初始化阶段2、3，最终A也完成了初始化，进去了一级缓存singletonObjects中，由于B拿到了A的对象引用，所以B现在持有的A对象也完成了初始化。
+4. 然后B在初始化的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，在二级缓存earlySingletonObjects也没找到，尝试三级缓存singletonFactories，由于A初始化时将自己添加到了singletonFactories，所以B可以拿到A对象，然后将A从三级缓存中移到二级缓存中
+5. B拿到A对象后顺利完成了初始化，然后将自己放入到一级缓存singletonObjects中
+6. 此时返回A中，A此时能拿到B的对象顺利完成自己的初始化
 
-由此看出，属性注入的循环依赖主要是通过singletonFactories来实现的。所以构造器注入的不能循环依赖，因为对象在实例化完成之后，即调用了createBeanInstance之后，才会被添加到singletonFactories中，而对象依赖使用构造器注入的话，不会使用到singletonFactories，循环依赖会抛BeanCurrentlylnCreationException异常。
+由此看出，属性注入的循环依赖主要是通过将实例化完成的bean添加到singletonFactories来实现的。而使用构造器依赖注入的bean在实例化的时候会进行依赖注入，不会被添加到singletonFactories中。比如A和B都是通过构造器依赖注入，A在调用构造器进行实例化的时候，发现自己依赖B，B没有被实例化，就会对B进行实例化，此时A未实例化完成，不会被添加到singtonFactories。而B依赖于A，B会去三级缓存寻找A对象，发现不存在，于是又会实例化A，A实例化了两次，从而导致抛异常。
+
+总结：1、利用缓存识别已经遍历过的节点； 2、利用Java引用，先提前设置对象地址，后完善bean。

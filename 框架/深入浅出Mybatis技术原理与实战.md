@@ -65,10 +65,37 @@ JDBC定义了连接数据库的接口规范，每个数据库厂商都会提供�
 
 ### 传统的JDBC编程
 
-- 连接数据库，注册驱动和数据库信息；
+- 获取数据库连接；
 - 操作Connection，打开Statement对象；
 - 通过Statement对象执行SQL，返回结果到ResultSet对象；
 - 关闭数据库资源
+
+```java
+public class javaTest {
+    public static void main(String[] args) throws ClassNotFoundException, SQLException  {
+        String URL="jdbc:mysql://127.0.0.1:3306/imooc?useUnicode=true&characterEncoding=utf-8";
+        String USER="root";
+        String PASSWORD="tiger";
+        //1.加载驱动程序
+        Class.forName("com.mysql.jdbc.Driver");
+        //2.获得数据库链接
+        Connection conn=DriverManager.getConnection(URL, USER, PASSWORD);
+        //3.通过数据库的连接操作数据库，实现增删改查（使用Statement类）
+        Statement st=conn.createStatement();
+        ResultSet rs=st.executeQuery("select * from user");
+        //4.处理数据库的返回结果(使用ResultSet类)
+        while(rs.next()){
+            System.out.println(rs.getString("user_name")+" "
+                          +rs.getString("user_password"));
+        }
+
+        //关闭资源
+        rs.close();
+        st.close();
+        conn.close();
+    }
+}
+```
 
 ### Hibernate与Mybatis
 
@@ -629,8 +656,6 @@ public class StudentTest {
 插入的sex字段为INTEGER，测试结果如下：
 
 ![枚举插入结果](https://img-blog.csdnimg.cn/20190202180633368.png)
-
-
 
 通过EnumTypeHandler实现性别枚举只需修改StudentMapper.xml相应的typeHandler，修改如下：
 
@@ -1448,11 +1473,7 @@ public class MaleStudentHealth {
     int height;
     //setter和getter
 }
-```
 
-
-
-```java
 public class MaleStudent extends Student {
     List<MaleStudentHealth> maleStudentHealthList;
     //setter和getter
@@ -2213,7 +2234,7 @@ sqlSessionFactory.openSession(ExecutorType.BATCH);
 
 　　①将重复性很高的一些操作，封装到一个存储过程中，简化了对这些SQL的调用
 
-　　②批量处理：SQL+循环，减少流量，也就是“跑批”
+　　②批量处理：SQL+循环，减少流量
 
 #### in和out参数
 
@@ -2421,7 +2442,7 @@ public void getRoleByRoleNameTest() {
 
 mybatis 默认情况下，将对所有的 sql 进行预编译。mybatis底层使用PreparedStatement，过程是先将带有占位符?的sql模板发送至mysql服务器，由服务器对此无参数的sql进行编译后，将编译结果缓存，然后直接执行带有真实参数的sql。
 
-#{ } 解析成预编译语句（prepared statement）的参数标记符，传入参数之后不会重新编译sql。
+#{ } 解析成预编译语句，传入参数之后不会重新编译sql。
 
 ```mysql
 //sqlMap 中如下的 sql 语句
@@ -2430,7 +2451,7 @@ select * from user where name = #{name};
 select * from user where name = ?;
 ```
 
-${ } 仅仅为一个纯碎的 string 替换，在动态 SQL 解析阶段将会进行变量替换，会存在 sql 注入问题。
+${ } 仅仅为一个字符串替换，会存在 sql 注入问题。
 
 ```mysql
 select * from user where name = '${name}'
