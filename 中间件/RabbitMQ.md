@@ -72,33 +72,33 @@ Exchange规则。
 
 ### direct
 
-消息中的路由键如果和 Binding 中的 binding key 一致， 交换器就将消息发到对应的队列中。它是完全匹配、单播的模式。
+direct交换机会将消息路由到binding key 和 routing key完全匹配的队列中。它是完全匹配、单播的模式。
 
 ![](../img/rabbitmq-direct.png)
 
 ### fanout
 
-每个发到 fanout 类型交换器的消息都会分到所有绑定的队列上去。fanout 类型转发消息是最快的。
+所有发到 fanout 类型交换机的消息都会路由到所有与该交换机绑定的队列上去。fanout 类型转发消息是最快的。
 
 ![](../img/rabbitmq-fanout.png)
 
 ### topic
 
-通过模式匹配分发消息，路由键和某个模式匹配成功，则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
+如果路由键和某个模式匹配成功，则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
 
 ![](../img/rabbitmq-topic.png)
 
 ### headers
 
-headers类型的Exchange不依赖于routing key与binding key的匹配规则来路由消息，而是根据发送的消息内容中的headers属性进行匹配。
+headers类型的Exchange是根据发送的消息内容中的headers属性进行匹配。在绑定Queue与Exchange时指定一组键值对；当消息发送到Exchange时，RabbitMQ会取到该消息的headers（也是一个键值对的形式），对比其中的键值对是否完全匹配Queue与Exchange绑定时指定的键值对；如果完全匹配则消息会路由到该Queue，否则不会路由到该Queue。
 
 
 
 ## 消息丢失
 
-消息丢失场景：生产者生产消息到RabbitMQ Server消息丢失、RabbitMQ Server存储的消息丢失和RabbitMQ到消费者消息丢失。
+消息丢失场景：生产者生产消息到RabbitMQ Server消息丢失、RabbitMQ Server存储的消息丢失和RabbitMQ Server到消费者消息丢失。
 
-消息丢失从三个方面来解决：生产者确认机制、消费者开启消息确认和持久化。
+消息丢失从三个方面来解决：生产者确认机制、消费者手动确认消息和持久化。
 
 ### 生产者确认机制
 
@@ -107,9 +107,9 @@ headers类型的Exchange不依赖于routing key与binding key的匹配规则来�
 解决方法：
 
 1. 事务机制。在一条消息发送之后会使发送端阻塞，等待RabbitMQ的回应，之后才能继续发送下一条消息。性能差。
-2. 开启生产者确认机制，只要消息成功到达server并找到交换机之后（不用到达相应的Queue），RabbitMQ就会发送一个ack给生产者（即使消息没有Queue接收，也会发送ack），生产者就知道消息已经到达server了。如果没有找到对应的交换机，就会发送一条nack消息，提示找不到交换机。
+2. 开启生产者确认机制，只要消息成功到达server并找到交换机之后（不用到达相应的Queue），RabbitMQ就会发送一个ack给生产者（即使消息没有Queue接收，也会发送ack），生产者就知道消息已经到达server了。如果消息没有成功到达server或者没有找到对应的交换机，就会发送一条nack消息，提示发送失败。
 
-生产者可以通过调用channel.confirmSelect()方法将信道设置为confirm模式。在 Springboot 是通过 publisher-confirms 参数来设置 confirm 模式：
+在 Springboot 是通过 publisher-confirms 参数来设置 confirm 模式：
 
 ```yaml
 spring:
@@ -118,7 +118,7 @@ spring:
         publisher-confirms: true
 ```
 
-异步comfirm模式：提供一个回调方法，服务端 confirm 了一条或者多条消息后，生产者会回调这个方法，根据具体的结果对消息进行重新发送、或记录日志等后续处理。
+在生产端提供一个回调方法，当服务端确认了一条或者多条消息后，生产者会回调这个方法，根据具体的结果对消息进行后续处理，比如重新发送、记录日志等。
 
 ```java
     final RabbitTemplate.ConfirmCallback confirmCallback = (CorrelationData correlationData, boolean ack, String cause) -> {
@@ -134,7 +134,7 @@ rabbitTemplate.setConfirmCallback(confirmCallback);
 
 ### 路由不可达消息
 
-生产者确认机制只确保消息正确到达交换机，对于指定的 routing key 路由不到的消息（消息没有匹配到Queue），还是会存在消息丢失的问题。
+生产者确认机制只确保消息正确到达交换机，对于没有匹配到Queue的消息（指定的 routing key 路由不到的消息），还是会存在消息丢失的问题。
 
 对于不可路由的消息，有两种处理方式：Return消息机制和备份交换机。
 
@@ -162,11 +162,11 @@ rabbitTemplate.setReturnCallback(returnCallback);
 
 #### 备份交换机
 
-alternate-exchange 是一个普通的exchange，当你发送消息到对应的exchange时，没有匹配到queue，就会自动转移到alternate-exchange对应的queue，这样消息就不会丢失。
+备份交换机alternate-exchange 是一个普通的exchange，当你发送消息到对应的exchange时，没有匹配到queue，就会自动转移到备份交换机对应的queue，这样消息就不会丢失。
 
 ### 消费者手动消息确认
 
-可能消费者收到消息还没来得及处理服务就宕机了，导致消息丢失。因为消息者默认采用自动ack，当消费者收到消息后会通知MQ Server这条消息已经处理好了，MQ 就会移除这条消息。
+有可能消费者收到消息还没来得及处理MQ服务就宕机了，导致消息丢失。因为消息者默认采用自动ack，一旦消费者收到消息后会通知MQ Server这条消息已经处理好了，MQ 就会移除这条消息。
 
 解决方法：消费者设置为手动确认消息。消费者处理完逻辑之后再通知MQ Server，这样消费者没处理完消息就不会发送ack。当消息者消费失败的时候，MQ 会重发消息。
 
@@ -255,7 +255,7 @@ msg.getMessageProperties().setExpiration("3000");
 
 消息没有被消费成功的原因：
 
-- 消息被拒绝（basic.reject/ basic.nack）并且不再重新投递 requeue=false
+- 消息被拒绝并且消息不能重新入队（requeue=false）
 - 消息超时未消费
 - 达到最大队列长度
 

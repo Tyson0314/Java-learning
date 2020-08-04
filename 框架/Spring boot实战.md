@@ -1240,3 +1240,15 @@ public class JpaProperties {
 Spring Boot 对 Spring Data JPA 的自动配置放置在 org.springframework.boot.autoconfigure.data.jpa 中。JpaRepositoriesAutoConfiguration 是依赖于 HibernateJpaAutoConfiguration 配置的，且 Spring Boot 自动开启了对 Spring Data JPA 的支持，无需在配置类显式声明@EnableJpaRepositories。
 
 在 Spring Boot 下使用 Spring Data JPA，首先在项目的 maven 依赖里添加 spring-boot-starter-data-jpa，然后只需定义DataSource、实体类和数据访问层，在需要使用数据访问的地方注入数据访问层的 Bean 即可。
+
+
+
+## 自动配置原理
+
+@SpringBootApplication是@Configuration、@EnableAutoConfiguration和@ComponentScan的组合。
+
+@Configuration表示该类是Java配置类。
+
+@ComponentScan开启自动扫描符合条件的bean（添加了@Controller、@Service等注解）。
+
+`@EnableAutoConfiguration`会根据类路径中的jar依赖为项目进行自动配置，比如添加了`spring-boot-starter-web`依赖，会自动添加Tomcat和Spring MVC的依赖，然后Spring Boot会对Tomcat和Spring MVC进行自动配置。

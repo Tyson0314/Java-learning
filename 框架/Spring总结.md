@@ -556,6 +556,20 @@ Spring事务机制主要包括声明式事务和编程式事务。
 
 Spring声明式事务使得我们无需要去处理获得连接、关闭连接、事务提交和回滚等这些操作。
 
+### @Transactional
+
+| 属性                   | 类型                               | 描述                                   |
+| :--------------------- | ---------------------------------- | -------------------------------------- |
+| value                  | String                             | 可选的限定描述符，指定使用的事务管理器 |
+| propagation            | enum: Propagation                  | 可选的事务传播行为设置                 |
+| isolation              | enum: Isolation                    | 可选的事务隔离级别设置                 |
+| readOnly               | boolean                            | 读写或只读事务，默认读写               |
+| timeout                | int (in seconds granularity)       | 事务超时时间设置                       |
+| rollbackFor            | Class对象数组，必须继承自Throwable | 导致事务回滚的异常类数组               |
+| rollbackForClassName   | 类名数组，必须继承自Throwable      | 导致事务回滚的异常类名字数组           |
+| noRollbackFor          | Class对象数组，必须继承自Throwable | 不会导致事务回滚的异常类数组           |
+| noRollbackForClassName | 类名数组，必须继承自Throwable      | 不会导致事务回滚的异常类名字数组       |
+
 ### 事务传播行为
 
 在TransactionDefinition接口中定义了七个事务传播行为：
