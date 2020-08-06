@@ -168,7 +168,7 @@ public class HiddenIterator {
 多线程环境下，使用Hashmap进行put操作会引起死循环。
 CocurrentHashMap利用锁分段技术增加了锁的数目，从而使争夺同一把锁的线程的数目得到控制。
 锁分段技术就是将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。
-ConcurrentHashMap调用get的时候不加锁，原因是node数组成员val和指针next是用volatile修饰的，更改后的值会立刻刷新到主存中，保证了可见性，node数组也用volatile修饰，可以保证扩容时对其他线程具有可见性。
+ConcurrentHashMap调用get的时候不加锁，原因是node数组成员val和指针next是用volatile修饰的，更改后的值会立刻刷新到主存中，保证了可见性，node数组table也用volatile修饰，保证在运行过程对其他线程具有可见性。
 
 JDK1.7中的ConcurrentHashmap主要使用Segment来实现减小锁粒度，把HashMap分割成若干个Segment，在put的时候需要锁住Segment，get时候不加锁，使用volatile来保证可见性，当要统计size时，比较统计前后modCount是否发生变化。如果没有变化，则直接返回size。否则，需要依次锁住所有的Segment来计算。jdk1.7中ConcurrentHashmap中，当长度过长碰撞会很频繁，链表的增改删查操作都会消耗很长的时间，影响性能。
 
@@ -182,17 +182,6 @@ put 操作会对当前的table进行无条件自循环直到put成功，可以�
 
 5）如果该链表的数量大于阈值8，就要先转换成黑红树的结构
 6）如果添加成功就调用 addCount 方法统计size，并且检查是否需要扩容
-
-### Copy-On-Write
-写时复制。当我们往容器添加元素时，不直接往容器添加，而是先将当前容器进行复制，复制出一个新的容器，然后往新的容器添加元素，添加完元素之后，再将原容器的引用指向新容器。这样做的好处就是可以对 Copy-On-Write 容器进行并发的读而不需要加锁，因为当前容器不会被修改。
-
-从JDK1.5开始Java并发包里提供了两个使用CopyOnWrite机制实现的并发容器,它们是CopyOnWriteArrayList和CopyOnWriteArraySet。
-
-CopyOnWriteArrayList中add方法添加的时候是需要加锁的。读的时候不需要加锁，如果读的时候有多个线程正在向CopyOnWriteArrayList添加数据，还是可以读到旧的数据。
-
-缺点：
-- 内存占用问题。由于CopyOnWrite的写时复制机制，在进行写操作的时候，内存里会同时驻扎两个对象的内存。
-- 旧的对象和新写入的对象数据一致性问题。CopyOnWrite容器只能保证数据的最终一致性，不能保证数据的实时一致性。
 
 ### 同步工具类
 

@@ -370,3 +370,15 @@ public class DeadListener {
 ```
 
 当普通队列中有死信时，RabbitMQ 就会自动的将这个消息重新发布到设置的死信交换机去，然后被路由到死信队列。可以监听死信队列中的消息做相应的处理。
+
+
+
+## pull模式
+
+pull模式主要是通过channel.basicGet方法来获取消息，示例代码如下：
+
+```java
+GetResponse response = channel.basicGet(QUEUE_NAME, false);
+System.out.println(new String(response.getBody()));
+channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
+```

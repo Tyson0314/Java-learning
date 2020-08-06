@@ -260,6 +260,8 @@ class Solution {
 
 ### 归并排序
 
+![归并排序图](https://images2015.cnblogs.com/blog/1024555/201612/1024555-20161218163120151-452283750.png)
+
 ```java
 public class MergeSort {
     public void mergeSort(int[] arr) {

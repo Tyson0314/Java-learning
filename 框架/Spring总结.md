@@ -101,11 +101,11 @@ BeanDefinition 用于管理Spring应用的对象和对象之间的依赖关系�
 
 ### 容器初始化
 
-ioc 容器初始化过程：BeanDefinition 的资源定位、加载和注册。
+ioc 容器初始化过程：BeanDefinition 的资源定位、解析和注册。
 
-1. 通过文件系统、类路径或 web 容器（XmlWebApplicationContext）扫描解析指定位置的所有文件得到Resources。
-2. 将用户定义好的 Bean 表示成 ioc 容器内部的数据结构。
-3. 将 BeanDefinition 注册到一个 HashMap。
+1. 从XML中读取配置文件。
+2. 将bean标签解析成 BeanDefinition，如解析 property 元素， 并注入到 BeanDefinition 实例中。
+3. 将 BeanDefinition 注册到容器。
 
 单例bean的初始化以及依赖注入一般都在容器初始化阶段进行，只有懒加载（lazy-init为true）的单例bean是在应用第一次调用getBean()时进行初始化和依赖注入。
 
@@ -274,6 +274,36 @@ xml 配置 CarFactoryBean：
 ```
 
 当调用getBean("car") 时，Spring通过反射机制发现CarFactoryBean实现了FactoryBean的接口，这时Spring容器就调用接口方法CarFactoryBean#getObject()方法返回。如果希望获取CarFactoryBean的实例，则需要在使getBean(beanName) 方法时在beanName前显示的加上 "&" 前缀，例如getBean("&car")。
+
+### bean注入容器的方法
+
+将普通类交给Spring容器管理，通常有以下方法：
+
+1、使用 @Configuration与@Bean 注解
+
+2、使用@Controller @Service @Repository @Component 注解标注该类，然后启用@ComponentScan自动扫描
+
+3、使用@Import 方法
+
+@Import注解把bean导入到当前容器中。
+
+```java
+//@SpringBootApplication
+@ComponentScan
+/*把用到的资源导入到当前容器中*/
+@Import({Dog.class, Cat.class})
+public class App {
+ 
+    public static void main(String[] args) throws Exception {
+ 
+        ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
+        System.out.println(context.getBean(Dog.class));
+        System.out.println(context.getBean(Cat.class));
+        context.close();
+    }
+}
+
+```
 
 
 

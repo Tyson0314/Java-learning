@@ -272,7 +272,7 @@ LSET numbers 1 7   //把索引为1的元素的值赋值成7
 ```
 
 ### 集合类型
-> 常用命令：sadd, srem, smembers, scard, sismember, sdiff
+常用命令：sadd, srem, smembers, scard, sismember, sdiff
 
 集合中不能有相同的元素。
 
@@ -292,18 +292,20 @@ SCARD letters   //获取集合元素个数
 `SISMEMBER letters a`
 
 **集合间的运算**
+
 ```
 SDIFF setA setB  //差集运算
 SINTER setA setB //交集运算
 SUNION setA setB //并集运算
 ```
-*三个命令都可以传进多个键 `SDIFF setA setB setC`*
+三个命令都可以传进多个键 `SDIFF setA setB setC`
 
 **其他**
 
 `SDIFFSTORE result setA setB` 进行集合运算并将结果存储
 
 `SRANDMEMBER key count` 
+
 >随机获取集合里的一个元素，count大于0，则从集合随机获取count个不重复的元素，count小于0，则随机获取的count个元素有些可能相同。
 
 `SPOP letters`
@@ -311,8 +313,7 @@ SUNION setA setB //并集运算
 ### 有序集合类型
 常用命令：zadd, zrem, zscore, zrange
 
-Zset(sorted set)是string类型的有序集合。zset 和 set 一样也是string类型元素的集合，且不允许重复的成员。不同的是每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行排序。
-zset的成员是唯一的,但分数(score)却可以重复。
+Zset(sorted set)是string类型的有序集合。zset 和 set 一样也是string类型元素的集合，且不允许重复的成员。不同的是Zset每个元素都会关联一个double类型的分数，通过分数来为集合中的成员进行排序。zset的成员是唯一的,但分数(score)可以重复。
 
 **有序集合和列表相同点：**
 
@@ -390,7 +391,8 @@ SORT list1 BY score:* DESC
 GET参数命令作用是使SORT命令的返回结果是GET参数指定的键值。
 
 `SORT tag:Java:posts BY post:*->time DESC GET post:*->title GET post:*->time GET #`
->GET #返回文章ID。
+
+GET #返回文章ID。
 
 **STORE参数**
 
@@ -460,13 +462,13 @@ UNWATCH：取消WATCH命令对多有key的监控，所有监控锁将会被取�
 ## 消息队列
 使用一个列表，让生产者将任务使用LPUSH命令放进列表，消费者不断用RPOP从列表取出任务。
 
-BRPOP和RPOP命令相似，唯一的区别就是当列表没有元素时BRPOP命令会一直阻塞住连接，直到有新元素加入。
+BRPOP和RPOP命令相似，唯一的区别就是当列表没有元素时BRPOP命令会一直阻塞连接，直到有新元素加入。
 `BRPOP queue 0  //0表示不限制等待时间`
 
 ### 优先级队列
 
 `BLPOP queue:1 queue:2 queue:3 0`
-*如果多个键都有元素，则按照从左到右的顺序取元素*
+如果多个键都有元素，则按照从左到右的顺序取元素
 
 ### 发布/订阅模式
 
@@ -491,7 +493,7 @@ UNSUBSCRIBE channel1 //退订通过SUBSCRIBE命令订阅的频道。
 Redis支持两种方式的持久化，一种是RDB的方式，一种是AOF的方式。前者会根据指定的规则定时将内存中的数据存储在硬盘上，而后者在每次执行完命令后将命令记录下来。一般将两者结合使用。
 
 ### RDB方式
-RDB 是 Redis 默认的持久化方案。在指定的时间间隔内，执行指定次数的写操作，将内存中的数据写入到磁盘中，在指定目录下生成一个dump.rdb文件。Redis 重启会通过加载dump.rdb文件恢复数据。
+RDB 是 Redis 默认的持久化方案。RDB持久化时会将内存中的数据写入到磁盘中，在指定目录下生成一个dump.rdb文件。Redis 重启会加载dump.rdb文件恢复数据。
 
 RDB持久化的过程：
 
@@ -551,7 +553,7 @@ SLAVEOF NO ONE //停止接收其他数据库的同步并转化为主数据库。
 - 首先，从数据库使用`SLAVE NO ONE`将从数据库提升为主数据库继续服务；
 - 启动奔溃的主数据库，通过`SLAVEOF`命令将其设置为新的主数据库的从数据库，即可将数据同步过来。
 
-通过哨兵机制可以自动切换主从节点。哨兵是一个独立的进程，用于监控redis实例的是否正常运行，其原理是通过发送命令到redis服务器，等待Redis服务器响应，通过响应内容可以获取Redis实例的运行状态。
+通过哨兵机制可以自动切换主从节点。哨兵是一个独立的进程，用于监控redis实例的是否正常运行，其原理是通过发送ping命令到redis服务器，通过响应时间可以获取Redis实例的运行状态。
 
 客户端连接redis的时候，先连接哨兵，哨兵会告诉客户端主redis的地址，然后客户端连接上redis并进行后续的操作。当主节点宕机的时候，哨兵监测到主节点宕机，会重新推选出某个表现良好的从节点成为新的主节点，然后通过发布订阅模式通知其他的从服务器，修改配置文件，让它们切换主机。
 
@@ -699,6 +701,6 @@ redis客户端执行一条命令分4个过程： 发送命令－〉命令排队�
 
 原生批命令(mset, mget)与Pipeline对比：
 
-1. 原生批命令是原子性，pipeline是非原子性。
+1. 原生批命令是原子性，pipeline是非原子性。pipeline命令中途异常退出，之前执行成功的命令不会回滚。
 
-2. 原生批命令一命令多个key, 但pipeline支持多命令。
+2. 原生批命令只有一个命令, 但pipeline支持多命令。

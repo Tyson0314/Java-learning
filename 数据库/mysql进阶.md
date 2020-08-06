@@ -494,7 +494,7 @@ mvcc的版本链是通过表的三个隐藏字段实现。
 
 ### read view
 
-在read_view内部维护一个活跃事务链表，这个链表包含在创建read view之前还未提交的事务，不包含创建read view之后提交的事务。
+read view就是在某一时刻给事务打snapshot快照。在read_view内部维护一个活跃事务链表，这个链表包含在创建read view之前还未提交的事务，不包含创建read view之后提交的事务。
 
 read committed：每次执行select都会创建新的read_view，保证能读取到其他事务已经提交的修改。
 
@@ -830,4 +830,20 @@ mysqldumpslow -s al -n 10 /usr/local/mysql/data/slow.log
 
 
 
+## 其他
+
 页是InnoDB存储引擎管理数据库的最小磁盘单位。
+
+`select * `会查询出不需要的、额外的数据，那么这些额外的数据在网络上进行传输，带来了额外的网络开销。
+
+
+`show processlist` 或 `show full processlist` 可以查看当前 mysql 是否有压力，正在运行的sql，有没有慢 SQL 正在执行。
+
+- **id** - 线程ID，可以用：`kill id;` 杀死一个线程，很有用
+- **db** - 数据库
+- **user** - 用户
+- **host** - 连库的主机IP
+- **command** - 当前执行的命令，比如最常见的：Sleep，Query，Connect 等
+- **time** - 消耗时间，单位秒，很有用
+- **state** - 执行状态，比如：Sending data，Sorting for group，Creating tmp table，Locked等等，很有用，其他状态可以看看本文最后的参考文章
+- **info** - 执行的SQL语句，很有用
