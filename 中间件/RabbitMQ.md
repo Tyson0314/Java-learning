@@ -31,7 +31,7 @@
 
 ## 简介
 
-RabbitMQ是一个由erlang开发的AMQP（Advanced Message Queue ）。消息队列是一种应用间的异步协作机制。
+RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
 
 ![image-20200718104019614](../img/rabbitmq.png)
 
@@ -41,9 +41,9 @@ Message：由消息头和消息体组成。消息体是不透明的，而消息�
 
 Publisher：消息的生产者。
 
-Exchange：接收消息并将消息分发到一个或多个Queue。default exchange 是默认的直连交换机，名字为空字符串，每个新建队列都会自动绑定到默认交换机上，绑定的路由键名称与队列名称相同。
+Exchange：接收消息并将消息路由到一个或多个Queue。default exchange 是默认的直连交换机，名字为空字符串，每个新建队列都会自动绑定到默认交换机上，绑定的路由键名称与队列名称相同。
 
-Binding：通过Binding将Exchange和Queue关联，这样Exchange就知道将消息分发到哪个Queue中。
+Binding：通过Binding将Exchange和Queue关联，这样Exchange就知道将消息路由到哪个Queue中。
 
 Queue：存储消息，队列的特性是先进先出。一个消息可分发到一个或多个队列。
 
@@ -59,7 +59,7 @@ Broker：消息队列服务器实体。
 
 ## Exchange 类型
 
-Exchange分发消息时根据类型的不同分发策略不同，目前共四种类型：direct、fanout、topic、headers 。headers 匹配 AMQP 消息的 header 而不是路由键，此外 headers 交换器和 direct 交换器完全一致，但性能差很多，目前几乎用不到了。
+Exchange分发消息时根据类型的不同分发策略不同，目前共四种类型：direct、fanout、topic、headers 。headers 模式根据消息的headers进行路由，此外 headers 交换器和 direct 交换器完全一致，但性能差很多。
 
 Exchange规则。
 
@@ -84,13 +84,13 @@ direct交换机会将消息路由到binding key 和 routing key完全匹配的�
 
 ### topic
 
-如果路由键和某个模式匹配成功，则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
+topic交换机使用routing key和binding key进行模糊匹配，匹配成功则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
 
 ![](../img/rabbitmq-topic.png)
 
 ### headers
 
-headers类型的Exchange是根据发送的消息内容中的headers属性进行匹配。在绑定Queue与Exchange时指定一组键值对；当消息发送到Exchange时，RabbitMQ会取到该消息的headers（也是一个键值对的形式），对比其中的键值对是否完全匹配Queue与Exchange绑定时指定的键值对；如果完全匹配则消息会路由到该Queue，否则不会路由到该Queue。
+headers交换机是根据发送的消息内容中的headers属性进行路由的。在绑定Queue与Exchange时指定一组键值对；当消息发送到Exchange时，RabbitMQ会取到该消息的headers（也是一个键值对的形式），对比其中的键值对是否完全匹配Queue与Exchange绑定时指定的键值对；如果完全匹配则消息会路由到该Queue，否则不会路由到该Queue。
 
 
 
@@ -140,7 +140,7 @@ rabbitTemplate.setConfirmCallback(confirmCallback);
 
 #### Return消息机制
 
-ReturnCallback 用于监听路由不可达的消息。需要将`mandatory` 设置为 `true` ，这样路由不可达的消息会被监听到，不会被 broker 自动删除。
+Return消息机制提供了回调函数 ReturnCallback，用于监听路由不可达的消息。需要将`mandatory` 设置为 `true` ，这样路由不可达的消息会被监听到，不会被 broker 自动删除。
 
 ```yaml
 spring:
@@ -206,7 +206,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 建议 Exchange 也设置持久化。将交换机的属性数据存储在磁盘上，当 MQ 的服务器发生意外或关闭之后，在重启 RabbitMQ 时不需要重新手动或重启应用去创建交换机了，交换机会自动被创建。
 
-消息在到达RabbitMQ之后，不会立即刷新到磁盘，如果在消息写入磁盘之前RabbitMQ挂掉，那么这些消息将会丢失。通过publisher的confirm机制能够确保客户端知道哪些message已经存入磁盘，但是此时因为MQ单点故障导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到cluster中其他的节点之上。如果集群中的一个节点失效了，queue能自动地切换到镜像中的另一个节点以保证服务的可用性。
+消息在到达RabbitMQ之后，不会立即刷新到磁盘，如果在消息写入磁盘之前RabbitMQ挂掉，那么这些消息将会丢失。通过publisher的confirm机制能够确保客户端知道哪些message已经存入磁盘，但是此时因为MQ单点故障导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到集群中其他的节点之上。如果集群中的一个节点失效了，能自动地切换到镜像中的另一个节点以保证服务的可用性。
 
 通常每一个镜像队列都包含一个master和多个slave，分别对应于不同的节点。发送到镜像队列的所有消息总是被直接发送到master和所有的slave之上。除了publish外所有动作都只会向master发送，然后由master将命令执行的结果广播给slave，从镜像队列中的消费操作实际上是在master上执行的。
 
@@ -215,7 +215,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 当 RabbitMQ 服务器积压大量消息时，队列里的消息会大量涌入消费端，可能导致消费端服务器奔溃。这种情况下需要对消费端限流。
 
-Spring RabbitMQ 提供参数 prefetch 可以设置单个请求中处理的最大消息个数。如果有 N 个消息还没有 ack，则该 consumer 将会阻塞，不会消费新的消息，直到有消息 ack。
+Spring RabbitMQ 提供参数 prefetch 可以设置消费者同时处理的最大消息个数。如果消费者同时处理的消息到达最大值的时候，则该消费者会阻塞，不会消费新的消息，直到有消息 ack 才会消费新的消息。
 
 开启消费端限流：
 
@@ -224,7 +224,7 @@ Spring RabbitMQ 提供参数 prefetch 可以设置单个请求中处理的最大
 spring.rabbitmq.listener.simple.prefetch=2
 ```
 
-除此之外，原生 RabbitMQ 还提供 prefetchSize 和 global 两个参数。Spring RabbitMQ没有这两个参数。
+原生 RabbitMQ 还提供 prefetchSize 和 global 两个参数。Spring RabbitMQ没有这两个参数。
 
 ```java
 //单条消息大小限制，0代表不限制
@@ -236,30 +236,28 @@ void basicQos(int prefetchSize, int prefetchCount, boolean global) throws IOExce
 
 ### 消息过期时间
 
-RabbitMQ支持队列的过期时间，从消息入队列开始计算，只要超过了队列的超时时间配置，那么消息会自动的清除。
-
-在生产端发送消息的时候可以在 properties 中指定 `expiration`属性来对消息过期时间进行设置，单位为毫秒(ms)。
+在生产端发送消息的时候可以给消息设置过期时间，单位为毫秒(ms)。
 
 ```java
 Message msg = new Message("tyson".getBytes(), mp);
 msg.getMessageProperties().setExpiration("3000");
 ```
 
-也可以在创建队列的时候指定队列的ttl，对于队列中超过该时间的消息将会被移除。
+也可以在创建队列的时候指定队列的ttl，从消息入队列开始计算，超过该时间的消息将会被移除。
 
 
 
 ## 死信队列
 
-没有被消费成功的消息存放的队列。
+消费失败的消息存放的队列。
 
-消息没有被消费成功的原因：
+消息消费失败的原因：
 
-- 消息被拒绝并且消息不能重新入队（requeue=false）
+- 消息被拒绝并且消息没有重新入队（requeue=false）
 - 消息超时未消费
 - 达到最大队列长度
 
-实现死信队列：
+### 实现死信队列
 
 设置死信队列的 exchange 和 queue，然后进行绑定：
 
@@ -280,7 +278,7 @@ msg.getMessageProperties().setExpiration("3000");
     }
 ```
 
-在普通队列加上两个参数，绑定普通队列到死信队列。当消息在过期、requeue失败、 队列在达到最大长度时，消息会被路由到死信队列。
+在普通队列加上两个参数，绑定普通队列到死信队列。当消息消费失败时，消息会被路由到死信队列。
 
 ```java
     @Bean

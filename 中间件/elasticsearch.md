@@ -97,7 +97,7 @@
 
 ## 基础
 
-Elasticsearch 是一个开源的搜索引擎，建立在一个全文搜索引擎库 lucene 基础之上。Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引与搜索，但是它的目的是使全文检索变得简单， 通过隐藏 Lucene 的复杂性，取而代之的提供一套简单一致的 RESTful API。
+Elasticsearch 是一个开源的搜索引擎，建立在全文搜索引擎库 lucene 基础之上。Elasticsearch 也是使用 Java 编写的，它的内部使用 Lucene 做索引与搜索，但是它的目的是使全文检索变得简单， 通过隐藏 Lucene 的复杂性，取而代之的提供一套简单一致的 RESTful API。
 
 ES与mysql的对应关系：
 
@@ -873,8 +873,6 @@ POST /website/_bulk
 
 文档所在分片的位置通过这个公式计算：`shard = hash(routing) % number_of_primary_shards`，rounting 默认是文档的 _id，可以设置成自定义的值。创建索引的时候就确定好主分片的数量，并且永远不会改变这个数量：因为如果数量变化了，那么所有之前路由的值都会无效，文档也再也找不到了。
 
-[在主副分片和任何副本分片上面 成功新建，索引和删除文档所需要的步骤顺序：](https://www.elastic.co/guide/cn/elasticsearch/guide/current/distrib-write.html)
-
 
 
 
@@ -882,7 +880,7 @@ POST /website/_bulk
 
 映射：为了能够将时间域视为时间，数字域视为数字，字符串域视为全文或精确值字符串， Elasticsearch 需要知道每个域中数据的类型。这个信息包含在映射中。
 
-分析：将一块文本分成适合于倒排索引的独立的词条，然后将这些词条统一化为标准格式以提高它们的“可搜索性”。
+分析：将一块文本分成适合于倒排索引的独立的词条，然后将这些词条统一化为标准格式以提高它们的可搜索性。
 
 ### 核心简单域类型
 
@@ -1152,8 +1150,6 @@ Lucene 不理解内部对象。 Lucene 文档是由一组键值对列表组成�
 
 
 ## 搜索
-
-
 
 ### 空搜索
 
