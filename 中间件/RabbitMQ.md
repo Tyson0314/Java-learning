@@ -29,6 +29,8 @@
 
 [RabbitMQ之消息持久化](https://blog.csdn.net/u013256816/article/details/60875666)
 
+[RabbitMQ发送邮件代码](https://zhuanlan.zhihu.com/p/145908317)
+
 ## 简介
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
@@ -107,7 +109,7 @@ headers交换机是根据发送的消息内容中的headers属性进行路由的
 解决方法：
 
 1. 事务机制。在一条消息发送之后会使发送端阻塞，等待RabbitMQ的回应，之后才能继续发送下一条消息。性能差。
-2. 开启生产者确认机制，只要消息成功到达server并找到交换机之后（不用到达相应的Queue），RabbitMQ就会发送一个ack给生产者（即使消息没有Queue接收，也会发送ack），生产者就知道消息已经到达server了。如果消息没有成功到达server或者没有找到对应的交换机，就会发送一条nack消息，提示发送失败。
+2. 开启生产者确认机制，只要消息成功发送到交换机之后，RabbitMQ就会发送一个ack给生产者（即使消息没有Queue接收，也会发送ack）。如果消息没有成功发送到交换机，就会发送一条nack消息，提示发送失败。
 
 在 Springboot 是通过 publisher-confirms 参数来设置 confirm 模式：
 
@@ -121,7 +123,8 @@ spring:
 在生产端提供一个回调方法，当服务端确认了一条或者多条消息后，生产者会回调这个方法，根据具体的结果对消息进行后续处理，比如重新发送、记录日志等。
 
 ```java
-    final RabbitTemplate.ConfirmCallback confirmCallback = (CorrelationData correlationData, boolean ack, String cause) -> {
+// 消息是否成功发送到Exchange
+final RabbitTemplate.ConfirmCallback confirmCallback = (CorrelationData correlationData, boolean ack, String cause) -> {
             log.info("correlationData: " + correlationData);
             log.info("ack: " + ack);
             if(!ack) {
@@ -134,18 +137,18 @@ rabbitTemplate.setConfirmCallback(confirmCallback);
 
 ### 路由不可达消息
 
-生产者确认机制只确保消息正确到达交换机，对于没有匹配到Queue的消息（指定的 routing key 路由不到的消息），还是会存在消息丢失的问题。
+生产者确认机制只确保消息正确到达交换机，对于从交换机路由到Queue失败的消息，会被丢弃掉，导致消息丢失。
 
 对于不可路由的消息，有两种处理方式：Return消息机制和备份交换机。
 
 #### Return消息机制
 
-Return消息机制提供了回调函数 ReturnCallback，用于监听路由不可达的消息。需要将`mandatory` 设置为 `true` ，这样路由不可达的消息会被监听到，不会被 broker 自动删除。
+Return消息机制提供了回调函数 ReturnCallback，当消息从交换机路由到Queue失败才会回调这个方法。需要将`mandatory` 设置为 `true` ，才能监听到路由不可达的消息。
 
 ```yaml
 spring:
     rabbitmq:
-        #设置为true后消费者在消息没有被路由到合适队列情况下会被return监听，而不会自动删除
+        #触发ReturnCallback必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发ReturnCallback
         template.mandatory: true
 ```
 
@@ -158,7 +161,7 @@ spring:
 rabbitTemplate.setReturnCallback(returnCallback);
 ```
 
-当消息没有匹配到Queue时，会返回 `return exchange: , routingKey: MAIL, replyCode: 312, replyText: NO_ROUTE`。
+当消息从交换机路由到Queue失败时，会返回 `return exchange: , routingKey: MAIL, replyCode: 312, replyText: NO_ROUTE`。
 
 #### 备份交换机
 
@@ -168,7 +171,7 @@ rabbitTemplate.setReturnCallback(returnCallback);
 
 有可能消费者收到消息还没来得及处理MQ服务就宕机了，导致消息丢失。因为消息者默认采用自动ack，一旦消费者收到消息后会通知MQ Server这条消息已经处理好了，MQ 就会移除这条消息。
 
-解决方法：消费者设置为手动确认消息。消费者处理完逻辑之后再通知MQ Server，这样消费者没处理完消息就不会发送ack。当消息者消费失败的时候，MQ 会重发消息。
+解决方法：消费者设置为手动确认消息。消费者处理完逻辑之后再通知 MQ Server，消息已经成功消费，可以删除。当消息者消费失败的时候，MQ 会重发消息。
 
 消费者设置手动ack：
 
@@ -201,14 +204,34 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 消息持久化需要满足以下条件：
 
-2. Queue设置持久化。将队列的元数据保存在磁盘上，防止数据丢失。
-3. 发送消息设置持久化。如果只有队列设置了持久化，消息没有设置持久化，当RabbitMQ服务挂掉重启之后，只会恢复队列的数据，消息依然会丢失。队列里的消息会不会持久化，取决于发送消息时对消息的持久化设置。
+1. 消息设置持久化。发布消息前，设置投递模式delivery mode为2，表示消息需要持久化。
+2. Queue设置持久化。
+3. 交换机设置持久化。
 
-建议 Exchange 也设置持久化。将交换机的属性数据存储在磁盘上，当 MQ 的服务器发生意外或关闭之后，在重启 RabbitMQ 时不需要重新手动或重启应用去创建交换机了，交换机会自动被创建。
+当发布一条消息到交换机上时，Rabbit会先把消息写入持久化日志，然后才向生产者发送响应。一旦从队列中消费了一条消息的话并且做了确认，RabbitMQ会在持久化日志中移除这条消息。在消费消息前，如果RabbitMQ重启的话，服务器会自动重建交换机和队列，加载持久化日志中的消息到相应的队列或者交换机上，保证消息不会丢失。
 
-消息在到达RabbitMQ之后，不会立即刷新到磁盘，如果在消息写入磁盘之前RabbitMQ挂掉，那么这些消息将会丢失。通过publisher的confirm机制能够确保客户端知道哪些message已经存入磁盘，但是此时因为MQ单点故障导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到集群中其他的节点之上。如果集群中的一个节点失效了，能自动地切换到镜像中的另一个节点以保证服务的可用性。
+### 镜像队列
+
+当MQ发生故障时，会导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到集群中其他的节点之上。如果集群中的一个节点失效了，能自动地切换到镜像中的另一个节点以保证服务的可用性。
 
 通常每一个镜像队列都包含一个master和多个slave，分别对应于不同的节点。发送到镜像队列的所有消息总是被直接发送到master和所有的slave之上。除了publish外所有动作都只会向master发送，然后由master将命令执行的结果广播给slave，从镜像队列中的消费操作实际上是在master上执行的。
+
+
+
+## 重复消费
+
+消息重复的原因有两个：1.生产时消息重复，2.消费时消息重复。
+
+生产者发送消息给MQ，在MQ确认的时候出现了网络波动，生产者没有收到确认，这时候生产者就会重新发送这条消息，导致MQ会接收到重复消息。
+
+消费者消费成功后，给MQ确认的时候出现了网络波动，MQ没有接收到确认，为了保证消息不丢失，MQ就会继续给消费者投递之前的消息。这时候消费者就接收到了两条一样的消息。由于重复消息是由于网络原因造成的，无法避免。
+
+解决方法：发送消息时让每个消息携带一个全局的唯一ID，在消费消息时先判断消息是否已经被消费过，保证消息消费逻辑的幂等性。具体消费过程为：
+
+1. 消费者获取到消息后先根据id去查询redis/db是否存在该消息
+2. 如果不存在，则正常消费，消费完毕后写入redis/db
+3. 如果存在，则证明消息被消费过，直接丢弃
+
 
 
 ## 消费端限流

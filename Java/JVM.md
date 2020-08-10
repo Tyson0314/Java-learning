@@ -436,6 +436,12 @@ full gc: 清理整个堆空间
 
 ## 垃圾回收器
 
+JDK1.7和1.8中默认使用的是Parallel Scavenge和Parallel Old收集器组合。jdk1.9 默认垃圾收集器是G1。
+
+```java
+java -XX:+PrintCommandLineFlags -version
+```
+
 ### Serial 收集器
 
 单线程收集器，使用一条垃圾收集线程去完成垃圾收集工作，在进行垃圾收集工作的时候必须暂停其他所有的工作线程（ "Stop The World" ），直到它收集结束。
@@ -454,7 +460,14 @@ Serial 收集器的多线程版本，除了使用多线程进行垃圾收集外�
 
 ### Parallel Scavenge 收集器
 
-新生代收集器，基于复制清除算法实现的收集器。吞吐量优先收集器，也是能够并行收集的多线程收集器。Parallel Scavenge 收集器关注点是吞吐量，高效率的利用 CPU 资源。CMS 等垃圾收集器关注点更多的是用户线程的停顿时间。所谓吞吐量就是 CPU 中用于运行用户代码的时间与 CPU 总消耗时间的比值。 Parallel Scavenge 收集器提供了很多参数供用户找到最大吞吐量。
+新生代收集器，基于复制清除算法实现的收集器。吞吐量优先收集器，也是能够并行收集的多线程收集器，允许多个垃圾回收线程同时运行。Parallel Scavenge 收集器关注点是吞吐量，高效率的利用 CPU 资源。CMS 垃圾收集器关注点更多的是用户线程的停顿时间。所谓吞吐量就是 CPU 中用于运行用户代码的时间与 CPU 总消耗时间的比值。 
+
+Parallel Scavenge收集器提供了两个参数用于精确控制吞吐量，分别是控制最大垃圾收集停顿时间的-XX：MaxGCPauseMillis参数以及直接设置吞吐量大小的-XX：GCTimeRatio参数。
+
+-XX：MaxGCPauseMillis参数允许的值是一个大于0的毫秒数，收集器将尽力保证内存回收花费的时间不超过用户设定值。
+
+-XX：GCTimeRatio参数的值则应当是一个大于0小于100的整数，也就是垃圾收集时间占总时间的
+比率，相当于吞吐量的倒数。
 
 ### Serial Old 收集器
 
@@ -462,7 +475,7 @@ Serial 收集器的老年代版本，它同样是一个单线程收集器。它�
 
 ### Parallel Old 收集器
 
-Parallel Scavenge 收集器的老年代版本。使用多线程和“标记-整理”算法。在注重吞吐量以及 CPU 资源的场合，都可以优先考虑 Parallel Scavenge 收集器和 Parallel Old 收集器。
+Parallel Scavenge 收集器的老年代版本。使用多线程和标记-整理算法。在注重吞吐量以及 CPU 资源的场合，都可以优先考虑 Parallel Scavenge 收集器和 Parallel Old 收集器。
 
 ### CMS 收集器
 

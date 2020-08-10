@@ -52,9 +52,9 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 
 1. 基于内存操作，内存读写速度快。
 2. Redis是单线程的，避免线程切换开销及多线程的竞争问题。单线程是指在处理网络请求（一个或多个redis客户端连接）的时候只有一个线程来处理，redis运行时不止有一个线程，数据持久化或者向slave同步aof时会另起线程。
-3. redis 采用IO多路复用技术。多路指的是多个socket连接，复用指的是复用一个线程。redis使用单线程来轮询描述符，将数据库的开、关、读、写都转换成了事件。多路复用主要有三种技术：select，poll，epoll。epoll是最新的也是目前最好的多路复用技术。
 4. 支持多种数据类型，包括String、Hash、List、Set、ZSet等
 5. 支持持久化。Redis支持RDB和AOF两种持久化机制，持久化功能有效地避免数据丢失问题。
+5. redis 采用IO多路复用技术。多路指的是多个socket连接，复用指的是复用一个线程。redis使用单线程来轮询描述符，将数据库的开、关、读、写都转换成了事件。多路复用主要有三种技术：select，poll，epoll。epoll是最新的也是目前最好的多路复用技术。
 
 缺点：
 
@@ -85,6 +85,14 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 简单消息队列，不要求高可靠的情况下，可以使用Redis自身的发布/订阅模式或者List来实现一个队列，实现异步操作。
 
 ![](../img/middleware/redis-usage.png)
+
+### Memcached
+
+与redis区别：
+
+1. Redis只使用单核，而Memcached可以使用多核。
+2. MemCached数据结构单一，仅用来缓存数据，而Redis支持更加丰富的数据类型，也可以在服务器端直接对数据进行丰富的操作,这样可以减少网络IO次数和数据体积。
+3. MemCached不支持数据持久化，断电或重启后数据消失。Redis支持数据持久化和数据恢复，允许单点故障。
 
 ### 启动与停止
 
@@ -178,6 +186,13 @@ SETEX password 60 123abc //SETEX可以在设置键的同时设置它的生存时
 ```
 
 EXPIRE时间单位是秒，PEXPIRE时间单位是毫秒。在键未过期前可以重新设置过期时间，过期之后则键被销毁。
+
+在Redis 2.6和之前版本，如果key不存在或者已过期时返回`-1`。
+
+从Redis2.8开始，错误返回值的结果有如下改变：
+
+- 如果key不存在或者已过期，返回 `-2`
+- 如果key存在并且没有设置过期时间（永久有效），返回 `-1` 。
 
 #### type
 
@@ -369,7 +384,22 @@ ZRANK scoreboard Tyson    //按从小到大的顺序获取元素排名
 ZREVRANK scoreboard Tyson //按从大到小的顺序获取元素排名
 ```
 
+### 底层实现
+
+列表类型使用链表实现。hash类型使用哈希表实现，类似HashMap。有序集合使用跳表实现。
+
+跳表可以看成多层链表，它有如下的性质
+
+- 多层的结构组成，每层是一个有序的链表
+- 最底层的链表包含所有的元素
+- 跳跃表的查找次数近似于层数，时间复杂度为O(logn)，插入、删除也为 O(logn)
+
+![](../img/redis/redis-skiplist.png)
+
+
+
 ## 排序
+
 ```
 LPUSH myList 4 8 2 3 6
 SORT myList DESC
@@ -379,6 +409,7 @@ LPUSH letters f l d n c
 SORT letters ALPHA
 ```
 **BY参数**
+
 ```
 LPUSH list1 1 2 3
 SET score:1 50
@@ -553,9 +584,22 @@ SLAVEOF NO ONE //停止接收其他数据库的同步并转化为主数据库。
 - 首先，从数据库使用`SLAVE NO ONE`将从数据库提升为主数据库继续服务；
 - 启动奔溃的主数据库，通过`SLAVEOF`命令将其设置为新的主数据库的从数据库，即可将数据同步过来。
 
-通过哨兵机制可以自动切换主从节点。哨兵是一个独立的进程，用于监控redis实例的是否正常运行，其原理是通过发送ping命令到redis服务器，通过响应时间可以获取Redis实例的运行状态。
+通过哨兵机制可以自动切换主从节点。哨兵是一个独立的进程，用于监控redis实例的是否正常运行。
 
-客户端连接redis的时候，先连接哨兵，哨兵会告诉客户端主redis的地址，然后客户端连接上redis并进行后续的操作。当主节点宕机的时候，哨兵监测到主节点宕机，会重新推选出某个表现良好的从节点成为新的主节点，然后通过发布订阅模式通知其他的从服务器，修改配置文件，让它们切换主机。
+#### 作用
+
+1. 监测redis实例的状态
+2. 如果master实例异常，会自动进行主从节点切换
+
+客户端连接redis的时候，先连接哨兵，哨兵会告诉客户端redis主节点的地址，然后客户端连接上redis并进行后续的操作。当主节点宕机的时候，哨兵监测到主节点宕机，会重新推选出某个表现良好的从节点成为新的主节点，然后通过发布订阅模式通知其他的从服务器，让它们切换主机。
+
+#### 工作原理
+
+- 每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令 
+- 如果一个实例距离最后一次有效回复 PING 命令的时间超过指定的值， 则这个实例会被 Sentinel 标记为主观下线。
+-  如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master是否真正进入主观下线状态。 
+- 当有足够数量的 Sentinel（大于等于配置文件指定的值）在指定的时间范围内确认Master的确进入了主观下线状态， 则Master会被标记为客观下线 
+- 若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。 若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
 
 ```java
 /**
@@ -639,7 +683,7 @@ SETNX：只有不存在的时候才设置，可以利用它来实现锁的效果
 
 ## LUA脚本
 
-Redis 通过 LUA 脚本创建具有原子性的命令： 当lua脚本命令正在运行的时候，不会有其他脚本或 Redis 命令被执行。这个特性有助于Redis对并发数据一致性的支持。
+Redis 通过 LUA 脚本创建具有原子性的命令： 当lua脚本命令正在运行的时候，不会有其他脚本或 Redis 命令被执行，实现组合命令的原子操作。
 
 eval 命令使用内置的 Lua 解释器，对 Lua 脚本进行求值。
 
@@ -683,7 +727,46 @@ Number count = redisTemplate.execute(redisScript, keys, limit.count(), limit.per
 
 ## 分布式锁
 
-使用setnx来争抢锁，抢到之后，再用expire给锁加一个过期时间防止锁忘记了释放。使用 lua 脚本保证 setnx 和 expire 原子性执行。
+[Redis实现分布式锁](https://www.cnblogs.com/linjiqin/p/8003838.html)
+
+使用setnx来争抢key的锁，value设置为requestId（可以使用`UUID.randomUUID().toString()`方法生成），再用expire给锁加一个过期时间，防止锁忘记了释放。
+
+解锁代码：
+
+```java
+jedis.set(String key, String value, String nxxx, String expx, int time)
+```
+
+- 第一个为key，我们使用key来当锁，因为key是唯一的。
+- 第二个为value，我们传的是requestId，表示这把锁是哪个请求加的，在解锁的时候需要判断当前请求是否持有锁，防止误解锁。比如客户端A加锁，在执行解锁之前，锁过期了，此时客户端B尝试加锁成功，然后客户端A再执行del()方法，则将客户端B的锁给解除了。
+- 第三个为nxxx，这个参数我们填的是NX，意思是SET IF NOT EXIST，即当key不存在时，我们进行set操作；若key已经存在，则不做任何操作；
+- 第四个为expx，这个参数我们传的是PX，意思是我们要给这个key加一个过期的设置，具体时间由第五个参数决定。
+- 第五个为time，与第四个参数相呼应，代表key的过期时间。
+
+解锁代码：
+
+首先获取锁对应的value值，检查是否与requestId相等，如果相等则删除锁。使用lua脚本实现原子操作，保证线程安全。
+
+使用eval命令执行Lua脚本的时候，不会有其他脚本或 Redis 命令被执行，实现组合命令的原子操作。
+
+```java
+public class RedisTool {
+
+    private static final Long RELEASE_SUCCESS = 1L;
+
+    public static boolean releaseDistributedLock(Jedis jedis, String lockKey, String requestId) {
+
+        String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
+        Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(requestId));
+
+        if (RELEASE_SUCCESS.equals(result)) {
+            return true;
+        }
+        return false;
+
+    }
+}
+```
 
 
 
@@ -704,3 +787,44 @@ redis客户端执行一条命令分4个过程： 发送命令－〉命令排队�
 1. 原生批命令是原子性，pipeline是非原子性。pipeline命令中途异常退出，之前执行成功的命令不会回滚。
 
 2. 原生批命令只有一个命令, 但pipeline支持多命令。
+
+
+
+## 数据一致性
+
+缓存和DB之间怎么保证数据一致性：
+读操作：先读缓存，缓存没有的话读DB，然后取出数据放入缓存，最后响应数据
+写操作：先删除缓存，再更新DB
+为什么是删除而不是更新呢？
+
+1. 线程安全问题。同时有请求A和请求B进行更新操作，那么会出现(1)线程A更新了数据库(2)线程B更新了数据库(3)线程B更新了缓存(4)线程A更新了缓存，这就出现请求A更新缓存应该比请求B更新缓存早才对，但是因为网络等原因，B却比A更早更新了缓存。这就导致了脏数据。
+2. 如果业务需求写数据库场景比较多，而读数据场景比较少，采用这种方案就会导致，数据压根还没读到，缓存就被频繁的更新，浪费性能。
+3. 如果你写入数据库的值，并不是直接写入缓存的，而是要经过一系列复杂的计算再写入缓存。那么，每次写入数据库后，都再次计算写入缓存的值，无疑是浪费性能的。
+
+先更新DB，再删除缓存的问题，如果更新DB成功，删除缓存失败会导致数据不一致。所以一般是先删除缓存，再更新DB。
+
+先删除缓存，再更新DB，也会有问题。假如A先删除了缓存，但还没更新DB，这时B过来请求数据，发现缓存没有，去请求DB拿到旧数据，然后再写到缓存，等A更新完了DB之后就会出现缓存和DB数据不一致的情况了。
+
+解决方案：
+可以用队列的去解决这个问题，创建几个队列，如20个，根据某个ID去做hash值，然后对队列个数取摸，当有数据更新请求时，先把它丢到队列里去，当更新完后在从队列里去除，如果在更新的过程中，有其他线程请求数据时，先去缓存里看下有没有数据，如果没有，可以先去队列里看是否有相同ID在做更新，如果有也把查询的请求发送到队列里去，然后同步等待缓存更新完成。
+
+带来的新问题：
+可能数据更新频繁，导致队列中积压了大量的更新操作，读请求长时间阻塞，最后导致大量的请求直接走数据库。这种情况需要做好足够的压力测试，如果压力过大，需要根据实际情况添加机器。
+
+
+
+## 内存淘汰
+
+Redis有最大内存的限制，通过maxmemory参数可以设置最大内存，当使用的内存超过了设置的最大内存，就要进行内存释放， 在进行内存释放的时候，需要通过某种策略对保存的的对象进行删除。Redis有六种策略（默认的策略是volatile-lru）
+
+（1）volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰。
+
+（2）volatile-ttl：从已设置过期时间的数据集中挑选将要过期的数据淘汰
+
+（3）volatile-random：从已设置过期时间的数据集中任意选择数据淘汰
+
+（4）allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
+
+（5）allkeys-random：从数据集中任意选择数据淘汰
+
+（6）no-enviction：禁止淘汰数据
