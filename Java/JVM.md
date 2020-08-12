@@ -91,7 +91,7 @@ Java 虚拟机栈是由一个个栈帧组成，而每个栈帧中都拥有：局
 每个栈帧都包含一个指向运行时常量池中该栈所属方法的符号引用，在方法调用过程中，会进行动态链接，将这个符号引用转化为直接引用。
 
 - 部分符号引用在类加载阶段(解析)的时候就转化为直接引用，这种转化为静态链接
-- 部分符号引用在运行期间转化为直接引用，这种转化为动态连链接
+- 部分符号引用在运行期间转化为直接引用，这种转化为动态链接
 
 Java 虚拟机栈也是线程私有的，每个线程都有各自的 Java 虚拟机栈，而且随着线程的创建而创建，随着线程的死亡而死亡。Java 虚拟机栈会出现两种错误：`StackOverFlowError` 和 `OutOfMemoryError`。
 
@@ -128,6 +128,12 @@ JDK 1.8 的时候，HotSpot 的永久代被彻底移除了，使用元空间替�
 ### 运行时常量池
 
 运行时常量池是方法区的一部分，在类加载之后，会将编译器生成的各种字面量和符号引号放到运行时常量池。在运行期间动态生成的常量，如 String 类的 intern()方法，也会被放入运行时常量池。
+
+![](../img/jvm/string-new.png)
+
+![](../img/jvm/string-intern.png)
+
+![](../img/jvm/string-equal.png)
 
 ### 直接内存
 
@@ -192,6 +198,10 @@ ClassFile {
 
 
 
+## 类的生命周期
+
+加载、验证、准备、解析、初始化、使用和卸载。
+
 ## 类加载的过程
 
 类的加载指的是将类的class文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个对象，这个对象封装了类在方法区内的数据结构，并且提供了访问方法区内的类信息的接口。
@@ -221,7 +231,7 @@ ClassFile {
 
 ### 初始化
 
-初始化阶段，Java虚拟机才真正开始执行类中编写的Java程序代码。
+初始化阶段，Java虚拟机才真正开始执行类中编写的Java程序代码，初始化类变量和其他资源。
 
 
 
@@ -252,7 +262,7 @@ class Student {
 
 1. 编译好 App.java 后得到 App.class 后，执行 App.class，系统会启动一个 JVM 进程，从 classpath 路径中找到一个名为 App.class 的二进制文件，将 App 的类信息加载到运行时数据区的方法区内，这个过程叫做 App 类的加载
 2. JVM 找到 App 的主程序入口，执行main方法
-3. 这个main中的第一条语句为 `Student student = new Student("tysoo") `，就是让 JVM 创建一个Student对象，但是这个时候方法区中是没有 Student 类的信息的，所以 JVM 马上加载 Student 类，把 Student 类的信息放到方法区中
+3. 这个main中的第一条语句为 `Student student = new Student("tyson") `，就是让 JVM 创建一个Student对象，但是这个时候方法区中是没有 Student 类的信息的，所以 JVM 马上加载 Student 类，把 Student 类的信息放到方法区中
 4. 加载完 Student 类后，JVM 在堆中为一个新的 Student 实例分配内存，然后调用构造函数初始化 Student 实例，这个 Student 实例持有 **指向方法区中的 Student 类的类型信息** 的引用
 5. 执行student.getName();时，JVM 根据 student 的引用找到 student 对象，然后根据 student 对象持有的引用定位到方法区中 student 类的类型信息的方法表，获得 getName() 的字节码地址。
 6. 执行getName()
@@ -347,9 +357,10 @@ public class ReferenceCountingGc {
 #### 可作为GC Roots的对象
 
 虚拟机栈(栈帧中的本地变量表)中引用的对象
+本地方法栈中JNI（Native方法）引用的对象
+
 方法区中类静态属性引用的对象
 方法区中常量引用的对象
-本地方法栈中JNI（Native方法）引用的对象
 
 ### 引用
 
