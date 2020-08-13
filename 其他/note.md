@@ -205,3 +205,10 @@ String uuid = UUID.randomUUID().toString().replaceAll("-","");
 ## epoll
 
 select、poll和epoll都是IO多路复用的机制。
+
+
+
+## 防止重复请求
+
+1. 前端提交按钮置灰几秒钟。
+2. 后端使用Redis保存请求的唯一id（业务参数或者前端自己生成，保证唯一），当第一次请求过来，从redis中取id，如果value为null，说明是第一次请求，将这个id存入redis；如果不为null，说明是重复请求，直接抛异常。

@@ -44,6 +44,7 @@
 
 
 ## 简介
+
 Redis是一个高性能的key-value数据库。Redis对数据的操作都是原子性的。
 
 ### 优缺点
@@ -52,8 +53,8 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 
 1. 基于内存操作，内存读写速度快。
 2. Redis是单线程的，避免线程切换开销及多线程的竞争问题。单线程是指在处理网络请求（一个或多个redis客户端连接）的时候只有一个线程来处理，redis运行时不止有一个线程，数据持久化或者向slave同步aof时会另起线程。
-4. 支持多种数据类型，包括String、Hash、List、Set、ZSet等
-5. 支持持久化。Redis支持RDB和AOF两种持久化机制，持久化功能有效地避免数据丢失问题。
+3. 支持多种数据类型，包括String、Hash、List、Set、ZSet等
+4. 支持持久化。Redis支持RDB和AOF两种持久化机制，持久化功能有效地避免数据丢失问题。
 5. redis 采用IO多路复用技术。多路指的是多个socket连接，复用指的是复用一个线程。redis使用单线程来轮询描述符，将数据库的开、关、读、写都转换成了事件。多路复用主要有三种技术：select，poll，epoll。epoll是最新的也是目前最好的多路复用技术。
 
 缺点：
@@ -125,20 +126,25 @@ Redis支持五种数据类型：
 - zset(sorted set)
 
 ### 字符串类型
+
 常用命令：set, get, incr, incrby, desr, keys, append, strlen
 
 - 赋值和取值
+
 ```
 SET name tyson
 GET name
 ```
+
 - 递增数字
+
 ```
 INCR num       //若键值不是整数时，则会提示错误。
 INCRBY num 2   //增加指定整数
 DESR num       //递减数字
 INCRBY num 2.7 //增加指定浮点数
 ```
+
 - 其他
 
 `keys list*` 列出匹配的key 
@@ -208,11 +214,14 @@ list
 常用命令：hset, hget, hmset, hmget, hgetall, hdel, hkeys, hvals
 
 - 赋值和取值
+
 ```
 HSET car price 500
 HGET car price
 ```
+
 同时设置获取多个字段的值
+
 ```
 HMSET car price 500 name BMW
 HMGET car price name
@@ -222,10 +231,11 @@ HGETALL car
 `HSETNX car price 400 //当字段不存在时赋值，HSETNX是原子操作，不存在竞态条件`
 
 -  增加数字
-`HINCRBY person score 60`
-- 删除字段
-`HDEL car price`
-- 其他
+   `HINCRBY person score 60`
+-  删除字段
+   `HDEL car price`
+-  其他
+
 ```
 HKEYS car //获取key
 HVALS car //获取value
@@ -233,6 +243,7 @@ HLEN car  //长度
 ```
 
 ### 列表类型
+
 常用命令：lpush, rpush, lpop, rpop, lrange, lrem
 
 **添加和删除元素**
@@ -255,6 +266,7 @@ LRANGE numbers 0 -1
 **向列表插入值**
 
 首先从左到右寻找值为pivot的值，向列表插入value
+
 ```
 LINSERT numbers AFTER 5 8 //往5后面插入8
 LINSERT numbers BEFORE 6 9 //往6前面插入9
@@ -265,6 +277,7 @@ LINSERT numbers BEFORE 6 9 //往6前面插入9
 `LTRIM numbers 1 2` 删除索引1到2以外的所有元素
 
 LPUSH常和LTRIM一起使用来限制列表的元素个数，如保留最近的100条日志
+
 ```
 LPUSH logs $newLog
 LTRIM logs 0 99
@@ -274,9 +287,9 @@ LTRIM logs 0 99
 
 `LREM key count value`
 
-   1. count < 0, 则从右边开始删除前count个值为value的元素
-   2. count > 0, 则从左边开始删除前count个值为value的元素
-   3. count = 0, 则删除所有值为value的元素 `LREM numbers 0 2`
+      1. count < 0, 则从右边开始删除前count个值为value的元素
+      2. count > 0, 则从左边开始删除前count个值为value的元素
+      3. count = 0, 则删除所有值为value的元素 `LREM numbers 0 2`
 
 **其他**
 
@@ -287,17 +300,20 @@ LSET numbers 1 7   //把索引为1的元素的值赋值成7
 ```
 
 ### 集合类型
+
 常用命令：sadd, srem, smembers, scard, sismember, sdiff
 
 集合中不能有相同的元素。
 
 **增加/删除元素**
+
 ```
 SADD letters a b c
 SREM letters c d
 ```
 
 **获取元素**
+
 ```
 SMEMBERS letters
 SCARD letters   //获取集合元素个数
@@ -313,6 +329,7 @@ SDIFF setA setB  //差集运算
 SINTER setA setB //交集运算
 SUNION setA setB //并集运算
 ```
+
 三个命令都可以传进多个键 `SDIFF setA setB setC`
 
 **其他**
@@ -326,6 +343,7 @@ SUNION setA setB //并集运算
 `SPOP letters`
 
 ### 有序集合类型
+
 常用命令：zadd, zrem, zscore, zrange
 
 Zset(sorted set)是string类型的有序集合。zset 和 set 一样也是string类型元素的集合，且不允许重复的成员。不同的是Zset每个元素都会关联一个double类型的分数，通过分数来为集合中的成员进行排序。zset的成员是唯一的,但分数(score)可以重复。
@@ -357,14 +375,17 @@ ZREMRANGEBYSCORE scoreboard (80 100 //按照分数范围删除元素，"("代表
 `ZSCORE scoreboard Tyson`
 
 **获取排名在某个范围的元素列表**
+
 ```
 ZRANGE scoreboard 0 2
 ZRANGE scoreboard 1 -1  //-1表示最后一个元素
 ZRANGE scoreboard 0 -1 WITHSCORES  //同时获得分数
 ```
+
 *ZRANGE命令时间复杂度是Olog(n+m)， n是有序集合元素个数，m是返回元素个数*
 
 **获取指定分数范围的元素**
+
 ```
 ZRANGEBYSCORE scoreboard 80 100
 ZRANGEBYSCORE scoreboard 80 (100  //不包含100
@@ -404,10 +425,12 @@ ZREVRANK scoreboard Tyson //按从大到小的顺序获取元素排名
 LPUSH myList 4 8 2 3 6
 SORT myList DESC
 ```
+
 ```
 LPUSH letters f l d n c
 SORT letters ALPHA
 ```
+
 **BY参数**
 
 ```
@@ -417,6 +440,7 @@ SET score:2 100
 SET score:3 10
 SORT list1 BY score:* DESC
 ```
+
 **GET参数**
 
 GET参数命令作用是使SORT命令的返回结果是GET参数指定的键值。
@@ -432,6 +456,7 @@ GET #返回文章ID。
 `EXPIRE resultCache 10 //STORE结合EXPIRE可以缓存排序结果`
 
 ## 事务
+
 事务的原理是将一个事务范围内的若干命令发送给Redis，然后再让Redis依次执行这些命令。
 
 事务的生命周期：
@@ -486,11 +511,13 @@ QUEUED
 127.0.0.1:6379> get gender
 (nil)
 ```
+
 UNWATCH：取消WATCH命令对多有key的监控，所有监控锁将会被取消。
 
 
 
 ## 消息队列
+
 使用一个列表，让生产者将任务使用LPUSH命令放进列表，消费者不断用RPOP从列表取出任务。
 
 BRPOP和RPOP命令相似，唯一的区别就是当列表没有元素时BRPOP命令会一直阻塞连接，直到有新元素加入。
@@ -521,9 +548,11 @@ UNSUBSCRIBE channel1 //退订通过SUBSCRIBE命令订阅的频道。
 
 
 ## 持久化
+
 Redis支持两种方式的持久化，一种是RDB的方式，一种是AOF的方式。前者会根据指定的规则定时将内存中的数据存储在硬盘上，而后者在每次执行完命令后将命令记录下来。一般将两者结合使用。
 
 ### RDB方式
+
 RDB 是 Redis 默认的持久化方案。RDB持久化时会将内存中的数据写入到磁盘中，在指定目录下生成一个dump.rdb文件。Redis 重启会加载dump.rdb文件恢复数据。
 
 RDB持久化的过程：
@@ -542,6 +571,7 @@ Redis启动时会读取RDB快照文件，将数据从硬盘载入内存。通过
 4. 执行复制（replication）时。当设置了主从复制后，Redis会在复制初始化时进行自动快照。
 
 ### AOF方式
+
 默认情况下Redis没有开启AOF（append only file）方式的持久化，可以通过appendonly参数启用`appendonly yes`。开启AOF方式持久化后每执行一条写命令，Redis就会将该命令写进硬盘中的AOF文件。由于操作系统的缓存机制，数据并没有真正的写进硬盘，而是进入了系统的硬盘缓存。默认情况下系统每30秒会执行一次同步操作。为了防止硬盘缓存数据丢失，可以在Redis写入AOF文件后主动要求系统将硬盘缓存同步到硬盘上。可以通过`appendfsync`参数设置同步的时机。
 
 ```
@@ -597,7 +627,7 @@ SLAVEOF NO ONE //停止接收其他数据库的同步并转化为主数据库。
 
 - 每个Sentinel以每秒钟一次的频率向它所知的Master，Slave以及其他 Sentinel 实例发送一个 PING 命令 
 - 如果一个实例距离最后一次有效回复 PING 命令的时间超过指定的值， 则这个实例会被 Sentinel 标记为主观下线。
--  如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master是否真正进入主观下线状态。 
+- 如果一个Master被标记为主观下线，则正在监视这个Master的所有 Sentinel 要以每秒一次的频率确认Master是否真正进入主观下线状态。 
 - 当有足够数量的 Sentinel（大于等于配置文件指定的值）在指定的时间范围内确认Master的确进入了主观下线状态， 则Master会被标记为客观下线 
 - 若没有足够数量的 Sentinel 同意 Master 已经下线， Master 的客观下线状态就会被移除。 若 Master 重新向 Sentinel 的 PING 命令返回有效回复， Master 的主观下线状态就会被移除。
 
@@ -656,14 +686,14 @@ public class TestSentinels {
 
 缓存击穿：大量的请求同时查询一个 key 时，此时这个key正好失效了，就会导致大量的请求都落到数据库。缓存击穿是查询缓存中失效的 key，而缓存穿透是查询不存在的 key。
 
-解决方法：加互斥锁（redis.setnx()），第一个请求的线程可以拿到锁，拿到锁的线程查询到了数据之后设置缓存，其他的线程获取锁失败会等待50ms然后重新到缓存取数据，这样便可以避免大量的请求落到数据库。
+解决方法：加互斥锁（redis分布式锁或者使用ReentrantLock），第一个请求的线程可以拿到锁，拿到锁的线程查询到了数据之后设置缓存，其他的线程获取锁失败会等待50ms然后重新到缓存取数据，这样便可以避免大量的请求落到数据库。
 
 ```java
 public String get(key) {
       String value = redis.get(key);
       if (value == null) { //代表缓存值过期
-          //设置3min的超时，防止del操作失败的时候，下次缓存过期一直不能load db
-		  if (redis.setnx(key_mutex, 1, 3 * 60) == 1) {  //代表设置成功
+          //设置30s的超时，防止del操作失败的时候，下次缓存过期一直不能load db
+		  if (redis.set(key_mutex, 1, 'NX', 'PX', 30000) == 1) {  //代表设置成功
                value = db.get(key);
                       redis.set(key, value, expire_secs);
                       redis.del(key_mutex);
@@ -727,13 +757,14 @@ Number count = redisTemplate.execute(redisScript, keys, limit.count(), limit.per
 
 ## 分布式锁
 
-[Redis实现分布式锁](https://www.cnblogs.com/linjiqin/p/8003838.html)
+[Redis实现分布式锁](https://www.cnblogs.com/linjiqin/p/8003838.html) | [Redlock](http://www.redis.cn/topics/distlock.html)
 
-使用setnx来争抢key的锁，value设置为requestId（可以使用`UUID.randomUUID().toString()`方法生成），再用expire给锁加一个过期时间，防止锁忘记了释放。
+使用setnx来争抢key的锁，value设置为 requestId（可以使用`UUID.randomUUID().toString()`方法生成），再用expire给锁加一个过期时间，防止异常导致锁没有释放。
 
 解锁代码：
 
 ```java
+//SET resource_name my_random_value NX PX 30000 //redis原生命令
 jedis.set(String key, String value, String nxxx, String expx, int time)
 ```
 
@@ -741,7 +772,7 @@ jedis.set(String key, String value, String nxxx, String expx, int time)
 - 第二个为value，我们传的是requestId，表示这把锁是哪个请求加的，在解锁的时候需要判断当前请求是否持有锁，防止误解锁。比如客户端A加锁，在执行解锁之前，锁过期了，此时客户端B尝试加锁成功，然后客户端A再执行del()方法，则将客户端B的锁给解除了。
 - 第三个为nxxx，这个参数我们填的是NX，意思是SET IF NOT EXIST，即当key不存在时，我们进行set操作；若key已经存在，则不做任何操作；
 - 第四个为expx，这个参数我们传的是PX，意思是我们要给这个key加一个过期的设置，具体时间由第五个参数决定。
-- 第五个为time，与第四个参数相呼应，代表key的过期时间。
+- 第五个为time，设置key的过期时间，防止异常导致锁没有释放。
 
 解锁代码：
 
@@ -801,15 +832,26 @@ redis客户端执行一条命令分4个过程： 发送命令－〉命令排队�
 2. 如果业务需求写数据库场景比较多，而读数据场景比较少，采用这种方案就会导致，数据压根还没读到，缓存就被频繁的更新，浪费性能。
 3. 如果你写入数据库的值，并不是直接写入缓存的，而是要经过一系列复杂的计算再写入缓存。那么，每次写入数据库后，都再次计算写入缓存的值，无疑是浪费性能的。
 
-先更新DB，再删除缓存的问题，如果更新DB成功，删除缓存失败会导致数据不一致。所以一般是先删除缓存，再更新DB。
+先删除缓存，再更新DB，同样也有问题。假如A先删除了缓存，但还没更新DB，这时B过来请求数据，发现缓存没有，去请求DB拿到旧数据，然后再写到缓存，等A更新完了DB之后就会出现缓存和DB数据不一致的情况了。
 
-先删除缓存，再更新DB，也会有问题。假如A先删除了缓存，但还没更新DB，这时B过来请求数据，发现缓存没有，去请求DB拿到旧数据，然后再写到缓存，等A更新完了DB之后就会出现缓存和DB数据不一致的情况了。
+解决方法：采用延时双删策略。更新完数据库之后，延时一段时间，再次删除缓存，确保可以删除读请求造成的缓存脏数据。评估项目的读数据业务逻辑的耗时。然后写数据的休眠时间则在读数据业务逻辑的耗时基础上，加几百ms即可。
 
-解决方案：
-可以用队列的去解决这个问题，创建几个队列，如20个，根据某个ID去做hash值，然后对队列个数取摸，当有数据更新请求时，先把它丢到队列里去，当更新完后在从队列里去除，如果在更新的过程中，有其他线程请求数据时，先去缓存里看下有没有数据，如果没有，可以先去队列里看是否有相同ID在做更新，如果有也把查询的请求发送到队列里去，然后同步等待缓存更新完成。
+```java
+public void write(String key,Object data){
+    redis.delKey(key);
+    db.updateData(data);
+    Thread.sleep(1000);//确保读请求结束，写请求可以删除读请求造成的缓存脏数据
+    redis.delKey(key);
+}
+```
 
-带来的新问题：
-可能数据更新频繁，导致队列中积压了大量的更新操作，读请求长时间阻塞，最后导致大量的请求直接走数据库。这种情况需要做好足够的压力测试，如果压力过大，需要根据实际情况添加机器。
+可以将第二次删除作为异步的。自己起一个线程，异步删除。这样，写的请求就不用沉睡一段时间后了，加大吞吐量。
+
+当删缓存失败时，也会就出现数据不一致的情况。
+
+解决方法：
+
+![](../img/redis/cache-consist.png)
 
 
 
