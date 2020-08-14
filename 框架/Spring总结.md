@@ -648,7 +648,7 @@ singletonObjects：完成了初始化的单例对象map，bean name --> bean ins
 
 earlySingletonObjects ：完成实例化未初始化的单例对象map，bean name --> bean instance
 
-singletonFactories ： 单例对象工厂map，bean name --> ObjectFactory
+singletonFactories ： 单例对象工厂map，bean name --> ObjectFactory，单例对象实例化完成之后会加入singletonFactories。
 
 在调用createBeanInstance进行实例化之后，会调用addSingletonFactory，将单例对象放到singletonFactories中。
 
@@ -670,10 +670,10 @@ protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFa
 1. A首先完成了实例化，并且将自己添加到singletonFactories中
 2. 接着进行依赖注入，发现自己依赖对象B，此时就尝试去get(B)
 3. 发现B还没有被实例化，对B进行实例化
-4. 然后B在初始化的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects(肯定没有，因为A还没初始化完全)，在二级缓存earlySingletonObjects也没找到，尝试三级缓存singletonFactories，由于A初始化时将自己添加到了singletonFactories，所以B可以拿到A对象，然后将A从三级缓存中移到二级缓存中
+4. 然后B在初始化的时候发现自己依赖了对象A，于是尝试get(A)，尝试一级缓存singletonObjects和二级缓存earlySingletonObjects没找到，尝试三级缓存singletonFactories，由于A初始化时将自己添加到了singletonFactories，所以B可以拿到A对象，然后将A从三级缓存中移到二级缓存中
 5. B拿到A对象后顺利完成了初始化，然后将自己放入到一级缓存singletonObjects中
 6. 此时返回A中，A此时能拿到B的对象顺利完成自己的初始化
 
 由此看出，属性注入的循环依赖主要是通过将实例化完成的bean添加到singletonFactories来实现的。而使用构造器依赖注入的bean在实例化的时候会进行依赖注入，不会被添加到singletonFactories中。比如A和B都是通过构造器依赖注入，A在调用构造器进行实例化的时候，发现自己依赖B，B没有被实例化，就会对B进行实例化，此时A未实例化完成，不会被添加到singtonFactories。而B依赖于A，B会去三级缓存寻找A对象，发现不存在，于是又会实例化A，A实例化了两次，从而导致抛异常。
 
-总结：1、利用缓存识别已经遍历过的节点； 2、利用Java引用，先提前设置对象地址，后完善bean。
+总结：1、利用缓存识别已经遍历过的节点； 2、利用Java引用，先提前设置对象地址，后完善对象。

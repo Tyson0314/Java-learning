@@ -834,6 +834,8 @@ mysqldumpslow -s al -n 10 /usr/local/mysql/data/slow.log
 
 页是InnoDB存储引擎管理数据库的最小磁盘单位。
 
+### processlist
+
 `select * `会查询出不需要的、额外的数据，那么这些额外的数据在网络上进行传输，带来了额外的网络开销。
 
 
@@ -852,11 +854,23 @@ mysqldumpslow -s al -n 10 /usr/local/mysql/data/slow.log
 
 ### exist和in
 
-exists 后边的语句相当于bool判断, 如果想要 exists 起到筛选的作用, 而不仅仅是bool判断的作用, 在 exists 后边的查询里要用到前边查询语句中的表的字段。
+exists 用于对外表记录做筛选。
 
-外查询表大，子查询表小，选择IN；外查询表小，子查询表大，选择EXISTS；若两表差不多大，则差不多。
+exists 会遍历外表，将外查询表的每一行，代入内查询进行判断。当 exists 里的条件语句能够返回记录行时，条件就为真，返回外表当前记录。反之如果exists里的条件语句不能返回记录行，条件为假，则外表当前记录被丢弃。
+
+```mysql
+select a.* from A a
+where exists(select 1 from B b where a.id=b.id)
+```
+
+in 是先把后边的语句查出来放到临时表中，然后遍历临时表，将临时表的每一行，代入外查询去查找。
+
+```mysql
+select * from A
+where id in(select id from B)
+```
 
 子查询的表大的时候，使用EXISTS可以有效减少总的循环次数来提升速度；当外查询的表大的时候，使用IN可以有效减少对外查询表循环遍历来提升速度。
 
-exists 会遍历前边的表, 然后每次都会查询一下后边的SQL语句判断是否有记录; 而 in 是先把后边的语句查出来放到临时表中, 然后每次遍历前边的表, 都会再遍历一遍临时表。
+
 

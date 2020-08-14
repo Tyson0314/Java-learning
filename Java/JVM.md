@@ -447,11 +447,25 @@ full gc: 清理整个堆空间
 
 ## 垃圾回收器
 
+[垃圾收集器](https://crowhawk.github.io/2017/08/15/jvm_3/)
+
 JDK1.7和1.8中默认使用的是Parallel Scavenge和Parallel Old收集器组合。jdk1.9 默认垃圾收集器是G1。
 
 ```java
 java -XX:+PrintCommandLineFlags -version
 ```
+
+7个垃圾收集器的特点：
+
+|        收集器         | 串行、并行or并发 | 新生代/老年代 |        算法        |     目标     |                 适用场景                  |
+| :-------------------: | :--------------: | :-----------: | :----------------: | :----------: | :---------------------------------------: |
+|      **Serial**       |       串行       |    新生代     |      复制算法      | 响应速度优先 |          单CPU环境下的Client模式          |
+|    **Serial Old**     |       串行       |    老年代     |     标记-整理      | 响应速度优先 |  单CPU环境下的Client模式、CMS的后备预案   |
+|      **ParNew**       |       并行       |    新生代     |      复制算法      | 响应速度优先 |    多CPU环境时在Server模式下与CMS配合     |
+| **Parallel Scavenge** |       并行       |    新生代     |      复制算法      |  吞吐量优先  |     在后台运算而不需要太多交互的任务      |
+|   **Parallel Old**    |       并行       |    老年代     |     标记-整理      |  吞吐量优先  |     在后台运算而不需要太多交互的任务      |
+|        **CMS**        |       并发       |    老年代     |     标记-清除      | 响应速度优先 | 集中在互联网站或B/S系统服务端上的Java应用 |
+|        **G1**         |       并发       |     both      | 标记-整理+复制算法 | 响应速度优先 |        面向服务端应用，将来替换CMS        |
 
 ### Serial 收集器
 
@@ -471,7 +485,7 @@ Serial 收集器的多线程版本，除了使用多线程进行垃圾收集外�
 
 ### Parallel Scavenge 收集器
 
-新生代收集器，基于复制清除算法实现的收集器。吞吐量优先收集器，也是能够并行收集的多线程收集器，允许多个垃圾回收线程同时运行。Parallel Scavenge 收集器关注点是吞吐量，高效率的利用 CPU 资源。CMS 垃圾收集器关注点更多的是用户线程的停顿时间。所谓吞吐量就是 CPU 中用于运行用户代码的时间与 CPU 总消耗时间的比值。 
+新生代收集器，基于复制清除算法实现的收集器。吞吐量优先收集器，也是能够并行收集的多线程收集器，允许多个垃圾回收线程同时运行。Parallel Scavenge 收集器关注点是吞吐量，高效率的利用 CPU 资源。CMS 垃圾收集器关注点更多的是用户线程的停顿时间。所谓吞吐量就是 CPU 中用于运行用户代码的时间与 CPU 总消耗时间的比值（吞吐量 = 运行用户代码时间 /（运行用户代码时间 + 垃圾收集时间））。 
 
 Parallel Scavenge收集器提供了两个参数用于精确控制吞吐量，分别是控制最大垃圾收集停顿时间的-XX：MaxGCPauseMillis参数以及直接设置吞吐量大小的-XX：GCTimeRatio参数。
 
@@ -490,7 +504,7 @@ Parallel Scavenge 收集器的老年代版本。使用多线程和标记-整理�
 
 ### CMS 收集器
 
-Concurrent Mark Sweep 并发标记清除，目的是获取最短回收停顿时间。第一款真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程基本上同时工作。
+Concurrent Mark Sweep 并发标记清除，目的是获取最短回收停顿时间。第一款真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程基本上同时工作。在并发阶段，它虽然不会导致用户线程停顿，但会因为占用了一部分线程（或者说CPU资源）而导致应用程序变慢，总吞吐量会降低。
 
 #### CMS垃圾回收特点
 
@@ -521,7 +535,7 @@ Concurrent Mark Sweep 并发标记清除，目的是获取最短回收停顿时�
 
 G1垃圾收集器的目标是用在多核、大内存的机器上，在不同应用场景中追求高吞吐量和低停顿之间的最佳平衡。
 
-G1将整个堆分成相同大小的分区（Region），有四种不同类型的分区：Eden、Survivor、Old和Humongous。每个分区的大小从1M到32M不等，都是2的冥次方。Region大小可以通过`-XX:G1HeapRegionSize`参数指定。Region中还有一类特殊的Humongous区域，用于存储那些大小超过region大小一半的对象。
+G1将整个堆分成相同大小的分区（Region），有四种不同类型的分区：Eden、Survivor、Old和Humongous。每个分区的大小从1M到32M不等，都是2的幂次方。Region大小可以通过`-XX:G1HeapRegionSize`参数指定。Region中还有一类特殊的Humongous区域，用于存储那些大小超过region大小一半的对象。
 
 ![](../img/g1-region.jpg)
 
@@ -529,7 +543,7 @@ G1将整个堆分成相同大小的分区（Region），有四种不同类型的
 
 但是这三种垃圾收集器都有一个共同的问题，就是所有针对老年代的操作必须扫描整个老年代空间。因为GC ROOTS里面包含了老年代中的对象。要找到存活的对象需要扫描整个老年代，很耗费时间，影响整个GC的性能。
 
-G1采用了Rset来避免扫描整个老年代。RSet记录了其他Region中的对象引用本Region中对象，即谁引用了我的对象。
+G1采用了Rset（Remembered Set）来避免扫描整个老年代。RSet记录了其他Region中的对象引用本Region中对象，即谁引用了我的对象。
 
 #### YoungGC
 
@@ -550,6 +564,16 @@ G1 收集器的运作大致分为以下几个步骤：
 - 筛选回收
 
   G1 收集器对各个Region回收所获得的空间大小和回收所需时间的比值进行排序，得到一个优先级列表，每次根据用户设置的最大的回收停顿时间（使用参数-XX：MaxGCPauseMillis指定，默认值是200毫秒），优先选择回收价值最大的 Region。
+
+
+
+## 对象头
+
+Java对象保存在内存中时，由以下三部分组成：对象头、实例数据和对齐填充字节。
+
+java的对象头由以下三部分组成：mark word、指向类信息的指针和数组长度（数组对象才有）。
+
+mark word包含：对象的hashcode、分代年龄和锁标志位。
 
 
 
@@ -588,3 +612,117 @@ G1 收集器的运作大致分为以下几个步骤：
 ## JVM参数
 
 设置 vm options：`-XX:MetaspaceSize=80m -XX:MaxMetaspaceSize=80m`
+
+### jps
+
+列出本机所有java进程的pid。
+
+选项
+
+- -q 仅输出VM标识符，不包括class name,jar name,arguments in main method
+- -m 输出main method的参数
+- -l 输出完全的包名，应用主类名，jar的完全路径名
+- -v 输出jvm参数
+- -V 输出通过flag文件传递到JVM中的参数(.hotspotrc文件或-XX:Flags=所指定的文件
+- -Joption 传递参数到vm,例如:-J-Xms48m
+
+```bash
+jps -lvm
+//output
+//4124 com.zzx.Application -javaagent:E:\IDEA2019\lib\idea_rt.jar=10291:E:\IDEA2019\bin -Dfile.encoding=UTF-8
+```
+
+### jstack
+
+查看某个Java进程内的线程堆栈信息。-l，long listings，打印额外的锁信息，发生死锁时可以使用`jstack -l pid`观察锁持有情况。
+
+```java
+jstack -l 4124 | more
+```
+
+output：
+
+```java
+"http-nio-8001-exec-10" #40 daemon prio=5 os_prio=0 tid=0x000000002542f000 nid=0x4028 waiting on condition [0x000000002cc9e000]
+   java.lang.Thread.State: WAITING (parking)
+        at sun.misc.Unsafe.park(Native Method)
+        - parking to wait for  <0x000000077420d7e8> (a java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject)
+        at java.util.concurrent.locks.LockSupport.park(LockSupport.java:175)
+        at java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.await(AbstractQueuedSynchronizer.java:2039)
+        at java.util.concurrent.LinkedBlockingQueue.take(LinkedBlockingQueue.java:442)
+        at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:103)
+        at org.apache.tomcat.util.threads.TaskQueue.take(TaskQueue.java:31)
+        at java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1074)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1134)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+        at java.lang.Thread.run(Thread.java:748)
+
+   Locked ownable synchronizers:
+        - None
+```
+
+### jstat
+
+虚拟机各种运行状态信息（类装载、内存、垃圾收集、jit编译等运行数据）。gcuitl 查看新生代、老生代及持代垃圾收集的情况。
+
+```java
+jstat -gcutil 4124
+  S0     S1     E      O      M     CCS    YGC     YGCT    FGC    FGCT     GCT
+  0.00   0.00  67.21  19.20  96.36  94.96     10    0.084     3    0.191    0.275
+```
+
+### jmap
+
+查看堆内存快照。
+
+```java
+>jmap -heap 4124
+Attaching to process ID 4124, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.221-b11
+
+using thread-local object allocation.
+Parallel GC with 6 thread(s)
+
+Heap Configuration:
+   MinHeapFreeRatio         = 0
+   MaxHeapFreeRatio         = 100
+   MaxHeapSize              = 4238344192 (4042.0MB)
+   NewSize                  = 88604672 (84.5MB)
+   MaxNewSize               = 1412431872 (1347.0MB)
+   OldSize                  = 177733632 (169.5MB)
+   NewRatio                 = 2
+   SurvivorRatio            = 8
+   MetaspaceSize            = 21807104 (20.796875MB)
+   CompressedClassSpaceSize = 1073741824 (1024.0MB)
+   MaxMetaspaceSize         = 17592186044415 MB
+   G1HeapRegionSize         = 0 (0.0MB)
+
+Heap Usage:
+PS Young Generation
+Eden Space:
+   capacity = 327155712 (312.0MB)
+   used     = 223702392 (213.33922576904297MB)
+   free     = 103453320 (98.66077423095703MB)
+   68.37795697725736% used
+From Space:
+   capacity = 21495808 (20.5MB)
+   used     = 0 (0.0MB)
+   free     = 21495808 (20.5MB)
+   0.0% used
+To Space:
+   capacity = 23068672 (22.0MB)
+   used     = 0 (0.0MB)
+   free     = 23068672 (22.0MB)
+   0.0% used
+PS Old Generation
+   capacity = 217579520 (207.5MB)
+   used     = 41781472 (39.845916748046875MB)
+   free     = 175798048 (167.65408325195312MB)
+   19.20285144484187% used
+
+27776 interned Strings occupying 3262336 bytes.
+```
+

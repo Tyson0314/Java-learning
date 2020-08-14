@@ -1241,5 +1241,3 @@ public class SpringbootDemoApplication {
 ```properties
 hello.msg=tyson
 ```
-
-## 

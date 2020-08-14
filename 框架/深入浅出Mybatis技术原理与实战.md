@@ -2467,63 +2467,11 @@ SELECT * FROM ${table}
 
 
 
-## 问题总结
+## 原理
 
-1. org.apache.ibatis.binding.BindingException: Invalid bound statement (not found)
+[Mybatis原理](https://blog.csdn.net/weixin_43184769/article/details/91126687)
 
-xml编译的问题，idea编译时没有把mapper包下的xml文件编译进来。
+当调用Mapper接口方法的时候，Mybatis会使用JDK动态代理返回一个Mapper代理对象，根据全路径和方法名，定位到sql，最后使用executor执行sql语句。
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190214113224836.png)
-
-解决方法有两种：
-
-- 把*Mapper.xml文件放到resource文件夹下管理。在appcationContext.xml的sqlSessionFactory bean添加mapperLocations属性，指定mapper路径。
-
-```xml
-<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-    <!-- 数据源 -->
-    <property name="dataSource" ref="dataSource"></property>
-    <!-- 别名 -->
-    <property name="typeAliasesPackage" value="com.tyson.pojo"></property>
-    <!-- sql映射文件路径 -->
-    <property name="configLocation" value="classpath:sqlMapConfig.xml"></property>
-    <!-- 当mybatis的xml文件和mapper接口不在相同包下时，需要用mapperLocations属性指定xml文件的路径。*是个通配符，代表所有的文件，**代表所有目录下 -->
-    <!--<property name="mapperLocations" value="classpath:com/tyson/mapper/*.xml" />-->
-</bean>
-```
-
-- pom配置一下编译xml文件。
-
-```xml
-<!--用于包含或排除某些资源-->
-<build>
-    <resources>
-        <resource>
-            <directory>src/main/java</directory>
-            <includes>
-                <include>**/*.xml</include>
-            </includes>
-        </resource>
-        <resource>
-            <directory>src/main/resources</directory>
-        </resource>
-    </resources>
-</build>
-```
-
-
-
-2. #{}和${}
-
-\#{}和${}都可以接收基本类型或者pojo对象属性的值。
-
-select * from tbl_employee where id=${id} and last_name=#{lastName}
-
-预编译后: select * from tbl_employee where id=2 and last_name=?
-
-区别：
-
-\#{}:是以预编译的形式，将参数设置到sql语句中，注入的参数不会再进行SQL编译，防止sql注入；（预编译机制可以防止SQL注入）；
-
-${}:取出的值直接拼装在sql语句中，会有安全问题。
+因为mybatis动态代理寻找策略是 全限定名+方法名，不涉及参数，所以不支持重载。
 
