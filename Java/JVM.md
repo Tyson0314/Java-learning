@@ -611,7 +611,20 @@ mark word包含：对象的hashcode、分代年龄和锁标志位。
 
 ## JVM参数
 
-设置 vm options：`-XX:MetaspaceSize=80m -XX:MaxMetaspaceSize=80m`
+idea 设置 vm options：`-XX:MetaspaceSize=80m -XX:MaxMetaspaceSize=80m`
+
+-Xms 堆初始值
+-Xmx 堆最大可用值
+-Xmn 新生代堆最大可用值
+-XX:SurvivorRatio 用来设置新生代中eden空间和from/to空间的比例
+
+-XX:+PrintGC 每次触发GC的时候打印相关日志
+-XX:+UseSerialGC 串行回收
+-XX:+PrintGCDetails 更详细的GC日志
+
+
+
+## JVM调优工具
 
 ### jps
 
