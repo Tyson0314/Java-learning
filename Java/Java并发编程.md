@@ -10,7 +10,6 @@
 - [容器](#%E5%AE%B9%E5%99%A8)
   - [间接的迭代操作](#%E9%97%B4%E6%8E%A5%E7%9A%84%E8%BF%AD%E4%BB%A3%E6%93%8D%E4%BD%9C)
   - [ConcurrentHashMap](#concurrenthashmap)
-  - [Copy-On-Write](#copy-on-write)
   - [同步工具类](#%E5%90%8C%E6%AD%A5%E5%B7%A5%E5%85%B7%E7%B1%BB)
     - [信号量](#%E4%BF%A1%E5%8F%B7%E9%87%8F)
   - [缓存系统](#%E7%BC%93%E5%AD%98%E7%B3%BB%E7%BB%9F)

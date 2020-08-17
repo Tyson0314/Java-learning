@@ -17,9 +17,13 @@
     - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
   - [消费者手动消息确认](#%E6%B6%88%E8%B4%B9%E8%80%85%E6%89%8B%E5%8A%A8%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4)
   - [持久化](#%E6%8C%81%E4%B9%85%E5%8C%96)
+  - [镜像队列](#%E9%95%9C%E5%83%8F%E9%98%9F%E5%88%97)
+- [重复消费](#%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9)
 - [消费端限流](#%E6%B6%88%E8%B4%B9%E7%AB%AF%E9%99%90%E6%B5%81)
   - [消息过期时间](#%E6%B6%88%E6%81%AF%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4)
 - [死信队列](#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
+  - [实现死信队列](#%E5%AE%9E%E7%8E%B0%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
+- [pull模式](#pull%E6%A8%A1%E5%BC%8F)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

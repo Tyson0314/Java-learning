@@ -17,6 +17,7 @@
 - [进程端口](#%E8%BF%9B%E7%A8%8B%E7%AB%AF%E5%8F%A3)
 - [grep](#grep)
 - [sed](#sed)
+- [磁盘](#%E7%A3%81%E7%9B%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -221,3 +222,9 @@ nl /etc/passwd | sed '2,5d'
 # 删除第三到最后一行
 nl /etc/passwd | sed '3,$d' 
 ```
+
+
+
+## 磁盘
+
+`df -h` 查看磁盘容量。

@@ -9,8 +9,6 @@
   - [外部配置](#%E5%A4%96%E9%83%A8%E9%85%8D%E7%BD%AE)
   - [日志配置](#%E6%97%A5%E5%BF%97%E9%85%8D%E7%BD%AE)
   - [Profile配置](#profile%E9%85%8D%E7%BD%AE)
-  - [Spring Boot运行原理](#spring-boot%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86)
-    - [实现自动配置](#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
 - [Spring Boot的Web开发](#spring-boot%E7%9A%84web%E5%BC%80%E5%8F%91)
   - [Thymeleaf 模板引擎](#thymeleaf-%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E)
     - [Thymeleaf 基础知识](#thymeleaf-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86)
@@ -32,6 +30,8 @@
     - [JDBC 的自动配置](#jdbc-%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
     - [对 JPA 的自动配置](#%E5%AF%B9-jpa-%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
     - [对 Spring Data JPA 的自动配置](#%E5%AF%B9-spring-data-jpa-%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
+- [自动配置原理](#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86)
+    - [实现自动配置](#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

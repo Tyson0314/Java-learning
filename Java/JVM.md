@@ -14,6 +14,7 @@
   - [直接内存](#%E7%9B%B4%E6%8E%A5%E5%86%85%E5%AD%98)
   - [对象的访问定位](#%E5%AF%B9%E8%B1%A1%E7%9A%84%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D)
 - [类文件结构](#%E7%B1%BB%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84)
+- [类的生命周期](#%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
 - [类加载的过程](#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E7%9A%84%E8%BF%87%E7%A8%8B)
   - [加载](#%E5%8A%A0%E8%BD%BD)
   - [验证](#%E9%AA%8C%E8%AF%81)
@@ -57,11 +58,17 @@
   - [G1收集器](#g1%E6%94%B6%E9%9B%86%E5%99%A8)
     - [YoungGC](#younggc)
     - [MixedGC](#mixedgc)
+- [对象头](#%E5%AF%B9%E8%B1%A1%E5%A4%B4)
 - [Full GC触发条件](#full-gc%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6)
 - [线上频繁fullgc/oom](#%E7%BA%BF%E4%B8%8A%E9%A2%91%E7%B9%81fullgcoom)
 - [内存泄露解决](#%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E8%A7%A3%E5%86%B3)
 - [排查Java程序内存溢出问题](#%E6%8E%92%E6%9F%A5java%E7%A8%8B%E5%BA%8F%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E9%97%AE%E9%A2%98)
 - [JVM参数](#jvm%E5%8F%82%E6%95%B0)
+- [JVM调优工具](#jvm%E8%B0%83%E4%BC%98%E5%B7%A5%E5%85%B7)
+  - [jps](#jps)
+  - [jstack](#jstack)
+  - [jstat](#jstat)
+  - [jmap](#jmap)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
