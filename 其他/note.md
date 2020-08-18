@@ -234,3 +234,15 @@ select、poll和epoll都是IO多路复用的机制。
 ## 令牌桶算法
 
 令牌桶算法的原理是系统会以一个恒定的速度往桶里放入令牌，而如果请求需要被处理，则需要先从桶里获取一个令牌，当桶里没有令牌可取时，则拒绝服务。
+
+
+
+## 超卖问题
+
+通过加排他锁解决该问题。
+
+- 开始事务。
+- 查询库存，并显式的设置排他锁：SELECT * FROM table_name WHERE … FOR UPDATE
+- 生成订单。
+- 去库存，update会隐式的设置排他锁：UPDATE products SET count=count-1 WHERE id=1
+- commit，释放锁。
