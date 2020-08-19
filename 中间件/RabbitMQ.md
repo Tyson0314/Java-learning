@@ -250,7 +250,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 当 RabbitMQ 服务器积压大量消息时，队列里的消息会大量涌入消费端，可能导致消费端服务器奔溃。这种情况下需要对消费端限流。
 
-Spring RabbitMQ 提供参数 prefetch 可以设置消费者同时处理的最大消息个数。如果消费者同时处理的消息到达最大值的时候，则该消费者会阻塞，不会消费新的消息，直到有消息 ack 才会消费新的消息。
+Spring RabbitMQ 提供参数 prefetch 可以设置单个请求处理的消息个数。如果消费者同时处理的消息到达最大值的时候，则该消费者会阻塞，不会消费新的消息，直到有消息 ack 才会消费新的消息。
 
 开启消费端限流：
 
