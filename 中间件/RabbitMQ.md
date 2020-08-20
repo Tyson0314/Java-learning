@@ -35,6 +35,8 @@
 
 [RabbitMQ发送邮件代码](https://zhuanlan.zhihu.com/p/145908317)
 
+[线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
+
 ## 简介
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
@@ -183,7 +185,7 @@ rabbitTemplate.setReturnCallback(returnCallback);
 
 有可能消费者收到消息还没来得及处理MQ服务就宕机了，导致消息丢失。因为消息者默认采用自动ack，一旦消费者收到消息后会通知MQ Server这条消息已经处理好了，MQ 就会移除这条消息。
 
-解决方法：消费者设置为手动确认消息。消费者处理完逻辑之后再通知 MQ Server，消息已经成功消费，可以删除。当消息者消费失败的时候，MQ 会重发消息。
+解决方法：消费者设置为手动确认消息。消费者处理完逻辑之后再给broker回复ack，表示消息已经成功消费，可以从broker中删除。当消息者消费失败的时候，给broker回复nack，根据配置决定重新入队还是从broker移除，或者进入死信队列。只要没收到消费者的 acknowledgment，broker 就会一直保存着这条消息，但不会 requeue，也不会分配给其他 消费者。
 
 消费者设置手动ack：
 
@@ -209,6 +211,8 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
         System.out.println("mail listener receive: " + new String(message.getBody()));
     }
 ```
+
+当消息消费失败时，消费端给broker回复nack，如果consumer设置了requeue为false，则nack后broker会删除消息或者进入死信队列，否则消息会重新入队。
 
 ### 持久化
 
@@ -417,3 +421,9 @@ GetResponse response = channel.basicGet(QUEUE_NAME, false);
 System.out.println(new String(response.getBody()));
 channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
 ```
+
+
+
+## 消息积压
+
+[Rabbitmq消息积压](http://luxiaobing.com/2019/12/07/RabbitMq%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B/)

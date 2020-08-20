@@ -629,6 +629,11 @@ idea 设置 vm options：`-XX:MetaspaceSize=80m -XX:MaxMetaspaceSize=80m`
 -XX:+UseSerialGC 串行回收
 -XX:+PrintGCDetails 更详细的GC日志
 
+-XX:MaxTenuringThreshold=0：设置垃圾最大年龄。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代。
+
+-XX:PermSize=64M JVM初始分配的永久代内存大小，用于存放类信息、静态变量、常量等。当应用需要动态产生大量类的时候，如jsp页面，需要将此参数设置大一点，避免永久代内存溢出。jdk1.8之后使用元空间代替永久代，此参数废弃；
+-XX:MaxPermSize=128M JVM最大允许分配的永久代内存；
+
 
 
 ## JVM调优工具
@@ -694,7 +699,7 @@ jstat -gcutil 4124
 
 ### jmap
 
-查看堆内存快照。
+查看堆内存快照。查看进程中新生代、老年代、永久代的使用情况。
 
 ```java
 >jmap -heap 4124
@@ -746,3 +751,10 @@ PS Old Generation
 27776 interned Strings occupying 3262336 bytes.
 ```
 
+查询进程pid = 41843 存活的对象占用内存前100排序： `jmap -histo:live 41843 | head -n 100`
+
+
+
+### 高cpu高内存分析
+
+[线上问题排查](https://blog.csdn.net/baiye_xing/article/details/90483169)

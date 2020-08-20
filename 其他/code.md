@@ -37,7 +37,7 @@ public class Singleton {
     }
     private Singleton() {}
     public static Singleton getSingleton() {
-        return SingletonHolder.instance;// 这里将导致InstanceHolder类被初始化
+        return SingletonHolder.instance;// 这里将导致SingletonHolder类被初始化
     }
 }
 ```
