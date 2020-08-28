@@ -119,6 +119,12 @@ class AlarmDoor extends Door implements Alarm {
 
 ## 基础
 
+### 基本数据类型
+
+byte/short/int/long/float/double/boolean/char
+
+int，32位，数据范围为-2的31次方 ~ 2的31次方-1
+
 ### static final
 
 基本数据类型用final修饰，则不能修改，是常量，对象引用用final修饰，则引用只能指向该对象，不能指向别的对象，但是对象本身可以修改。
@@ -216,6 +222,18 @@ equals()默认比较地址值，重写的话按照重写逻辑去比较。
 操作符"+"连接字符串会先创建String对象，再把拼接后的内容赋值给新的对象，在频繁修改的情况下会产生大量的对象，性能较差。
 
 StringBuilder 在拼接时不是使用 String 存储，而是放到一个char数组（默认大小为16），不需要额外创建对象，拼接效率较高。
+
+### 包装类缓存
+
+使用Integer.valueOf(i)生成Integer，如果 -128 <= i <= 127，则直接从cache取对象返回，不会创建新的对象，避免频繁创建包装类对象。
+
+```java
+    public static Integer valueOf(int i) {
+        if (i >= IntegerCache.low && i <= IntegerCache.high)
+            return IntegerCache.cache[i + (-IntegerCache.low)];
+        return new Integer(i);
+    }
+```
 
 
 

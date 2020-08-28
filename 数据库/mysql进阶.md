@@ -755,7 +755,7 @@ bin log和redo log区别：
 
 1. bin log会记录所有日志记录，包括innoDB、MyISAM等存储引擎的日志；redo log只记录innoDB自身的事务日志
 2. bin log只在事务提交前写入到磁盘，一个事务只写一次，无论事务多大；而在事务进行过程，会有redo log不断写入磁盘
-3. bin log记录的是事务的具体操作内容（执行的命令）；而redo log记录的是每个页Page更改的物理情况（更改记录内容）
+3. binlog 是逻辑日志，记录的是SQL语句的原始逻辑；redo log 是物理日志，记录的是在某个数据页上做了什么修改。
 
 Undo Log：除了记录redo log外，当进行数据修改时还会记录undo log，undo log用于数据的撤回操作，它保留了记录修改前的内容。通过undo log可以实现事务回滚，并且可以根据undo log回溯到某个特定的版本的数据，实现MVCC。
 

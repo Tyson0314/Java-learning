@@ -352,7 +352,7 @@ SUNION setA setB //并集运算
 
 常用命令：zadd, zrem, zscore, zrange
 
-Zset(sorted set)是string类型的有序集合。zset 和 set 一样也是string类型元素的集合，且不允许重复的成员。不同的是Zset每个元素都会关联一个double类型的分数，通过分数来为集合中的成员进行排序。zset的成员是唯一的,但分数(score)可以重复。
+Zset(sorted set)是string类型的有序集合。zset 和 set 一样也是string类型元素的集合，且不允许重复的成员。不同的是Zset每个元素都会关联一个double（超过17位使用科学计算法表示，可能丢失精度）类型的分数，通过分数来为集合中的成员进行排序。zset的成员是唯一的,但分数(score)可以重复。
 
 **有序集合和列表相同点：**
 

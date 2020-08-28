@@ -688,3 +688,21 @@ protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFa
 由此看出，属性注入的循环依赖主要是通过将实例化完成的bean添加到singletonFactories来实现的。而使用构造器依赖注入的bean在实例化的时候会进行依赖注入，不会被添加到singletonFactories中。比如A和B都是通过构造器依赖注入，A在调用构造器进行实例化的时候，发现自己依赖B，B没有被实例化，就会对B进行实例化，此时A未实例化完成，不会被添加到singtonFactories。而B依赖于A，B会去三级缓存寻找A对象，发现不存在，于是又会实例化A，A实例化了两次，从而导致抛异常。
 
 总结：1、利用缓存识别已经遍历过的节点； 2、利用Java引用，先提前设置对象地址，后完善对象。
+
+
+
+## Spring启动过程
+
+1. 读取web.xml文件。
+
+2. 创建 ServletContext，为 ioc 容器提供宿主环境。
+
+3. 触发容器初始化事件，调用 contextLoaderListener.contextInitialized()方法，在这个方法会初始化一个应用上下文WebApplicationContext，即 Spring 的 ioc 容器。ioc 容器初始化完成之后，会被存储到 ServletContext 中。
+
+   ```java
+   	public void contextInitialized(ServletContextEvent event) {
+   		initWebApplicationContext(event.getServletContext());
+   	}
+   ```
+
+4. 初始化web.xml中配置的Servlet。如DispatcherServlet，用于匹配、处理每个servlet请求。
