@@ -261,3 +261,23 @@ select、poll和epoll都是IO多路复用的机制。
 select version from goods WHERE id= 1001
 update goods set num = num - 1, version = version + 1 WHERE id= 1001 AND num > 0 AND version = @version(上面查到的version);
 ```
+
+
+
+TPS和QPS
+
+**QPS**：Queries Per Second意思是“每秒查询率”，是一台服务器每秒处理的查询次数。
+
+**TPS：**是TransactionsPerSecond的缩写，也就是事务数/秒。它是软件测试结果的测量单位。一个事务是指一个客户机向服务器发送请求然后服务器做出反应的过程。客户机在发送请求时开始计时，收到服务器响应后结束计时，以此来计算使用的时间和完成的事务个数。
+
+Tps即每秒处理事务数，包括了三个过程：
+
+1）用户请求服务器
+
+2）服务器自己的内部处理
+
+3）服务器返回给用户
+
+如果每秒能够完成N个这三个过程，Tps也就是N；
+
+对于一个页面的一次访问，形成一个Tps；但一次页面请求，可能产生多次对服务器的请求，这些请求可以计入Qps之中。例如访问一个页面会请求服务器3次，产生一个TPS，产生3个QPS。
