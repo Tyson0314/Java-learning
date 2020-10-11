@@ -22,6 +22,7 @@
 - [防止重复请求](#%E9%98%B2%E6%AD%A2%E9%87%8D%E5%A4%8D%E8%AF%B7%E6%B1%82)
 - [接口幂等性](#%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E6%80%A7)
 - [令牌桶算法](#%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95)
+- [超卖问题](#%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

@@ -44,7 +44,7 @@
 - [Redisson](#redisson)
 - [pipeline](#pipeline)
 - [数据一致性](#%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7)
-- [内存淘汰](#%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0)
+- [删除策略](#%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

@@ -69,6 +69,7 @@
   - [jstack](#jstack)
   - [jstat](#jstat)
   - [jmap](#jmap)
+  - [高cpu高内存分析](#%E9%AB%98cpu%E9%AB%98%E5%86%85%E5%AD%98%E5%88%86%E6%9E%90)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

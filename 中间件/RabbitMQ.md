@@ -5,6 +5,7 @@
 - [简介](#%E7%AE%80%E4%BB%8B)
   - [基本概念](#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
   - [什么时候使用MQ](#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8mq)
+  - [优缺点](#%E4%BC%98%E7%BC%BA%E7%82%B9)
 - [Exchange 类型](#exchange-%E7%B1%BB%E5%9E%8B)
   - [direct](#direct)
   - [fanout](#fanout)
@@ -24,6 +25,7 @@
 - [死信队列](#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
   - [实现死信队列](#%E5%AE%9E%E7%8E%B0%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
 - [pull模式](#pull%E6%A8%A1%E5%BC%8F)
+- [消息积压](#%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
