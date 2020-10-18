@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [数据库特性（ACID）](#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%B9%E6%80%A7acid)
 - [数据库事务隔离级别](#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB)
@@ -70,8 +70,6 @@
   - [exist和in](#exist%E5%92%8Cin)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-[toc]
 
 
 
