@@ -81,15 +81,11 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 
 ### 应用场景
 
-缓存热点数据。
-
-利用Redis中原子性的自增操作，可以用使用实现计算器的功能，比如统计用户点赞数、用户访问数等，这类操作如果用MySQL，频繁的读写会带来相当大的压力。
-
-限速器，比较典型的使用场景是限制某个用户访问某个API的频率，常用的有抢购时，防止用户疯狂点击带来不必要的压力。
-
-好友关系，利用集合的一些命令，比如求交集、并集、差集等。可以方便搞定一些共同好友、共同爱好之类的功能。
-
-简单消息队列，不要求高可靠的情况下，可以使用Redis自身的发布/订阅模式或者List来实现一个队列，实现异步操作。
+1. 缓存热点数据，缓解数据库的压力。
+2. 利用Redis中原子性的自增操作，可以用使用实现计算器的功能，比如统计用户点赞数、用户访问数等，这类操作如果用MySQL，频繁的读写会带来相当大的压力。
+3. 简单消息队列，不要求高可靠的情况下，可以使用Redis自身的发布/订阅模式或者List来实现一个队列，实现异步操作。
+4. 好友关系，利用集合的一些命令，比如求交集、并集、差集等。可以方便搞定一些共同好友、共同爱好之类的功能。
+5. 限速器，比较典型的使用场景是限制某个用户访问某个API的频率，常用的有抢购时，防止用户疯狂点击带来不必要的压力。
 
 ![](../img/middleware/redis-usage.png)
 
@@ -98,7 +94,7 @@ Redis是一个高性能的key-value数据库。Redis对数据的操作都是原�
 与redis区别：
 
 1. Redis只使用单核，而Memcached可以使用多核。
-2. MemCached数据结构单一，仅用来缓存数据，而Redis支持更加丰富的数据类型，也可以在服务器端直接对数据进行丰富的操作,这样可以减少网络IO次数和数据体积。
+2. MemCached数据结构单一，仅用来缓存数据，而Redis支持更加丰富的数据类型，也可以在服务器端直接对数据进行丰富的操作，这样可以减少网络IO次数和数据体积。
 3. MemCached不支持数据持久化，断电或重启后数据消失。Redis支持数据持久化和数据恢复，允许单点故障。
 
 ### 启动与停止
@@ -765,18 +761,55 @@ Number count = redisTemplate.execute(redisScript, keys, limit.count(), limit.per
 
 [Redis实现分布式锁](https://www.cnblogs.com/linjiqin/p/8003838.html) | [Redlock](http://www.redis.cn/topics/distlock.html)
 
-使用setnx来争抢key的锁，value设置为 requestId（可以使用`UUID.randomUUID().toString()`方法生成），再用expire给锁加一个过期时间，防止异常导致锁没有释放。
+加锁：
 
-解锁代码：
+1. setnx来争抢key的锁，如果已有key存在，则不作操作，过段时间继续重试，保证只有一个客户端能持有锁。
+2. value设置为 requestId（可以使用`UUID.randomUUID().toString()`方法生成），表示这把锁是哪个请求加的，在解锁的时候需要判断当前请求是否持有锁，防止误解锁。比如客户端A加锁，在执行解锁之前，锁过期了，此时客户端B尝试加锁成功，然后客户端A再执行del()方法，则将客户端B的锁给解除了。
+3. 再用expire给锁加一个过期时间，防止异常导致锁没有释放。
+
+解锁：
+
+首先获取锁对应的value值，检查是否与requestId相等，如果相等则删除锁。使用lua脚本实现原子操作，保证线程安全。
+
+### jedis实现分布式锁
+
+加锁代码：
 
 ```java
 //SET resource_name my_random_value NX PX 30000 //redis原生命令
-jedis.set(String key, String value, String nxxx, String expx, int time)
+//jedis.set(String key, String value, String nxxx, String expx, int time)
+    
+public class RedisTool {
+
+    private static final String LOCK_SUCCESS = "OK";
+    private static final String SET_IF_NOT_EXIST = "NX";
+    private static final String SET_WITH_EXPIRE_TIME = "PX";
+
+    /**
+     * 尝试获取分布式锁
+     * @param jedis Redis客户端
+     * @param lockKey 锁
+     * @param requestId 请求标识
+     * @param expireTime 超期时间
+     * @return 是否获取成功
+     */
+    public static boolean tryGetDistributedLock(Jedis jedis, String lockKey, String requestId, int expireTime) {
+
+        String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
+
+        if (LOCK_SUCCESS.equals(result)) {
+            return true;
+        }
+        return false;
+
+    }
+
+}
 ```
 
 - 第一个为key，我们使用key来当锁，因为key是唯一的。
 - 第二个为value，我们传的是requestId，表示这把锁是哪个请求加的，在解锁的时候需要判断当前请求是否持有锁，防止误解锁。比如客户端A加锁，在执行解锁之前，锁过期了，此时客户端B尝试加锁成功，然后客户端A再执行del()方法，则将客户端B的锁给解除了。
-- 第三个为nxxx，这个参数我们填的是NX，意思是SET IF NOT EXIST，即当key不存在时，我们进行set操作；若key已经存在，则不做任何操作；
+- 第三个为nxxx，这个参数我们填的是NX，意思是SET IF NOT EXIST，保证如果已有key存在，则不作操作，过段时间继续重试。NX参数保证只有一个客户端能持有锁。
 - 第四个为expx，这个参数我们传的是PX，意思是我们要给这个key加一个过期的设置，具体时间由第五个参数决定。
 - 第五个为time，设置key的过期时间，防止异常导致锁没有释放。
 
@@ -802,6 +835,16 @@ public class RedisTool {
         return false;
 
     }
+}
+//错误示例
+public static void wrongReleaseLock2(Jedis jedis, String lockKey, String requestId) {
+        
+    // 判断加锁与解锁是不是同一个客户端
+    if (requestId.equals(jedis.get(lockKey))) {
+        // 若在此时，这把锁突然不是这个客户端的，则会误解锁
+        jedis.del(lockKey);
+    }
+
 }
 ```
 
@@ -832,9 +875,9 @@ redis客户端执行一条命令分4个过程： 发送命令－〉命令排队�
 缓存和DB之间怎么保证数据一致性：
 读操作：先读缓存，缓存没有的话读DB，然后取出数据放入缓存，最后响应数据
 写操作：先删除缓存，再更新DB
-为什么是删除而不是更新呢？
+为什么是删除缓存而不是更新缓存呢？
 
-1. 线程安全问题。同时有请求A和请求B进行更新操作，那么会出现(1)线程A更新了数据库(2)线程B更新了数据库(3)线程B更新了缓存(4)线程A更新了缓存，这就出现请求A更新缓存应该比请求B更新缓存早才对，但是因为网络等原因，B却比A更早更新了缓存。这就导致了脏数据。
+1. 线程安全问题。同时有请求A和请求B进行更新操作，那么会出现(1)线程A更新了缓存(2)线程B更新了缓存(3)线程B更新了数据库(4)线程A更新了数据库，由于网络等原因，请求B先更新数据库，这就导致缓存和数据库不一致的问题。
 2. 如果业务需求写数据库场景比较多，而读数据场景比较少，采用这种方案就会导致，数据压根还没读到，缓存就被频繁的更新，浪费性能。
 3. 如果你写入数据库的值，并不是直接写入缓存的，而是要经过一系列复杂的计算再写入缓存。那么，每次写入数据库后，都再次计算写入缓存的值，无疑是浪费性能的。
 
