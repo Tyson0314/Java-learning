@@ -1639,17 +1639,26 @@ public void findStudentTest() {
 
 #### 系统缓存（一级缓存和二级缓存）
 
-Mybatis对缓存提供支持，默认情况下只开启一级缓存，一级缓存作用范围为同一个SqlSession。在SQL和参数
+Mybatis对缓存提供支持，默认情况下只开启一级缓存，一级缓存作用范围为同一个SqlSession。在SQL和参数相同的情况下，我们使用同一个SqlSession对象调用同一个Mapper方法，往往只会执行一次SQL。因为在使用SqlSession第一次查询后，Mybatis会将结果放到缓存中，以后再次查询时，如果没有声明需要刷新，并且缓存没超时的情况下，SqlSession只会取出当前缓存的数据，不会再次发送SQL到数据库。若使用不同的SqlSession，因为不同的SqlSession是相互隔离的，不会使用一级缓存。
 
-相同的情况下，我们使用同一个SqlSession对象调用同一个Mapper方法，往往只会执行一次SQL。因为在使用SqlSession第一次查询后，Mybatis会将结果放到缓存中，以后再次查询时，如果没有声明需要刷新，并且缓存没超时的情况下，SqlSession只会取出当前缓存的数据，不会再次发送SQL到数据库。若使用不同的SqlSession，因为不同的SqlSession是相互隔离的，不会使用一级缓存。
+二级缓存可以使缓存在各个SqlSession之间共享。二级缓存默认不开启，需要在mybatis-config.xml开启二级缓存：
 
-二级缓存可以使缓存在SqlSessionFactory层面上能够提供给各个SqlSession共享。二级缓存默认不开启，需要在相应的映射xml文件做如下配置：
+```xml
+<!-- 通知 MyBatis 框架开启二级缓存 -->
+<settings>
+  <setting name="cacheEnabled" value="true"/>
+</settings>
+```
+
+并在相应的Mapper.xml文件添加cache标签，表示对哪个mapper 开启缓存：
 
 ```xml
 <cache/>
 ```
 
 二级缓存要求返回的POJO必须是可序列化的，即要求实现Serializable接口。
+
+当开启二级缓存后，数据的查询执行的流程就是 二级缓存 -> 一级缓存 -> 数据库。
 
 
 
@@ -2432,15 +2441,7 @@ public void getRoleByRoleNameTest() {
 
 预编译是通过PreparedStatement和占位符来实现的。
 
-预编译的作用：
-
-1. 预编译阶段可以优化 sql 的执行。预编译之后的 sql 多数情况下可以直接执行，数据库服务器不需要再次编译，可以提升性能。
-
-2. 预编译语句对象可以重复利用。把一个 sql 预编译后产生的 PreparedStatement 对象缓存下来，下次对于同一个sql，可以直接使用这个缓存的 PreparedState 对象。
-
-3. 防止SQL注入。使用预编译，而其后注入的参数将`不会再进行SQL编译`。也就是说其后注入进来的参数系统将不会认为它会是一条SQL语句，而默认其是一个参数。
-
-mybatis 默认情况下，将对所有的 sql 进行预编译。mybatis底层使用PreparedStatement，过程是先将带有占位符?的sql模板发送至mysql服务器，由服务器对此无参数的sql进行编译后，将编译结果缓存，然后直接执行带有真实参数的sql。
+mybatis底层使用PreparedStatement，默认情况下，将对所有的 sql 进行预编译，将#{}替换为?，然后将带有占位符?的sql模板发送至mysql服务器，由服务器对此无参数的sql进行编译后，将编译结果缓存，然后直接执行带有真实参数的sql。
 
 #{ } 解析成预编译语句，传入参数之后不会重新编译sql。
 
@@ -2450,6 +2451,14 @@ select * from user where name = #{name};
 //解析成为预编译语句；编译好SQL语句再取值
 select * from user where name = ?;
 ```
+
+预编译的作用：
+
+1. 预编译阶段可以优化 sql 的执行。预编译之后的 sql 多数情况下可以直接执行，数据库服务器不需要再次编译，可以提升性能。
+
+2. 预编译语句对象可以重复利用。把一个 sql 预编译后产生的 PreparedStatement 对象缓存下来，下次对于同一个sql，可以直接使用这个缓存的 PreparedState 对象。
+
+3. 防止SQL注入。使用预编译，而其后注入的参数将`不会再进行SQL编译`。也就是说其后注入进来的参数系统将不会认为它会是一条SQL语句，而默认其是一个参数。
 
 ${ } 仅仅为一个字符串替换，会存在 sql 注入问题。
 
