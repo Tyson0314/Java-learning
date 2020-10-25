@@ -47,11 +47,11 @@ GET http://api.qc.com/v1/friends
 
 ## JWT
 
-[JWT教程](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
+[JWT教程](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html) | [数字签名](https://blog.csdn.net/qq_21514303/article/details/82898984)
 
 JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。
 
-用户认证一般流程：
+session认证流程：
 
 1、用户向服务器发送用户名和密码。
 
@@ -63,31 +63,59 @@ JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。
 
 5、服务器收到 session_id，找到前期保存的数据，由此得知用户的身份。
 
-JWT只通过算法实现对Token合法性的验证，不依赖数据库，Memcached的等存储系统，因此可以做到跨服务器验证，只要密钥和算法相同，不同服务器程序生成的Token可以互相验证。
+如果需要跨域认证，即用户登录了a网站，再访问b网站需要自动登录，则要求session数据共享。可以将session数据持久化，存到数据库来实现session共享。
+
+JWT不在服务器端保存session数据，所有数据都保存在客户端，每次请求都发回服务器。它是通过算法实现对Token合法性的验证，不依赖数据库，只要密钥和算法相同，**不同服务器程序生成的Token可以互相验证**。
 
 ### 原理
 
-服务器认证以后，生成一个 JSON 对象，发回给用户。
+用户使用用户名和密码登录服务器。服务器认证完成后，使用私钥生成一个 JSON 对象（包括用户名、权限等），发回给用户。
 
 ```json
 {
-  "姓名": "张三",
-  "角色": "管理员",
-  "到期时间": "2018年7月1日0点0分"
+  "username": "张三",
+  "roles": "管理员",
+  "expire": "2018年7月1日0点0分"
 }
 ```
 
-以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器完全只靠这个对象认证用户身份。为了防止用户篡改数据，服务器在生成这个对象的时候会加上签名。
+以后，用户与服务端通信的时候，都要发回这个 JSON 对象。服务器依据JSON对象认证用户身份。为了防止用户篡改数据，服务器在生成JSON对象的时候会使用私钥进行加密生成签名。
 
+![](../img/others/json-web-token.png)
 
+### 数据结构
 
+JWT数据分为三个部分：
 
+- Header（头部）
+- Payload（负载）
+- Signature（签名）
 
+Header和Payload会使用 Base64URL 算法转成字符串，然后三部分用`.`进行分隔：
 
+```javascript
+Header.Payload.Signature
+```
 
-在mysql中， 如果类型为时间的列设置了CURRENT_TIMESTAMP， 那么在insert一条新记录， 时间字段自动获取到当前时间， 如果设置了ON UPDATE CURRENT_TIMESTAMP， 则时间字段随着update命令的更新和实时变化。 如果两个属性都设置了， 那么时间字段默认为当前时间， 且随着记录的更新而自动变化。 注意， 如果仅仅是update操作， 但id并没有实际变更， 则时间值也不会变化。
+Header 部分是一个 JSON 对象，描述 JWT 的元数据。
 
-如果时间字段没有设置如上两个属性， 则默认拥有如上两个属性。
+```javascript
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
+
+Payload 部分也是一个 JSON 对象，用来存放实际需要传递的数据，如用户名、权限等。
+
+Signature 部分是对前两部分的签名，防止数据篡改。首先需要指定一个密钥（secret）。这个密钥只有服务器才知道，不能泄露给用户。然后使用 Header 里面指定的签名算法（默认是 HMAC SHA256），根据下面的公式产生签名。
+
+```javascript
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret)
+```
 
 
 
