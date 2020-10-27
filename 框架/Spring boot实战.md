@@ -41,7 +41,7 @@
 - springboot项目可以以jar包的形式独立运行，直接运行main或使用命令java -jar xx.jar就可以运行项目；
 - 快速搭建spring应用环境，简化复杂的环境配置；
 - 内置servlet容器，不用手动配置tomcat；
-- SpringBoot提供了starter简化maven配置。把常用库聚合在一起，组成了几个为特定功能而定制的依赖。
+- SpringBoot提供了starter，把常用库聚合在一起，简化maven配置。
 
 
 
