@@ -364,6 +364,8 @@ Zset(sorted set)是string类型的有序集合。zset 和 set 一样也是string
 
 **增加/删除元素**
 
+时间复杂度OlogN。
+
 ```
 ZADD scoreboard 89 Tom 78 Sophia
 ZADD scoreboard 85.5 Tyson      //支持双精度浮点数
@@ -374,9 +376,13 @@ ZREMRANGEBYSCORE scoreboard (80 100 //按照分数范围删除元素，"("代表
 
 **获取元素分数**
 
+时间复杂度O1。
+
 `ZSCORE scoreboard Tyson`
 
 **获取排名在某个范围的元素列表**
+
+ZRANGE命令时间复杂度是O(log(n)+m)， n是有序集合元素个数，m是返回元素个数。
 
 ```
 ZRANGE scoreboard 0 2
@@ -384,9 +390,9 @@ ZRANGE scoreboard 1 -1  //-1表示最后一个元素
 ZRANGE scoreboard 0 -1 WITHSCORES  //同时获得分数
 ```
 
-*ZRANGE命令时间复杂度是Olog(n+m)， n是有序集合元素个数，m是返回元素个数*
-
 **获取指定分数范围的元素**
+
+ZRANGEBYSCORE命令时间复杂度是O(log(n)+m)， n是有序集合元素个数，m是返回元素个数。
 
 ```
 ZRANGEBYSCORE scoreboard 80 100
@@ -396,12 +402,14 @@ ZRANGEBYSCORE scoreboard (60 +inf LIMIT 1 3 //获取分数高于60的从第二�
 
 **增加某个元素的分数**
 
+时间复杂度OlogN。
+
 `ZINCRBY scoreboard 10 Tyson`
 
 **其他**
 
 ```
-ZCARD scoreboard          //获取集合元素个数
+ZCARD scoreboard          //获取集合元素个数，时间复杂度O1
 ZCOUNT scoreboard 80 100  //指定分数范围的元素个数
 ZRANK scoreboard Tyson    //按从小到大的顺序获取元素排名
 ZREVRANK scoreboard Tyson //按从大到小的顺序获取元素排名
