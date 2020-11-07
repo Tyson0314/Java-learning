@@ -3270,7 +3270,7 @@ public class ExpressionSecurityConfig extends GlobalMethodSecurityConfiguration 
 
 
 
-![1588473763106](..\img\1588473763106.png)
+![方法级别注解](..\img\spring\方法级别注解.png)
 
 方法调用前检查，`#spittle.text.length()`检查传入方法的参数：
 
