@@ -38,10 +38,8 @@
 ## Spring Boot基础
 理念：习惯优于配置，内置习惯性配置，无需手动进行配置。使用Spring boot可以很快创建一个独立运行、准生产级别的基于Spring框架的项目，不需要或者只需很少的Spring配置。
 ### 特点
-- springboot项目可以以jar包的形式独立运行，直接运行main或使用命令java -jar xx.jar就可以运行项目；
-- 快速搭建spring应用环境，简化复杂的环境配置；
-- 内置servlet容器，不用手动配置tomcat；
-- SpringBoot提供了starter，把常用库聚合在一起，简化maven配置。
+- 内置servlet容器，不需要在服务器部署 tomcat。只需要将项目打成 jar 包，使用 java -jar xxx.jar一键式启动项目；
+- SpringBoot提供了starter，把常用库聚合在一起，简化复杂的环境配置，快速搭建spring应用环境。
 
 
 
@@ -1241,3 +1239,9 @@ public class SpringbootDemoApplication {
 ```properties
 hello.msg=tyson
 ```
+
+
+
+## @Value原理
+
+@Value的解析就是在bean初始化阶段。BeanPostProcessor定义了bean初始化前后用户可以对bean进行操作的接口方法，它的一个重要实现类AutowiredAnnotationBeanPostProcessor为bean中的@Autowired和@Value注解的注入功能提供支持。
