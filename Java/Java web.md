@@ -27,3 +27,9 @@ Servlet是什么？
 Java server pages。当有人请求JSP时，服务器会自动帮我们把JSP中的HTML片段和java代码拼接成静态资源响应给浏览器。也就是说JSP运行在服务器端，但最终发给客户端的都已经是转换好的HTML静态页面（在响应体里）。
 
 即：**JSP = HTML + Java片段**（各种标签本质上还是Java片段）
+
+
+
+## Tomcat
+
+Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持。
