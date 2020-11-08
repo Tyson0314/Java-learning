@@ -1018,9 +1018,7 @@ EnableAutoConfiguration主要由 @AutoConfigurationPackage，@Import(EnableAutoC
 
  @AutoConfigurationPackage用于将启动类所在的包里面的所有组件注册到spring容器。
 
-@Import 将EnableAutoConfigurationImportSelector注入到spring容器中，EnableAutoConfigurationImportSelector通过SpringFactoriesLoader从所有的jar包中读取META-INF/spring.factories文件信息，找到需要自动配置的类。
-
-spring.factories中有一个key为org.springframework.boot.autoconfigure.EnableAutoConfiguration，它定义了需要自动配置的bean，通过读取这个配置获取一组@Configuration类。
+@Import 将EnableAutoConfigurationImportSelector注入到spring容器中，EnableAutoConfigurationImportSelector通过SpringFactoriesLoader从所有的jar包中读取META-INF/spring.factories文件信息，此文件中有一个key为org.springframework.boot.autoconfigure.EnableAutoConfiguration，定义了一组需要自动配置的bean。
 
 ```properties
 # Auto Configure
@@ -1032,7 +1030,7 @@ org.springframework.boot.autoconfigure.batch.BatchAutoConfiguration,\
 org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration,\
 ```
 
-这些配置类不是所有都会被加载，会根据xxxAutoConfiguration上的@ConditionalOnClass等条件判断是否加载。
+这些配置类不是都会被加载，会根据xxxAutoConfiguration上的@ConditionalOnClass等条件判断是否加载，符合条件才会被加载到spring容器。
 
 ```java
 @Configuration
@@ -1058,7 +1056,47 @@ public class AopAutoConfiguration {
 }
 ```
 
-通过反射机制将spring.factories中@Configuration类实例化为对应的java实例，完成自动配置功能。
+全局配置文件中的属性如何生效，比如：server.port=8081，是如何生效的？
+
+@ConfigurationProperties的作用就是将配置文件的属性绑定到对应的bean上。全局配置的属性如：server.port等，通过@ConfigurationProperties注解，绑定到对应的XxxxProperties bean，通过这个 bean 获取相应的属性（serverProperties.getPort()）。
+
+XxxxAutoConfiguration自动配置类通过JavaConfig形式为Spring 容器导入bean，而所有导入的bean所需要的属性都通过xxxxProperties的bean来获得。
+
+```java
+//server.port = 8080
+@ConfigurationProperties(prefix = "server", ignoreUnknownFields = true)
+public class ServerProperties {
+	private Integer port;
+	private InetAddress address;
+
+	@NestedConfigurationProperty
+	private final ErrorProperties error = new ErrorProperties();
+	private Boolean useForwardHeaders;
+	private String serverHeader;
+    //...
+}
+
+
+//jwt:
+//        ###过期时间 s数432000 5天
+//        time: 432000
+//        ###安全密钥
+//        secret: "BlogSecret"
+//        ###token前缀
+//        prefix: "Bearer "
+//        ###http头key
+//        header: "Authorization"
+// *******通过jwtConfig.getHeader()等方法调用
+@ConfigurationProperties(prefix = "jwt")
+@Component
+public class JwtConfig {
+    public static final String REDIS_TOKEN_KEY_PREFIX = "TOKEN_";
+    private long time;     // 5天(以秒s计)过期时间
+    private String secret;// JWT密码
+    private String prefix;         // Token前缀
+    private String header; // 存放Token的Header Key
+}
+```
 
 
 #### 实现自动配置
