@@ -1633,35 +1633,6 @@ public void findStudentTest() {
 
 
 
- ### 缓存
-
-目前流行的缓存服务器有Redis、Ehcache、MangoDB等。缓存是计算机内存保存的数据，在读取数据的时候不用从磁盘读入，具备快速读取的特点，如果缓存命中率高，可以极大提升系统的性能。若缓存命中率低，则使用缓存意义不大，故使用缓存的关键在于存储内容访问的命中率。
-
-#### 系统缓存（一级缓存和二级缓存）
-
-Mybatis对缓存提供支持，默认情况下只开启一级缓存，一级缓存作用范围为同一个SqlSession。在SQL和参数相同的情况下，我们使用同一个SqlSession对象调用同一个Mapper方法，往往只会执行一次SQL。因为在使用SqlSession第一次查询后，Mybatis会将结果放到缓存中，以后再次查询时，如果没有声明需要刷新，并且缓存没超时的情况下，SqlSession只会取出当前缓存的数据，不会再次发送SQL到数据库。若使用不同的SqlSession，因为不同的SqlSession是相互隔离的，不会使用一级缓存。
-
-二级缓存可以使缓存在各个SqlSession之间共享。二级缓存默认不开启，需要在mybatis-config.xml开启二级缓存：
-
-```xml
-<!-- 通知 MyBatis 框架开启二级缓存 -->
-<settings>
-  <setting name="cacheEnabled" value="true"/>
-</settings>
-```
-
-并在相应的Mapper.xml文件添加cache标签，表示对哪个mapper 开启缓存：
-
-```xml
-<cache/>
-```
-
-二级缓存要求返回的POJO必须是可序列化的，即要求实现Serializable接口。
-
-当开启二级缓存后，数据的查询执行的流程就是 二级缓存 -> 一级缓存 -> 数据库。
-
-
-
 ## 动态SQL
 
    Mybatis的动态SQL主要包括以下几种元素。
@@ -2437,13 +2408,7 @@ public void getRoleByRoleNameTest() {
 
 ## 预编译
 
-数据库接受到sql语句之后，需要词法和语义解析，优化sql语句，制定执行计划。这需要花费一些时间。但是很多情况，我们的一条sql语句可能会反复执行，预编译语句就是将这类语句中的`值用占位符替代`，可以视为将`sql语句模板化或者说参数化`。一次编译、多次运行，省去了解析优化等过程。
-
-预编译是通过PreparedStatement和占位符来实现的。
-
-mybatis底层使用PreparedStatement，默认情况下，将对所有的 sql 进行预编译，将#{}替换为?，然后将带有占位符?的sql模板发送至mysql服务器，由服务器对此无参数的sql进行编译后，将编译结果缓存，然后直接执行带有真实参数的sql。
-
-#{ } 解析成预编译语句，传入参数之后不会重新编译sql。
+#{ } 被解析成预编译语句，预编译之后可以直接执行，不需要重新编译sql。
 
 ```mysql
 //sqlMap 中如下的 sql 语句
@@ -2451,6 +2416,22 @@ select * from user where name = #{name};
 //解析成为预编译语句；编译好SQL语句再取值
 select * from user where name = ?;
 ```
+
+${ } 仅仅为一个字符串替换，每次执行sql之前需要进行编译，存在 sql 注入问题。
+
+```mysql
+select * from user where name = '${name}'
+//传递的参数为 "ruhua" 时,解析为如下，然后发送数据库服务器进行编译。取值以后再去编译SQL语句。
+select * from user where name = "ruhua";
+```
+
+
+
+数据库接受到sql语句之后，需要词法和语义解析，优化sql语句，制定执行计划。这需要花费一些时间。如果一条sql语句需要反复执行，每次都进行语法检查和优化，会浪费很多时间。预编译语句就是将sql语句中的`值用占位符替代`，即将`sql语句模板化`。一次编译、多次运行，省去了解析优化等过程。
+
+mybatis是通过PreparedStatement和占位符来实现预编译的。
+
+mybatis底层使用PreparedStatement，默认情况下，将对所有的 sql 进行预编译，将#{}替换为?，然后将带有占位符?的sql模板发送至mysql服务器，由服务器对此无参数的sql进行编译后，将编译结果缓存，然后直接执行带有真实参数的sql。
 
 预编译的作用：
 
@@ -2460,19 +2441,34 @@ select * from user where name = ?;
 
 3. 防止SQL注入。使用预编译，而其后注入的参数将`不会再进行SQL编译`。也就是说其后注入进来的参数系统将不会认为它会是一条SQL语句，而默认其是一个参数。
 
-${ } 仅仅为一个字符串替换，会存在 sql 注入问题。
 
-```mysql
-select * from user where name = '${name}'
-//传递的参数为 "ruhua" 时,解析为如下，然后发送数据库服务器进行编译。取值以后再去编译SQL语句。
-select * from user where name = "ruhua";
+
+ ## 缓存
+
+目前流行的缓存服务器有Redis、Ehcache、MangoDB等。缓存是计算机内存保存的数据，在读取数据的时候不用从磁盘读入，具备快速读取的特点，如果缓存命中率高，可以极大提升系统的性能。若缓存命中率低，则使用缓存意义不大，故使用缓存的关键在于存储内容访问的命中率。
+
+### 一级缓存和二级缓存
+
+Mybatis对缓存提供支持，默认情况下只开启一级缓存，一级缓存作用范围为同一个SqlSession。在SQL和参数相同的情况下，我们使用同一个SqlSession对象调用同一个Mapper方法，往往只会执行一次SQL。因为在使用SqlSession第一次查询后，Mybatis会将结果放到缓存中，以后再次查询时，如果没有声明需要刷新，并且缓存没超时的情况下，SqlSession只会取出当前缓存的数据，不会再次发送SQL到数据库。若使用不同的SqlSession，因为不同的SqlSession是相互隔离的，不会使用一级缓存。
+
+二级缓存作用范围是Mapper（Namespace），可以使缓存在各个SqlSession之间共享。二级缓存默认不开启，需要在mybatis-config.xml开启二级缓存：
+
+```xml
+<!-- 通知 MyBatis 框架开启二级缓存 -->
+<settings>
+  <setting name="cacheEnabled" value="true"/>
+</settings>
 ```
 
-${}可用于表名拼接。
+并在相应的Mapper.xml文件添加cache标签，表示对哪个mapper 开启缓存：
 
-```mysql
-SELECT * FROM ${table}
+```xml
+<cache/>
 ```
+
+二级缓存要求返回的POJO必须是可序列化的，即要求实现Serializable接口。
+
+当开启二级缓存后，数据的查询执行的流程就是 二级缓存 -> 一级缓存 -> 数据库。
 
 
 
@@ -2480,7 +2476,21 @@ SELECT * FROM ${table}
 
 [Mybatis原理](https://blog.csdn.net/weixin_43184769/article/details/91126687)
 
-当调用Mapper接口方法的时候，Mybatis会使用JDK动态代理返回一个Mapper代理对象，根据全路径和方法名，定位到sql，最后使用executor执行sql语句。
+当调用Mapper接口方法的时候，Mybatis会使用JDK动态代理返回一个Mapper代理对象，代理对象会拦截接口方法，根据接口的全路径和方法名，定位到sql，使用executor执行sql语句，然后将sql执行结果返回。
 
 因为mybatis动态代理寻找策略是 全限定名+方法名，不涉及参数，所以不支持重载。
+
+
+
+## 优缺点
+
+优点：
+
+1. SQL写在XML里，解除sql与程序代码的耦合，便于统一管理；提供XML标签，支持编写动态SQL语句，并可重用。
+2. 开发时只需要关注SQL语句本身，不需要花费精力去处理加载驱动、创建连接、创建statement等繁杂的过程。
+3. 与各种数据库兼容。
+
+缺点：
+
+1. SQL语句依赖于数据库，导致数据库移植性差，不能随意更换数据库。
 
