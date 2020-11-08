@@ -722,18 +722,28 @@ using temporary：表示查询后结果需要使用临时表来存储，一般�
 
 filesort：Using filesort 是Mysql里一种速度比较慢的外部排序，很多时候，我们可以通过优化索引来尽量避免出现Using filesort，从而提高速度。
 
+#### filesort
+
 [filesort](https://juejin.im/entry/5795faaa0a2b580061c980aa)
 
-在使用order by关键字的时候，如果待排序的内容不能由所使用的索引直接完成排序的话，MySQL有可能就要进行文件排序。
+在MySQL中的ORDER BY有两种排序实现方式： 
 
-```mysql
-EXPLAIN SELECT * FROM test WHERE a=1 ORDER BY b;
-```
+1. 利用索引排序 
+2. 文件排序
+
+在explain中分析查询的时候，利用索引排序显示Using index ，文件排序显示 Using filesort。
+
+利用索引排序条件：
+
+1. ORDER BY中所有的列都包含在索引中
+2. 索引的顺序和ORDER BY子句中的顺序完全一致
+3. ORDER BY所有列的排序方向（升序或者降序）一样
 
 通过将 where 子句的字段和 order by 子句的字段建立联合索引（order by子句字段需放在联合索引的最后），可以让排序变得更快。
 
 ```mysql
 ALTER TABLE test ADD index a_b(a,b);
+EXPLAIN SELECT * FROM test WHERE a=1 ORDER BY b;
 ```
 
 
