@@ -707,3 +707,9 @@ protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFa
    ```
 
 4. 初始化web.xml中配置的Servlet。如DispatcherServlet，用于匹配、处理每个servlet请求。
+
+
+
+## Spring Bean线程安全
+
+Spring Bean默认是单例的，大部分的Spring bean没有可变的状态（比如Service类和DAO类），是线程安全的。如果Bean带有状态，可以将bean设置为prototype或者使用ThreadLocal确保线程安全。
