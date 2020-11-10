@@ -117,7 +117,8 @@ ioc 容器初始化过程：BeanDefinition 的资源定位、解析和注册。
 
 1. 从XML中读取配置文件。
 2. 将bean标签解析成 BeanDefinition，如解析 property 元素， 并注入到 BeanDefinition 实例中。
-3. 将 BeanDefinition 注册到容器。
+3. 将 BeanDefinition 注册到容器 BeanDefinitionMap 中。
+4. BeanFactory 根据 BeanDefinition 的定义信息创建实例化和初始化 bean。
 
 单例bean的初始化以及依赖注入一般都在容器初始化阶段进行，只有懒加载（lazy-init为true）的单例bean是在应用第一次调用getBean()时进行初始化和依赖注入。
 
