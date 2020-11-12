@@ -632,7 +632,13 @@ SELECT ... FOR UPDATE
 
 这两种方式主要的不同在于LOCK IN SHARE MODE 多个事务同时更新同一个表单时很容易造成死锁。这种情况最好使用SELECT ...FOR UPDATE。
 
-`select * from goods where id = 1 for update`：申请排他锁的前提是，没有线程对该结果集的任何行数据使用排它锁或者共享锁，否则申请会受到阻塞。for update 仅适用于Innodb，且必须在事务范围内才能生效。在进行事务操作时，mysql会对查询结果集的每行数据添加排它锁，其他线程对这些数据的更改或删除操作会被阻塞（只能读操作），直到该语句的事务被commit语句或rollback语句结束为止。
+`select * from goods where id = 1 for update`：申请排他锁的前提是，没有线程对该结果集的任何行数据使用排它锁或者共享锁，否则申请会受到阻塞。在进行事务操作时，mysql会对查询结果集的每行数据添加排它锁，其他线程对这些数据的更改或删除操作会被阻塞（只能读操作），直到该语句的事务被commit语句或rollback语句结束为止。
+
+[select... for update 使用注意事项](https://blog.csdn.net/claram/article/details/54023216)
+
+1. for update 仅适用于Innodb，且必须在事务范围内才能生效。
+2. 根据主键进行查询，查询条件为 like或者不等于，主键字段产生表锁。
+3. 根据非索引字段进行查询，name字段产生表锁。
 
 
 
