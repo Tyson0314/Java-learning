@@ -429,3 +429,8 @@ channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
 ## 消息积压
 
 [Rabbitmq消息积压](http://luxiaobing.com/2019/12/07/RabbitMq%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B/)
+
+检查消费者是否在线，检查消费端配置属性，是否未配置异常队列的监听器；
+检查下生产端或者消费端服务的内存或者cpu是否正常，是否是因为内存溢出导致rabbit服务消息无法发送；
+对于手动配置ack机制的，要检查配置是否确认ack，否则会造成消息积压；
+开启了手动ack，消费速度跟不上生产速度，检查下消费端是否处理消息流程过长，比较耗时。
