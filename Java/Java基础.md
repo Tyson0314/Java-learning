@@ -187,7 +187,6 @@ object常用方法：
 - toString()：默认输出对象地址
 - equals()：默认比较两个引用变量是否指向同一个对象（内存地址）
 - hashCode()：将与对象相关的信息映射成一个哈希值，默认的实现hashCode值是根据内存地址换算出来。
-- finalize()：用于垃圾回收
 - clone(): Java中要想自定义类的对象可以被复制，自定义类就必须实现Cloneable中的clone()方法。
 - getClass()：获得实例的类型的类，常用于java反射机制
 - wait()：当前线程释放锁，进入对象的等待队列

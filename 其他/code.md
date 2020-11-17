@@ -16,7 +16,7 @@ public class Singleton {
     private static volatile Singleton instance = null;  //volatile
     private Singleton(){}  
     public static Singleton getInstance() {  
-        if (instance == null) {  
+        if (instance == null) {   //两次检查，降低同步开销
             synchronized (Singleton.class) {  
                 if (instance == null) {
                     instance = new Singleton();  
