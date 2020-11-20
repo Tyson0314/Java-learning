@@ -5,6 +5,7 @@
 - [RESTful](#restful)
 - [JWT](#jwt)
   - [原理](#%E5%8E%9F%E7%90%86)
+  - [数据结构](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
 - [金额使用decimal存储类型的缺点](#%E9%87%91%E9%A2%9D%E4%BD%BF%E7%94%A8decimal%E5%AD%98%E5%82%A8%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%BC%BA%E7%82%B9)
 - [Maven的作用](#maven%E7%9A%84%E4%BD%9C%E7%94%A8)
 - [为什么使用消息队列](#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97)
@@ -23,6 +24,10 @@
 - [接口幂等性](#%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89%E6%80%A7)
 - [令牌桶算法](#%E4%BB%A4%E7%89%8C%E6%A1%B6%E7%AE%97%E6%B3%95)
 - [超卖问题](#%E8%B6%85%E5%8D%96%E9%97%AE%E9%A2%98)
+- [TPS和QPS](#tps%E5%92%8Cqps)
+- [微服务](#%E5%BE%AE%E6%9C%8D%E5%8A%A1)
+- [进程通信](#%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1)
+- [分布式事务](#%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

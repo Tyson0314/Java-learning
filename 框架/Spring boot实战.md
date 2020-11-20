@@ -32,6 +32,8 @@
     - [对 Spring Data JPA 的自动配置](#%E5%AF%B9-spring-data-jpa-%E7%9A%84%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
 - [自动配置原理](#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86)
     - [实现自动配置](#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
+- [@Value原理](#value%E5%8E%9F%E7%90%86)
+- [启动过程](#%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

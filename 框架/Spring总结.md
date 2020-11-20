@@ -29,6 +29,7 @@
   - [初始化](#%E5%88%9D%E5%A7%8B%E5%8C%96)
   - [三级缓存](#%E4%B8%89%E7%BA%A7%E7%BC%93%E5%AD%98)
 - [Spring启动过程](#spring%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B)
+- [Spring Bean线程安全](#spring-bean%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

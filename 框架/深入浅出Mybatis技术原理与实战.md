@@ -37,8 +37,6 @@
       - [collection一对多级联](#collection%E4%B8%80%E5%AF%B9%E5%A4%9A%E7%BA%A7%E8%81%94)
       - [discriminator鉴别器级联](#discriminator%E9%89%B4%E5%88%AB%E5%99%A8%E7%BA%A7%E8%81%94)
       - [延迟加载](#%E5%BB%B6%E8%BF%9F%E5%8A%A0%E8%BD%BD)
-  - [缓存](#%E7%BC%93%E5%AD%98)
-    - [系统缓存（一级缓存和二级缓存）](#%E7%B3%BB%E7%BB%9F%E7%BC%93%E5%AD%98%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98)
 - [动态SQL](#%E5%8A%A8%E6%80%81sql)
   - [if元素](#if%E5%85%83%E7%B4%A0)
   - [choose元素](#choose%E5%85%83%E7%B4%A0)
@@ -55,7 +53,10 @@
   - [分页](#%E5%88%86%E9%A1%B5)
     - [RowBounds分页](#rowbounds%E5%88%86%E9%A1%B5)
 - [预编译](#%E9%A2%84%E7%BC%96%E8%AF%91)
+- [缓存](#%E7%BC%93%E5%AD%98)
+  - [一级缓存和二级缓存](#%E4%B8%80%E7%BA%A7%E7%BC%93%E5%AD%98%E5%92%8C%E4%BA%8C%E7%BA%A7%E7%BC%93%E5%AD%98)
 - [原理](#%E5%8E%9F%E7%90%86)
+- [优缺点](#%E4%BC%98%E7%BC%BA%E7%82%B9)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

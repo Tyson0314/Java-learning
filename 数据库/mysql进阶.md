@@ -2,7 +2,7 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [数据库特性（ACID）](#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%89%B9%E6%80%A7acid)
+- [事务特性（ACID）](#%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7acid)
 - [数据库事务隔离级别](#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB)
 - [数据库范式](#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F)
   - [2NF和3NF区别](#2nf%E5%92%8C3nf%E5%8C%BA%E5%88%AB)
@@ -17,6 +17,7 @@
     - [稀疏索引](#%E7%A8%80%E7%96%8F%E7%B4%A2%E5%BC%95)
   - [索引失效](#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88)
   - [最左匹配](#%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D)
+  - [前缀索引](#%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95)
   - [什么情况下需要建索引？什么情况下不建？](#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E5%BB%BA%E7%B4%A2%E5%BC%95%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%BB%BA)
 - [B+树](#b%E6%A0%91)
   - [索引实例](#%E7%B4%A2%E5%BC%95%E5%AE%9E%E4%BE%8B)
@@ -57,6 +58,7 @@
   - [rows](#rows)
   - [filtered](#filtered)
   - [extra](#extra)
+    - [filesort](#filesort)
 - [尽量避免使用外键约束](#%E5%B0%BD%E9%87%8F%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F)
 - [日志](#%E6%97%A5%E5%BF%97)
 - [sql 执行过程](#sql-%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B)
@@ -68,6 +70,7 @@
 - [其他](#%E5%85%B6%E4%BB%96)
   - [processlist](#processlist)
   - [exist和in](#exist%E5%92%8Cin)
+- [查询性能优化](#%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
