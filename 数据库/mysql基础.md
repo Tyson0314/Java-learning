@@ -827,6 +827,12 @@ ALTER TABLE products
 ADD FOREIGN KEY(vendor_id) REFERENCES vendors(vendor_id);
 ```
 
+删除外键约束：
+
+```mysql
+ALTER TABLE products DROP FOREIGN KEY vendor_id;
+```
+
 ### 删除表
 
 `DROP TABLE cumstomers`

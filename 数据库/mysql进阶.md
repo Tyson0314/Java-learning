@@ -1,4 +1,4 @@
-.<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
@@ -25,28 +25,27 @@
   - [不用hash的原因](#%E4%B8%8D%E7%94%A8hash%E7%9A%84%E5%8E%9F%E5%9B%A0)
   - [带有顺序访问指针的B+Tree](#%E5%B8%A6%E6%9C%89%E9%A1%BA%E5%BA%8F%E8%AE%BF%E9%97%AE%E6%8C%87%E9%92%88%E7%9A%84btree)
   - [B+树比B树更适合数据库索引](#b%E6%A0%91%E6%AF%94b%E6%A0%91%E6%9B%B4%E9%80%82%E5%90%88%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95)
-- [乐观锁悲观锁](#%E4%B9%90%E8%A7%82%E9%94%81%E6%82%B2%E8%A7%82%E9%94%81)
 - [存储引擎](#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E)
   - [InnoDB](#innodb)
   - [MyISAM](#myisam)
   - [MEMORY](#memory)
   - [MyISAM和InnoDB区别](#myisam%E5%92%8Cinnodb%E5%8C%BA%E5%88%AB)
-- [sql优化](#sql%E4%BC%98%E5%8C%96)
-- [Mysql数据库优化](#mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96)
-- [mysql的锁](#mysql%E7%9A%84%E9%94%81)
-  - [悲观锁](#%E6%82%B2%E8%A7%82%E9%94%81)
-  - [乐观锁](#%E4%B9%90%E8%A7%82%E9%94%81)
+- [MySQL锁](#mysql%E9%94%81)
+  - [表级锁](#%E8%A1%A8%E7%BA%A7%E9%94%81)
+  - [行级锁](#%E8%A1%8C%E7%BA%A7%E9%94%81)
+  - [意向锁](#%E6%84%8F%E5%90%91%E9%94%81)
+  - [间隙锁](#%E9%97%B4%E9%9A%99%E9%94%81)
+  - [MVCC](#mvcc)
+    - [实现原理](#%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86)
+    - [read view](#read-view)
+    - [数据访问流程](#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E6%B5%81%E7%A8%8B)
+    - [快照读和当前读](#%E5%BF%AB%E7%85%A7%E8%AF%BB%E5%92%8C%E5%BD%93%E5%89%8D%E8%AF%BB)
+    - [select 读取锁定](#select-%E8%AF%BB%E5%8F%96%E9%94%81%E5%AE%9A)
 - [分库分表](#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8)
   - [垂直划分](#%E5%9E%82%E7%9B%B4%E5%88%92%E5%88%86)
   - [水平划分](#%E6%B0%B4%E5%B9%B3%E5%88%92%E5%88%86)
   - [分片规则](#%E5%88%86%E7%89%87%E8%A7%84%E5%88%99)
 - [join](#join)
-- [MVCC](#mvcc)
-  - [实现](#%E5%AE%9E%E7%8E%B0)
-  - [read view](#read-view)
-  - [数据访问流程](#%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE%E6%B5%81%E7%A8%8B)
-  - [快照读和当前读](#%E5%BF%AB%E7%85%A7%E8%AF%BB%E5%92%8C%E5%BD%93%E5%89%8D%E8%AF%BB)
-  - [select 读取锁定](#select-%E8%AF%BB%E5%8F%96%E9%94%81%E5%AE%9A)
 - [分析执行计划](#%E5%88%86%E6%9E%90%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92)
   - [id](#id)
   - [select_type](#select_type)
@@ -58,10 +57,9 @@
   - [rows](#rows)
   - [filtered](#filtered)
   - [extra](#extra)
-- [尽量避免使用外键约束](#%E5%B0%BD%E9%87%8F%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F)
 - [日志](#%E6%97%A5%E5%BF%97)
-- [sql 执行过程](#sql-%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B)
-  - [Server 层基本组件介绍](#server-%E5%B1%82%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6%E4%BB%8B%E7%BB%8D)
+- [MySQL架构](#mysql%E6%9E%B6%E6%9E%84)
+  - [Server 层基本组件](#server-%E5%B1%82%E5%9F%BA%E6%9C%AC%E7%BB%84%E4%BB%B6)
     - [语法解析器和预处理](#%E8%AF%AD%E6%B3%95%E8%A7%A3%E6%9E%90%E5%99%A8%E5%92%8C%E9%A2%84%E5%A4%84%E7%90%86)
     - [查询优化器](#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8)
     - [查询执行引擎](#%E6%9F%A5%E8%AF%A2%E6%89%A7%E8%A1%8C%E5%BC%95%E6%93%8E)
@@ -85,6 +83,10 @@
     - [LIMIT](#limit)
     - [UNION](#union)
     - [自定义变量](#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F)
+  - [dependent subquery](#dependent-subquery)
+- [sql优化](#sql%E4%BC%98%E5%8C%96)
+- [Mysql数据库优化](#mysql%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96)
+- [尽量避免使用外键约束](#%E5%B0%BD%E9%87%8F%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -632,6 +634,8 @@ join...on tableA.column1 = tableB.column2 指定条件
 
 `Explain` 执行计划包含字段信息如下：分别是 `id`、`select_type`、`table`、`partitions`、`type`、`possible_keys`、`key`、`key_len`、`ref`、`rows`、`filtered`、`Extra` 12个字段。
 
+通过explain extended + show warnings会在原本explain的基础上额外提供一些查询优化的信息，得到优化以后的可能的查询语句（不一定是最终优化的结果）。
+
 ### id
 
 表示查询中执行select子句或者操作表的顺序，**`id`的值越大，代表优先级越高，越先执行**。
@@ -720,15 +724,26 @@ all：将遍历全表以找到匹配的行，性能最差。
 
 ### extra
 
-using index：查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过**索引查找**就能直接找到符合条件的数据，不需要回表查询数据。
+查询条件被索引覆盖，并且用到索引前导列，就会使用索引查找。查询条件被索引覆盖，没有用到索引前导列，使用索引扫描。
+
+Using where&Using index 和 using index condition区别：[explain extra字段](https://www.cnblogs.com/wy123/p/7366486.html)
+
+- Using where&Using index，查询的列被索引覆盖，where条件不是索引的前导列
+- using index condition 查询的列不全在索引中，where条件中是一个前导列的范围或者查询条件完全可以使用到索引
 
 using where：查询时未找到可用的索引，进而通过`where`条件过滤获取所需数据。
 
+using index：查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过**索引查找**就能直接找到符合条件的数据，不需要回表查询数据。
+
+using index condition：索引下推。[索引下推例子](https://www.cnblogs.com/Chenjiabing/p/12600926.html) | [索引下推图解](https://www.cnblogs.com/zengkefu/p/5684101.html)
+
 Using where&Using index：查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过**索引扫描**找到符合条件的数据，也不需要回表查询数据。
 
-using temporary：表示查询后结果需要使用临时表来存储，一般在排序或者分组查询时用到。
+using temporary：表示查询后结果需要使用临时表来存储。典型的，当group by和order by同时存在，且作用于不同的字段时，就会建立临时表，以便计算出最终的结果集。
 
-filesort：Using filesort 是Mysql里一种速度比较慢的外部排序，很多时候，我们可以通过优化索引来尽量避免出现Using filesort，从而提高速度。
+filesort：文件排序。通常可以建立索引避免。
+
+using join buffer (Block Nested Loop)：需要进行嵌套循环计算。两个关联表join，关联字段均未建立索引，就会出现这种情况。比如内层和外层的type均为ALL，rows均为4，需要循环进行4*4次计算。常见的优化方案是，在关联字段上添加索引，避免每次嵌套循环计算。
 
 
 
@@ -738,6 +753,13 @@ filesort：Using filesort 是Mysql里一种速度比较慢的外部排序，很�
 
 ```mysql
 show variables like '%log_bin%'
+```
+
+关闭bin log，找到/etc/my.cnf文件，注释以下代码：
+
+```mysql
+log-bin=mysql-bin
+binlog_format=mixed
 ```
 
 重做日志（redo log）：Innodb引擎级别，用来记录Innodb存储引擎的事务日志，不管事务是否提交都会记录下来，用于数据恢复。当数据库发生故障，InnoDB存储引擎会使用redo log恢复到发生故障前的时刻，以此来保证数据的完整性。将参数innodb_flush_log_at_tx_commit设置为1，那么在执行commit时将redo log同步写到磁盘。
@@ -1087,6 +1109,28 @@ SELECT ... WHERE col <= @last_week;
 2. 不能再使用常量或者标识符的地方使用自定义变量，例如表名、列名和LIMIT子句中。
 3. 自定义变量在一个连接内有效，不能使用它们来做连接间的通信。
 4. 不能显式声明自定义变量的类型，自定义变量是一个动态类型。如果希望变量是某个类型的数据，最好在初始化的时候设置为对应类型的零值。
+
+### dependent subquery
+
+[相关子查询](http://itindex.net/detail/46772-%E4%BC%98%E5%8C%96-mysql-dependent)
+
+子查询的查询方式依赖于外面的查询结果。
+
+```mysql
+SELECT gid,COUNT(id) as count 
+FROM shop_goods g1
+WHERE status =0 and gid IN ( 
+SELECT gid FROM shop_goods g2 WHERE sid IN  (1519066,1466114,1466110,1466102,1466071,1453929)
+)
+GROUP BY gid;
+
+    id  select_type         table   type            possible_keys                           key           key_len  ref       rows  Extra      
+------  ------------------  ------  --------------  --------------------------------------  ------------  -------  ------  ------  -----------
+     1  PRIMARY             g1      index           (NULL)                                  idx_gid  5        (NULL)  850672  Using where
+     2  DEPENDENT SUBQUERY  g2      index_subquery  id_shop_goods,idx_sid,idx_gid  idx_gid  5        func         1  Using where
+```
+
+子查询对 g2 的查询方式依赖于外层 g1 的查询。MySQL 根据 select gid,count(id) from shop_goods where status=0 group by gid; 得到一个大结果集 t1。结果集 t1 中的每一条记录，都将与子查询 SQL 组成新的查询语句：`select gid from shop_goods where sid in (15...29) and gid=%t1.gid%`。即子查询要执行85万次。
 
 
 
