@@ -237,3 +237,89 @@ service mysqld start
 ```
 
 启动 nginx：`安装目录/sbin/nginx`	
+
+
+
+## HTTPS配置
+
+[nginx配置HTTPS](https://www.cnblogs.com/ambition26/p/14077773.html)
+
+1. 安装 nginx ssl模块；
+
+2. 申请 ssl 证书，下载证书，复制到服务器某个目录下；
+
+3. 修改 /usr/local/nginx/conf/nginx.conf 文件
+
+   ```java
+   server {
+       listen       80;
+       server_name  localhost;
+       rewrite ^(.*)$ https://$host$1 permanent; #http请求会被转发到https
+       #访问vue项目
+       location / {
+           root   /home/blog/dist;
+           index  index.html;
+       }
+       #将api转发到后端
+       location /api/ {
+           proxy_pass http://129.204.179.3:8001/;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header REMOTE-HOST $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+       #转发图片请求到后端
+       location /img/ {
+           proxy_pass http://129.204.179.3:8001/img/;
+       }
+   }
+   server {
+           listen 443 ssl;  # 1.1版本后这样写
+           server_name tysonbin.com; #填写绑定证书的域名
+           ssl_certificate /usr/local/nginx/cert/1_tysonbin.com_bundle.crt;  # 指定证书的位置，绝对路径
+           ssl_certificate_key /usr/local/nginx/cert/2_tysonbin.com.key;  # 绝对路径
+           ssl_session_timeout 5m;
+           ssl_protocols TLSv1 TLSv1.1 TLSv1.2; #按照这个协议配置
+           ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;#按照这个套件配置
+           ssl_prefer_server_ciphers on;
+           location / {
+               root   /home/blog/dist; #站点目录，绝对路径
+               index  index.html;
+           }
+   
+       #将api转发到后端
+       location /api/ {
+           proxy_pass https://tysonbin.com:8001/;
+           proxy_set_header Host $host;
+           proxy_set_header X-Real-IP $remote_addr;
+           proxy_set_header REMOTE-HOST $remote_addr;
+           proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+       }
+       #转发图片请求到后端
+       location /img/ {
+           proxy_pass https://tysonbin.com:8001/img/;
+       }
+   }
+   ```
+
+   4. 执行`/usr/local/nginx/sbin/nginx -s reload`，重启nginx。
+
+springboot配置https：
+
+1. 复制 tomcat 目录下的 tysonbin.com.jks 到 application.yml 同级目录。
+
+2. 修改 application.yml：
+
+   ```yaml
+   server:
+     port: 8001
+     ssl:
+       #SSL证书路径 一定要加上classpath:
+       key-store: classpath:tysonbin.com.jks
+       #SSL证书密码，在证书tomcat目录下的keystorePass.txt或者是设置的私钥密码
+       key-store-password: tx.123456
+       #证书类型
+       key-store-type: JKS
+   ```
+
+3. 重新生成jar包，将jar包和tysonbin.com.jks文件一起放到服务器同一个目录下。
