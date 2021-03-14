@@ -1134,6 +1134,100 @@ GROUP BY gid;
 
 
 
+## 分区表
+
+[分区表](https://www.cnblogs.com/wy123/p/9778590.html)是一个独立的逻辑表，但是底层由多个物理子表组成。
+
+并不是说一个表只要分区了，对于任何查询都会实现查询优化，只有查询条件的数据分布在某一个分区的时候，查询引擎只会去某一个分区查询，而不是遍历整个表。在管理层面，如果需要删除某一个分区的数据，只需要删除对应的分区即可。
+
+### 分区表类型
+
+1. 按照范围分区。
+
+   ```mysql
+   CREATE TABLE test_range_partition(
+       id INT auto_increment,
+       createdate DATETIME,
+       primary key (id,createdate)
+   ) 
+   PARTITION BY RANGE (TO_DAYS(createdate) ) (
+      PARTITION p201801 VALUES LESS THAN ( TO_DAYS('20180201') ),
+      PARTITION p201802 VALUES LESS THAN ( TO_DAYS('20180301') ),
+      PARTITION p201803 VALUES LESS THAN ( TO_DAYS('20180401') ),
+      PARTITION p201804 VALUES LESS THAN ( TO_DAYS('20180501') ),
+      PARTITION p201805 VALUES LESS THAN ( TO_DAYS('20180601') ),
+      PARTITION p201806 VALUES LESS THAN ( TO_DAYS('20180701') ),
+      PARTITION p201807 VALUES LESS THAN ( TO_DAYS('20180801') ),
+      PARTITION p201808 VALUES LESS THAN ( TO_DAYS('20180901') ),
+      PARTITION p201809 VALUES LESS THAN ( TO_DAYS('20181001') ),
+      PARTITION p201810 VALUES LESS THAN ( TO_DAYS('20181101') ),
+      PARTITION p201811 VALUES LESS THAN ( TO_DAYS('20181201') ),
+      PARTITION p201812 VALUES LESS THAN ( TO_DAYS('20190101') )
+   );
+   
+   insert into test_range_partition (createdate) values ('20180105');
+   insert into test_range_partition (createdate) values ('20180205');
+   ```
+
+   在`/var/lib/mysql/`可以找到对应的数据文件，每个分区表都有一个使用#分隔命名的表文件：
+
+   ```
+   -rw-r----- 1 mysql mysql    65 Mar 14 21:47 db.opt
+   -rw-r----- 1 mysql mysql  8598 Mar 14 21:50 test_range_partition.frm
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201801.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201802.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201803.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201804.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201805.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201806.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201807.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201808.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201809.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201810.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201811.ibd
+   -rw-r----- 1 mysql mysql 98304 Mar 14 21:50 test_range_partition#P#p201812.ibd
+   ```
+
+2. list分区。对于List分区，分区字段必须是已知的，如果插入的字段不在分区时枚举值中，将无法插入。
+
+   ```mysql
+   create table test_list_partiotion
+   (
+       id int auto_increment,
+       data_type tinyint,
+       primary key(id,data_type)
+   )partition by list(data_type)
+   (
+       partition p0 values in (0,1,2,3,4,5,6),
+       partition p1 values in (7,8,9,10,11,12),
+       partition p2 values in (13,14,15,16,17)
+   );
+   ```
+
+3. hash分区，可以将数据均匀地分布到预先定义的分区中。
+
+   ```mysql
+   drop table test_hash_partiotion;
+   create table test_hash_partiotion
+   (
+       id int auto_increment,
+       create_date datetime,
+       primary key(id,create_date)
+   )partition by hash(year(create_date)) partitions 10;
+   ```
+
+### 分区的问题
+
+1. 打开和锁住所有底层表的成本可能很高。当查询访问分区表时，MySQL需要打开并锁住所有的底层表，这个操作在分区过滤之前发生，所以无法通过分区过滤来降低此开销，会影响到查询速度。可以通过批量操作来降低此类开销，比如批量插入、LOAD DATA INFILE和一次删除多行数据。
+2. 维护分区的成本可能很高。例如重组分区，会先创建一个临时分区，然后将数据复制到其中，最后再删除原分区。
+3. 所有分区必须使用相同的存储引擎。
+
+### 查询优化
+
+分区最大的优点就是优化器可以根据分区函数过滤掉一些分区，可以让查询扫描更少的数据。在查询条件中加入分区列，就可以让优化器过滤掉无需访问的分区。如果查询条件没有分区列，MySQL会让存储引擎访问这个表的所有分区。需要注意的是，查询条件中的分区列不能使用表达式。
+
+
+
 ## sql优化
 
  1. 在where和order by涉及的字段加索引，避免全表扫描。
