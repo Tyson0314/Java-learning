@@ -508,6 +508,26 @@ A---B---D---E---C‘---F‘---   test, master
 merge操作会生成一个新的节点，之前的提交分开显示。
  而rebase操作不会生成新的节点，是将两个分支融合成一个线性的提交。
 
+合并commit：`git rebase -i` 
+
+```bash
+pick c38e7ae rebase content
+s 595ede1 rebase
+
+# Rebase 8824682..595ede1 onto 8824682 (2 commands)
+#
+# Commands:
+# p, pick = use commit
+# r, reword = use commit, but edit the commit message
+# e, edit = use commit, but stop for amending
+# s, squash = use commit, but meld into previous commit
+# f, fixup = like "squash", but discard this commit's log message
+# x, exec = run command (the rest of the line) using shell
+# d, drop = remove commit
+```
+
+`s 595ede1 rebase`会将595ede1合到前一个commit，按下`:wq`之后会弹出对话框，合并commit message。
+
 ### 删除分支
 
 删除本地分支：`git branch -d iss53`
