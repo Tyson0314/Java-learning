@@ -533,8 +533,12 @@ WebSocket，即 Web 浏览器与 Web 服务器之间全双工通信标准。Web 
 
 WebSocket 协议的主要特点：
 
-- 推送功能：，服务器可直接发送数据，而不必等待客户端的请求。
+- 推送功能：服务器可直接发送数据，而不必等待客户端的请求。
 - 减少通信量：只要建立起 WebSocket 连接，就希望一直保持连接状态。WebSocket 的首部信息很小，通信量也相应减少了。
+- 与 HTTP 协议有着良好的兼容性。默认端口也是80和443。
+- 建立在 TCP 协议之上，服务器端的实现比较容易。
+- 握手阶段采用 HTTP 协议。
+- 可以发送文本，和二进制数据。
 
 为了实现 WebSocket 通信，需要用到 HTTP 的 Upgrade 首部字段，告知服务器通信协议发生改变，以达到握手的目的。
 
@@ -563,9 +567,11 @@ Sec-WebSocket-Protocol: chat
 
 Sec-WebSocket-Accept 的字段值是由握手请求中的 Sec-WebSocket-Key 的字段值生成的。
 
-成功握手确立 WebSocket 连接之后，通信时不再使用 HTTP 的数据帧，而采用 WebSocket 独立的数据帧。
+握手阶段采用 HTTP 协议，成功握手确立 WebSocket 连接之后，通信时不再使用 HTTP 的数据帧，而采用 WebSocket 独立的数据帧。
 
 ![WebSocket通信](https://img2018.cnblogs.com/blog/1252910/201908/1252910-20190828153154857-2009483905.png)
+
+
 
 ### Web 服务器管理文件的 WebDAV
 
