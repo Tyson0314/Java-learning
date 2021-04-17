@@ -38,6 +38,10 @@ Java server pages。当有人请求JSP时，服务器会自动帮我们把JSP中
 
 Tomcat 是由 Apache 开发的一个 Servlet 容器，实现了对 Servlet 和 JSP 的支持。
 
+### tomcat和netty区别
+
+Netty和Tomcat最大的区别就在于通信协议，Tomcat是基于Http协议的，他的实质是一个基于http协议的web容器，但是Netty不一样，他能通过编程自定义各种协议，因为netty能够通过codec自己来编码/解码字节流，完成类似redis访问的功能，这就是netty和tomcat最大的不同。
+
 
 
 ## 跨域
@@ -63,4 +67,3 @@ Access-Control-Expose-Headers: FooBar
 ### CSRF攻击
 
 跨域请求有可能被黑客利用来发动 CSRF攻击。CSRF攻击（Cross-site request forgery），跨站请求伪造。攻击者盗用了你的身份，以你的名义发送请求，比如发送邮件，发消息，盗取你的账号，甚至购买商品。
-
