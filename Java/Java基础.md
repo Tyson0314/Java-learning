@@ -597,9 +597,13 @@ abstract void write(char c);
 
 同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。
 
+![](../img/net/bio.png)
+
 ### NIO
 
 NIO是一种同步非阻塞的I/O模型，在Java 1.4 中引入了 NIO 框架，对应 java.nio 包，提供了 Channel , Selector，Buffer等抽象。
+
+![](../img/net/nio.png)
 
 NIO与IO区别:
 
