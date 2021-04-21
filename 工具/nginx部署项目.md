@@ -21,7 +21,7 @@
 
 ### 基本命令
 
-nginx安装目录：usr/local/nginx
+nginx安装目录：使用whereis nginx查看安装路径
 
 启动nginx：安装目录/sbin/nginx
 
