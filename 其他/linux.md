@@ -79,7 +79,7 @@ less demo.log
 新建文件：touch
 编辑文件：vi
 删除文件：rm -rf | -f强制删除 -r 递归删除
-复制文件：-r 复制目录
+复制文件：cp -r dir1 dir2 表示将dir1及其dir1下所包含的文件复制到dir2下。-r 复制目录
 文件重命名：mv before.txt after.txt
 
 解压：tar -zxvf jdk-8u131-linux-x64.tar.gz -C /usr/lib/jvm （-C解压到指定的目录）
@@ -242,3 +242,17 @@ nl /etc/passwd | sed '3,$d'
 ## 磁盘
 
 `df -h` 查看磁盘容量。
+
+
+
+## 内存
+
+`free -h` -h以可读的方式展示。
+
+```
+              total        used        free      shared  buff/cache   available
+Mem:           1.8G        1.1G        107M        1.1M        562M        515M
+Swap:            0B          0B          0B
+
+```
+
