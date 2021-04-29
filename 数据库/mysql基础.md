@@ -511,7 +511,7 @@ SELECT * FROM orders
 GROUP BY cust_id;
 ```
 
-![1588694034265](C:\Users\Tyson\AppData\Roaming\Typora\typora-user-images\1588694034265.png)
+![](../img/mysql/orderby.png)
 
 除聚集计算语句外，SELECT语句中的每个列都必须在GROUP BY子句中给出。
 
