@@ -28,10 +28,6 @@
 
 ## 基本命令
 
-### pwd
-
-查看当前路径：pwd
-
 ### 与或
 
 方式：command1 && command2
@@ -48,12 +44,20 @@ man得到的内容比用 help 更多更详细，而且man没有内建与外部�
 
 ## 文件
 
+### 当前路径
+
+查看当前路径：pwd
+
 ### 查看目录
 目录下各个文件容量。
 
 ```bash
 ls -lht
 ```
+
+-l：使用长格式列出文件及目录信息
+
+-t：根据最后的修改时间排序
 
 ### 查看文件
 
@@ -84,10 +88,17 @@ less demo.log
 ### 文件操作
 
 新建文件夹： mkdir
+
 新建文件：touch
+
 编辑文件：vi
-删除文件：rm -rf | -f强制删除 -r 递归删除
+
+删除文件：rm -rf （-f强制删除 -r 递归删除）
+
+删除空目录：`rmdir dir`。rmdir命令只能删除空目录。当要删除非空目录时，就要使用带有“-R”选项的rm命令。
+
 复制文件：cp -r dir1 dir2 表示将dir1及其dir1下所包含的文件复制到dir2下。-r 复制目录
+
 文件重命名：mv before.txt after.txt
 
 解压：tar -zxvf jdk-8u131-linux-x64.tar.gz -C /usr/lib/jvm （-C解压到指定的目录）
@@ -97,32 +108,44 @@ less demo.log
 ### vim
 
 退出编辑：输入i进入编辑模式，按下esc退出编辑，输入:w，保存不退出；:z/:wq，保存后退出；:q!，退出不保存（w：write，q：quit）
-搜索：输入/+搜索的词，回车，输入n跳转下一个匹配词
-删除行：按esc进入命令模式，dd删除当前行，Ndd删除当前行以下的n行
-撤销上一个操作：命令模式下，按 u
-恢复上一步被撤销的操作：Ctrl+r
 
-swp文件是vim非正常关闭时产生的，在当前目录删除：rm .xxx.swp
+搜索：输入/+搜索的词，回车，输入n跳转下一个匹配词
+
+删除行：按esc进入命令模式，dd删除当前行，Ndd删除当前行以下的n行
+
+撤销上一个操作：命令模式下，按 u
+
+恢复上一步被撤销的操作：ctrl+r
+
+当vim非正常关闭时，会产生swp文件，在当前目录删除：rm .xxx.swp
 
 ### 查找文件
 
 #### whereis
 
 简单快速，直接从数据库查找，whereis 只能搜索二进制文件(-b)，man 帮助文件(-m)和源代码文件(-s)
-`whereis tomcat`
+
+查找tomcat：`whereis tomcat`
 
 #### locate
 
-快而全，通过“ /var/lib/mlocate/mlocate.db ”数据库查找，数据库不是实时更新，递归查找指定目录下的不同文件类型，刚添加的文件需手动执行updatedb
-locate background.jpg   locate /usr/share/\*.jpg(-c统计数目，-i忽略大小写)
+快而全，通过“ /var/lib/mlocate/mlocate.db ”数据库查找，数据库不是实时更新，递归查找指定目录下的不同文件类型，刚添加的文件需手
+
+动执行updatedb。
+
+查找图片：locate background.jpg  
+
+查找某个目录下所有图片：locate -ic /usr/share/\*.jpg(-c统计数目，-i忽略大小写)
 
 #### which
 
-小而精，which 本身是shell內建的一个命令，它只从PATH环境变量指定的路径去搜索，通常使用which来确定是否安装了某个命令`which man`
+小而精，which 本身是shell內建的一个命令，它只从PATH环境变量指定的路径去搜索，通常使用which来确定是否安装了某个命令。
+
+查看是否安装man：`which man`
 
 #### find
 
-最强大，速度慢，第一个参数是搜索的地方
+最强大，速度慢，第一个参数是搜索的地方。
 
 ```bash
 find / -name background.jpg
