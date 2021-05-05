@@ -1,3 +1,54 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+  - [基本概念](#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
+- [docker镜像常用命令](#docker%E9%95%9C%E5%83%8F%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
+  - [添加docker仓库位置](#%E6%B7%BB%E5%8A%A0docker%E4%BB%93%E5%BA%93%E4%BD%8D%E7%BD%AE)
+  - [安装docker服务](#%E5%AE%89%E8%A3%85docker%E6%9C%8D%E5%8A%A1)
+  - [启动 docker 服务](#%E5%90%AF%E5%8A%A8-docker-%E6%9C%8D%E5%8A%A1)
+  - [搜索镜像](#%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F)
+  - [下载镜像：](#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F)
+  - [列出镜像](#%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F)
+  - [删除镜像](#%E5%88%A0%E9%99%A4%E9%95%9C%E5%83%8F)
+  - [打包镜像](#%E6%89%93%E5%8C%85%E9%95%9C%E5%83%8F)
+  - [创建镜像](#%E5%88%9B%E5%BB%BA%E9%95%9C%E5%83%8F)
+  - [推送镜像：](#%E6%8E%A8%E9%80%81%E9%95%9C%E5%83%8F)
+  - [docker hub](#docker-hub)
+  - [修改镜像存放位置](#%E4%BF%AE%E6%94%B9%E9%95%9C%E5%83%8F%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE)
+- [docker容器常用命令](#docker%E5%AE%B9%E5%99%A8%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
+  - [新建容器](#%E6%96%B0%E5%BB%BA%E5%AE%B9%E5%99%A8)
+  - [查看容器](#%E6%9F%A5%E7%9C%8B%E5%AE%B9%E5%99%A8)
+  - [停止容器](#%E5%81%9C%E6%AD%A2%E5%AE%B9%E5%99%A8)
+  - [启动容器](#%E5%90%AF%E5%8A%A8%E5%AE%B9%E5%99%A8)
+  - [重启容器](#%E9%87%8D%E5%90%AF%E5%AE%B9%E5%99%A8)
+  - [进入容器](#%E8%BF%9B%E5%85%A5%E5%AE%B9%E5%99%A8)
+  - [删除容器](#%E5%88%A0%E9%99%A4%E5%AE%B9%E5%99%A8)
+  - [容器日志](#%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97)
+  - [容器ip](#%E5%AE%B9%E5%99%A8ip)
+  - [容器启动方式](#%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E6%96%B9%E5%BC%8F)
+  - [资源占用](#%E8%B5%84%E6%BA%90%E5%8D%A0%E7%94%A8)
+  - [磁盘使用情况](#%E7%A3%81%E7%9B%98%E4%BD%BF%E7%94%A8%E6%83%85%E5%86%B5)
+  - [执行容器内部命令](#%E6%89%A7%E8%A1%8C%E5%AE%B9%E5%99%A8%E5%86%85%E9%83%A8%E5%91%BD%E4%BB%A4)
+  - [网络](#%E7%BD%91%E7%BB%9C)
+  - [复制文件](#%E5%A4%8D%E5%88%B6%E6%96%87%E4%BB%B6)
+- [docker-compose](#docker-compose)
+  - [安装](#%E5%AE%89%E8%A3%85)
+  - [常用命令](#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4)
+  - [部署多个服务](#%E9%83%A8%E7%BD%B2%E5%A4%9A%E4%B8%AA%E6%9C%8D%E5%8A%A1)
+    - [定义配置文件](#%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)
+    - [启动服务](#%E5%90%AF%E5%8A%A8%E6%9C%8D%E5%8A%A1)
+- [maven插件构建docker镜像](#maven%E6%8F%92%E4%BB%B6%E6%9E%84%E5%BB%BAdocker%E9%95%9C%E5%83%8F)
+  - [docker镜像仓库](#docker%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93)
+    - [docker开启远程访问](#docker%E5%BC%80%E5%90%AF%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE)
+    - [docker支持http上传镜像](#docker%E6%94%AF%E6%8C%81http%E4%B8%8A%E4%BC%A0%E9%95%9C%E5%83%8F)
+    - [重启docker](#%E9%87%8D%E5%90%AFdocker)
+    - [开放端口](#%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3)
+  - [构建docker镜像](#%E6%9E%84%E5%BB%BAdocker%E9%95%9C%E5%83%8F)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 Docker是一个开源的应用容器引擎，通过容器可以隔离应用程序的运行时环境（程序运行时依赖的各种库和配置），比虚拟机更轻量（虚拟机在操作系统层面进行隔离）。docker的另一个优点就是build once, run everywhere。
@@ -441,6 +492,13 @@ docker run -p 33056:33056 --name java \
 > java:8
 ```
 
+### 复制文件
+
+将当前目录tpch文件夹复制到mysql容器相应的位置：
+
+```
+docker cp tpch mysql56:/var/lib/mysql #mysql56为容器名
+```
 
 
 ## docker-compose

@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [简介](#%E7%AE%80%E4%BB%8B)
+- [自动化部署](#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2)
+  - [安装jenkis镜像](#%E5%AE%89%E8%A3%85jenkis%E9%95%9C%E5%83%8F)
+  - [Jenkins配置](#jenkins%E9%85%8D%E7%BD%AE)
+  - [运行任务](#%E8%BF%90%E8%A1%8C%E4%BB%BB%E5%8A%A1)
+- [问题记录](#%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95)
+  - [无法进入登录页面](#%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E7%99%BB%E5%BD%95%E9%A1%B5%E9%9D%A2)
+  - [Cannot link to /mysql](#cannot-link-to-mysql)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 ## 简介
 
 Jenkins 提供超过1000个插件来支持构建、部署、自动化，满足任何项目的需要。我们可以用Jenkins来构建和部署我们的项目，比如说从我们的代码仓库获取代码，然后将代码打包成可执行的文件，通过远程的ssh工具执行脚本来运行我们的项目。

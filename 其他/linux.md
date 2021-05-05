@@ -3,6 +3,9 @@
 
 
 - [基本命令](#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
+  - [pwd](#pwd)
+  - [与或](#%E4%B8%8E%E6%88%96)
+  - [help](#help)
 - [文件](#%E6%96%87%E4%BB%B6)
   - [查看目录](#%E6%9F%A5%E7%9C%8B%E7%9B%AE%E5%BD%95)
   - [查看文件](#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6)
@@ -19,19 +22,24 @@
 - [grep](#grep)
 - [sed](#sed)
 - [磁盘](#%E7%A3%81%E7%9B%98)
+- [内存](#%E5%86%85%E5%AD%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## 基本命令
 
+### pwd
+
 查看当前路径：pwd
+
+### 与或
 
 方式：command1 && command2
 如果command1执行成功，则执行command2
 方式：command1 || command2
 如果command1执行失败，则执行command2
 
-
+### help
 
 help 命令是用于显示 shell 内建命令的简要帮助信息 `help cd`
 man得到的内容比用 help 更多更详细，而且man没有内建与外部命令的区分
