@@ -14,16 +14,16 @@
 
 ## servlet
 
-servlet接口定义的是一套处理网络请求的规范。
+servlet接口定义的是一套处理网络请求的规范。servlet运行在服务端，由servlet容器管理，用于生成动态的内容（早期的web技术主要用来浏览静态页面）。
 
 Servlet是什么？
 
-- 一个Java类，运行在Servlet容器中（Tomcat）
-- 负责接收请求
-- 调用Service处理数据
-- 负责响应数据
+- 运行在Servlet容器（如Tomcat）中的Java类
+- 没有main方法，不能独立运行，必须被部署到Servlet容器中，由容器来实例化和调用Servlet的方法
 
-![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE1LmNuYmxvZ3MuY29tL2Jsb2cvODc0NzEwLzIwMTcwMi84NzQ3MTAtMjAxNzAyMTQyMDQ2MzI4OTQtMTc4NjcyOTY5My5wbmc?x-oss-process=image/format,png)
+servlet容器：负责接收请求，生成servlet实例用于处理请求（调用service方法），然后将servlet生成的响应数据返回给客户端。
+
+![](../img/web/servlet-container.jpg)
 
 
 
