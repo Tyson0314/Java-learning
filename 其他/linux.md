@@ -3,7 +3,6 @@
 
 
 - [基本命令](#%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4)
-  - [pwd](#pwd)
   - [与或](#%E4%B8%8E%E6%88%96)
   - [help](#help)
 - [文件](#%E6%96%87%E4%BB%B6)
@@ -217,6 +216,98 @@ redis-cli -a password shutdown #关闭redis服务，没有设置密码则直接r
 
 ## grep
 
+global search regular expression and print out the line。全面搜索正则表达式，并将其打印出来。
+
+### 高亮查找
+
+```bash
+grep --color "leo" /etc/passwd
+```
+
+### 环顾四周
+
+`-A`表示除了展示匹配行之外，还要展示出匹配行下面的若干行。`-B`表示除了展示匹配行之外，还要展示出匹配行上面的若干行。`-C`表示除了展示匹配行之外，还要展示出匹配行上面和下面各若干行。
+
+```bash
+grep -C 1 leo passwd
+```
+
+### 打印行号
+
+查找字符串mail，打印行号：
+
+```bash
+[root@VM-0-7-centos etc]# grep -n mail /etc/passwd
+9:mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+```
+
+### 统计行数
+
+```bash
+[root@VM-0-7-centos etc]# grep -c mail /etc/passwd
+1
+```
+
+### 不区分大小写
+
+```bash
+[root@VM-0-7-centos etc]# grep -i mail /etc/passwd
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+```
+
+### 反查
+
+搜索不包含root的行，-v实现反查效果：
+
+```bash
+[root@VM-0-7-centos etc]# grep -v "root" /etc/passwd
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+adm:x:3:4:adm:/var/adm:/sbin/nologin
+```
+
+### 多文件查找
+
+找出内容中含有first单词的文件：
+
+```bash
+[root@VM-0-7-centos test]# grep -l "first" *.txt
+1.txt
+```
+
+找出不含 first 单词的文件：
+
+```bash
+[root@VM-0-7-centos test]# grep -L "first" *.txt
+2.txt
+3.txt
+```
+
+搜索/etc/passwd文件中开头是mail的行：
+
+```bash
+[root@VM-0-7-centos test]# grep '^mail' /etc/passwd
+mail:x:8:12:mail:/var/spool/mail:/sbin/nologin
+```
+
+搜索 /etc/passwd 文件中行尾是nologin的行：
+
+```bash
+[root@VM-0-7-centos test]# grep 'nologin$' /etc/passwd
+bin:x:1:1:bin:/bin:/sbin/nologin
+daemon:x:2:2:daemon:/sbin:/sbin/nologin
+```
+
+精确匹配某个词，单纯使用bin会把sbin等也搜索出来：
+
+```bash
+[root@VM-0-7-centos test]# grep -w 'bin' /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/bin:/sbin/nologin
+```
+
+正则表达式：
+
 ```mysql
 # 将匹配以'z'开头以'o'结尾的所有字符串
 $ echo 'zero\nzo\nzoo' | grep 'z.*o'
@@ -272,7 +363,35 @@ nl /etc/passwd | sed '3,$d'
 
 ## 磁盘
 
-`df -h` 查看磁盘容量。
+以容易阅读的方式，显示磁盘使用情况：
+
+```bash
+df -h
+```
+
+指定文件磁盘使用情况：
+
+```bash
+[root@VM-0-7-centos etc]# df /etc/dhcp
+Filesystem     1K-blocks     Used Available Use% Mounted on
+/dev/vda1       51539404 23774760  25567400  49% /
+```
+
+### mount
+
+挂载Linux系统外的文件。
+
+挂载hda2到/mnt/hda2目录下。确定目录/mnt/hda2 已经存在。
+
+```bash
+mount /dev/hda2 /mnt/hda2
+```
+
+卸载hda2硬盘。先从挂载点/mnt/hda2退出。
+
+```bash
+umount /dev/hda2
+```
 
 
 
