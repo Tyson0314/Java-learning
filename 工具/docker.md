@@ -409,6 +409,12 @@ docker logs nginx
 docker logs -f nginx
 ```
 
+实时查看日志最后200行：
+
+```bash
+docker logs -f --tail 200 mysql
+```
+
 ### 容器ip
 
 ```

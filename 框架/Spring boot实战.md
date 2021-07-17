@@ -995,6 +995,8 @@ Spring Boot 对 Spring Data JPA 的自动配置放置在 org.springframework.boo
 
 ## 自动配置原理
 
+![](../img/springboot/SpringBoot的自动配置原理.jpg)
+
 在 application.properties 中设置属性 debug=true，可以在控制台查看已启用和未启用的自动配置。
 
 @SpringBootApplication是@Configuration、@EnableAutoConfiguration和@ComponentScan的组合。
