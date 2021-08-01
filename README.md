@@ -52,6 +52,11 @@
 
 2. [Mysql进阶总结](数据库/mysql进阶.md)(必看 :+1:)
 
+# Redis
+
+1. [Redis基础](中间件/Redis入门指南总结.md)
+2. [Redis分布式锁](中间件/Redis分布式锁.md)
+
 
 
 >  持续更新中，欢迎star~
