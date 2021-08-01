@@ -21,6 +21,11 @@ Servlet是什么？
 - 运行在Servlet容器（如Tomcat）中的Java类
 - 没有main方法，不能独立运行，必须被部署到Servlet容器中，由容器来实例化和调用Servlet的方法
 
+servlet生命周期指它从被web服务器加载到它被销毁的整个过程，分三个阶段：
+1. 初始化阶段，调用init()方法
+2. 响应客户请求阶段，调用service()方法
+3. 终止阶段，调用destroy()方法
+
 servlet容器：负责接收请求，生成servlet实例用于处理请求（调用service方法），然后将servlet生成的响应数据返回给客户端。
 
 ![](../img/web/servlet-container.jpg)
@@ -68,3 +73,10 @@ Access-Control-Expose-Headers: FooBar
 ### CSRF攻击
 
 跨域请求有可能被黑客利用来发动 CSRF攻击。CSRF攻击（Cross-site request forgery），跨站请求伪造。攻击者盗用了你的身份，以你的名义发送请求，比如发送邮件，发消息，盗取你的账号，甚至购买商品。
+
+
+
+## statement和prepareStatement
+Statement对象每次执行sql，相关数据库都会执行sql语句的编译，prepareStatement是预编译的，支持批处理。
+PreparedStatement是预编译的，对于批量处理可以大大提高效率，也叫JDBC存储过程。
+prepareStatement对象的开销比statement对象开销大，对于一次性操作使用statement更佳。
