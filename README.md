@@ -26,13 +26,13 @@
 1. [Spring知识点总结](docs/框架/Spring总结.md)(必看 :+1:)
 2. [Spring实战笔记](docs/框架/Spring总结.md)
 
-## Springboot
+## Spring Boot
 
-[Springboot总结](docs/框架/Spring boot实战.md)
+[Spring Boot总结](docs/框架/SpringBoot实战.md)
 
 ## Spring MVC
 
-[Spring MVC知识点总结](docs/框架/Spring总结.md)
+[Spring MVC知识点总结](docs/框架/SpringMVC.md)
 
 ## Mybatis
 
@@ -40,7 +40,7 @@
 
 ## SpringCloud
 
-[SpringCloud总结](docs/框架/spring cloud微服务实战.md)
+[SpringCloud总结](docs/框架/SpringCloud微服务实战.md)
 
 ## Netty
 
