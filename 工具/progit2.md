@@ -300,6 +300,16 @@ origin https://github.com/schacon/ticgit (push)
 
 取消关联Git仓库 `git remote remove origin`
 
+如果想要给origin设置两个远程仓库地址（git add会报错），可以使用`git remote set-url --add origin url`来设置。
+
+```bash
+$ git remote add origin  xxx.git
+fatal: remote origin already exists.
+
+$ git remote set-url --add origin xxx.git
+#success
+```
+
 
 #### 修改远程仓库
 
@@ -698,5 +708,4 @@ git checkout master
 ```git
 git rebase upstream/master
 ```
-
 

@@ -109,6 +109,11 @@ lua脚本的意思是：调用get获取锁（KEYS[1]）对应的value值，检�
 完整的解锁代码如下：
 
 ```java
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-08-01 17:13
+ */
 public class RedisTest {
     private static final Long RELEASE_SUCCESS = 1L;
 
@@ -139,8 +144,3 @@ github仓库： https://github.com/Tyson0314/Java-learning
 
 gitee仓库：https://gitee.com/tysondai/Java-learning
 
-
-
-码字不易，如果本文写的不错，可以点个赞，让我知道，支持我写出更好的文章！
-
-我是程序员大彬 ，专注Java后端硬核知识分享，欢迎大家关注~
