@@ -6,6 +6,7 @@
 
 1. [Java基础](Java/Java基础.md)
 2. [Java8总结](Java/Java8.md)
+3. [Java常见关键字总结](Java/Java关键字.md)
 
 ## 容器
 
@@ -18,6 +19,17 @@
 ## JVM
 
 [Java虚拟机总结](Java/JVM.md)(必看 :+1:)
+
+# 数据库
+
+1. [Mysql基础知识总结](数据库/mysql基础.md)(必看 :+1:)
+2. [Mysql进阶总结](数据库/mysql进阶.md)(必看 :+1:)
+3. [Mysql执行计划](数据库/Mysql执行计划.md)(必看 :+1:)
+
+# Redis
+
+1. [Redis基础](中间件/Redis入门指南总结.md)(必看 :+1:)
+2. [Redis分布式锁(必看 :+1:)](中间件/Redis分布式锁.md)
 
 # 框架
 
@@ -45,17 +57,6 @@
 ## Netty
 
 [Netty实战笔记](框架/netty实战.md)
-
-# 数据库
-
-1. [Mysql基础知识总结](数据库/mysql基础.md)(必看 :+1:)
-2. [Mysql进阶总结](数据库/mysql进阶.md)(必看 :+1:)
-3. [Mysql执行计划](数据库/Mysql执行计划.md)(必看 :+1:)
-
-# Redis
-
-1. [Redis基础](中间件/Redis入门指南总结.md)(必看 :+1:)
-2. [Redis分布式锁(必看 :+1:)](中间件/Redis分布式锁.md)
 
 
 
