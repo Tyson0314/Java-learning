@@ -1,3 +1,37 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [id](#id)
+- [select_type](#select_type)
+- [table](#table)
+- [partitions](#partitions)
+- [type](#type)
+  - [system](#system)
+  - [const](#const)
+  - [eq_ref](#eq_ref)
+  - [ref](#ref)
+  - [ref_or_null](#ref_or_null)
+  - [index_merge](#index_merge)
+  - [range](#range)
+  - [index](#index)
+  - [all](#all)
+- [possible_keys](#possible_keys)
+- [key](#key)
+- [rows](#rows)
+- [filtered](#filtered)
+- [extra](#extra)
+  - [using where](#using-where)
+  - [using index](#using-index)
+  - [Using where&Using index](#using-whereusing-index)
+  - [null](#null)
+  - [using index condition](#using-index-condition)
+  - [using temporary](#using-temporary)
+  - [filesort](#filesort)
+  - [using join buffer](#using-join-buffer)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 使用 explain 输出 SELECT 语句执行的详细信息，包括以下信息：
 
 - 表的加载顺序

@@ -9,6 +9,7 @@
 - [跨域](#%E8%B7%A8%E5%9F%9F)
   - [同源策略](#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5)
   - [CSRF攻击](#csrf%E6%94%BB%E5%87%BB)
+- [statement和prepareStatement](#statement%E5%92%8Cpreparestatement)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

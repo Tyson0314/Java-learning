@@ -1,3 +1,14 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Redis分布式锁](#redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81)
+  - [Jedis实现分布式锁](#jedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81)
+    - [加锁](#%E5%8A%A0%E9%94%81)
+    - [解锁](#%E8%A7%A3%E9%94%81)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 在单机环境下，当存在多个线程可以同时改变某个变量（可变共享变量）时，就会出现线程安全问题。这个问题可以通过 JAVA 提供的 volatile、ReentrantLock、synchronized 以及 concurrent 并发包下一些线程安全的类等来避免。
 
 而在多机部署环境，需要在多进程下保证线程的安全性，Java提供的这些API仅能保证在单个JVM进程内对多线程访问共享资源的线程安全，已经不满足需求了。这时候就需要使用分布式锁来保证线程安全。通过分布式锁，可以保证在分布式部署的应用集群中，同一个方法在同一时间只能被一台机器上的一个线程执行。
