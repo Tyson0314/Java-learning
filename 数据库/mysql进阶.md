@@ -2,19 +2,17 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [事务特性（ACID）](#%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7acid)
-- [数据库事务隔离级别](#%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB)
-- [数据库范式](#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F)
-  - [2NF和3NF区别](#2nf%E5%92%8C3nf%E5%8C%BA%E5%88%AB)
+- [事务特性](#%E4%BA%8B%E5%8A%A1%E7%89%B9%E6%80%A7)
+- [事务隔离级别](#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB)
 - [索引](#%E7%B4%A2%E5%BC%95)
   - [索引的作用](#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%9C%E7%94%A8)
-  - [原理](#%E5%8E%9F%E7%90%86)
+  - [B+ 树](#b-%E6%A0%91)
+  - [索引实例](#%E7%B4%A2%E5%BC%95%E5%AE%9E%E4%BE%8B)
   - [索引分类](#%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB)
   - [最左匹配](#%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D)
   - [聚集索引](#%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95)
   - [覆盖索引](#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95)
   - [索引失效](#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88)
-  - [MyISAM和InnoDB索引区别](#myisam%E5%92%8Cinnodb%E7%B4%A2%E5%BC%95%E5%8C%BA%E5%88%AB)
 - [存储引擎](#%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E)
   - [InnoDB](#innodb)
   - [MyISAM](#myisam)
@@ -43,20 +41,6 @@
   - [更新语句执行过程](#%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B)
 - [慢查询](#%E6%85%A2%E6%9F%A5%E8%AF%A2)
   - [MySQLdumpslow](#mysqldumpslow)
-- [查询性能优化](#%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96)
-  - [客户端服务器通信协议](#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE)
-  - [关联查询](#%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2)
-  - [排序优化](#%E6%8E%92%E5%BA%8F%E4%BC%98%E5%8C%96)
-  - [查询优化器的局限性](#%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E5%99%A8%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7)
-  - [优化特定类型的查询](#%E4%BC%98%E5%8C%96%E7%89%B9%E5%AE%9A%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%9F%A5%E8%AF%A2)
-    - [COUNT](#count)
-    - [关联查询](#%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2-1)
-    - [子查询](#%E5%AD%90%E6%9F%A5%E8%AF%A2)
-    - [GROUP BY和DISTINCT](#group-by%E5%92%8Cdistinct)
-    - [LIMIT](#limit)
-    - [UNION](#union)
-    - [自定义变量](#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F)
-  - [dependent subquery](#dependent-subquery)
 - [分区表](#%E5%88%86%E5%8C%BA%E8%A1%A8)
   - [分区表类型](#%E5%88%86%E5%8C%BA%E8%A1%A8%E7%B1%BB%E5%9E%8B)
   - [分区的问题](#%E5%88%86%E5%8C%BA%E7%9A%84%E9%97%AE%E9%A2%98)
@@ -69,35 +53,36 @@
 
 
 
-## 事务特性（ACID）
+## 事务特性
 
-对于几个SQL语句，要么全部执行成功，要么全部执行失败。比如银行转账就是事务的典型场景。
-数据库事务的三个常用命令：Begin Transaction、Commit Transaction、RollBack Transaction。
+事务特性：原子性（Atomicity）、一致性（Consistency）、隔离性（Isolation）、持久性（Durability）。
 
-①原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。
-②一致性是指一个事务执行之前和执行之后都必须处于一致性状态。比如a与b账户共有1000块，两人之间转账之后无论成功还是失败，它们的账户总和还是1000。
-③隔离性。跟隔离级别相关，如read committed，一个事务只能读到已经提交的修改。
-④持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。
-
+- 原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚。
+- 一致性是指一个事务执行之前和执行之后都必须处于一致性状态。比如a与b账户共有1000块，两人之间转账之后无论成功还是失败，它们的账户总和还是1000。
+- 隔离性。跟隔离级别相关，如read committed，一个事务只能读到已经提交的修改。
+- 持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。
 
 
-## 数据库事务隔离级别
 
-①脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。
-②不可重复读是指在对于数据库中的某行记录，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，另一个事务修改了数据并提交了。
-③幻读（虚读）是当某个事务在读取某个范围内的记录时，另外一个事务又在该范围内插入了新的记录，当之前的事务再次读取该范围的记录时，会产生幻行，就好像产生幻觉一样，这就是发生了幻读。
+## 事务隔离级别
+
+先了解下几个概念：脏读、不可重复读、幻读。
+
+- 脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。
+- 不可重复读是指在对于数据库中的某行记录，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，另一个事务修改了数据并提交了。
+- 幻读是当某个事务在读取某个范围内的记录时，另外一个事务又在该范围内插入了新的记录，当之前的事务再次读取该范围的记录时，会产生幻行，就像产生幻觉一样，这就是发生了幻读。
 
 不可重复读和脏读的区别是，脏读是某一事务读取了另一个事务未提交的脏数据，而不可重复读则是读取了前一事务提交的数据。
 幻读和不可重复读都是读取了另一条已经提交的事务，不同的是不可重复读的重点是修改，幻读的重点在于新增或者删除。
 
-MySQL数据库为我们提供的四种隔离级别：
-① Serializable (串行化)：通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。
-② Repeatable read (可重复读)：MySQL的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行。
-③ Read committed (读已提交)：一个事务只能看见已经提交事务所做的改变。可避免脏读的发生。
-④ Read uncommitted (读未提交)：所有事务都可以看到其他未提交事务的执行结果。
+事务隔离就是为了解决上面提到的脏读、不可重复读、幻读这几个问题。
 
-设置数据库的隔离级别一定要是在开启事务之前！
-如果是使用JDBC对数据库的事务设置隔离级别的话，也应该是在调用Connection对象的setAutoCommit(false)方法之前。调用Connection对象的setTransactionIsolation(level)即可设置当前连接的隔离级别
+MySQL数据库为我们提供的四种隔离级别：
+
+- Serializable (串行化)：通过强制事务排序，使之不可能相互冲突，从而解决幻读问题。
+-  Repeatable read (可重复读)：MySQL的默认事务隔离级别，它确保同一事务的多个实例在并发读取数据时，会看到同样的数据行，解决了不可重复读的问题。
+-  Read committed (读已提交)：一个事务只能看见已经提交事务所做的改变。可避免脏读的发生。
+- Read uncommitted (读未提交)：所有事务都可以看到其他未提交事务的执行结果。
 
 查看隔离级别：
 
@@ -110,29 +95,6 @@ select @@transaction_isolation;
 ```mysql
 set session transaction isolation level read uncommitted;
 ```
-
-
-
-
-
-## 数据库范式
-
-- 第一范式1NF：确保数据库表字段的原子性。
-  userInfo: '山东省烟台市 1318162008' 依照第一范式必须拆分成 userInfo: '山东省烟台市  'userTel: '1318162008'两个字段
-
-- 第二范式2NF：首先是 1NF，另外包含两部分内容，一是表必须有一个主键；二是非主键列必须完全依赖于主键，而不能只依赖于主键的一部分。
-  假定选课关系表为SelectCourse(学号, 姓名, 年龄, 课程名称, 成绩, 学分)，主键为(学号, 课程名称)，因为存在如下决定关系：(学号, 课程名称) → (姓名, 年龄, 成绩, 学分)
-  其中学分完全依赖于课程名称，姓名年龄完全依赖学号，不符合第二范式，会导致数据冗余（学生选n门课，姓名年龄有n条记录），插入异常（插入一门新课，因为没有学号，无法保存新课记录）等。
-  可以拆分成三个表：学生：Student(学号, 姓名, 年龄)；课程：Course(课程名称, 学分)；选课关系：SelectCourse(学号, 课程名称, 成绩)。
-
-- 第三范式3NF：首先是 2NF，另外非主键列必须直接依赖于主键，不能存在传递依赖。即不能存在：非主键列 A 依赖于非主键列 B，非主键列 B 依赖于主键的情况。
-  假定学生关系表为Student(学号, 姓名, 年龄, 学院id, 学院地点, 学院电话)，主键为"学号"，其中学院id依赖于学号，而学院地点和学院电话依赖于学院id，存在传递依赖，不符合第三范式。
-  把学生关系表分为如下两个表：学生：(学号, 姓名, 年龄, 学院id)；学院：(学院,id 地点, 电话)。
-
-### 2NF和3NF区别
-
-2NF依据非主键列是否完全依赖于主键，还是依赖于主键的一部分
-3NF依据非主键列是直接依赖于主键，还是直接依赖于非主键
 
 
 
@@ -160,17 +122,47 @@ set session transaction isolation level read uncommitted;
 4. 参与列计算的列不适合建索引
 5. 区分度不高的字段不适合建立索引，性别等
 
-### 原理
+### B+ 树
 
-MySQL中MyIsAM和InnoDB都是采用的B+树结构。B+ 树是基于B 树和叶子节点顺序访问指针进行实现，它具有B 树的平衡性，并且通过顺序访问指针来提高区间查询的性能。
+B+ 树是基于B 树和叶子节点顺序访问指针进行实现，它具有B树的平衡性，并且通过顺序访问指针来提高区间查询的性能。
 
-一个索引的例子：
+在 B+ 树中，节点中的 key 从左到右递增排列，如果某个指针的左右相邻 key 分别是 key<sub>i</sub> 和 key<sub>i+1</sub>，则该指针指向节点的所有 key 大于等于 key<sub>i</sub> 且小于等于 key<sub>i+1</sub>。
 
-col1 是主键，col2和col3是普通字段。
+![image-20210821165019147](https://gitee.com/tysondai/img/raw/master/image-20210821165019147.png)
+
+进行查找操作时，首先在根节点进行二分查找，找到key所在的指针，然后递归地在指针所指向的节点进行查找。直到查找到叶子节点，然后在叶子节点上进行二分查找，找出 key 所对应的数据项。
+
+MySQL 数据库使用最多的索引类型是BTREE索引，底层基于B+树数据结构来实现。
+
+```mysql
+mysql> show index from blog\G;
+*************************** 1. row ***************************
+        Table: blog
+   Non_unique: 0
+     Key_name: PRIMARY
+ Seq_in_index: 1
+  Column_name: blog_id
+    Collation: A
+  Cardinality: 4
+     Sub_part: NULL
+       Packed: NULL
+         Null:
+   Index_type: BTREE
+      Comment:
+Index_comment:
+      Visible: YES
+   Expression: NULL
+```
+
+### 索引实例
+
+下面来看看一个索引的例子：
+
+如下图，col1 是主键，col2和col3是普通字段。
 
 ![image-20200520234137916](https://gitee.com/tysondai/img/raw/master/image-20200520234137916.png)
 
-主键对应的 B+树结构，每个节点对应磁盘的一页。
+下图是主键索引对应的 B+树结构，每个节点对应磁盘的一页。
 
 ![image-20200520234200868](https://gitee.com/tysondai/img/raw/master/image-20200520234200868.png)
 
@@ -210,15 +202,13 @@ col1 是主键，col2和col3是普通字段。
 
 从局部来看，当a的值确定的时候，b是有序的。例如a = 1时，b值为1，2是有序的状态。当a=2时候，b的值为1,4也是有序状态。 因此，你执行`a = 1 and b = 2`是a,b字段能用到索引的。而你执行`a > 1 and b = 2`时，a字段能用到索引，b字段用不到索引。因为a的值此时是一个范围，不是固定的，在这个范围内b值不是有序的，因此b字段用不上索引。
 
-> [最左匹配](https://www.zhihu.com/search?type=content&q=%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D)
-
 ### 聚集索引
 
 InnoDB使用表的主键构造主键索引树，同时叶子节点中存放的即为整张表的记录数据。聚集索引叶子节点的存储是逻辑上连续的，使用双向链表连接，叶子节点按照主键的顺序排序，因此对于主键的排序查找和范围查找速度比较快。
 
 聚集索引的叶子节点就是整张表的行记录。InnoDB 主键使用的是聚簇索引。聚集索引要比非聚集索引查询效率高很多。
 
-![](https://gitee.com/tysondai/img/raw/master/MySQL-clustered-index.png)
+![](https://gitee.com/tysondai/img/raw/master/mysql-clustered-index.png)
 
 对于InnoDB来说，聚集索引一般是表中的主键索引，如果表中没有显示指定主键，则会选择表中的第一个不允许为NULL的唯一索引。如果没有主键也没有合适的唯一索引，那么innodb内部会生成一个隐藏的主键作为聚集索引，这个隐藏的主键长度为6个字节，它的值会随着数据的插入自增。
 
@@ -250,15 +240,6 @@ select的数据列只用从索引中就能够取得，不需要到数据表进�
 - 判断索引列是否不等于某个值时
 - 对索引列进行运算
 - 使用or连接的条件，如果左边的字段有索引，右边的字段没有索引，那么左边的索引会失效
-
-### MyISAM和InnoDB索引区别
-
-MyISAM不支持聚集索引，InnoDB支持聚集索引。
-
-myisam引擎主键索引和其他索引区别不大，叶子节点都包含索引值和行指针。
-innodb引擎二级索引叶子存储的是索引值和主键值（不是行指针），这样可以减少行移动和数据页分裂时二级索引的维护工作。
-
-![myisam-innodb-index](https://gitee.com/tysondai/img/raw/master/myisam-innodb-index.png)
 
 
 
@@ -307,9 +288,19 @@ MEMORY引擎默认使用哈希索引，将键的哈希值和指向数据行的�
 ### MyISAM和InnoDB区别
 
 1. **是否支持行级锁** : MyISAM 只有表级锁，而InnoDB 支持行级锁和表级锁，默认为行级锁。
+
 2. **是否支持事务和崩溃后的安全恢复**： MyISAM 强调的是性能，每次查询具有原子性，其执行速度比InnoDB类型更快，但是不提供事务支持。但是InnoDB 提供事务支持，具有事务、回滚和崩溃修复能力。
+
 3. **是否支持外键：** MyISAM不支持，而InnoDB支持。
+
 4. **是否支持MVCC** ：仅 InnoDB 支持。应对高并发事务，MVCC比单纯的加锁更高效；MVCC只在 `READ COMMITTED` 和 `REPEATABLE READ` 两个隔离级别下工作；MVCC可以使用乐观锁和悲观锁来实现；各数据库中MVCC实现并不统一。
+
+5. MyISAM不支持聚集索引，InnoDB支持聚集索引。
+
+   myisam引擎主键索引和其他索引区别不大，叶子节点都包含索引值和行指针。
+   innodb引擎二级索引叶子存储的是索引值和主键值（不是行指针），这样可以减少行移动和数据页分裂时二级索引的维护工作。
+
+   ![myisam-innodb-index](https://gitee.com/tysondai/img/raw/master/myisam-innodb-index.png)
 
 
 
@@ -355,16 +346,13 @@ repeatable read：在一个事务范围内，第一次select时更新这个read_
 当访问数据行时，会先判断当前版本数据项是否可见，如果是不可见的，会通过版本链找到一个可见的版本。
 
 - 如果数据行的当前版本 < read view最早的活跃事务id：说明在创建read_view时，修改该数据行的事务已提交，该版本的数据行可被当前事务读取到。
-
 - 如果数据行的当前版本 >= read view最晚的活跃事务id：说明当前版本的数据行的事务是在创建read_view之后生成的，该版本的数据行不可以被当前事务访问。此时需要通过版本链找到上一个版本，然后重新判断该版本数据对当前事务的可见性。
-
 - 如果数据行的当前版本在最早的活跃事务id和最晚的活跃事务id之间：
+  1. 需要在活跃事务链表中查找是否包含该数据行的最新事务id，即生成当前版本数据行的事务是否已经提交。
+  2. 如果存在，说明生成当前版本数据行的事务未提交，所以该版本的数据行不能被当前事务访问。此时需要通过版本链找到上一个版本，然后重新判断该版本的可见性。
+  3. 如果不存在，说明事务已经提交，可以直接读取该数据行。
 
-- - 需要在活跃事务链表中查找是否包含该数据行的最新事务id，即生成当前版本数据行的事务是否已经提交。
-  - 如果存在，说明生成当前版本数据行的事务未提交，所以该版本的数据行不能被当前事务访问。此时需要通过版本链找到上一个版本，然后重新判断该版本的可见性。
-  - 如果不存在，说明事务已经提交，可以直接读取该数据行。
-
-通过比较read view和数据行的当前版本，找到当前事务可见的版本，进而实现read commit和repeatable read的事务隔离级别。
+**总结**：通过比较read view和数据行的当前版本，找到当前事务可见的版本，进而实现read commit和repeatable read的事务隔离级别。
 
 ### 快照读和当前读
 
@@ -416,8 +404,6 @@ select... for update 使用注意事项
 1. for update 仅适用于Innodb，且必须在事务范围内才能生效。
 2. 根据主键进行查询，查询条件为 like或者不等于，主键字段产生表锁。
 3. 根据非索引字段进行查询，name字段产生表锁。
-
-> [MVCC实现原理](https://zhuanlan.zhihu.com/p/64576887) | [MVCC](https://www.cnblogs.com/axing-articles/p/11415763.html) | [排他锁分析](https://blog.csdn.net/claram/article/details/54023216)
 
 
 
@@ -523,7 +509,7 @@ MySQL主要分为 Server 层和存储引擎层：
 - **Server 层**：主要包括连接器、查询缓存、分析器、优化器、执行器等，所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图，函数等，还有一个通用的日志模块 binglog 日志模块。
 - **存储引擎**： 主要负责数据的存储和读取。server 层通过api与存储引擎进行通信。
 
-![MySQL-archpng](https://gitee.com/tysondai/img/raw/master/MySQL-archpng.png)
+![MySQL-archpng](https://gitee.com/tysondai/img/raw/master/mysql-archpng.png)
 
 ### Server 层基本组件
 
@@ -597,6 +583,8 @@ update user set name = '大彬' where id = 1;
 
 > 参考链接：[一条SQL语句在MySQL中如何执行的](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485097&idx=1&sn=84c89da477b1338bdf3e9fcd65514ac1&chksm=cea24962f9d5c074d8d3ff1ab04ee8f0d6486e3d015cfd783503685986485c11738ccb542ba7&token=79317275&lang=zh_CN#rd)
 
+
+
 ## 慢查询
 
 sql 语句查询时间超过（不包括等于） long_query_time，称为慢查询。
@@ -635,167 +623,6 @@ MySQL数据库支持同时两种日志存储方式，配置的时候以逗号隔
 ```mysql
 MySQLdumpslow -s al -n 10 /usr/local/MySQL/data/slow.log
 ```
-
-
-
-## 查询性能优化
-
-优化数据访问
-
-1. 向数据库请求了不需要的数据。select * 取出全部列，会让优化器无法完成索引覆盖扫描这类优化，还会给服务器带来额外的资源消耗。
-2. 避免全表扫描，使用索引覆盖扫描，这样存储引擎无需回表查询数据。
-
-重构查询方式
-
-1. 切分查询。比如定期删除大量旧数据。如果使用一个语句一次性完成，则可能需要锁住很多数据、阻塞其他请求。可以将这个大的DELETE请求切分成小的查询，尽可能小的影响MySQL的性能。
-2. 分解关联查询。单表查询可以充分利用缓存的结果（应用层或者MySQL的查询缓存）；将查询分解后，执行单个查询可以减少锁的竞争；（查询效率会更高，使用IN代替关联查询，可以让MySQL按照ID顺序进行查询，比随机的关联要更高效）。
-
-### 客户端服务器通信协议
-
-半双工通信，在任何一个时刻，只有客户端往服务器发送数据或者服务器往客户端发送数据。客户端使用单独一个数据包将查询传给服务器，使用参数max_allowed_packet可以限制最大的请求包大小。服务器在响应客户端请求的时候，客户端必须完整接收整个返回结果。
-
-### 关联查询
-
-嵌套循环关联：MySQL先在一个表中循环取出单条数据，然后再嵌套循环到下一个表寻找匹配的行，依次下去，直到找到所有表中匹配的行为止。
-
-![image-20201122223813366](https://gitee.com/tysondai/img/raw/master/nested-loop.png)
-
-关联查询优化：通过评估不同的关联顺序时的成本来选择一个代价最小的关联顺序。有时候优化器给出的并不是最优的关联顺序，可以使用STRAIGHT_JOIN关键字重写查询。
-
-```mysql
-EXPLAIN SELECT STRAIGHT_JOIN film.film_id...\G
-```
-
-### 排序优化
-
-排序是一个成本很高的操作，应该尽量避免对大量数据进行排序操作。
-
-在MySQL中的ORDER BY有两种排序实现方式： 
-
-1. 利用索引排序 
-2. 文件排序 filesort。数据量小时直接在内存排序，数据量大时需要借助磁盘来排序。
-
-在explain中分析查询的时候，利用索引排序显示Using index ，文件排序显示 Using filesort。
-
-利用索引排序条件：
-
-1. ORDER BY中所有的列都包含在索引中
-2. 索引的顺序和ORDER BY子句中的顺序完全一致
-3. ORDER BY所有列的排序方向一样（全部升序或者全部降序）
-
-通过将 where 子句的字段和 order by 子句的字段建立联合索引（order by子句字段需放在联合索引的最后），可以让排序变得更快。
-
-```mysql
-ALTER TABLE test ADD index a_b(a,b);
-EXPLAIN SELECT * FROM test WHERE a=1 ORDER BY b;
-```
-
-如果需要排序的数据量小于排序缓冲区，MySQL使用内存进行快速排序。如果内存不够排序，那么MySQL会先将数据分块，对每个独立的块使用快速排序操作，并将每个块的排序结果存放到磁盘上，然后将各个排好序的块进行合并，最后返回排序结果。
-
-MySQL有两种排序算法：
-
-1. 两次传输排序（旧版本使用）。读取行指针和需要排序的字段，对其进行排序，然后根据排序结果读取所需要的数据行。此种算法需要从数据表中读取两次数据，第二次读取数据的时候，因为是读取排序后的所有记录，这会产生大量的随机IO，所以两次数据传输的成本非常高。
-2. 单次传输排序（新版本使用，MySQL4.1引入）。先查询所需要的所有的列，然后再根据给定列进行排序，最后直接返回排序结果。此算法只需一次顺序IO读取所有的数据，无需任何随机IO。缺点是如果返回的列非常多、非常大，会额外占用大量的空间。
-
-两种排序算法各有优劣。当查询所需的数据列总长度不超过max_length_for_sort_data时，MySQL会使用单次传输排序。
-
-在关联查询的时候如果需要排序，MySQL会分两种情况来处理文件排序。如果ORDER BY子句的所有列都来自于关联的第一个表，那么MySQL在关联处理第一个表的时候就进行文件排序，explain结果extra字段会显示`using filesort`。其他情况下，MySQL会先将关联的结果存放到一个临时表，然后在所有关联都结束后，在进行文件排序，此时explain结果extra字段会显示`using temporary;using filesort`。
-
-### 查询优化器的局限性
-
-### 优化特定类型的查询
-
-#### COUNT
-
-COUNT 可以用于统计某个列值的数量（不统计NULL）或者统计记录的行数。COUNT(*)会统计结果集的行数。
-
-#### 关联查询
-
-1. 确保ON或者USING子句的列上有索引。在创建索引时要考虑关联的顺序，一般来说，只需要在关联顺序中的第二个表相应的列上建立索引即可。比如表a和表b使用列c关联，如果优化器的关联顺序是a、b，只需要在表b对应的列上添加索引（由于关联使用嵌套循环关联，会循环从表a取得单条记录，然后到表b寻找匹配的记录），表a则不需要。
-2. 在GROUP BY 或者 ORDER BY子句中只涉及一个表的列，才能使用索引优化分组或排序的过程。
-
-#### 子查询
-
-尽可能使用关联查询替代。
-
-#### GROUP BY和DISTINCT
-
-很多场景下，MySQL使用同样的方式优化这两种查询，MySQL优化器会在内部处理的时候相互转化这两类查询。它们都可以使用索引来优化。
-
-当无法使用索引的时候，GROUP B0Y会使用两种策略来完成：使用临时表或者文件排序的方式来完成分组。
-
-当查询使用GROUP BY子句的时候，如果没有通过ORDER BY子句显式指定排序列的话，结果集会自动按照分组的字段进行排序。这种默认排序会导致文件排序，如果不关心结果集的顺序，可以使用ORDER BY NULL，避免MySQL进行文件排序。
-
-也可以在GROUP BY子句直接使用DESC或者ASC关键字，使得结果集按照需要的方向排序。
-
-#### LIMIT
-
-1. 如果LIMIT偏移量很大，如`LIMIT 10000, 5`，这时候MySQL需要查询10005条记录然后只返回5条记录，前面10000条记录会被抛弃，代价比较大。可以使用覆盖索引扫描，然后根据需要做一次关联操作，返回所需的列。
-
-```mysql
-SELECT film_id, description FROM film ORDER BY title LIMIT 10000, 5;
-
-#覆盖索引+join
-SELECT film_id, description
-FROM film
-	INNER JOIN(
-    	SELECT film_id FROM film
-        ORDER BY title
-        LIMIT 10000, 5
-    ) AS lim USING(film_id);
-```
-
-这样可以大大提升查询效率，让MySQL扫描尽可能少的页面，通过覆盖索引扫描获取所需的记录的主键之后，再回表查询其他需要的列。
-
-2. 或者利用id的自增方法来代替limit offset。
-
-```mysql
-SELECT * FROM `table` WHERE  id > 0 LIMIT 3057000, 500;
-#OFFSET会导致扫描无用的记录行，可以利用id的自增方法来代替limit offset
-SELECT * FROM `table` WHERE  id > 3057000 LIMIT 500 
-```
-
-#### UNION
-
-MySQL通过创建并填充临时表的方式来执行UNION查询。
-
-除非需要MySQL消除重复的行，否则一定要使用UNION ALL，如果没有ALL关键字，MySQL会给临时表加上DISTINCT选项，会导致对这个临时表的数据做唯一性检查，代价非常高。
-
-#### 自定义变量
-
-```mysql
-SET @last_week := CURRENT_DATE - INTERVAL 1 WEEK;
-SELECT ... WHERE col <= @last_week;
-```
-
-不能使用自定义变量的场景：
-
-1. 需要使用查询缓存。使用自定义变量的查询，无法使用查询缓存。
-2. 不能再使用常量或者标识符的地方使用自定义变量，例如表名、列名和LIMIT子句中。
-3. 自定义变量在一个连接内有效，不能使用它们来做连接间的通信。
-4. 不能显式声明自定义变量的类型，自定义变量是一个动态类型。如果希望变量是某个类型的数据，最好在初始化的时候设置为对应类型的零值。
-
-### dependent subquery
-
-[相关子查询](http://itindex.net/detail/46772-%E4%BC%98%E5%8C%96-MySQL-dependent)
-
-子查询的查询方式依赖于外面的查询结果。
-
-```mysql
-SELECT gid,COUNT(id) as count 
-FROM shop_goods g1
-WHERE status =0 and gid IN ( 
-SELECT gid FROM shop_goods g2 WHERE sid IN  (1519066,1466114,1466110,1466102,1466071,1453929)
-)
-GROUP BY gid;
-
-    id  select_type         table   type            possible_keys                           key           key_len  ref       rows  Extra      
-------  ------------------  ------  --------------  --------------------------------------  ------------  -------  ------  ------  -----------
-     1  PRIMARY             g1      index           (NULL)                                  idx_gid  5        (NULL)  850672  Using where
-     2  DEPENDENT SUBQUERY  g2      index_subquery  id_shop_goods,idx_sid,idx_gid  idx_gid  5        func         1  Using where
-```
-
-子查询对 g2 的查询方式依赖于外层 g1 的查询。MySQL 根据 select gid,count(id) from shop_goods where status=0 group by gid; 得到一个大结果集 t1。结果集 t1 中的每一条记录，都将与子查询 SQL 组成新的查询语句：`select gid from shop_goods where sid in (15...29) and gid=%t1.gid%`。即子查询要执行85万次。
 
 
 
@@ -891,8 +718,6 @@ GROUP BY gid;
 
 分区最大的优点就是优化器可以根据分区函数过滤掉一些分区，可以让查询扫描更少的数据。在查询条件中加入分区列，就可以让优化器过滤掉无需访问的分区。如果查询条件没有分区列，MySQL会让存储引擎访问这个表的所有分区。需要注意的是，查询条件中的分区列不能使用表达式。
 
-> [分区表](https://www.cnblogs.com/wy123/p/9778590.html)
-
 
 
 ## 其他
@@ -951,4 +776,16 @@ where id in(select id from B)
 ```
 
 子查询的表大的时候，使用EXISTS可以有效减少总的循环次数来提升速度；当外查询的表大的时候，使用IN可以有效减少对外查询表循环遍历来提升速度。
+
+
+
+> 参考资料：
+>
+> 高性能MySQL书籍
+>
+> [MVCC实现原理](https://zhuanlan.zhihu.com/p/64576887) | [多版本并发控制机制](https://www.cnblogs.com/axing-articles/p/11415763.html)
+>
+> [排他锁分析](https://blog.csdn.net/claram/article/details/54023216)
+>
+> [分区表](https://www.cnblogs.com/wy123/p/9778590.html)
 
