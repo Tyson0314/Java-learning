@@ -51,7 +51,11 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-
+> PS：本文已经收录到github仓库，此仓库用于分享Java核心知识，包括Java基础、MySQL、SpringBoot、Mybatis、Redis、RabbitMQ等等，面试必备。
+>
+> github地址：https://github.com/Tyson0314/Java-learning
+> 如果github访问不了，可以访问gitee仓库。
+> gitee地址：https://gitee.com/tysondai/Java-learning
 
 ## 事务特性
 
@@ -128,7 +132,7 @@ B+ 树是基于B 树和叶子节点顺序访问指针进行实现，它具有B�
 
 在 B+ 树中，节点中的 key 从左到右递增排列，如果某个指针的左右相邻 key 分别是 key<sub>i</sub> 和 key<sub>i+1</sub>，则该指针指向节点的所有 key 大于等于 key<sub>i</sub> 且小于等于 key<sub>i+1</sub>。
 
-![image-20210821165019147](https://gitee.com/tysondai/img/raw/master/image-20210821165019147.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210821165019147.png)
 
 进行查找操作时，首先在根节点进行二分查找，找到key所在的指针，然后递归地在指针所指向的节点进行查找。直到查找到叶子节点，然后在叶子节点上进行二分查找，找出 key 所对应的数据项。
 
@@ -160,15 +164,15 @@ Index_comment:
 
 如下图，col1 是主键，col2和col3是普通字段。
 
-![image-20200520234137916](https://gitee.com/tysondai/img/raw/master/image-20200520234137916.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20200520234137916.png)
 
 下图是主键索引对应的 B+树结构，每个节点对应磁盘的一页。
 
-![image-20200520234200868](https://gitee.com/tysondai/img/raw/master/image-20200520234200868.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20200520234200868.png)
 
 对col3 建立一个单列索引，对应的B+树结构：
 
-![image-20200520234231001](https://gitee.com/tysondai/img/raw/master/image-20200520234231001.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20200520234231001.png)
 
 ### 索引分类
 1. 主键索引：名为primary的唯一非空索引，不允许有空值。
@@ -214,9 +218,7 @@ InnoDB使用表的主键构造主键索引树，同时叶子节点中存放的�
 
 ### 覆盖索引
 
-select的数据列只用从索引中就能够取得，不需要到数据表进行二次查询，换句话说查询列要被所使用的索引覆盖。
-
-对于innodb表的二级索引，如果索引能覆盖到查询的列，那么就可以避免对主键索引的二次查询。
+select的数据列只用从索引中就能够取得，不需要到数据表进行二次查询，换句话说查询列要被所使用的索引覆盖。对于innodb表的二级索引，如果索引能覆盖到查询的列，那么就可以避免对主键索引的二次查询。
 
 不是所有类型的索引都可以成为覆盖索引。覆盖索引要存储索引列的值，而哈希索引、全文索引不存储索引列的值，所以MySQL只能使用b+树索引做覆盖索引。
 
@@ -224,15 +226,23 @@ select的数据列只用从索引中就能够取得，不需要到数据表进�
 
 比如user_like 用户点赞表，组合索引为(user_id, blog_id)，user_id和blog_id都不为null。
 
-`explain select blog_id from user_like where user_id = 13;` Extra中为`Using index`，查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过**索引查找**就能直接找到符合条件的数据，不需要回表查询数据。
+```mysql
+explain select blog_id from user_like where user_id = 13;
+```
 
-`explain select user_id from user_like where blog_id = 1;`Extra中为`Using where; Using index`， 查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过**索引扫描**找到符合条件的数据，也不需要回表查询数据。
+Extra中为`Using index`，查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过**索引查找**就能直接找到符合条件的数据，不需要回表查询数据。
 
-`explain select blog_id from user_like where status = 1;` Extra中为`Using where`，查询时未找到可用的索引，进而通过`where`条件过滤获取所需数据。
+```mysql
+explain select user_id from user_like where blog_id = 1;
+```
+
+Extra中为`Using where; Using index`， 查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过**索引扫描**找到符合条件的数据，也不需要回表查询数据。
 
 ![](https://gitee.com/tysondai/img/raw/master/cover-index.png)
 
 ### 索引失效
+
+导致索引失效的情况：
 
 - 对于组合索引，不是使用组合索引最左边的字段，则不会使用索引
 - 以%开头的like查询如`%abc`，无法使用索引；非%开头的like查询如`abc%`，相当于范围查询，会使用索引
@@ -329,7 +339,7 @@ mvcc实现依赖于版本链，版本链是通过表的三个隐藏字段实现�
 3. 修改当前行的值，生成一个新版本，更新事务id，使回滚指针指向旧版本的记录，这样就形成一条版本链；
 4. 记录redo log；
 
-![](../img/MySQL/mvcc-impl.png)
+![](https://gitee.com/tysondai/img/raw/master/mvcc-impl.png)
 
 ### read view
 
@@ -366,7 +376,7 @@ repeatable read：在一个事务范围内，第一次select时更新这个read_
 
 事务a和事务b同时开启事务，事务a插入数据然后提交，事务b执行全表的update，然后执行查询，查到了事务A中添加的数据。
 
-![image-20200626225614179](E:\project\java\learn\Java-learning\img\幻读1.png)
+![](https://gitee.com/tysondai/img/raw/master/幻读1.png)
 
 MySQL如何实现避免幻读:
 
@@ -581,8 +591,6 @@ update user set name = '大彬' where id = 1;
 
 假设写完了 binlog，机器异常重启了，由于没有 redo log，本机是无法恢复这一条记录的，但是 binlog 又有记录，那么和上面同样的道理，就会产生数据不一致的情况。
 
-> 参考链接：[一条SQL语句在MySQL中如何执行的](https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485097&idx=1&sn=84c89da477b1338bdf3e9fcd65514ac1&chksm=cea24962f9d5c074d8d3ff1ab04ee8f0d6486e3d015cfd783503685986485c11738ccb542ba7&token=79317275&lang=zh_CN#rd)
-
 
 
 ## 慢查询
@@ -614,14 +622,14 @@ MySQL数据库支持同时两种日志存储方式，配置的时候以逗号隔
 
 日志记录到系统的专用日志表中，要比记录到文件耗费更多的系统资源，因此对于需要启用慢查询日志，又需要能够获得更高的系统性能，那么建议优先记录到文件。
 
-### MySQLdumpslow
+### mysqldumpslow
 
-如果自己手动查找、分析SQL，显然是个体力活，MySQL提供了日志分析工具MySQLdumpslow。
+如果自己手动查找、分析SQL，显然是个体力活，MySQL提供了日志分析工具mysqldumpslow。
 
 获取执行时间最长的10条sql语句：
 
 ```mysql
-MySQLdumpslow -s al -n 10 /usr/local/MySQL/data/slow.log
+mysqldumpslow -s al -n 10 /usr/local/MySQL/data/slow.log
 ```
 
 
@@ -630,7 +638,7 @@ MySQLdumpslow -s al -n 10 /usr/local/MySQL/data/slow.log
 
 分区表是一个独立的逻辑表，但是底层由多个物理子表组成。
 
-并不是说一个表只要分区了，对于任何查询都会实现查询优化，只有查询条件的数据分布在某一个分区的时候，查询引擎只会去某一个分区查询，而不是遍历整个表。在管理层面，如果需要删除某一个分区的数据，只需要删除对应的分区即可。
+当查询条件的数据分布在某一个分区的时候，查询引擎只会去某一个分区查询，而不是遍历整个表。在管理层面，如果需要删除某一个分区的数据，只需要删除对应的分区即可。
 
 ### 分区表类型
 
@@ -643,43 +651,42 @@ MySQLdumpslow -s al -n 10 /usr/local/MySQL/data/slow.log
        primary key (id,createdate)
    ) 
    PARTITION BY RANGE (TO_DAYS(createdate) ) (
-      PARTITION p201801 VALUES LESS THAN ( TO_DAYS('20180201') ),
-      PARTITION p201802 VALUES LESS THAN ( TO_DAYS('20180301') ),
-      PARTITION p201803 VALUES LESS THAN ( TO_DAYS('20180401') ),
-      PARTITION p201804 VALUES LESS THAN ( TO_DAYS('20180501') ),
-      PARTITION p201805 VALUES LESS THAN ( TO_DAYS('20180601') ),
-      PARTITION p201806 VALUES LESS THAN ( TO_DAYS('20180701') ),
-      PARTITION p201807 VALUES LESS THAN ( TO_DAYS('20180801') ),
-      PARTITION p201808 VALUES LESS THAN ( TO_DAYS('20180901') ),
-      PARTITION p201809 VALUES LESS THAN ( TO_DAYS('20181001') ),
-      PARTITION p201810 VALUES LESS THAN ( TO_DAYS('20181101') ),
-      PARTITION p201811 VALUES LESS THAN ( TO_DAYS('20181201') ),
-      PARTITION p201812 VALUES LESS THAN ( TO_DAYS('20190101') )
+      PARTITION p201801 VALUES LESS THAN ( TO_DAYS('20210201') ),
+      PARTITION p201802 VALUES LESS THAN ( TO_DAYS('20210301') ),
+      PARTITION p201803 VALUES LESS THAN ( TO_DAYS('20210401') ),
+      PARTITION p201804 VALUES LESS THAN ( TO_DAYS('20210501') ),
+      PARTITION p201805 VALUES LESS THAN ( TO_DAYS('20210601') ),
+      PARTITION p201806 VALUES LESS THAN ( TO_DAYS('20210701') ),
+      PARTITION p201807 VALUES LESS THAN ( TO_DAYS('20210801') ),
+      PARTITION p201808 VALUES LESS THAN ( TO_DAYS('20210901') ),
+      PARTITION p201809 VALUES LESS THAN ( TO_DAYS('20211001') ),
+      PARTITION p201810 VALUES LESS THAN ( TO_DAYS('20211101') ),
+      PARTITION p201811 VALUES LESS THAN ( TO_DAYS('20211201') )
    );
    
-   insert into test_range_partition (createdate) values ('20180105');
-   insert into test_range_partition (createdate) values ('20180205');
+   insert into test_range_partition (createdate) values ('20210105');
+   insert into test_range_partition (createdate) values ('20210205');
    ```
-
-   在`/var/lib/MySQL/`可以找到对应的数据文件，每个分区表都有一个使用#分隔命名的表文件：
-
+   
+   在`/var/lib/mysql/data/`可以找到对应的数据文件，每个分区表都有一个使用#分隔命名的表文件：
+   
    ```
-   -rw-r----- 1 MySQL MySQL    65 Mar 14 21:47 db.opt
-   -rw-r----- 1 MySQL MySQL  8598 Mar 14 21:50 test_range_partition.frm
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201801.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201802.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201803.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201804.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201805.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201806.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201807.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201808.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201809.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201810.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201811.ibd
-   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201812.ibd
+   -rw-rw---- 1 mysql mysql    65 Aug 21 09:24 db.opt
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201801.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201802.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201803.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201804.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201805.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201806.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201807.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201808.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201809.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201810.ibd
+   -rw-rw---- 1 mysql mysql 98304 Aug 21 09:27 test_range_partition#P#p201811.ibd
+   -rw-rw---- 1 mysql mysql  8598 Aug 21 09:27 test_range_partition.frm
+   -rw-rw---- 1 mysql mysql   116 Aug 21 09:27 test_range_partition.par
    ```
-
+   
 2. list分区。对于List分区，分区字段必须是已知的，如果插入的字段不在分区时枚举值中，将无法插入。
 
    ```mysql
@@ -722,12 +729,9 @@ MySQLdumpslow -s al -n 10 /usr/local/MySQL/data/slow.log
 
 ## 其他
 
-页是InnoDB存储引擎管理数据库的最小磁盘单位。
-
 ### processlist
 
 `select * `会查询出不需要的、额外的数据，那么这些额外的数据在网络上进行传输，带来了额外的网络开销。
-
 
 `show processlist` 或 `show full processlist` 可以查看当前 MySQL 是否有压力，正在运行的sql，有没有慢 SQL 正在执行。
 
@@ -783,9 +787,13 @@ where id in(select id from B)
 >
 > 高性能MySQL书籍
 >
-> [MVCC实现原理](https://zhuanlan.zhihu.com/p/64576887) | [多版本并发控制机制](https://www.cnblogs.com/axing-articles/p/11415763.html)
+> MVCC实现原理：https://zhuanlan.zhihu.com/p/64576887
 >
-> [排他锁分析](https://blog.csdn.net/claram/article/details/54023216)
+>  多版本并发控制机制：https://www.cnblogs.com/axing-articles/p/11415763.html
 >
-> [分区表](https://www.cnblogs.com/wy123/p/9778590.html)
+> 排他锁分析：https://blog.csdn.net/claram/article/details/54023216
+>
+> 分区表：https://www.cnblogs.com/wy123/p/9778590.html
+>
+> 一条SQL语句在MySQL中如何执行的：https://mp.weixin.qq.com/s?__biz=Mzg2OTA0Njk0OA==&mid=2247485097&idx=1&sn=84c89da477b1338bdf3e9fcd65514ac1&chksm=cea24962f9d5c074d8d3ff1ab04ee8f0d6486e3d015cfd783503685986485c11738ccb542ba7&token=79317275&lang=zh_CN#rd
 
