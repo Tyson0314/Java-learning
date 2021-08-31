@@ -16,8 +16,11 @@
   - [Mybatis](#mybatis)
   - [SpringCloud](#springcloud)
   - [Netty](#netty)
+- [工具](#%E5%B7%A5%E5%85%B7)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+**Java相关知识总结，包括Java基础、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！**
 
 # Java
 
@@ -80,5 +83,9 @@
 [Netty实战笔记](框架/netty实战.md)
 
 
+
+# 工具
+
+[Git 超详细总结！](工具/progit2.md)(必看 :+1:)
 
 >  持续更新中，欢迎star~
