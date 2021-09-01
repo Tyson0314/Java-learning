@@ -1,7 +1,18 @@
-**Java相关知识总结，包括Java基础、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！**
+> 首先给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+>
+> github地址：https://github.com/Tyson0314/java-books
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee地址：https://gitee.com/tysondai/java-books
+
+
+
+**本仓库用于分享Java核心知识总结，包括Java基础、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！**
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
 
 - [Java](#java)
   - [基础](#%E5%9F%BA%E7%A1%80)
