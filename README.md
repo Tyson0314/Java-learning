@@ -52,7 +52,7 @@
 
 ## JVM
 
-[Java虚拟机总结](Java/JVM.md)(必看 :+1:)
+[一万多字！Java虚拟机总结](Java/JVM.md)(必看 :+1:)
 
 # 数据库
 
