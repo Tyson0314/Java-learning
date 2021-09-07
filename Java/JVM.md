@@ -1,6 +1,6 @@
 
 
->  本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Springboot、mybatis、Redis、rabbitMQ等等，欢迎大家提pr和star！
+> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Springboot、mybatis、Redis、rabbitMQ等等，欢迎大家提pr和star！
 >
 > github地址：https://github.com/Tyson0314/Java-learning
 >
@@ -142,6 +142,14 @@ java -Xms1M -Xmx2M
 
 通过 -Xss 设定每个线程的堆栈大小。设置这个参数，需要评估一个线程大约需要占用多少内存，可能会有多少线程同时运行等。
 
+> 在这里也给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+>
+> github地址：https://github.com/Tyson0314/java-books
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee地址：https://gitee.com/tysondai/java-books
+
 ### 方法区
 
 方法区与 Java 堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。方法区逻辑上属于堆的一部分。
@@ -184,13 +192,13 @@ NIO的Buffer提供了DirectBuffer，可以直接访问系统物理内存，避�
 
 Java 程序通过栈上的 reference 数据来操作堆上的具体对象。对象的访问方式由虚拟机实现而定，目前主流的访问方式有使用句柄和直接指针两种：
 
-1. 如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。
+- 如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。
 
-   ![](https://gitee.com/tysondai/img/raw/master/object-handle.png)
+![](https://gitee.com/tysondai/img/raw/master/object-handle.png)
 
-2. 直接指针。reference 中存储的直接就是对象的地址。对象包含到对象类型数据的指针，通过这个指针可以访问对象类型数据。使用直接指针访问方式最大的好处就是访问对象速度快，它节省了一次指针定位的时间开销，虚拟机hotspot主要是使用直接指针来访问对象。
+- 直接指针。reference 中存储的直接就是对象的地址。对象包含到对象类型数据的指针，通过这个指针可以访问对象类型数据。使用直接指针访问方式最大的好处就是访问对象速度快，它节省了一次指针定位的时间开销，虚拟机hotspot主要是使用直接指针来访问对象。
 
-   ![](https://gitee.com/tysondai/img/raw/master/direct-pointer.png)
+![](https://gitee.com/tysondai/img/raw/master/direct-pointer.png)
 
 
 

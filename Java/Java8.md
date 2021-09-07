@@ -42,30 +42,51 @@
 
 ## Lambda 表达式
 
-[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
+在Java8以前，使用`Collections`的sort方法对字符串排序的写法：
 
 ```java
-List<String> names = Arrays.asList("peter", "anna", "mike", "xenia");
+List<String> names = Arrays.asList("dabin", "tyson", "sophia");
 
-Collections.sort(names, (String a, String b) -> b.compareTo(a));
-names.sort((a, b) -> b.compareTo(a));
+Collections.sort(names, new Comparator<String>() {
+    @Override
+    public int compare(String a, String b) {
+        return b.compareTo(a);
+    }
+});
 ```
 
+Java8 推荐使用lambda表达式，简化这种写法。
 
+```java
+List<String> names = Arrays.asList("dabin", "tyson", "sophia");
+
+Collections.sort(names, (String a, String b) -> b.compareTo(a)); //简化写法一
+names.sort((a, b) -> b.compareTo(a)); //简化写法二，省略入参类型，Java 编译器能够根据类型推断机制判断出参数类型
+```
+
+可以看到使用lambda表示式之后，代码变得很简短并且易于阅读。
 
 ## 函数式接口
 
-函数式接口（Functional Interface）就是只包含一个抽象方法的接口。只有函数式接口才能缩写成 Lambda 表达式。
+Functional Interface：函数式接口，只包含一个抽象方法的接口。只有函数式接口才能缩写成 Lambda 表达式。@FunctionalInterface 定义类为一个函数式接口，如果添加了第二个抽象方法，编译器会立刻抛出错误提示。
 
 ```java
-@FunctionalInterface //定义为一个函数式接口，如果添加了第二个抽象方法，编译器会立刻抛出错误提示。
+@FunctionalInterface
 interface Converter<F, T> {
     T convert(F from);
 }
 
-Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
-Integer converted = converter.convert("123");
-System.out.println(converted);    // 123
+public class FunctionalInterfaceTest {
+    public static void main(String[] args) {
+        Converter<String, Integer> converter = (from) -> Integer.valueOf(from);
+        Integer converted = converter.convert("666");
+        System.out.println(converted);
+    }
+    /**
+     * output
+     * 666
+     */
+}
 ```
 
 
@@ -81,35 +102,30 @@ Comparator 和 Runnable，Java 8 为他们都添加了 @FunctionalInterface 注�
 ```java
 Predicate<String> predicate = (s) -> s.length() > 0;
 
-predicate.test("foo");              // true
-predicate.negate().test("foo");     // false
-
-Predicate<Boolean> nonNull = Objects::nonNull;
-Predicate<Boolean> isNull = Objects::isNull;
-
-Predicate<String> isEmpty = String::isEmpty;
-Predicate<String> isNotEmpty = isEmpty.negate();
+predicate.test("dabin"); // true
 ```
 
 ### Comparator
 
+Java8 将 Comparator 升级成函数式接口，可以使用lambda表示式简化代码。
+
 ```java
-public class SortTest {
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-05 23:24
+ */
+public class ComparatorTest {
     public static void main(String[] args) {
-        Comparator<Person> comparator = (p1, p2) -> p1.firstName.compareTo(p2.firstName); //升序
+        Comparator<Person> comparator = Comparator.comparing(p -> p.firstName);
 
-        Person p1 = new Person("John", "Doe");
-        Person p2 = new Person("Alice", "Wonderland");
+        Person p1 = new Person("dabin", "wang");
+        Person p2 = new Person("xiaobin", "wang");
 
-        comparator.compare(p1, p2);             // > 0 字母升序
-        comparator.reversed().compare(p1, p2);  // < 0 字母降序
-
-        List<Person> personList = new ArrayList<>();
-        personList.add(p1);
-        personList.add(p2);
-        personList.stream().sorted(comparator).forEach(System.out::println); //sorted不会改变personList
-//        personList.sort(comparator); //sort会改变personList
-//        personList.stream().forEach(System.out::println);
+        // 打印-20
+        System.out.println(comparator.compare(p1, p2));
+        // 打印20
+        System.out.println(comparator.reversed().compare(p1, p2));
     }
 
 }
@@ -122,41 +138,55 @@ class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-
-    @Override
-    public String toString() {
-        return this.firstName;
-    }
 }
 ```
 
 
 ### Consumer
 
-Consumer 接口接收一个泛型参数，然后调用 accept，对这个参数做一系列的操作。
+Consumer 接口接收一个泛型参数，然后调用 accept，对这个参数做一系列消费操作。
+
+Consumer 源码：
 
 ```java
 @FunctionalInterface
 public interface Consumer<T> {
- 
-    
+
     void accept(T t);
- 
+    
     default Consumer<T> andThen(Consumer<? super T> after) {
         Objects.requireNonNull(after);
         return (T t) -> { accept(t); after.accept(t); };
     }
 }
-
- Consumer<Integer> consumer = x -> {
-            int a = x + 2;
-            System.out.println(a);// 12
-            System.out.println(a + "_");// 12_
-        };
-        consumer.accept(10); //调用了accept控制台才会输出
 ```
 
-主要是对入参做一些操作，在stream里，主要是用于forEach，对传入的参数，做一系列的业务操作。
+示例1：
+
+```java
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-05 23:41
+ */
+public class ConsumerTest {
+    public static void main(String[] args) {
+        Consumer<Integer> consumer = x -> {
+            int a = x + 6;
+            System.out.println(a);
+            System.out.println("大彬" + a);
+        };
+        consumer.accept(660);
+    }
+    /**
+     * output
+     * 666
+     * 大彬666
+     */
+}
+```
+
+示例2：在stream里，对入参做一些操作，主要是用于forEach，对传入的参数，做一系列的业务操作。
 
 ```java
 // CopyOnWriteArrayList
@@ -180,35 +210,69 @@ list
 list.forEach(System.out::println);
 ```
 
+示例3：addThen方法使用。
+
+```java
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-05 23:59
+ */
+public class ConsumersTest {
+    public static void main(String[] args) {
+        Consumer<Integer> consumer1 = x -> System.out.println("first x : " + x);
+        Consumer<Integer> consumer2 = x -> {
+            System.out.println("second x : " + x);
+            throw new NullPointerException("throw exception second");
+        };
+        Consumer<Integer> consumer3 = x -> System.out.println("third x : " + x);
+
+        consumer1.andThen(consumer2).andThen(consumer3).accept(1);
+    }
+    /**
+     * output
+     * first x : 1
+     * second x : 1
+     * Exception in thread "main" java.lang.NullPointerException: throw exception second
+     * 	at com.dabin.java8.ConsumersTest.lambda$main$1(ConsumersTest.java:15)
+     * 	...
+     */
+}
+```
+
 ## Stream
 
 使用 `java.util.Stream` 对一个包含一个或多个元素的集合做各种操作，原集合不变，返回新集合。只能对实现了 `java.util.Collection` 接口的类做流的操作。`Map` 不支持 `Stream` 流。`Stream` 流支持同步执行，也支持并发执行。
 
 ### Filter 过滤
 
-创建一个 List 集合：
+Filter` 的入参是一个 `Predicate，用于筛选出我们需要的集合元素。原集合不变。filter 会过滤掉不符合特定条件的，下面的代码会过滤掉`nameList`中不以大彬开头的字符串。
 
 ```java
-List<String> stringCollection = new ArrayList<>();
-stringCollection.add("ddd2");
-stringCollection.add("aaa2");
-stringCollection.add("bbb1");
-stringCollection.add("aaa1");
-stringCollection.add("bbb3");
-stringCollection.add("ccc");
-stringCollection.add("bbb2");
-stringCollection.add("ddd1");
-```
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:05
+ */
+public class StreamTest {
+    public static void main(String[] args) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("大彬1");
+        nameList.add("大彬2");
+        nameList.add("aaa");
+        nameList.add("bbb");
 
-Filter` 的入参是一个 `Predicate，用于筛选出我们需要的集合元素。原集合不变。
-
-```java
-stringCollection
-    .stream()
-    .filter((s) -> s.startsWith("a"))
-    .forEach(System.out::println);
-
-// "aaa2", "aaa1"
+        nameList
+                .stream()
+                .filter((s) -> s.startsWith("大彬"))
+                .forEach(System.out::println);
+    }
+    /**
+     * output
+     * 大彬1
+     * 大彬2
+     */
+}
 ```
 
 ### Sorted 排序
@@ -216,19 +280,39 @@ stringCollection
 自然排序，不改变原集合，返回排序后的集合。
 
 ```java
-stringCollection
-    .stream()
-    .sorted()
-    .filter((s) -> s.startsWith("a"))
-    .forEach(System.out::println);
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:05
+ */
+public class StreamTest1 {
+    public static void main(String[] args) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("大彬3");
+        nameList.add("大彬1");
+        nameList.add("大彬2");
+        nameList.add("aaa");
+        nameList.add("bbb");
 
-// "aaa1", "aaa2"
+        nameList
+                .stream()
+                .filter((s) -> s.startsWith("大彬"))
+                .sorted()
+                .forEach(System.out::println);
+    }
+    /**
+     * output
+     * 大彬1
+     * 大彬2
+     * 大彬3
+     */
+}
 ```
 
 逆序排序：
 
 ```java
-stringCollection
+nameList
     .stream()
     .sorted(Comparator.reverseOrder());
 ```
@@ -245,168 +329,338 @@ list.stream().sorted(Comparator.comparing(Student::getAge));
 将每个字符串转为大写。
 
 ```java
-stringCollection
-    .stream()
-    .map(String::toUpperCase)
-    .sorted((a, b) -> b.compareTo(a))
-    .forEach(System.out::println);
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:05
+ */
+public class StreamTest2 {
+    public static void main(String[] args) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("aaa");
+        nameList.add("bbb");
 
-// "DDD2", "DDD1", "CCC", "BBB3", "BBB2", "AAA2", "AAA1"
-
+        nameList
+                .stream()
+                .map(String::toUpperCase)
+                .forEach(System.out::println);
+    }
+    /**
+     * output
+     * AAA
+     * BBB
+     */
+}
 ```
 
 ### Match 匹配
 
-验证 list 中 string 是否有以 a 开头的, 匹配到第一个，即返回 true。
+验证 nameList 中的字符串是否有以`大彬`开头的。
 
 ```java
-boolean anyStartsWithA =
-    stringCollection
-        .stream()
-        .anyMatch((s) -> s.startsWith("a"));
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:05
+ */
+public class StreamTest3 {
+    public static void main(String[] args) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("大彬1");
+        nameList.add("大彬2");
 
-System.out.println(anyStartsWithA);      // true
+        boolean startWithDabin =
+                nameList
+                    .stream()
+                    .map(String::toUpperCase)
+                    .anyMatch((s) -> s.startsWith("大彬"));
+
+        System.out.println(startWithDabin);
+    }
+    /**
+     * output
+     * true
+     */
+}
 ```
 
 ### Count 计数
 
-```java
-// 先对 list 中字符串开头为 b 进行过滤，让后统计数量
-long startsWithB =
-    stringCollection
-        .stream()
-        .filter((s) -> s.startsWith("b"))
-        .count();
+统计 `stream` 流中的元素总数，返回值是 `long` 类型。
 
-System.out.println(startsWithB);    // 3
+```java
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:05
+ */
+public class StreamTest4 {
+    public static void main(String[] args) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("大彬1");
+        nameList.add("大彬2");
+        nameList.add("aaa");
+
+        long count =
+                nameList
+                    .stream()
+                    .map(String::toUpperCase)
+                    .filter((s) -> s.startsWith("大彬"))
+                    .count();
+
+        System.out.println(count);
+    }
+    /**
+     * output
+     * 2
+     */
+}
 ```
 
 ### Reduce
 
-类似拼接。
+类似拼接。可以实现将 `list` 归约成一个值。它的返回类型是 `Optional` 类型。
 
 ```java
-Optional<String> reduced =
-    stringCollection
-        .stream()
-        .sorted()
-        .reduce((s1, s2) -> s1 + "#" + s2);
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:22
+ */
+public class StreamTest5 {
+    public static void main(String[] args) {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("大彬1");
+        nameList.add("大彬2");
 
-reduced.ifPresent(System.out::println);
-// "aaa1#aaa2#bbb1#bbb2#bbb3#ccc#ddd1#ddd2"
+        Optional<String> reduced =
+                nameList
+                        .stream()
+                        .sorted()
+                        .reduce((s1, s2) -> s1 + "#" + s2);
+
+        reduced.ifPresent(System.out::println);
+    }
+    /**
+     * output
+     * 大彬1#大彬2
+     */
+}
 ```
 
 
 ### flatMap
 
-flatMap 用于将多个Stream连接成一个Stream。比如把几个小的list转换到一个大的list。
+flatMap 用于将多个Stream连接成一个Stream。
+
+下面的例子，把几个小的list转换到一个大的list。
 
 ```java
-@Test  
-public void testMapAndFlatMap() {  
-    List<String> words = new ArrayList<String>();  
-    words.add("hello");  
-    words.add("word");  
+/**
+ * @description: 把几个小的list转换到一个大的list。
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:28
+ */
+public class StreamTest6 {
+    public static void main(String[] args) {
+        List<String> team1 = Arrays.asList("大彬1", "大彬2", "大彬3");
+        List<String> team2 = Arrays.asList("大彬4", "大彬5");
 
-    //将words数组中的元素再按照字符拆分，然后字符去重，最终达到["h", "e", "l", "o", "w", "r", "d"]  
-    //如果使用map，是达不到直接转化成List<String>的结果  
-    List<String> stringList = words.stream()  
-        .flatMap(word -> Arrays.stream(word.split("")))  
-        .distinct()  
-        .collect(Collectors.toList());  
-    stringList.forEach(e -> System.out.println(e));  
-}
+        List<List<String>> players = new ArrayList<>();
+        players.add(team1);
+        players.add(team2);
 
-//another demo
-//把几个小的list转换到一个大的list。
-public class Test {
+        List<String> flatMapList = players.stream()
+                .flatMap(pList -> pList.stream())
+                .collect(Collectors.toList());
 
-    public static void main(String args[]) {
-
-        List<String> teamIndia = Arrays.asList("Virat", "Dhoni", "Jadeja");
-        List<String> teamAustralia = Arrays.asList("Warner", "Watson", "Smith");
-        List<String> teamEngland = Arrays.asList("Alex", "Bell", "Broad");
-        
-        List<List<String>> playersInWorldCup2016 = new ArrayList<>();
-        playersInWorldCup2016.add(teamIndia);
-        playersInWorldCup2016.add(teamAustralia);
-        playersInWorldCup2016.add(teamEngland);
-        
-        // Now let's do this in Java 8 using FlatMap
-        List<String> flatMapList = playersInWorldCup2016.stream()
-                                                        .flatMap(pList -> pList.stream())
-                                                        .collect(Collectors.toList());
-        
         System.out.println(flatMapList);
     }
-
+    /**
+     * output
+     * [大彬1, 大彬2, 大彬3, 大彬4, 大彬5]
+     */
 }
 ```
-## Parallel-Streams 并行流
-
-`stream` 流是支持**顺序**和**并行**的。顺序流操作是单线程操作，而并行流是通过多线程来处理的，处理速度更快。
+下面的例子中，将words数组中的元素按照字符拆分，然后对字符去重。
 
 ```java
-long count = values.parallelStream().sorted().count();
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:35
+ */
+public class StreamTest7 {
+    public static void main(String[] args) {
+        List<String> words = new ArrayList<String>();
+        words.add("大彬最强");
+        words.add("大彬666");
+
+        //将words数组中的元素按照字符拆分，然后对字符去重
+        List<String> stringList = words.stream()
+                .flatMap(word -> Arrays.stream(word.split("")))
+                .distinct()
+                .collect(Collectors.toList());
+        stringList.forEach(e -> System.out.print(e + ", "));
+    }
+    /**
+     * output
+     * 大, 彬, 最, 强, 6,
+     */
+}
+```
+
+
+
+## Parallel-Streams
+
+并行流。`stream` 流是支持**顺序**和**并行**的。顺序流操作是单线程操作，串行化的流无法带来性能上的提升，通常我们会使用多线程来并行执行任务，处理速度更快。
+
+```java
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-06 00:05
+ */
+public class StreamTest7 {
+    public static void main(String[] args) {
+        int max = 100;
+        List<String> strs = new ArrayList<>(max);
+        for (int i = 0; i < max; i++) {
+            UUID uuid = UUID.randomUUID();
+            strs.add(uuid.toString());
+        }
+
+        List<String> sortedStrs = strs.stream().sorted().collect(Collectors.toList());
+        System.out.println(sortedStrs);
+    }
+    /**
+     * output
+     * [029be6d0-e77e-4188-b511-f1571cdbf299, 02d97425-b696-483a-80c6-e2ef51c05d83, 0632f1e9-e749-4bce-8bac-1cf6c9e93afa, ...]
+     */
+}
 ```
 
 
 
 ## Map 集合
 
-不能在遍历的时候使用`map.remove()`删除元素，会抛 ConcurrentModificationException 异常。可以使用 `iterator.remove()` 安全删除数据。使用 lambda 的 removeIf 提前删除数据，或者使用 Stream 的 filter 过滤掉要删除的数据，然后再进行遍历，也是安全的。
+Java8 针对 map 操作增加了一些方法，非常方便
+
+1、删除元素使用`removeIf()`方法。
 
 ```java
-Map<Integer, String> map = new HashMap<>();
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-07 00:03
+ */
+public class MapTest {
+    public static void main(String[] args) {
 
-for (int i = 0; i < 10; i++) {
-    // 与老版不同的是，putIfAbent() 方法在 put 之前，
-    // 会判断 key 是否已经存在，存在则直接返回 value, 否则 put, 再返回 value
-    map.putIfAbsent(i, "val" + i);
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "dabin1");
+        map.put(2, "dabin2");
+
+        //删除value没有含有1的键值对
+        map.values().removeIf(value -> !value.contains("1"));
+
+        System.out.println(map);
+    }
+    /**
+     * output
+     * {1=dabin1}
+     */
 }
-
-// forEach 可以很方便地对 map 进行遍历操作
-map.forEach((key, value) -> System.out.println(value));
-map.entrySet().stream().forEach((entry) -> System.out.println(entry.getKey()));
-
-//遍历前先移除key为1的键值
-map.keySet().removeIf(key -> key == 1);
-//过滤要删除的值，然后再进行遍历，才是安全的
-map.entrySet().stream().filter(m -> 1 != m.getKey()).foreach((entry) -> {});
-
-// computeIfPresent(), 当 key 存在时，才会做相关处理
-// 如下：对 key 为 3 的值，内部会先判断值是否存在，存在，则做 value + key 的拼接操作
-map.computeIfPresent(3, (num, val) -> val + num);
-map.get(3);             // val33
-
-// 先判断 key 为 9 的元素是否存在，存在，则做删除操作
-map.computeIfPresent(9, (num, val) -> null);
-map.containsKey(9);     // false
-
-// computeIfAbsent(), 当 key 不存在时，才会做相关处理
-// 如下：先判断 key 为 23 的元素是否存在，不存在，则添加
-map.computeIfAbsent(23, num -> "val" + num);
-map.containsKey(23);    // true
-
-// 先判断 key 为 3 的元素是否存在，存在，则不做任何处理
-map.computeIfAbsent(3, num -> "bam");
-map.get(3);             // val33
-
-//只有当给定的 key 和 value 完全匹配时，才会执行删除操作。
-map.remove(3, "val3");
-map.get(3);             // val33
-
-map.remove(3, "val33");
-map.get(3);             // null
-
-// 若 key 42 不存在，则返回 not found
-map.getOrDefault(42, "not found");  // not found
-
-// merge 方法，会先判断进行合并的 key 是否存在，不存在，则会添加元素
-map.merge(9, "val9", (value, newValue) -> value.concat(newValue));
-map.get(9);             // val9
-
-// 若 key 的元素存在，则对 value 执行拼接操作
-map.merge(9, "concat", (value, newValue) -> value.concat(newValue));
-map.get(9);             // val9concat
 ```
+
+2、`putIfAbsent(key, value) ` 如果指定的 key 不存在，则 put 进去。
+
+```java
+/**
+ * @description:
+ * @author: 程序员大彬
+ * @time: 2021-09-07 00:08
+ */
+public class MapTest1 {
+    public static void main(String[] args) {
+
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "大彬1");
+
+        for (int i = 0; i < 3; i++) {
+            map.putIfAbsent(i, "大彬" + i);
+        }
+        map.forEach((id, val) -> System.out.print(val + ", "));
+    }
+    /**
+     * output
+     * 大彬0, 大彬1, 大彬2
+     */
+}
+```
+
+3、map 转换。
+
+```java
+/**
+ * @author: 程序员大彬
+ * @time: 2021-09-07 08:15
+ */
+public class MapTest2 {
+    public static void main(String[] args) {
+        Map<String, Integer> map = new HashMap<>();
+        map.put("1", 1);
+        map.put("2", 2);
+
+        Map<String, String> newMap = map.entrySet().stream()
+                .collect(Collectors.toMap(e -> e.getKey(), e -> "大彬" + String.valueOf(e.getValue())));
+
+        newMap.forEach((key, val) -> System.out.print(val + ", "));
+    }
+    /**
+     * output
+     * 大彬1, 大彬2,
+     */
+}
+```
+
+4、map遍历。
+
+```java
+/**
+ * @author: 程序员大彬
+ * @time: 2021-09-07 08:31
+ */
+public class MapTest3 {
+    public static void main(String[] args) {
+        Map<Integer, String> map = new HashMap<>();
+        map.put(1, "大彬1");
+        map.put(2, "大彬2");
+
+        //方式1
+        map.keySet().forEach(k -> {
+            System.out.print(map.get(k) + ", ");
+        });
+
+        //方式2
+        map.entrySet().iterator().forEachRemaining(e -> System.out.print(e.getValue() + ", "));
+
+        //方式3
+        map.entrySet().forEach(entry -> {
+            System.out.print(entry.getValue() + ", ");
+        });
+
+        //方式4
+        map.values().forEach(v -> {
+            System.out.print(v + ", ");
+        });
+    }
+}
+```
+
+
+
+## 参考资料
+
+[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
