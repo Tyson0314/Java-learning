@@ -22,6 +22,14 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Spring Boot、MyBatis、Redis、RabbitMQ等等，欢迎大家提pr和star！
+>
+> github地址：https://github.com/Tyson0314/Java-learning
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee地址：https://gitee.com/tysondai/Java-learning
+
 ## 函数式编程
 
 面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程会多写很多可能是重复的代码行。
@@ -663,4 +671,14 @@ public class MapTest3 {
 
 ## 参考资料
 
-[java8新特性](https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16)
+`https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16`
+
+
+
+最后给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+github地址：https://github.com/Tyson0314/java-books
+
+如果github访问不了，可以访问gitee仓库。
+
+gitee地址：https://gitee.com/tysondai/java-books
