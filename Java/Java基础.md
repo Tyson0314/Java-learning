@@ -541,6 +541,16 @@ public class Person {
 }
 ```
 
+### wait
+
+当前线程调用对象的wait()方法之后，当前线程会释放对象锁，进入等待状态。等待其他线程调用此对象的notify()/notifyAll()唤醒或者等待超时时间wait(long timeout)自动唤醒。线程需要获取obj对象锁之后才能调用 obj.wait()。
+
+### notity
+
+obj.notify()唤醒在此对象上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象上等待的所有线程。
+
+> LockSupport.park()/LockSupport.parkNanos(long nanos)/LockSupport.parkUntil(long deadlines)，用于阻塞当前线程。对比obj.wait()方法，不需要获得锁就可以让线程进入等待状态，需要通过LockSupport.unpark(Thread thread)唤醒。
+
 ### equals()和hashcode()的关系
 
 equals与hashcode的关系：
