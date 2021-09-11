@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
 
 - [Redis分布式锁](#redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81)
   - [Jedis实现分布式锁](#jedis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81)
@@ -147,11 +147,13 @@ public class RedisTest {
 
 
 
-以上是使用Redis实现分布式锁的全部内容，希望对你有帮助。本文已经收录到github/gitee仓库，欢迎大家围观、star
+以上是使用Redis实现分布式锁的全部内容，希望对你有帮助。
 
-github仓库： https://github.com/Tyson0314/Java-learning
-
-如果github访问不了，可以访问gitee仓库。
-
-gitee仓库：https://gitee.com/tysondai/Java-learning
+> 本文已经收录到github/gitee仓库，欢迎大家围观、star
+>
+> github仓库： https://github.com/Tyson0314/Java-learning
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee仓库：https://gitee.com/tysondai/Java-learning
 

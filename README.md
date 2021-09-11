@@ -10,6 +10,8 @@
 
 **本仓库用于分享Java核心知识总结，包括Java基础、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！**
 
+如果你是Java初学者，不知道下一步该学什么内容，可以看下我总结的**2021年最新的[Java学习路线](https://zhuanlan.zhihu.com/p/395162772)。**如果喜欢看视频学习，可以参考这个：[播放量1000万+！B站最值得学习的Java视频教程](https://zhuanlan.zhihu.com/p/397533240)。
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
@@ -31,9 +33,9 @@
   - [Netty](#netty)
 - [消息队列](#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97)
   - [RabbitMQ](#rabbitmq)
-- [算法](#%E7%AE%97%E6%B3%95)
-- [网络](#%E7%BD%91%E7%BB%9C)
 - [设计模式](#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
+- [数据结构与算法](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95)
+- [网络](#%E7%BD%91%E7%BB%9C)
 - [工具](#%E5%B7%A5%E5%85%B7)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -45,6 +47,7 @@
 1. [Java基础知识总结](Java/Java基础.md) 基础知识/面试题(必看 :+1:)
 2. [Java8 新特性总结](Java/Java8.md)
 3. [Java常见关键字总结](Java/Java关键字.md)
+4. [面试高频题--Object类常用方法](Java/Object类常用方法.md)
 
 ## 容器
 
@@ -108,26 +111,31 @@
 ## RabbitMQ
 
 1. [RabbitMQ总结](中间件/RabbitMQ.md) (必看 :+1:)
-
 2. [死信队列](中间件/死信队列.md)
-
-# 算法
-
-[谷歌师兄刷题笔记](https://t.1yb.co/A6id)(必看 :+1:)
-
-[BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)
-
-# 网络
-
-[计算机网络常见面试题总结](网络/网络.md)
-
-[session和cookie](网络/session和cookie.md)
 
 # 设计模式
 
 [字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
 
 [设计模式总结](其他/设计模式.md)
+
+# 数据结构与算法
+
+[谷歌师兄刷题笔记](https://t.1yb.co/A6id)(必看 :+1:)
+
+[BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)(必看 :+1:)
+
+[7种常见的排序算法Java代码实现](数据结构与算法/常见的排序算法Java代码实现.md)
+
+[二叉树前序、中序、后序、层序遍历代码实现](数据结构与算法/二叉树前序、中序、后序、层序遍历代码实现.md)
+
+[常见数据结构总结](数据结构与算法/数据结构.md)
+
+# 网络
+
+[计算机网络常见面试题总结](网络/网络.md)
+
+[session和cookie](网络/session和cookie.md)
 
 # 工具
 
@@ -146,3 +154,4 @@
 
 
 >  持续更新中，欢迎star~
+
