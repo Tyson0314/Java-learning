@@ -20,7 +20,8 @@
   - [并发](#%E5%B9%B6%E5%8F%91)
   - [JVM](#jvm)
 - [数据库](#%E6%95%B0%E6%8D%AE%E5%BA%93)
-- [Redis](#redis)
+  - [MySQL](#mysql)
+  - [Redis](#redis)
 - [框架](#%E6%A1%86%E6%9E%B6)
   - [Spring](#spring)
   - [Spring Boot](#spring-boot)
@@ -28,6 +29,11 @@
   - [Mybatis](#mybatis)
   - [SpringCloud](#springcloud)
   - [Netty](#netty)
+- [消息队列](#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97)
+  - [RabbitMQ](#rabbitmq)
+- [算法](#%E7%AE%97%E6%B3%95)
+- [网络](#%E7%BD%91%E7%BB%9C)
+- [设计模式](#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F)
 - [工具](#%E5%B7%A5%E5%85%B7)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -36,10 +42,8 @@
 
 ## 基础
 
-基础知识/面试题(必看 :+1:)：
-
-1. [Java基础](Java/Java基础.md)
-2. [Java8总结](Java/Java8.md)
+1. [Java基础知识总结](Java/Java基础.md) 基础知识/面试题(必看 :+1:)
+2. [Java8 新特性总结](Java/Java8.md)
 3. [Java常见关键字总结](Java/Java关键字.md)
 
 ## 容器
@@ -48,7 +52,7 @@
 
 ## 并发
 
-[Java并发知识点总结](Java/并发.md)(必看 :+1:)
+[Java并发知识点总结，超详细！](Java/并发.md)(必看 :+1:)
 
 ## JVM
 
@@ -56,25 +60,32 @@
 
 # 数据库
 
-1. [MySQL基础知识总结](数据库/mysql基础.md)(必看 :+1:)
+## MySQL
+
+1. [MySQL基础知识总结](数据库/mysql基础.md)
 2. [MySQL面试知识点总结](数据库/mysql进阶.md)(必看 :+1:)
 3. [MySQL执行计划](数据库/Mysql执行计划.md)(必看 :+1:)
 
-# Redis
+## Redis
 
 1. [Redis基础](中间件/Redis入门指南总结.md)(必看 :+1:)
 2. [Redis分布式锁(必看 :+1:)](中间件/Redis分布式锁.md)
+3. [缓存穿透、缓存雪崩、缓存击穿](中间件/缓存穿透、缓存雪崩、缓存击穿.md)
 
 # 框架
 
 ## Spring
 
 1. [Spring知识点总结](框架/Spring总结.md)(必看 :+1:)
-2. [Spring实战笔记](框架/Spring总结.md)
+2. [Spring实战笔记](框架/Spring实战.md)
+3. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
+4. [Spring自动装配](框架/Spring自动装配.md)
 
 ## Spring Boot
 
 [Spring Boot总结](框架/SpringBoot实战.md)
+
+[SpringBoot自动配置原理](框架/SpringBoot自动配置原理.md)
 
 ## Spring MVC
 
@@ -92,10 +103,44 @@
 
 [Netty实战笔记](框架/netty实战.md)
 
+# 消息队列
 
+## RabbitMQ
+
+1. [RabbitMQ总结](中间件/RabbitMQ.md) (必看 :+1:)
+
+2. [死信队列](中间件/死信队列.md)
+
+# 算法
+
+[谷歌师兄刷题笔记](https://t.1yb.co/A6id)(必看 :+1:)
+
+[BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)
+
+# 网络
+
+[计算机网络常见面试题总结](网络/网络.md)
+
+[session和cookie](网络/session和cookie.md)
+
+# 设计模式
+
+[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
+
+[设计模式总结](其他/设计模式.md)
 
 # 工具
 
 [Git 超详细总结！](工具/progit2.md)(必看 :+1:)
+
+[Docker命令大全！](工具/docker.md)
+
+[Maven实战总结](工具/Maven实战.md)
+
+[Jenkins一键部署](工具/jenkins.md)
+
+[npm命令](工具/NPM.md)
+
+
 
 >  持续更新中，欢迎star~

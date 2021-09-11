@@ -14,38 +14,28 @@
 - [消息丢失](#%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1)
   - [生产者确认机制](#%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6)
   - [路由不可达消息](#%E8%B7%AF%E7%94%B1%E4%B8%8D%E5%8F%AF%E8%BE%BE%E6%B6%88%E6%81%AF)
-    - [Return消息机制](#return%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6)
-    - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
+  - [Return消息机制](#return%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6)
+  - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
   - [消费者手动消息确认](#%E6%B6%88%E8%B4%B9%E8%80%85%E6%89%8B%E5%8A%A8%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4)
   - [持久化](#%E6%8C%81%E4%B9%85%E5%8C%96)
   - [镜像队列](#%E9%95%9C%E5%83%8F%E9%98%9F%E5%88%97)
 - [重复消费](#%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9)
 - [消费端限流](#%E6%B6%88%E8%B4%B9%E7%AB%AF%E9%99%90%E6%B5%81)
-  - [消息过期时间](#%E6%B6%88%E6%81%AF%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4)
 - [死信队列](#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
-  - [实现死信队列](#%E5%AE%9E%E7%8E%B0%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
-- [pull模式](#pull%E6%A8%A1%E5%BC%8F)
-- [消息积压](#%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B)
+- [其他](#%E5%85%B6%E4%BB%96)
+  - [pull模式](#pull%E6%A8%A1%E5%BC%8F)
+  - [消息过期时间](#%E6%B6%88%E6%81%AF%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4)
+- [参考链接](#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-[RabbitMQ基础](https://www.jianshu.com/p/79ca08116d57)
-
-[Springboot整合RabbitMQ](https://blog.csdn.net/qq_35387940/article/details/100514134)
-
-[RabbitMQ之消息持久化](https://blog.csdn.net/u013256816/article/details/60875666)
-
-[RabbitMQ发送邮件代码](https://zhuanlan.zhihu.com/p/145908317)
-
-[线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
-
-## 简介
+# 简介
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
 
 ![image-20200718104019614](../img/rabbitmq.png)
 
-### 基本概念
+## 基本概念
 
 Message：由消息头和消息体组成。消息体是不透明的，而消息头则由一系列的可选属性组成，这些属性包括routing-key、priority、delivery-mode（是否持久性存储）等。
 
@@ -61,13 +51,13 @@ Virtual host：每个 vhost 本质上就是一个 mini 版的 RabbitMQ 服务器
 
 Broker：消息队列服务器实体。
 
-### 什么时候使用MQ
+## 什么时候使用MQ
 
 对于一些不需要立即生效的操作，可以拆分出来，异步执行，使用消息队列实现。
 
 以常见的订单系统为例，用户点击下单按钮之后的业务逻辑可能包括：扣减库存、生成相应单据、发短信通知。这种场景下就可以用 MQ 。将短信通知放到 MQ 异步执行，在下单的主流程（比如扣减库存、生成相应单据）完成之后发送一条消息到 MQ， 让主流程快速完结，而由另外的线程消费MQ的消息。
 
-### 优缺点
+## 优缺点
 
 缺点：使用erlang实现，不利于二次开发和维护；性能较kafka差，持久化消息和ACK确认的情况下生产和消费消息单机吞吐量大约在1-2万左右，kafka单机吞吐量在十万级别。
 
@@ -75,7 +65,7 @@ Broker：消息队列服务器实体。
 
 
 
-## Exchange 类型
+# Exchange 类型
 
 Exchange分发消息时根据类型的不同分发策略不同，目前共四种类型：direct、fanout、topic、headers 。headers 模式根据消息的headers进行路由，此外 headers 交换器和 direct 交换器完全一致，但性能差很多。
 
@@ -88,37 +78,37 @@ Exchange规则。
 | topic    | 模糊匹配                                                     |
 | headers  | Exchange不依赖于routing key与binding key的匹配规则来路由消息，而是根据发送的消息内容中的header属性进行匹配。 |
 
-### direct
+## direct
 
 direct交换机会将消息路由到binding key 和 routing key完全匹配的队列中。它是完全匹配、单播的模式。
 
 ![](../img/rabbitmq-direct.png)
 
-### fanout
+## fanout
 
 所有发到 fanout 类型交换机的消息都会路由到所有与该交换机绑定的队列上去。fanout 类型转发消息是最快的。
 
 ![](../img/rabbitmq-fanout.png)
 
-### topic
+## topic
 
 topic交换机使用routing key和binding key进行模糊匹配，匹配成功则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
 
 ![](../img/rabbitmq-topic.png)
 
-### headers
+## headers
 
 headers交换机是根据发送的消息内容中的headers属性进行路由的。在绑定Queue与Exchange时指定一组键值对；当消息发送到Exchange时，RabbitMQ会取到该消息的headers（也是一个键值对的形式），对比其中的键值对是否完全匹配Queue与Exchange绑定时指定的键值对；如果完全匹配则消息会路由到该Queue，否则不会路由到该Queue。
 
 
 
-## 消息丢失
+# 消息丢失
 
 消息丢失场景：生产者生产消息到RabbitMQ Server消息丢失、RabbitMQ Server存储的消息丢失和RabbitMQ Server到消费者消息丢失。
 
 消息丢失从三个方面来解决：生产者确认机制、消费者手动确认消息和持久化。
 
-### 生产者确认机制
+## 生产者确认机制
 
 生产者发送消息到队列，无法确保发送的消息成功的到达server。
 
@@ -151,13 +141,13 @@ final RabbitTemplate.ConfirmCallback confirmCallback = (CorrelationData correlat
 rabbitTemplate.setConfirmCallback(confirmCallback);
 ```
 
-### 路由不可达消息
+## 路由不可达消息
 
 生产者确认机制只确保消息正确到达交换机，对于从交换机路由到Queue失败的消息，会被丢弃掉，导致消息丢失。
 
 对于不可路由的消息，有两种处理方式：Return消息机制和备份交换机。
 
-#### Return消息机制
+## Return消息机制
 
 Return消息机制提供了回调函数 ReturnCallback，当消息从交换机路由到Queue失败才会回调这个方法。需要将`mandatory` 设置为 `true` ，才能监听到路由不可达的消息。
 
@@ -179,11 +169,11 @@ rabbitTemplate.setReturnCallback(returnCallback);
 
 当消息从交换机路由到Queue失败时，会返回 `return exchange: , routingKey: MAIL, replyCode: 312, replyText: NO_ROUTE`。
 
-#### 备份交换机
+## 备份交换机
 
 备份交换机alternate-exchange 是一个普通的exchange，当你发送消息到对应的exchange时，没有匹配到queue，就会自动转移到备份交换机对应的queue，这样消息就不会丢失。
 
-### 消费者手动消息确认
+## 消费者手动消息确认
 
 有可能消费者收到消息还没来得及处理MQ服务就宕机了，导致消息丢失。因为消息者默认采用自动ack，一旦消费者收到消息后会通知MQ Server这条消息已经处理好了，MQ 就会移除这条消息。
 
@@ -216,7 +206,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 当消息消费失败时，消费端给broker回复nack，如果consumer设置了requeue为false，则nack后broker会删除消息或者进入死信队列，否则消息会重新入队。
 
-### 持久化
+## 持久化
 
 如果RabbitMQ服务异常导致重启，将会导致消息丢失。RabbitMQ提供了持久化的机制，将内存中的消息持久化到硬盘上，即使重启RabbitMQ，消息也不会丢失。
 
@@ -228,7 +218,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 当发布一条消息到交换机上时，Rabbit会先把消息写入持久化日志，然后才向生产者发送响应。一旦从队列中消费了一条消息的话并且做了确认，RabbitMQ会在持久化日志中移除这条消息。在消费消息前，如果RabbitMQ重启的话，服务器会自动重建交换机和队列，加载持久化日志中的消息到相应的队列或者交换机上，保证消息不会丢失。
 
-### 镜像队列
+## 镜像队列
 
 当MQ发生故障时，会导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到集群中其他的节点之上。如果集群中的一个节点失效了，能自动地切换到镜像中的另一个节点以保证服务的可用性。
 
@@ -236,7 +226,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 
 
-## 重复消费
+# 重复消费
 
 消息重复的原因有两个：1.生产时消息重复，2.消费时消息重复。
 
@@ -252,7 +242,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 
 
-## 消费端限流
+# 消费端限流
 
 当 RabbitMQ 服务器积压大量消息时，队列里的消息会大量涌入消费端，可能导致消费端服务器奔溃。这种情况下需要对消费端限流。
 
@@ -273,22 +263,7 @@ spring.rabbitmq.listener.simple.prefetch=2
 void basicQos(int prefetchSize, int prefetchCount, boolean global) throws IOException;
 ```
 
-
-
-### 消息过期时间
-
-在生产端发送消息的时候可以给消息设置过期时间，单位为毫秒(ms)。
-
-```java
-Message msg = new Message("tyson".getBytes(), mp);
-msg.getMessageProperties().setExpiration("3000");
-```
-
-也可以在创建队列的时候指定队列的ttl，从消息入队列开始计算，超过该时间的消息将会被移除。
-
-
-
-## 死信队列
+# 死信队列
 
 消费失败的消息存放的队列。
 
@@ -297,8 +272,6 @@ msg.getMessageProperties().setExpiration("3000");
 - 消息被拒绝并且消息没有重新入队（requeue=false）
 - 消息超时未消费
 - 达到最大队列长度
-
-### 实现死信队列
 
 设置死信队列的 exchange 和 queue，然后进行绑定：
 
@@ -412,7 +385,7 @@ public class DeadListener {
 
 当普通队列中有死信时，RabbitMQ 就会自动的将这个消息重新发布到设置的死信交换机去，然后被路由到死信队列。可以监听死信队列中的消息做相应的处理。
 
-
+# 其他
 
 ## pull模式
 
@@ -424,13 +397,25 @@ System.out.println(new String(response.getBody()));
 channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
 ```
 
+## 消息过期时间
 
+在生产端发送消息的时候可以给消息设置过期时间，单位为毫秒(ms)。
 
-## 消息积压
+```java
+Message msg = new Message("tyson".getBytes(), mp);
+msg.getMessageProperties().setExpiration("3000");
+```
 
-[Rabbitmq消息积压](http://luxiaobing.com/2019/12/07/RabbitMq%E6%B6%88%E6%81%AF%E7%A7%AF%E5%8E%8B/)
+也可以在创建队列的时候指定队列的ttl，从消息入队列开始计算，超过该时间的消息将会被移除。
 
-检查消费者是否在线，检查消费端配置属性，是否未配置异常队列的监听器；
-检查下生产端或者消费端服务的内存或者cpu是否正常，是否是因为内存溢出导致rabbit服务消息无法发送；
-对于手动配置ack机制的，要检查配置是否确认ack，否则会造成消息积压；
-开启了手动ack，消费速度跟不上生产速度，检查下消费端是否处理消息流程过长，比较耗时。
+# 参考链接
+
+[RabbitMQ基础](https://www.jianshu.com/p/79ca08116d57)
+
+[Springboot整合RabbitMQ](https://blog.csdn.net/qq_35387940/article/details/100514134)
+
+[RabbitMQ之消息持久化](https://blog.csdn.net/u013256816/article/details/60875666)
+
+[RabbitMQ发送邮件代码](https://zhuanlan.zhihu.com/p/145908317)
+
+[线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
