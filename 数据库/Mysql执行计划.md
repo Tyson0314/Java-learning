@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
 
 - [id](#id)
 - [select_type](#select_type)
@@ -29,6 +29,7 @@
   - [using temporary](#using-temporary)
   - [filesort](#filesort)
   - [using join buffer](#using-join-buffer)
+- [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -89,7 +90,7 @@ where blog_id = (
 
 三个表依次嵌套，发现最里层的子查询 `id`最大，最先执行。
 
-![explain-id](https://gitee.com/tysondai/img/raw/master/explain-id.png)
+![](https://gitee.com/tysondai/img/raw/master/explain-id.png)
 
 ##  select_type
 
@@ -105,13 +106,13 @@ where blog_id = (
 
 查询的表名，并不一定是真实存在的表，有别名显示别名，也可能为临时表。当from子句中有子查询时，table列是 `<derivenN>`的格式，表示当前查询依赖 id为N的查询，会先执行 id为N的查询。
 
-![explain-table](https://gitee.com/tysondai/img/raw/master/image-20210804083523885.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210804083523885.png)
 
 ##  partitions
 
 查询时匹配到的分区信息，对于非分区表值为`NULL`，当查询的是分区表时，`partitions`显示分区表命中的分区情况。
 
-![explain-partitions](https://gitee.com/tysondai/img/raw/master/image-20210802022931773.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210802022931773.png)
 
 ##  type
 
@@ -121,25 +122,25 @@ where blog_id = (
 
 当表仅有一行记录时（系统表），数据量很少，往往不需要进行磁盘IO，速度非常快。比如，Mysql系统表proxies_priv在Mysql服务启动时候已经加载在内存中，对这个表进行查询不需要进行磁盘 IO。
 
-![explain-system](https://gitee.com/tysondai/img/raw/master/image-20210801233419732.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210801233419732.png)
 
 ### const
 
 单表操作的时候，查询使用了主键或者唯一索引。
 
-![explain-const](https://gitee.com/tysondai/img/raw/master/explain-const.png)
+![](https://gitee.com/tysondai/img/raw/master/explain-const.png)
 
 ### eq_ref
 
 **多表关联**查询的时候，主键和唯一索引作为关联条件。如下图的sql，对于user表（外循环）的每一行，user_role表（内循环）只有一行满足join条件，只要查找到这行记录，就会跳出内循环，继续外循环的下一轮查询。
 
-![explain-eq_ref](https://gitee.com/tysondai/img/raw/master/image-20210801232638027.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210801232638027.png)
 
 ### ref
 
 查找条件列使用了索引而且不为主键和唯一索引。虽然使用了索引，但该索引列的值并不唯一，这样即使使用索引查找到了第一条数据，仍然不能停止，要在目标值附近进行小范围扫描。但它的好处是不需要扫全表，因为索引是有序的，即便有重复值，也是在一个非常小的范围内做扫描。
 
-![explain-ref.png](https://gitee.com/tysondai/img/raw/master/explain-ref.png)
+![](https://gitee.com/tysondai/img/raw/master/explain-ref.png)
 
 ### ref_or_null
 
@@ -149,13 +150,13 @@ where blog_id = (
 
 使用了索引合并优化方法，查询使用了两个以上的索引。新建comment表，id为主键，value_id为非唯一索引，执行`explain select content from comment where value_id = 1181000 and id > 1000;`，执行结果显示查询同时使用了id和value_id索引，type列的值为index_merge。
 
-![type-index_merge](https://gitee.com/tysondai/img/raw/master/image-20210802001215614.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210802001215614.png)
 
 ### range
 
 有范围的索引扫描，相对于index的全索引扫描，它有范围限制，因此要优于index。像between、and、'>'、'<'、in和or都是范围索引扫描。
 
-![explain-range.png](https://gitee.com/tysondai/img/raw/master/explain-range.png)
+![](https://gitee.com/tysondai/img/raw/master/explain-range.png)
 
 ### index
 
@@ -163,17 +164,17 @@ index包括select索引列，order by主键两种情况。
 
 1. order by主键。这种情况会按照索引顺序全表扫描数据，拿到的数据是按照主键排好序的，不需要额外进行排序。
 
-   ![type-index-orderBy](https://gitee.com/tysondai/img/raw/master/image-20210801225045980.png)
+   ![](https://gitee.com/tysondai/img/raw/master/image-20210801225045980.png)
 
 2. select索引列。type为index，而且extra字段为using index，也称这种情况为索引覆盖。所需要取的数据都在索引列，无需回表查询。
 
-   ![type-index-selectIndexColumn](https://gitee.com/tysondai/img/raw/master/image-20210801225942948.png)
+   ![](https://gitee.com/tysondai/img/raw/master/image-20210801225942948.png)
 
 ### all
 
 全表扫描，查询没有用到索引，性能最差。
 
-![explain-all](https://gitee.com/tysondai/img/raw/master/explain-all.png)
+![](https://gitee.com/tysondai/img/raw/master/explain-all.png)
 
 ##  possible_keys
 
@@ -221,13 +222,13 @@ CREATE TABLE `t_orderdetail` (
 
 查询的列未被索引覆盖，where筛选条件非索引的前导列。对存储引擎返回的结果进行过滤（Post-filter，后过滤），一般发生在MySQL服务器，而不是存储引擎层。
 
-![extra-using-where](https://gitee.com/tysondai/img/raw/master/image-20210802232729417.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210802232729417.png)
 
 ### using index
 
 查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过**索引查找**就能直接找到符合条件的数据，不需要回表查询数据。
 
-![extra-using-index](https://gitee.com/tysondai/img/raw/master/image-20210802232357282.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210802232357282.png)
 
 ### Using where&Using index
 
@@ -237,17 +238,17 @@ CREATE TABLE `t_orderdetail` (
 
 - where筛选条件不符合最左前缀原则
 
-  ![extra-using-where&index](https://gitee.com/tysondai/img/raw/master/image-20210802233120283.png)
+  ![](https://gitee.com/tysondai/img/raw/master/image-20210802233120283.png)
 
 - where筛选条件是索引列前导列的一个范围
 
-  ![extra-using-where&index](https://gitee.com/tysondai/img/raw/master/image-20210802233455880.png)
+  ![](https://gitee.com/tysondai/img/raw/master/image-20210802233455880.png)
 
 ### null
 
 查询的列未被索引覆盖，并且where筛选条件是索引的前导列，也就是用到了索引，但是部分字段未被索引覆盖，必须回表查询这些字段，Extra中为NULL。
 
-![extra-null](https://gitee.com/tysondai/img/raw/master/image-20210802234122321.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210802234122321.png)
 
 ### using index condition
 
@@ -255,11 +256,11 @@ CREATE TABLE `t_orderdetail` (
 
 不使用ICP的情况（`set optimizer_switch='index_condition_pushdown=off'`），如下图，在步骤4中，没有使用where条件过滤索引：
 
-![no-icp](https://gitee.com/tysondai/img/raw/master/no-icp.png)
+![](https://gitee.com/tysondai/img/raw/master/no-icp.png)
 
 使用ICP的情况（`set optimizer_switch='index_condition_pushdown=on'`）：
 
-![icp](https://gitee.com/tysondai/img/raw/master/icp.png)
+![](https://gitee.com/tysondai/img/raw/master/icp.png)
 
 下面的例子使用了ICP：
 
@@ -268,17 +269,11 @@ explain select user_id, order_id, order_status
 from t_order where user_id > 1 and user_id < 5\G;
 ```
 
-![icp-demo](https://gitee.com/tysondai/img/raw/master/image-20210803084617433.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210803084617433.png)
 
 关掉ICP之后（`set optimizer_switch='index_condition_pushdown=off'`），可以看到extra列为using where，不会使用索引下推。
 
-![no-icp-demo](https://gitee.com/tysondai/img/raw/master/image-20210803084815503.png)
-
-> [索引下推例子](https://www.cnblogs.com/Chenjiabing/p/12600926.html)
->
-> [索引下推图解](https://www.cnblogs.com/zengkefu/p/5684101.html)
->
-> [索引下推优化](https://www.cnblogs.com/zengkefu/p/5684101.html)
+![](https://gitee.com/tysondai/img/raw/master/image-20210803084815503.png)
 
 ### using temporary
 
@@ -292,7 +287,7 @@ from t_order where user_id > 1 and user_id < 5\G;
 - select 查询字段不全是索引字段
 - select 查询字段都是索引字段，但是 order by 字段和索引字段的顺序不一致
 
-![explain-filesort](https://gitee.com/tysondai/img/raw/master/image-20210804084029239.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210804084029239.png)
 
 ### using join buffer 
 
@@ -300,12 +295,8 @@ Block Nested Loop，需要进行嵌套循环计算。两个关联表join，关�
 
 
 
-本文参考了一些优秀的博客，感兴趣的可以了解下：
+## 参考资料
 
 - [Explain执行计划](https://juejin.cn/post/6844904163969630221#heading-7)
+- [索引下推例子](https://www.cnblogs.com/Chenjiabing/p/12600926.html) | [索引下推图解](https://www.cnblogs.com/zengkefu/p/5684101.html) | [索引下推优化](https://www.cnblogs.com/zengkefu/p/5684101.html)
 
-
-
-码字不易，如果本文写的不错，可以点个赞，让我知道，支持我写出更好的文章！
-
-我是程序员大彬 ，专注Java后端硬核知识分享，欢迎大家关注~

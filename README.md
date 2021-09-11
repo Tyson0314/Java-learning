@@ -137,6 +137,8 @@
 
 [Maven实战总结](工具/Maven实战.md)
 
+[Github使用技巧](工具/Github指南.md)
+
 [Jenkins一键部署](工具/jenkins.md)
 
 [npm命令](工具/NPM.md)
