@@ -17,8 +17,9 @@
   - [Count 计数](#count-%E8%AE%A1%E6%95%B0)
   - [Reduce](#reduce)
   - [flatMap](#flatmap)
-- [Parallel-Streams 并行流](#parallel-streams-%E5%B9%B6%E8%A1%8C%E6%B5%81)
+- [Parallel-Streams](#parallel-streams)
 - [Map 集合](#map-%E9%9B%86%E5%90%88)
+- [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
