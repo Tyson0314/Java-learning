@@ -20,6 +20,8 @@
       - [静态代码块](#%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97)
       - [静态内部类](#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB)
     - [final](#final)
+    - [this](#this)
+    - [super](#super)
   - [object常用方法](#object%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95)
     - [toString](#tostring)
     - [equals](#equals)

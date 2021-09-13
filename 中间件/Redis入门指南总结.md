@@ -6,8 +6,7 @@
   - [优缺点](#%E4%BC%98%E7%BC%BA%E7%82%B9)
   - [io多路复用](#io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8)
   - [应用场景](#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF)
-  - [Memcached](#memcached)
-  - [启动与停止](#%E5%90%AF%E5%8A%A8%E4%B8%8E%E5%81%9C%E6%AD%A2)
+  - [Memcached和Redis的区别](#memcached%E5%92%8Credis%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [数据类型](#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)
   - [字符串类型](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B)
     - [SETNX和SETEX](#setnx%E5%92%8Csetex)
@@ -61,11 +60,12 @@
   - [evalsha](#evalsha)
   - [lua脚本作用](#lua%E8%84%9A%E6%9C%AC%E4%BD%9C%E7%94%A8)
   - [应用场景](#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-1)
-- [pipeline](#pipeline)
-- [数据一致性](#%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7)
 - [删除策略](#%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5)
-- [客户端](#%E5%AE%A2%E6%88%B7%E7%AB%AF)
-- [慢查询](#%E6%85%A2%E6%9F%A5%E8%AF%A2)
+- [其他](#%E5%85%B6%E4%BB%96)
+  - [客户端](#%E5%AE%A2%E6%88%B7%E7%AB%AF)
+  - [慢查询](#%E6%85%A2%E6%9F%A5%E8%AF%A2)
+  - [pipeline](#pipeline)
+  - [数据一致性](#%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
