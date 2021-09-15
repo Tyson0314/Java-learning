@@ -14,8 +14,8 @@
 - [消息丢失](#%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1)
   - [生产者确认机制](#%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6)
   - [路由不可达消息](#%E8%B7%AF%E7%94%B1%E4%B8%8D%E5%8F%AF%E8%BE%BE%E6%B6%88%E6%81%AF)
-  - [Return消息机制](#return%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6)
-  - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
+    - [Return消息机制](#return%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6)
+    - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
   - [消费者手动消息确认](#%E6%B6%88%E8%B4%B9%E8%80%85%E6%89%8B%E5%8A%A8%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4)
   - [持久化](#%E6%8C%81%E4%B9%85%E5%8C%96)
   - [镜像队列](#%E9%95%9C%E5%83%8F%E9%98%9F%E5%88%97)
@@ -29,11 +29,23 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
+> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Spring Boot、MyBatis、Redis、RabbitMQ、计算机网络、数据结构与算法等等，欢迎大家提pr和star！
+>
+> github地址：https://github.com/Tyson0314/Java-learning
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee地址：https://gitee.com/tysondai/Java-learning
+
+文章目录：
+
+![](https://gitee.com/tysondai/img/raw/master/image-20210914234334988.png)
+
 # 简介
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
 
-![image-20200718104019614](../img/rabbitmq.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq.png)
 
 ## 基本概念
 
@@ -82,19 +94,19 @@ Exchange规则。
 
 direct交换机会将消息路由到binding key 和 routing key完全匹配的队列中。它是完全匹配、单播的模式。
 
-![](../img/rabbitmq-direct.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq-direct.png)
 
 ## fanout
 
 所有发到 fanout 类型交换机的消息都会路由到所有与该交换机绑定的队列上去。fanout 类型转发消息是最快的。
 
-![](../img/rabbitmq-fanout.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq-fanout.png)
 
 ## topic
 
 topic交换机使用routing key和binding key进行模糊匹配，匹配成功则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
 
-![](../img/rabbitmq-topic.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq-topic.png)
 
 ## headers
 
@@ -147,7 +159,7 @@ rabbitTemplate.setConfirmCallback(confirmCallback);
 
 对于不可路由的消息，有两种处理方式：Return消息机制和备份交换机。
 
-## Return消息机制
+### Return消息机制
 
 Return消息机制提供了回调函数 ReturnCallback，当消息从交换机路由到Queue失败才会回调这个方法。需要将`mandatory` 设置为 `true` ，才能监听到路由不可达的消息。
 
@@ -169,7 +181,7 @@ rabbitTemplate.setReturnCallback(returnCallback);
 
 当消息从交换机路由到Queue失败时，会返回 `return exchange: , routingKey: MAIL, replyCode: 312, replyText: NO_ROUTE`。
 
-## 备份交换机
+### 备份交换机
 
 备份交换机alternate-exchange 是一个普通的exchange，当你发送消息到对应的exchange时，没有匹配到queue，就会自动转移到备份交换机对应的queue，这样消息就不会丢失。
 
@@ -399,7 +411,7 @@ channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
 
 ## 消息过期时间
 
-在生产端发送消息的时候可以给消息设置过期时间，单位为毫秒(ms)。
+在生产端发送消息的时候可以给消息设置过期时间，单位为毫秒(ms)
 
 ```java
 Message msg = new Message("tyson".getBytes(), mp);
@@ -419,3 +431,13 @@ msg.getMessageProperties().setExpiration("3000");
 [RabbitMQ发送邮件代码](https://zhuanlan.zhihu.com/p/145908317)
 
 [线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
+
+
+
+> 最后给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+>
+> github地址：https://github.com/Tyson0314/java-books
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee地址：https://gitee.com/tysondai/java-books

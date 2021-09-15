@@ -110,7 +110,7 @@
 
 ## RabbitMQ
 
-1. [RabbitMQ总结](中间件/RabbitMQ.md) (必看 :+1:)
+1. [RabbitMQ核心知识总结](中间件/RabbitMQ.md) (必看 :+1:)
 2. [死信队列](中间件/死信队列.md)
 
 # 设计模式
