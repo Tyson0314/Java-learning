@@ -45,9 +45,10 @@
 ## 基础
 
 1. [Java基础知识总结](Java/Java基础.md) 基础知识/面试题(必看 :+1:)
-2. [Java8 新特性总结](Java/Java8.md)
-3. [Java常见关键字总结](Java/Java关键字.md)
-4. [面试高频题--Object类常用方法](Java/Object类常用方法.md)
+2. [**Java面试题精选**](Java/Java基础面试题.md)  **精心整理的大厂Java面试题目，附有详细答案** (必看 :+1:)
+3. [Java8 新特性总结](Java/Java8.md)
+4. [Java常见关键字总结](Java/Java关键字.md)
+5. [面试高频题--Object类常用方法](Java/Object类常用方法.md)
 
 ## 容器
 
