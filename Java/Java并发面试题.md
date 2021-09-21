@@ -1,6 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
 
 - [线程池](#%E7%BA%BF%E7%A8%8B%E6%B1%A0)
   - [为什么使用线程池？](#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0)
@@ -26,6 +26,7 @@
 - [wait()和sleep()的区别](#wait%E5%92%8Csleep%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [wait(),notify()和suspend(),resume()之间的区别](#waitnotify%E5%92%8Csuspendresume%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB)
 - [Runnable和 Callable有什么区别？](#runnable%E5%92%8C-callable%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB)
+- [volatile和synchronized的区别是什么？](#volatile%E5%92%8Csynchronized%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88)
 - [线程执行顺序怎么控制？](#%E7%BA%BF%E7%A8%8B%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F%E6%80%8E%E4%B9%88%E6%8E%A7%E5%88%B6)
 - [乐观锁一定就是好的吗?](#%E4%B9%90%E8%A7%82%E9%94%81%E4%B8%80%E5%AE%9A%E5%B0%B1%E6%98%AF%E5%A5%BD%E7%9A%84%E5%90%97)
 - [守护线程是什么？](#%E5%AE%88%E6%8A%A4%E7%BA%BF%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88)
@@ -56,7 +57,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-> 大家好，我是大彬。最近在面试，看了很多面经，将常见的Java并发编程常见面试题总结了一下，如果对你有帮助，**可以star一下**，**后续还会继续更新新的面试题目哦！**
+> 大家好，我是大彬。最近在面试，看了很多面经，抽空将Java并发编程常见的面试题总结了一下，在这里分享给大家~
 
 ## 线程池
 
@@ -67,10 +68,6 @@
 - **降低资源消耗**。通过重复利用已创建的线程降低线程创建和销毁造成的消耗。
 - **提高响应速度**。当任务到达时，任务可以不需要的等到线程创建就能立即执行。
 - **提高线程的可管理性**。统一管理线程，避免系统创建大量同类线程而导致消耗完内存。
-
-```
-public ThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler);
-```
 
 ### 线程池执行原理？
 
@@ -619,7 +616,7 @@ ReentrantLock 内部自定义了同步器 Sync，在加锁的时候通过 CAS �
 - Callable接口call方法有返回值，支持泛型，Runnable接口run方法无返回值。
 - Callable接口call()方法允许抛出异常；而Runnable接口run()方法不能继续上抛异常；
 
-**volatile和synchronized的区别是什么？**
+## volatile和synchronized的区别是什么？
 
 1. volatile只能使用在变量上；而synchronized可以在类，变量，方法和代码块上。
 2. volatile至保证可见性；synchronized保证原子性与可见性。
@@ -822,7 +819,7 @@ ThreadLocal 并不是用来解决共享资源的多线程访问的问题，因�
 
 每个Thread都有⼀个ThreadLocalMap的内部属性，map的key是ThreaLocal，定义为弱引用，value是强引用类型。GC的时候会⾃动回收key，而value的回收取决于Thread对象的生命周期。一般会通过线程池的方式复用Thread对象节省资源，这也就导致了Thread对象的生命周期比较长，这样便一直存在一条强引用链的关系：Thread --> ThreadLocalMap-->Entry-->Value，随着任务的执行，value就有可能越来越多且无法释放，最终导致内存泄漏。
 
-![image-20200715235804982](E:\project\java\learn\Java-learning\img\threadlocal-oom.png)
+![](https://gitee.com/tysondai/img/raw/master/threadlocal-oom.png)
 
 解决⽅法：每次使⽤完ThreadLocal就调⽤它的remove()⽅法，手动将对应的键值对删除，从⽽避免内存泄漏。
 
