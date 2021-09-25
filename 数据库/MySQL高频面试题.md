@@ -1,16 +1,59 @@
-> 牛友们，大家好！本文包含了数据库事务、索引、存储引擎、数据库锁、日志等其他高频面试题目。
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+- [事务的四大特性？](#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7)
+- [数据库的三大范式](#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F)
+- [事务隔离级别有哪些？](#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B)
+- [索引](#%E7%B4%A2%E5%BC%95)
+  - [什么是索引？](#%E4%BB%80%E4%B9%88%E6%98%AF%E7%B4%A2%E5%BC%95)
+  - [索引的优缺点？](#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9)
+  - [索引的作用？](#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%9C%E7%94%A8)
+  - [什么情况下需要建索引？](#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E9%9C%80%E8%A6%81%E5%BB%BA%E7%B4%A2%E5%BC%95)
+  - [什么情况下不建索引？](#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%B8%8D%E5%BB%BA%E7%B4%A2%E5%BC%95)
+  - [索引的数据结构](#%E7%B4%A2%E5%BC%95%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [Hash索引和B+树索引的区别？](#hash%E7%B4%A2%E5%BC%95%E5%92%8Cb%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E5%8C%BA%E5%88%AB)
+  - [为什么B+树比B树更适合实现数据库索引？](#%E4%B8%BA%E4%BB%80%E4%B9%88b%E6%A0%91%E6%AF%94b%E6%A0%91%E6%9B%B4%E9%80%82%E5%90%88%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95)
+  - [索引有什么分类？](#%E7%B4%A2%E5%BC%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%88%86%E7%B1%BB)
+  - [什么是最左匹配原则？](#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D%E5%8E%9F%E5%88%99)
+  - [什么是聚集索引？](#%E4%BB%80%E4%B9%88%E6%98%AF%E8%81%9A%E9%9B%86%E7%B4%A2%E5%BC%95)
+  - [什么是覆盖索引？](#%E4%BB%80%E4%B9%88%E6%98%AF%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95)
+  - [索引的设计原则？](#%E7%B4%A2%E5%BC%95%E7%9A%84%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99)
+  - [索引什么时候会失效？](#%E7%B4%A2%E5%BC%95%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E5%A4%B1%E6%95%88)
+  - [什么是前缀索引？](#%E4%BB%80%E4%B9%88%E6%98%AF%E5%89%8D%E7%BC%80%E7%B4%A2%E5%BC%95)
+- [常见的存储引擎有哪些？](#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%9C%89%E5%93%AA%E4%BA%9B)
+- [MyISAM和InnoDB的区别？](#myisam%E5%92%8Cinnodb%E7%9A%84%E5%8C%BA%E5%88%AB)
+- [MVCC 实现原理？](#mvcc-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86)
+- [快照读和当前读](#%E5%BF%AB%E7%85%A7%E8%AF%BB%E5%92%8C%E5%BD%93%E5%89%8D%E8%AF%BB)
+- [共享锁和排他锁](#%E5%85%B1%E4%BA%AB%E9%94%81%E5%92%8C%E6%8E%92%E4%BB%96%E9%94%81)
+- [大表怎么优化？](#%E5%A4%A7%E8%A1%A8%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96)
+- [MySQL 执行计划了解吗？](#mysql-%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E4%BA%86%E8%A7%A3%E5%90%97)
+- [bin log/redo log/undo log](#bin-logredo-logundo-log)
+- [bin log和redo log有什么区别？](#bin-log%E5%92%8Credo-log%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB)
+- [讲一下MySQL架构？](#%E8%AE%B2%E4%B8%80%E4%B8%8Bmysql%E6%9E%B6%E6%9E%84)
+- [分库分表](#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8)
+- [什么是分区表？](#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%8C%BA%E8%A1%A8)
+- [分区表类型](#%E5%88%86%E5%8C%BA%E8%A1%A8%E7%B1%BB%E5%9E%8B)
+- [分区的问题？](#%E5%88%86%E5%8C%BA%E7%9A%84%E9%97%AE%E9%A2%98)
+- [查询语句执行流程？](#%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B)
+- [更新语句执行过程？](#%E6%9B%B4%E6%96%B0%E8%AF%AD%E5%8F%A5%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B)
+- [exist和in的区别？](#exist%E5%92%8Cin%E7%9A%84%E5%8C%BA%E5%88%AB)
+- [MySQL中int(10)和char(10)的区别？　](#mysql%E4%B8%ADint10%E5%92%8Cchar10%E7%9A%84%E5%8C%BA%E5%88%AB)
+- [truncate、delete与drop区别？](#truncatedelete%E4%B8%8Edrop%E5%8C%BA%E5%88%AB)
+- [having和where区别？](#having%E5%92%8Cwhere%E5%8C%BA%E5%88%AB)
+- [什么是MySQL主从同步？](#%E4%BB%80%E4%B9%88%E6%98%AFmysql%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5)
+- [为什么要做主从同步？](#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%81%9A%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5)
+- [乐观锁和悲观锁是什么？](#%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81%E6%98%AF%E4%BB%80%E4%B9%88)
+- [用过processlist吗？](#%E7%94%A8%E8%BF%87processlist%E5%90%97)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+> 首先给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
 >
-> 肝了1.2w字，建议点赞收藏在看哦~
-
-**文章目录：**
-
-![](https://gitee.com/tysondai/img/raw/master/image-20210924001314594.png)
-
-![](https://gitee.com/tysondai/img/raw/master/image-20210924001331818.png)
-
-**本文已经整理成PDF文档，方便大家阅读，需要的小伙伴可以自行下载（复制到浏览器打开）：**
-链接：https://pan.baidu.com/s/1T3eBjKNdrMKZiXTsOUhlKg
-提取码：8888
+> github地址：https://github.com/Tyson0314/java-books
+>
+> 如果github访问不了，可以访问gitee仓库。
+>
+> gitee地址：https://gitee.com/tysondai/java-books
 
 ## 事务的四大特性？
 
@@ -770,13 +813,13 @@ int(10)中的10表示的是显示数据的长度，而char(10)表示的是存储
 
 
 
-> 最后给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+
+> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Spring Boot、MyBatis、Redis、RabbitMQ、计算机网络、数据结构与算法等等，欢迎大家提pr和star！
 >
-> github地址：https://github.com/Tyson0314/java-books
+> github地址：https://github.com/Tyson0314/Java-learning
 >
 > 如果github访问不了，可以访问gitee仓库。
 >
-> gitee地址：https://gitee.com/tysondai/java-books
-
-
+> gitee地址：https://gitee.com/tysondai/Java-learning
 
