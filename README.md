@@ -68,8 +68,8 @@
 
 ## MySQL
 
-1. [MySQL基础知识总结](数据库/mysql基础.md)
-2. [MySQL面试知识点总结](数据库/mysql进阶.md)(必看 :+1:)
+1. [【大厂面试】——MySQL高频面试题50道](数据库/MySQL高频面试题.md)(必看 :+1:)
+2. [MySQL基础知识总结](数据库/mysql基础.md)
 3. [MySQL执行计划](数据库/Mysql执行计划.md)(必看 :+1:)
 
 ## Redis
@@ -138,7 +138,7 @@
 
 [计算机网络常见面试题总结](网络/计算机网络高频面试题.md) （精选30题，非常适合面试前阅读！必看 :+1:）
 
-[session和cookie](网络/session和cookie.md)
+[session和cookie详解](网络/session和cookie.md)
 
 # 工具
 

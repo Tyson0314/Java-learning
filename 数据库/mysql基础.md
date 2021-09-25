@@ -893,17 +893,17 @@ AND EXISTS
 
 ### truncate、delete与drop区别
 
-相同点：
+**相同点：**
 
 1. truncate和不带where子句的delete、以及drop都会删除表内的数据。
 
 2. drop、truncate都是DDL语句(数据定义语言)，执行后会自动提交。
 
-不同点：
+**不同点：**
 
 1. truncate 和 delete 只删除数据不删除表的结构；drop 语句将删除表的结构被依赖的约束、触发器、索引；
 
-2. 速度，一般来说: drop> truncate > delete
+2. 速度，一般来说: drop> truncate > delete。
 
 
 
