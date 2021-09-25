@@ -68,8 +68,8 @@
 ## MySQL
 
 1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(必看 :+1:)
-2. [MySQL基础知识总结](数据库/mysql基础.md)
-3. [MySQL执行计划](数据库/Mysql执行计划.md)(必看 :+1:)
+2. [MySQL基础知识总结](数据库/MySQL基础.md)
+3. [MySQL执行计划](数据库/MySQL执行计划.md)(必看 :+1:)
 
 ## Redis
 
