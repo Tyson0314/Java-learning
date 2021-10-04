@@ -1,6 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [事务的四大特性？](#%E4%BA%8B%E5%8A%A1%E7%9A%84%E5%9B%9B%E5%A4%A7%E7%89%B9%E6%80%A7)
 - [数据库的三大范式](#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F)
 - [事务隔离级别有哪些？](#%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB%E6%9C%89%E5%93%AA%E4%BA%9B)
@@ -222,18 +223,18 @@ Index_comment:
 
 ### 索引有什么分类？
 
-1. 主键索引：名为primary的唯一非空索引，不允许有空值。
+1、主键索引：名为primary的唯一非空索引，不允许有空值。
 
-2. 唯一索引：索引列中的值必须是唯一的，但是允许为空值。唯一索引和主键索引的区别是：UNIQUE 约束的列可以为null且可以存在多个null值。UNIQUE KEY的用途：唯一标识数据库表中的每条记录，主要是用来防止数据重复插入。创建唯一索引的SQL语句如下：
+2、唯一索引：索引列中的值必须是唯一的，但是允许为空值。唯一索引和主键索引的区别是：UNIQUE 约束的列可以为null且可以存在多个null值。UNIQUE KEY的用途：唯一标识数据库表中的每条记录，主要是用来防止数据重复插入。创建唯一索引的SQL语句如下：
 
-   ```mysql
-   ALTER TABLE table_name
-   ADD CONSTRAINT constraint_name UNIQUE KEY(column_1,column_2,...);
-   ```
+```mysql
+ALTER TABLE table_name
+ADD CONSTRAINT constraint_name UNIQUE KEY(column_1,column_2,...);
+```
 
-3. 组合索引：在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循最左前缀原则。
+3、组合索引：在表中的多个字段组合上创建的索引，只有在查询条件中使用了这些字段的左边字段时，索引才会被使用，使用组合索引时遵循最左前缀原则。
 
-4. 全文索引：只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引。
+4、全文索引：只有在MyISAM引擎上才能使用，只能在CHAR,VARCHAR,TEXT类型字段上使用全文索引。
 
 ### 什么是最左匹配原则？
 
@@ -411,19 +412,19 @@ MVCC 的实现依赖于版本链，版本链是通过表的三个隐藏字段实
 
 下面举个例子方便大家理解。
 
-1. 初始数据如下，其中DB_ROW_ID和DB_ROLL_PTR为空。
+1、初始数据如下，其中DB_ROW_ID和DB_ROLL_PTR为空。
 
-   ![](https://gitee.com/tysondai/img/raw/master/mvcc2.png)
+![](https://gitee.com/tysondai/img/raw/master/mvcc2.png)
 
-2. 事务A对该行数据做了修改，将age修改为12，效果如下：
+2、事务A对该行数据做了修改，将age修改为12，效果如下：
 
-   ![](https://gitee.com/tysondai/img/raw/master/mvcc7.png)
+![](https://gitee.com/tysondai/img/raw/master/mvcc7.png)
 
-3. 之后事务B也对该行记录做了修改，将age修改为8，效果如下：
+3、之后事务B也对该行记录做了修改，将age修改为8，效果如下：
 
-   ![](https://gitee.com/tysondai/img/raw/master/mvcc11.png)
+![](https://gitee.com/tysondai/img/raw/master/mvcc11.png)
 
-4. 此时undo log有两行记录，并且通过回滚指针连在一起。
+4、此时undo log有两行记录，并且通过回滚指针连在一起。
 
 **接下来了解下read view的概念。**
 
@@ -464,27 +465,27 @@ MVCC 的实现依赖于版本链，版本链是通过表的三个隐藏字段实
 
 下面举个例子说明下：
 
-1. 首先，user表只有两条记录，具体如下：
+1、首先，user表只有两条记录，具体如下：
 
-   ![](https://gitee.com/tysondai/img/raw/master/image-20210922232259664.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210922232259664.png)
 
-2. 事务a和事务b同时开启事务`start transaction`；
+2、事务a和事务b同时开启事务`start transaction`；
 
-3. 事务a插入数据然后提交；
+3、事务a插入数据然后提交；
 
-   ```mysql
-   insert into user(user_name, user_password, user_mail, user_state) values('tyson', 'a', 'a', 0);
-   ```
+```mysql
+insert into user(user_name, user_password, user_mail, user_state) values('tyson', 'a', 'a', 0);
+```
 
-4. 事务b执行全表的update；
+4、事务b执行全表的update；
 
-   ```mysql
-   update user set user_name = 'a';
-   ```
+```mysql
+update user set user_name = 'a';
+```
 
-5. 事务b然后执行查询，查到了事务a中插入的数据。（下图左边是事务b，右边是事务a）
+5、事务b然后执行查询，查到了事务a中插入的数据。（下图左边是事务b，右边是事务a）
 
-   ![](https://gitee.com/tysondai/img/raw/master/幻读1.png)
+![](https://gitee.com/tysondai/img/raw/master/幻读1.png)
 
 以上就是当前读出现的幻读现象。
 
@@ -621,67 +622,71 @@ MySQL主要分为 Server 层和存储引擎层：
 
 ## 分区表类型
 
-1. 按照范围分区。
+**按照范围分区。**
 
-   ```mysql
-   CREATE TABLE test_range_partition(
-          id INT auto_increment,
-          createdate DATETIME,
-          primary key (id,createdate)
-      ) 
-      PARTITION BY RANGE (TO_DAYS(createdate) ) (
-         PARTITION p201801 VALUES LESS THAN ( TO_DAYS('20180201') ),
-         PARTITION p201802 VALUES LESS THAN ( TO_DAYS('20180301') ),
-         PARTITION p201803 VALUES LESS THAN ( TO_DAYS('20180401') ),
-         PARTITION p201804 VALUES LESS THAN ( TO_DAYS('20180501') ),
-         PARTITION p201805 VALUES LESS THAN ( TO_DAYS('20180601') ),
-         PARTITION p201806 VALUES LESS THAN ( TO_DAYS('20180701') ),
-         PARTITION p201807 VALUES LESS THAN ( TO_DAYS('20180801') ),
-         PARTITION p201808 VALUES LESS THAN ( TO_DAYS('20180901') ),
-         PARTITION p201809 VALUES LESS THAN ( TO_DAYS('20181001') ),
-         PARTITION p201810 VALUES LESS THAN ( TO_DAYS('20181101') ),
-         PARTITION p201811 VALUES LESS THAN ( TO_DAYS('20181201') ),
-         PARTITION p201812 VALUES LESS THAN ( TO_DAYS('20190101') )
-      );
-   ```
+```java
+CREATE TABLE test_range_partition(
+       id INT auto_increment,
+       createdate DATETIME,
+       primary key (id,createdate)
+   ) 
+   PARTITION BY RANGE (TO_DAYS(createdate) ) (
+      PARTITION p201801 VALUES LESS THAN ( TO_DAYS('20180201') ),
+      PARTITION p201802 VALUES LESS THAN ( TO_DAYS('20180301') ),
+      PARTITION p201803 VALUES LESS THAN ( TO_DAYS('20180401') ),
+      PARTITION p201804 VALUES LESS THAN ( TO_DAYS('20180501') ),
+      PARTITION p201805 VALUES LESS THAN ( TO_DAYS('20180601') ),
+      PARTITION p201806 VALUES LESS THAN ( TO_DAYS('20180701') ),
+      PARTITION p201807 VALUES LESS THAN ( TO_DAYS('20180801') ),
+      PARTITION p201808 VALUES LESS THAN ( TO_DAYS('20180901') ),
+      PARTITION p201809 VALUES LESS THAN ( TO_DAYS('20181001') ),
+      PARTITION p201810 VALUES LESS THAN ( TO_DAYS('20181101') ),
+      PARTITION p201811 VALUES LESS THAN ( TO_DAYS('20181201') ),
+      PARTITION p201812 VALUES LESS THAN ( TO_DAYS('20190101') )
+   );
+```
 
-   在`/var/lib/mysql/data/`可以找到对应的数据文件，每个分区表都有一个使用#分隔命名的表文件：
+在`/var/lib/mysql/data/`可以找到对应的数据文件，每个分区表都有一个使用#分隔命名的表文件：
 
-   ```
-      -rw-r----- 1 MySQL MySQL    65 Mar 14 21:47 db.opt
-      -rw-r----- 1 MySQL MySQL  8598 Mar 14 21:50 test_range_partition.frm
-      -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201801.ibd
-      -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201802.ibd
-      -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201803.ibd
-   ...
-   ```
+```java
+   -rw-r----- 1 MySQL MySQL    65 Mar 14 21:47 db.opt
+   -rw-r----- 1 MySQL MySQL  8598 Mar 14 21:50 test_range_partition.frm
+   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201801.ibd
+   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201802.ibd
+   -rw-r----- 1 MySQL MySQL 98304 Mar 14 21:50 test_range_partition#P#p201803.ibd
+...
+```
 
-2. list分区。对于List分区，分区字段必须是已知的，如果插入的字段不在分区时枚举值中，将无法插入。
+**list分区**
 
-   ```mysql
-   create table test_list_partiotion
-      (
-          id int auto_increment,
-          data_type tinyint,
-          primary key(id,data_type)
-      )partition by list(data_type)
-      (
-          partition p0 values in (0,1,2,3,4,5,6),
-          partition p1 values in (7,8,9,10,11,12),
-          partition p2 values in (13,14,15,16,17)
-      );
-   ```
+对于List分区，分区字段必须是已知的，如果插入的字段不在分区时枚举值中，将无法插入。
 
-3. hash分区，可以将数据均匀地分布到预先定义的分区中。
+```java
+create table test_list_partiotion
+   (
+       id int auto_increment,
+       data_type tinyint,
+       primary key(id,data_type)
+   )partition by list(data_type)
+   (
+       partition p0 values in (0,1,2,3,4,5,6),
+       partition p1 values in (7,8,9,10,11,12),
+       partition p2 values in (13,14,15,16,17)
+   );
+```
 
-   ```mysql
-   create table test_hash_partiotion
-      (
-          id int auto_increment,
-          create_date datetime,
-          primary key(id,create_date)
-      )partition by hash(year(create_date)) partitions 10;
-   ```
+**hash分区**
+
+可以将数据均匀地分布到预先定义的分区中。
+
+```java
+create table test_hash_partiotion
+   (
+       id int auto_increment,
+       create_date datetime,
+       primary key(id,create_date)
+   )partition by hash(year(create_date)) partitions 10;
+```
 
 ## 分区的问题？
 

@@ -1151,4 +1151,3 @@ public final void lazySet(int i, int newValue)//最终 将index=i 位置的元�
 - AtomicStampedReference：带有版本号的引用类型原子类。该类将整数值与引用关联起来，可用于解决原子的更新数据和数据的版本号，可以解决使用 CAS 进行原子更新时可能出现的 ABA 问题。
 - AtomicMarkableReference ：原子更新带有标记的引用类型。该类将 boolean 标记与引用关联起来
 
-
