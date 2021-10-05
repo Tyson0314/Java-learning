@@ -12,37 +12,38 @@
 <a href="https://gitee.com/tysondai/img/raw/master/公众号.jpg"><img src="https://gitee.com/tysondai/img/raw/master/公众号-程序员大彬.svg" alt="公众号"></a>
   <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="https://gitee.com/tysondai/img/raw/master/知乎-程序员大彬.svg" alt="知乎"></a>
        <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="https://gitee.com/tysondai/img/raw/master/牛客网-程序员大彬.svg" alt="牛客网"></a>
+       <a href="https://juejin.cn/user/201965869218574/posts"><img src="https://gitee.com/tysondai/img/raw/master/掘金-程序员大彬.svg" alt="掘金"></a>
            <a href="https://github.com/Tyson0314/java-books"><img src="https://gitee.com/tysondai/img/raw/master/PDF-免费计算机电子书籍.svg" alt="免费PDF"></a>
         </p>
 
-<div>
- <br> <strong>👍推荐 <a href="https://github.com/cosen1024/awesome-cs-books">200多本经典的计算机书籍</a></strong> <br>
-    </div> 
+
+
+👍**推荐 [200多本经典的计算机书籍](https://github.com/Tyson0314/java-books)**
 
 # Java
 
 ## 基础
 
-1. [**Java面试题精选**](Java/Java基础面试题.md)  **精心整理的大厂Java面试题目，附有详细答案** (必看 :+1:)
+1. [**Java面试题精选**](Java/Java基础面试题.md)  **精心整理的大厂Java面试题目，附有详细答案** (推荐 :+1:)
 2. [Java基础知识总结](Java/Java基础.md) 
 3. [Java8 新特性总结](Java/Java8.md)
 4. [Java常见关键字总结](Java/Java关键字.md)
 
 ## 集合
 
-[Java集合高频面试题，牛客高赞！](Java/Java集合面试题.md)(必看 :+1:)
+[Java集合高频面试题，牛客高赞！](Java/Java集合面试题.md)(推荐 :+1:)
 
 [Java常见集合总结](Java/集合.md)
 
 ## 并发
 
-1. [Java并发高频面试题（精华版）](Java/Java并发面试题.md) **精心整理的大厂Java并发编程面试题目，附有详细答案**  (必看 :+1:)
+1. [Java并发高频面试题（精华版）](Java/Java并发面试题.md) **精心整理的大厂Java并发编程面试题目，附有详细答案**  (推荐 :+1:)
 
 2. [Java并发知识点总结](Java/并发.md)
 
 ## JVM
 
-[【大厂面试】——JVM高频面试题](Java/JVM高频面试题.md)(必看 :+1:)
+[【大厂面试】——JVM高频面试题](Java/JVM高频面试题.md)(推荐 :+1:)
 
 [一万多字！Java虚拟机总结](Java/JVM.md)
 
@@ -50,22 +51,22 @@
 
 ## MySQL
 
-1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(必看 :+1:)
+1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(推荐 :+1:)
 2. [MySQL基础知识总结](数据库/MySQL基础.md)
-3. [MySQL执行计划](数据库/MySQL执行计划.md)(必看 :+1:)
+3. [MySQL执行计划](数据库/MySQL执行计划.md)(推荐 :+1:)
 
 ## Redis
 
-1. [【大厂面试】——Redis30问](中间件/Redis面试题.md)(必看 :+1:)
+1. [【大厂面试】——Redis30问](中间件/Redis面试题.md)(推荐 :+1:)
 2. [Redis基础](中间件/Redis入门指南总结.md)
-3. [Redis分布式锁(必看 :+1:)](中间件/Redis分布式锁.md)
+3. [Redis分布式锁(推荐 :+1:)](中间件/Redis分布式锁.md)
 4. [缓存穿透、缓存雪崩、缓存击穿](中间件/缓存穿透、缓存雪崩、缓存击穿.md)
 
 # 框架
 
 ## Spring
 
-1. [Spring知识点总结](框架/Spring总结.md)(必看 :+1:)
+1. [Spring知识点总结](框架/Spring总结.md)(推荐 :+1:)
 2. [Spring实战笔记](框架/Spring实战.md)
 3. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
 4. [Spring自动装配](框架/Spring自动装配.md)
@@ -96,20 +97,20 @@
 
 ## RabbitMQ
 
-1. [RabbitMQ核心知识总结](中间件/RabbitMQ.md) (必看 :+1:)
+1. [RabbitMQ核心知识总结](中间件/RabbitMQ.md) (推荐 :+1:)
 2. [死信队列](中间件/死信队列.md)
 
 # 计算机网络
 
-[【大厂面试】—— 计算机网络常见面试题总结](网络/计算机网络高频面试题.md) （精选30题，非常适合面试前阅读！必看 :+1:）
+[【大厂面试】—— 计算机网络常见面试题总结](网络/计算机网络高频面试题.md) （精选30题，非常适合面试前阅读！推荐 :+1:）
 
 [session和cookie详解](网络/session和cookie.md)
 
 # 数据结构与算法
 
-[谷歌师兄刷题笔记](https://t.1yb.co/A6id)(必看 :+1:)
+[谷歌师兄刷题笔记](https://t.1yb.co/A6id)(推荐 :+1:)
 
-[BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)(必看 :+1:)
+[BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)(推荐 :+1:)
 
 [7种常见的排序算法Java代码实现](数据结构与算法/常见的排序算法Java代码实现.md)
 
@@ -125,7 +126,7 @@
 
 # 工具
 
-[Git 超详细总结！](工具/progit2.md)(必看 :+1:)
+[Git 超详细总结！](工具/progit2.md)(推荐 :+1:)
 
 [Docker命令大全！](工具/docker.md)
 
