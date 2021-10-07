@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [简介](#%E7%AE%80%E4%BB%8B)
   - [配置](#%E9%85%8D%E7%BD%AE)
 - [入门](#%E5%85%A5%E9%97%A8)

@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [概述](#%E6%A6%82%E8%BF%B0)
   - [分层](#%E5%88%86%E5%B1%82)
   - [封装](#%E5%B0%81%E8%A3%85)

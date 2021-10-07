@@ -1,3 +1,5 @@
+<!-- DOCTOC SKIP -->
+
 **本仓库用于分享互联网大厂高频面试题、Java核心知识总结，包括Java基础、并发、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！**
 
 如果你是Java初学者，不知道下一步该学什么内容，可以看下我总结的**2021年最新的[Java学习路线](https://zhuanlan.zhihu.com/p/395162772)**。如果喜欢看视频学习，可以参考这个：[播放量1000万+！B站最值得学习的Java视频教程](https://zhuanlan.zhihu.com/p/397533240)。

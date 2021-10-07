@@ -1,6 +1,7 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
+
 - [讲一下JVM内存结构？](#%E8%AE%B2%E4%B8%80%E4%B8%8Bjvm%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84)
   - [程序计数器](#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8)
   - [虚拟机栈](#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88)
@@ -103,14 +104,6 @@ java -Xms1M -Xmx2M
 ```
 
 通过 -Xss 设定每个线程的堆栈大小。设置这个参数，需要评估一个线程大约需要占用多少内存，可能会有多少线程同时运行等。
-
-> 在这里也给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
->
-> github地址：https://github.com/Tyson0314/java-books
->
-> 如果github访问不了，可以访问gitee仓库。
->
-> gitee地址：https://gitee.com/tysondai/java-books
 
 ### 方法区
 

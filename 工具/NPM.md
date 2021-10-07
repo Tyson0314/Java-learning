@@ -1,7 +1,6 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 
-
 - [安装](#%E5%AE%89%E8%A3%85)
 - [卸载](#%E5%8D%B8%E8%BD%BD)
 - [更新](#%E6%9B%B4%E6%96%B0)
