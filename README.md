@@ -14,7 +14,11 @@
 
 如果大家想要实时关注我更新的文章以及分享的干货的话，可以关注我的**公众号『 程序员大彬 』**，后台回复『 PDF 』可以**下载最新版本的大厂高频面试题目PDF版本**。
 
-![公众号](https://gitee.com/tysondai/img/raw/master/公众号.jpg)
+<div align="center"><img src="https://gitee.com/tysondai/img/raw/master/公众号.jpg" style="zoom:90%;" />
+    <p>个人公众号</p>
+</div>
+
+
 
 <p align="center">
     <br>
@@ -156,7 +160,9 @@
 
 PS：如果想进**技术、面试交流群**，可以扫描下方二维码加我微信，**备注加群**，我拉你进群，群里有BAT大佬，互相学习~
 
-![个人微信new](https://gitee.com/tysondai/img/raw/master/个人微信索隆.jpg)
+<div align="center"><img src="https://gitee.com/tysondai/img/raw/master/个人微信索隆.jpg" style="zoom:60%;" />
+    <p></p>
+</div>
 
 
 
@@ -167,3 +173,4 @@ PS：如果想进**技术、面试交流群**，可以扫描下方二维码加�
 > 如果github访问不了，可以访问gitee仓库。
 >
 > gitee地址：https://gitee.com/tysondai/java-books
+
