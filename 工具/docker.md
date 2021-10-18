@@ -511,6 +511,13 @@ docker run -p 33056:33056 --name java \
 docker cp tpch mysql56:/var/lib/mysql #mysql56为容器名
 ```
 
+容器文件拷贝到宿主机：
+
+```java
+docker cp 容器名：要拷贝的文件在容器里面的路径 要拷贝到宿主机的相应路径
+```
+
+
 
 ## docker-compose
 
