@@ -65,14 +65,14 @@
 
 ## MySQL
 
-1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(推荐 :+1:)
+1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(知乎高赞，推荐 :+1:)
 2. [MySQL基础知识总结](数据库/MySQL基础.md)
 3. [MySQL执行计划](数据库/MySQL执行计划.md)(推荐 :+1:)
 
 ## Redis
 
-1. [【大厂面试】——Redis30问](中间件/Redis面试题.md)(推荐 :+1:)
-2. [Redis基础](中间件/Redis入门指南总结.md)
+1. [【大厂面试】——Redis30问](中间件/Redis面试题.md)(知乎高赞，推荐 :+1:)
+2. [Redis基础总结](中间件/Redis入门指南总结.md)
 3. [Redis分布式锁(推荐 :+1:)](中间件/Redis分布式锁.md)
 4. [缓存穿透、缓存雪崩、缓存击穿](中间件/缓存穿透、缓存雪崩、缓存击穿.md)
 
@@ -80,10 +80,9 @@
 
 ## Spring
 
-1. [Spring知识点总结](框架/Spring总结.md)(推荐 :+1:)
-2. [Spring实战笔记](框架/Spring实战.md)
+1. [Spring高频面试题30道](框架/Spring面试题.md)(推荐 :+1:)
+2. [Spring知识点总结](框架/Spring总结.md)
 3. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
-4. [Spring自动装配](框架/Spring自动装配.md)
 
 ## Spring Boot
 

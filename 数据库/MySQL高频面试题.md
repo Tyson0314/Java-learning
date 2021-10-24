@@ -168,7 +168,7 @@ B+ 树是基于B 树和叶子节点顺序访问指针进行实现，它具有B�
 
 在 B+ 树中，节点中的 `key` 从左到右递增排列，如果某个指针的左右相邻 `key` 分别是 key<sub>i</sub> 和 key<sub>i+1</sub>，则该指针指向节点的所有 `key` 大于等于 key<sub>i</sub> 且小于等于 key<sub>i+1</sub>。
 
-![](https://gitee.com/tysondai/img/raw/master/B+树索引.png)
+![](https://gitee.com/tysondai/img/raw/master/B+树索引0.png)
 
 进行查找操作时，首先在根节点进行二分查找，找到`key`所在的指针，然后递归地在指针所指向的节点进行查找。直到查找到叶子节点，然后在叶子节点上进行二分查找，找出`key`所对应的数据项。
 
