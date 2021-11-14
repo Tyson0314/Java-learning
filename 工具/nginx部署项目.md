@@ -160,7 +160,7 @@ server{ } 其实是包含在 http{ } 内部的。每一个 server{ } 是一个�
 
 nginx 配置：
 
-1. /usr/local/nginx/conf/nginx.conf 中 http 节点增加`include /usr/local/nginx/my-conf/*.conf` 不同站点使用不同的配置文件。
+1. /etc/nginx/nginx.conf 中 http 节点增加`include /etc/nginx/conf.d/*.conf` 不同站点使用不同的配置文件。
 
    ```
    http {
@@ -168,7 +168,7 @@ nginx 配置：
        default_type  application/octet-stream;
        keepalive_timeout  65;
    
-       include /usr/local/nginx/my-conf/*.conf; #配置多个站点
+       include /etc/nginx/conf.d/*.conf; #配置多个站点
        
    	server {
    		xxx
@@ -177,7 +177,7 @@ nginx 配置：
    }
    ```
 
-2. 新建usr/local/nginx/my-conf/blog.conf，配置nginx：
+2. 新建/etc/nginx/conf.d/blog.conf，配置nginx：
 
    ```
    #blog
@@ -202,7 +202,6 @@ nginx 配置：
            proxy_pass http://129.204.179.3:8001/img/;
        }
    }
-   
    ```
 
 后端部署：

@@ -107,6 +107,12 @@ yum install docker-ce
 systemctl start docker
 ```
 
+### 重启docker服务
+
+```java
+systemctl restart docker.service
+```
+
 ### 搜索镜像
 
 ```
@@ -313,6 +319,18 @@ docker run -p 33055:33055 --name nginx \
 
 使用-it，此时如果使用exit退出，则容器的状态处于Exit，而不是后台运行。如果想让容器一直运行，而不是停止，可以使用快捷键 ctrl+p ctrl+q 退出，此时容器的状态为Up。
 
+**创建MySQL容器**：
+
+```java
+docker run --name mysql4blog -e MYSQL_ROOT_PASSWORD=123456 -p 3307:3307 -d mysql:8.0.20
+```
+
+- `-name`: 给新创建的容器命名，此处命名为`mysql4blog`
+- `-e`: 配置信息，此处配置MySQL的 root 用户的登录密码
+- `-p`: 端口映射，此处映射主机的3307端口到容器的3307端口
+- -d: 成功启动同期后输出容器的完整ID
+- 最后一个`mysql:8.0.20`指的是`mysql`镜像
+
 ### 查看容器
 
 列出运行中的容器，`-a`参数可以列出所有容器：
@@ -344,7 +362,7 @@ docker start $ContainerName
 ### 重启容器
 
 ```
-systemctl restart docker
+docker restart nginx
 ```
 
 ### 进入容器
@@ -759,4 +777,61 @@ docker run -p 8080:8080 --name mall-tiny-docker \
 -v /mydata/app/mall-tiny-docker/logs:/var/logs \
 -d mall-tiny/mall-tiny-docker:0.0.1-SNAPSHOT
 ```
+
+
+
+## 其他
+
+### 给nginx增加端口映射
+
+nginx一开始只映射了80端口，后面载部署项目的时候，需要用到其他端口，不想重新部署容器，所以通过修改配置文件的方式给容器添加其他端口。
+
+1、执行命令`docker inspect nginx`，找到容器id
+
+2、停止容器`docker stop nginx`，不然修改了配置会自动还原
+
+3、修改hostconfig.json
+
+```java
+cd /var/lib/docker/containers/135254e3429d1e75aa68569137c753b789416256f2ced52b4c5a85ec3849db87 # container id
+vim hostconfig.json
+```
+
+添加端口：
+
+```java
+"PortBindings": {
+    "80/tcp": [
+        {
+            "HostIp": "",
+            "HostPort": "80"
+        }
+    ],
+    "8080/tcp": [
+        {
+            "HostIp": "",
+            "HostPort": "8080"
+        }
+    ]
+},
+```
+
+4、修改同目录下 config.v2.json
+
+```java
+"ExposedPorts": {
+    "80/tcp": {},
+    "8080/tcp": {},
+    "8189/tcp": {}
+},
+```
+
+5、重启容器
+
+```java
+systemctl restart docker.service # 重启docker服务
+docker start nginx
+```
+
+
 

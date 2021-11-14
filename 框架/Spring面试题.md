@@ -214,15 +214,15 @@ finishBeanFactoryInitialization(beanFactory);
 
 ![](E:\project\java\learn\Java-learning\img\bean-life-cycle.jpg)
 
-1.对Bean进行实例化
+1.调用bean的构造方法创建Bean
 
-2.依赖注入
+2.通过反射调用setter方法进行属性的依赖注入
 
-3.如果Bean实现了`BeanNameAware`接口，Spring将调用`setBeanName`()，设置 `Bean`的 id（xml文件中bean标签的id）
+3.如果Bean实现了`BeanNameAware`接口，Spring将调用`setBeanName`()，设置 `Bean`的name（xml文件中bean标签的id）
 
-4.如果Bean实现了`BeanFactoryAware`接口，Spring将调用`setBeanFactory()`
+4.如果Bean实现了`BeanFactoryAware`接口，Spring将调用`setBeanFactory()`把bean factory设置给Bean
 
-5.如果Bean实现了`ApplicationContextAware`接口，Spring容器将调用`setApplicationContext()`
+5.如果Bean实现了`ApplicationContextAware`接口，Spring容器将调用`setApplicationContext()`给Bean设置ApplictionContext
 
 6.如果存在`BeanPostProcessor`，Spring将调用它们的`postProcessBeforeInitialization`（预初始化）方法，在Bean初始化前对其进行处理
 
@@ -232,7 +232,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 9.Bean初始化完成，供应用使用，直到应用被销毁
 
-10.如果Bean实现了`DisposableBean`接口，Spring将调用它的`destory`方法，然后调用在xml中定义的 `destory-method`方法，这两个方法作用类似，都是在Bean实例销毁前执行。
+10.如果Bean实现了`DisposableBean`接口，Spring将调用它的`destory`方法，然后调用在xml中定义的 `destory-method`方法，这两个方法作用类似，都是在Bean实例销毁前执行
 
 ```java
 public interface BeanPostProcessor {
