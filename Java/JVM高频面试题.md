@@ -644,6 +644,37 @@ PS Old Generation
 27776 interned Strings occupying 3262336 bytes.
 ```
 
+**jinfo**：`jinfo -flags 1`。查看当前的应用JVM参数配置。
+
+```java
+Attaching to process ID 1, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.111-b14
+Non-default VM flags: -XX:CICompilerCount=2 -XX:InitialHeapSize=31457280 -XX:MaxHeapSize=480247808 -XX:MaxNewSize=160038912 -XX:MinHeapDeltaBytes=196608 -XX:NewSize=10485760 -XX:OldSize=20971520 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops
+Command line:
+```
+
+**查看所有参数**：`java -XX:+PrintFlagsFinal -version`。用于查看最终值，初始值可能被修改掉（查看初始值可以使用java -XX:+PrintFlagsInitial）。
+
+```java
+[Global flags]
+    uintx AdaptiveSizeDecrementScaleFactor          = 4                                   {product}
+    uintx AdaptiveSizeMajorGCDecayTimeScale         = 10                                  {product}
+    uintx AdaptiveSizePausePolicy                   = 0                                   {product}
+    uintx AdaptiveSizePolicyCollectionCostMargin    = 50                                  {product}
+    uintx AdaptiveSizePolicyInitializingSteps       = 20                                  {product}
+    uintx AdaptiveSizePolicyOutputInterval          = 0                                   {product}
+    uintx AdaptiveSizePolicyWeight                  = 10                                  {product}
+    uintx AdaptiveSizeThroughPutPolicy              = 0                                   {product}
+    uintx AdaptiveTimeWeight                        = 25                                  {product}
+     bool AdjustConcurrency                         = false                               {product}
+     bool AggressiveOpts                            = false                               {product}
+     ....
+```
+
+
+
 ## 对象头了解吗？
 
 Java 内存中的对象由以下三部分组成：**对象头**、**实例数据**和**对齐填充字节**。
