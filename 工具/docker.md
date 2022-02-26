@@ -8,6 +8,7 @@
   - [添加docker仓库位置](#%E6%B7%BB%E5%8A%A0docker%E4%BB%93%E5%BA%93%E4%BD%8D%E7%BD%AE)
   - [安装docker服务](#%E5%AE%89%E8%A3%85docker%E6%9C%8D%E5%8A%A1)
   - [启动 docker 服务](#%E5%90%AF%E5%8A%A8-docker-%E6%9C%8D%E5%8A%A1)
+  - [重启docker服务](#%E9%87%8D%E5%90%AFdocker%E6%9C%8D%E5%8A%A1)
   - [搜索镜像](#%E6%90%9C%E7%B4%A2%E9%95%9C%E5%83%8F)
   - [下载镜像：](#%E4%B8%8B%E8%BD%BD%E9%95%9C%E5%83%8F)
   - [列出镜像](#%E5%88%97%E5%87%BA%E9%95%9C%E5%83%8F)
@@ -46,6 +47,8 @@
     - [重启docker](#%E9%87%8D%E5%90%AFdocker)
     - [开放端口](#%E5%BC%80%E6%94%BE%E7%AB%AF%E5%8F%A3)
   - [构建docker镜像](#%E6%9E%84%E5%BB%BAdocker%E9%95%9C%E5%83%8F)
+- [其他](#%E5%85%B6%E4%BB%96)
+  - [给nginx增加端口映射](#%E7%BB%99nginx%E5%A2%9E%E5%8A%A0%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 

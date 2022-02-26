@@ -27,7 +27,6 @@
 - [快照读和当前读](#%E5%BF%AB%E7%85%A7%E8%AF%BB%E5%92%8C%E5%BD%93%E5%89%8D%E8%AF%BB)
 - [共享锁和排他锁](#%E5%85%B1%E4%BA%AB%E9%94%81%E5%92%8C%E6%8E%92%E4%BB%96%E9%94%81)
 - [大表怎么优化？](#%E5%A4%A7%E8%A1%A8%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96)
-- [MySQL 执行计划了解吗？](#mysql-%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E4%BA%86%E8%A7%A3%E5%90%97)
 - [bin log/redo log/undo log](#bin-logredo-logundo-log)
 - [bin log和redo log有什么区别？](#bin-log%E5%92%8Credo-log%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB)
 - [讲一下MySQL架构？](#%E8%AE%B2%E4%B8%80%E4%B8%8Bmysql%E6%9E%B6%E6%9E%84)
