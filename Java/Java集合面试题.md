@@ -46,13 +46,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-> 首先给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
->
-> github地址：https://github.com/Tyson0314/java-books
->
-> 如果github访问不了，可以访问gitee仓库。
->
-> gitee地址：https://gitee.com/tysondai/java-books
+
 
 ## 常见的集合有哪些？
 
@@ -66,7 +60,7 @@ Java集合框架图如下：
 
 List代表了有序可重复集合，可直接根据元素的索引来访问；Set代表无序不可重复集合，只能根据元素本身来访问；Queue是队列集合。Map代表的是存储key-value对的集合，可根据元素的key来访问value。
 
-集合体系中常用的实现类有ArrayList、LinkedList、HashSet、TreeSet、HashMap、TreeMap等实现类。
+集合体系中常用的实现类有`ArrayList、LinkedList、HashSet、TreeSet、HashMap、TreeMap`等实现类。
 
 ## List 、Set和Map 的区别
 
@@ -150,7 +144,7 @@ while(itr.hasNext()) {
 1. ArrayList在内存不够时默认是扩展50% + 1个，Vector是默认扩展1倍。
 2. Vector属于线程安全级别的，但是大多数情况下不使用Vector，因为操作Vector效率比较低。
 
-## Arraylist 与 LinkedList 区别
+## Arraylist 与 LinkedList的区别
 
 1. ArrayList基于动态数组实现；LinkedList基于链表实现。
 2. 对于随机index访问的get和set方法，ArrayList的速度要优于LinkedList。因为ArrayList直接通过数组下标直接找到元素；LinkedList要移动指针遍历每个元素直到找到为止。
@@ -158,11 +152,11 @@ while(itr.hasNext()) {
 
 ## HashMap
 
-HashMap 使用数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的， 链表长度大于8（TREEIFY_THRESHOLD）时，会把链表转换为红黑树，红黑树节点个数小于6（UNTREEIFY_THRESHOLD）时才转化为链表，防止频繁的转化。
+HashMap 使用数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的， 链表长度大于8（`TREEIFY_THRESHOLD`）时，会把链表转换为红黑树，红黑树节点个数小于6（`UNTREEIFY_THRESHOLD`）时才转化为链表，防止频繁的转化。
 
 ### 解决hash冲突的办法有哪些？HashMap用的哪种？
 
-解决Hash冲突方法有:开放定址法、再哈希法、链地址法。HashMap中采用的是 链地址法 。
+解决Hash冲突方法有：开放定址法、再哈希法、链地址法。HashMap中采用的是 链地址法 。
 
 * 开放定址法基本思想就是，如果`p=H(key)`出现冲突时，则以`p`为基础，再次hash，`p1=H(p)`,如果p1再次出现冲突，则以p1为基础，以此类推，直到找到一个不冲突的哈希地址`pi`。 因此开放定址法所需要的hash表的长度要大于等于所需要存放的元素，而且因为存在再次hash，所以`只能在删除的节点上做标记，而不能真正删除节点。`
 * 再哈希法提供多个不同的hash函数，当`R1=H1(key1)`发生冲突时，再计算`R2=H2(key1)`，直到没有冲突为止。 这样做虽然不易产生堆集，但增加了计算的时间。
@@ -178,11 +172,11 @@ h^(h>>>16)  //第二步 高位参与运算，减少冲突
 return h&(length-1);  //第三步 取模运算
 ```
 
-在JDK1.8的实现中，优化了高位运算的算法，通过hashCode()的高16位异或低16位实现的：这么做可以在数组比较小的时候，也能保证考虑到高低位都参与到Hash的计算中，可以减少冲突，同时不会有太大的开销。
+在JDK1.8的实现中，优化了高位运算的算法，通过`hashCode()`的高16位异或低16位实现的：这么做可以在数组比较小的时候，也能保证考虑到高低位都参与到Hash的计算中，可以减少冲突，同时不会有太大的开销。
 
 ### 扩容过程？
 
-1.8扩容机制：当元素个数大于threshold时，会进行扩容，使用2倍容量的数组代替原有数组。采用尾插入的方式将原数组元素拷贝到新数组。1.8扩容之后链表元素相对位置没有变化，而1.7扩容之后链表元素会倒置。
+1.8扩容机制：当元素个数大于`threshold`时，会进行扩容，使用2倍容量的数组代替原有数组。采用尾插入的方式将原数组元素拷贝到新数组。1.8扩容之后链表元素相对位置没有变化，而1.7扩容之后链表元素会倒置。
 
 1.7链表新节点采用的是头插法，这样在线程一扩容迁移元素时，会将元素顺序改变，导致两个线程中出现元素的相互指向而形成循环链表，1.8采用了尾插法，避免了这种情况的发生。
 
@@ -197,13 +191,13 @@ return h&(length-1);  //第三步 取模运算
 5. 链表的数量大于阈值8，就要转换成红黑树的结构
 6. 添加成功后会检查是否需要扩容
 
-![](https://gitee.com/tysondai/img/raw/master/hashmap-put.png)
+![图片来源网络](https://gitee.com/tysondai/img/raw/master/hashmap-put.png)
 
 ### 红黑树的特点？
 
 - 每个节点或者是黑色，或者是红色。
 - 根节点是黑色。
-- 每个叶子节点（NIL）是黑色。 
+- 每个叶子节点（`NIL`）是黑色。 
 - 如果一个节点是红色的，则它的子节点必须是黑色的。
 - 从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。
 
@@ -213,7 +207,7 @@ ConcurrentHashMap 在put的时候会加锁，使用红黑树插入速度更快�
 
 ### 在解决 hash 冲突的时候，为什么选择先用链表，再转红黑树?
 
-因为红黑树需要进行左旋，右旋，变色这些操作来保持平衡，而单链表不需要。当元素小于 8 个的时候，链表结构可以保证查询性能。当元素大于 8 个的时候， 红黑树搜索时间复杂度是 O(logn)，而链表是 O(n)，此时需要红黑树来加快查询速度，但是插入和删除节点的效率变慢了。如果一开始就用红黑树结构，元素太少，插入和删除节点的效率又比较慢，浪费性能。
+因为红黑树需要进行左旋，右旋，变色这些操作来保持平衡，而单链表不需要。当元素小于 8 个的时候，链表结构可以保证查询性能。当元素大于 8 个的时候， 红黑树搜索时间复杂度是 `O(logn)`，而链表是 `O(n)`，此时需要红黑树来加快查询速度，但是插入和删除节点的效率变慢了。如果一开始就用红黑树结构，元素太少，插入和删除节点的效率又比较慢，浪费性能。
 
 ### HashMap 的长度为什么是 2 的幂次方？
 
@@ -238,10 +232,10 @@ Node[] table的初始化长度length为16，默认的loadFactor是0.75，0.75是
 
 ### 一般用什么作为HashMap的key?
 
-一般用Integer、String 这种不可变类当 HashMap 当 key。String类比较常用。
+一般用`Integer`、`String`这种不可变类当 HashMap 当 key。String类比较常用。
 
-- 因为 String 是不可变的，所以在它创建的时候 hashcode 就被缓存了，不需要重新计算。这就是 HashMap 中的key经常使用字符串的原因。
-- 获取对象的时候要用到 equals() 和 hashCode() 方法，而Integer、String这些类都已经重写了 hashCode() 以及 equals() 方法，不需要自己去重写这两个方法。
+- 因为 String 是不可变的，所以在它创建的时候`hashcode``就被缓存了，不需要重新计算。这就是 HashMap 中的key经常使用字符串的原因。
+- 获取对象的时候要用到 `equals()` 和 `hashCode()` 方法，而Integer、String这些类都已经重写了 `hashCode()` 以及 `equals()` 方法，不需要自己去重写这两个方法。
 
 ### HashMap为什么线程不安全？
 
@@ -262,8 +256,6 @@ HashMap和Hashtable都实现了Map接口。
 HashMap是无序的，迭代HashMap所得到元素的顺序并不是它们最初放到HashMap的顺序，即不能保持它们的插入顺序。
 
 LinkedHashMap继承于HashMap，是HashMap和LinkedList的融合体，具备两者的特性。每次put操作都会将entry插入到双向链表的尾部。
-
-![linkedhashmap](https://gitee.com/tysondai/img/raw/master/linkedhashmap.png)
 
 ## 讲一下TreeMap？
 
@@ -424,12 +416,12 @@ put 操作流程：
 
 #### ConcurrentHashMap 和 Hashtable 的区别？
 
-1. Hashtable通过使用synchronized修饰方法的方式来实现多线程同步，因此，Hashtable的同步会锁住整个数组。在高并发的情况下，性能会非常差。ConcurrentHashMap采用了更细粒度的锁来提高在并发情况下的效率。注：Synchronized容器（同步容器）也是通过synchronized关键字来实现线程安全，在使用的时候会对所有的数据加锁。
+1. Hashtable通过使用synchronized修饰方法的方式来实现多线程同步，因此，Hashtable的同步会锁住整个数组。在高并发的情况下，性能会非常差。ConcurrentHashMap采用了更细粒度的锁来提高在并发情况下的效率。注：synchronized容器（同步容器）也是通过synchronized关键字来实现线程安全，在使用的时候会对所有的数据加锁。
 2. Hashtable默认的大小为11，当达到阈值后，每次按照下面的公式对容量进行扩充：newCapacity = oldCapacity * 2 + 1。ConcurrentHashMap默认大小是16，扩容时容量扩大为原来的2倍。
 
 ### CopyOnWrite
 
-写时复制。当我们往容器添加元素时，不直接往容器添加，而是先将当前容器进行复制，复制出一个新的容器，然后往新的容器添加元素，添加完元素之后，再将原容器的引用指向新容器。这样做的好处就是可以对CopyOnWrite容器进行并发的读而不需要加锁，因为当前容器不会被修改。
+写时复制。当我们往容器添加元素时，不直接往容器添加，而是先将当前容器进行复制，复制出一个新的容器，然后往新的容器添加元素，添加完元素之后，再将原容器的引用指向新容器。这样做的好处就是可以对`CopyOnWrite`容器进行并发的读而不需要加锁，因为当前容器不会被修改。
 
 ```java
     public boolean add(E e) {
@@ -448,9 +440,9 @@ put 操作流程：
     }
 ```
 
-从JDK1.5开始Java并发包里提供了两个使用CopyOnWrite机制实现的并发容器，它们是CopyOnWriteArrayList和CopyOnWriteArraySet。
+从JDK1.5开始Java并发包里提供了两个使用CopyOnWrite机制实现的并发容器，它们是`CopyOnWriteArrayList`和`CopyOnWriteArraySet`。
 
-CopyOnWriteArrayList中add方法添加的时候是需要加锁的，保证同步，避免了多线程写的时候复制出多个副本。读的时候不需要加锁，如果读的时候有其他线程正在向CopyOnWriteArrayList添加数据，还是可以读到旧的数据。
+`CopyOnWriteArrayList`中add方法添加的时候是需要加锁的，保证同步，避免了多线程写的时候复制出多个副本。读的时候不需要加锁，如果读的时候有其他线程正在向`CopyOnWriteArrayList`添加数据，还是可以读到旧的数据。
 
 **缺点：**
 
@@ -459,29 +451,29 @@ CopyOnWriteArrayList中add方法添加的时候是需要加锁的，保证同步
 
 ### ConcurrentLinkedQueue
 
-非阻塞队列。高效的并发队列，使用链表实现。可以看做一个线程安全的 LinkedList，通过 CAS 操作实现。
+非阻塞队列。高效的并发队列，使用链表实现。可以看做一个线程安全的 `LinkedList`，通过 CAS 操作实现。
 
-如果对队列加锁的成本较高则适合使用无锁的 ConcurrentLinkedQueue 来替代。适合在对性能要求相对较高，同时有多个线程对队列进行读写的场景。
+如果对队列加锁的成本较高则适合使用无锁的 `ConcurrentLinkedQueue` 来替代。适合在对性能要求相对较高，同时有多个线程对队列进行读写的场景。
 
 **非阻塞队列中的几种主要方法：**
-add(E e) : 将元素e插入到队列末尾，如果插入成功，则返回true；如果插入失败（即队列已满），则会抛出异常；
-remove() ：移除队首元素，若移除成功，则返回true；如果移除失败（队列为空），则会抛出异常；
-offer(E e) ：将元素e插入到队列末尾，如果插入成功，则返回true；如果插入失败（即队列已满），则返回false；
-poll() ：移除并获取队首元素，若成功，则返回队首元素；否则返回null；
-peek() ：获取队首元素，若成功，则返回队首元素；否则返回null
+`add(E e)`: 将元素e插入到队列末尾，如果插入成功，则返回true；如果插入失败（即队列已满），则会抛出异常；
+`remove()`：移除队首元素，若移除成功，则返回true；如果移除失败（队列为空），则会抛出异常；
+`offer(E e)`：将元素e插入到队列末尾，如果插入成功，则返回true；如果插入失败（即队列已满），则返回false；
+`poll()`：移除并获取队首元素，若成功，则返回队首元素；否则返回null；
+`peek()`：获取队首元素，若成功，则返回队首元素；否则返回null
 
 对于非阻塞队列，一般情况下建议使用offer、poll和peek三个方法，不建议使用add和remove方法。因为使用offer、poll和peek三个方法可以通过返回值判断操作成功与否，而使用add和remove方法却不能达到这样的效果。
 
 ### 阻塞队列
 
-阻塞队列是java.util.concurrent包下重要的数据结构，BlockingQueue提供了线程安全的队列访问方式：当阻塞队列进行插入数据时，如果队列已满，线程将会阻塞等待直到队列非满；从阻塞队列取数据时，如果队列已空，线程将会阻塞等待直到队列非空。并发包下很多高级同步类的实现都是基于BlockingQueue实现的。BlockingQueue 适合用于作为数据共享的通道。
+阻塞队列是`java.util.concurrent`包下重要的数据结构，`BlockingQueue`提供了线程安全的队列访问方式：当阻塞队列进行插入数据时，如果队列已满，线程将会阻塞等待直到队列非满；从阻塞队列取数据时，如果队列已空，线程将会阻塞等待直到队列非空。并发包下很多高级同步类的实现都是基于`BlockingQueue`实现的。`BlockingQueue` 适合用于作为数据共享的通道。
 
 使用阻塞算法的队列可以用一个锁（入队和出队用同一把锁）或两个锁（入队和出队用不同的锁）等方式来实现。
 
 阻塞队列和一般的队列的区别就在于：
 
 1. 多线程支持，多个线程可以安全的访问队列
-2. 阻塞操作，当队列为空的时候，消费线程会阻塞等待队列不为空；当队列满了的时候，生产线程就会阻塞直到队列不满。
+2. 阻塞操作，当队列为空的时候，消费线程会阻塞等待队列不为空；当队列满了的时候，生产线程就会阻塞直到队列不满
 
 **方法**
 
@@ -497,7 +489,7 @@ JDK 7 提供了7个阻塞队列，如下
 
 1、**ArrayBlockingQueue** 
 
-有界阻塞队列，底层采用数组实现。ArrayBlockingQueue 一旦创建，容量不能改变。其并发控制采用可重入锁来控制，不管是插入操作还是读取操作，都需要获取到锁才能进行操作。此队列按照先进先出（FIFO）的原则对元素进行排序。默认情况下不能保证线程访问队列的公平性，参数`fair`可用于设置线程是否公平访问队列。为了保证公平性，通常会降低吞吐量。
+有界阻塞队列，底层采用数组实现。`ArrayBlockingQueue` 一旦创建，容量不能改变。其并发控制采用可重入锁来控制，不管是插入操作还是读取操作，都需要获取到锁才能进行操作。此队列按照先进先出（FIFO）的原则对元素进行排序。默认情况下不能保证线程访问队列的公平性，参数`fair`可用于设置线程是否公平访问队列。为了保证公平性，通常会降低吞吐量。
 
 ```java
 private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueue<Integer>(10,true);//fair
@@ -505,29 +497,29 @@ private static ArrayBlockingQueue<Integer> blockingQueue = new ArrayBlockingQueu
 
 2、**LinkedBlockingQueue**
 
-LinkedBlockingQueue是一个用单向链表实现的有界阻塞队列，可以当做无界队列也可以当做有界队列来使用。通常在创建 LinkedBlockingQueue 对象时，会指定队列最大的容量。此队列的默认和最大长度为`Integer.MAX_VALUE`。此队列按照先进先出的原则对元素进行排序。与 ArrayBlockingQueue 相比起来具有更高的吞吐量。
+`LinkedBlockingQueue`是一个用单向链表实现的有界阻塞队列，可以当做无界队列也可以当做有界队列来使用。通常在创建 `LinkedBlockingQueue` 对象时，会指定队列最大的容量。此队列的默认和最大长度为`Integer.MAX_VALUE`。此队列按照先进先出的原则对元素进行排序。与 `ArrayBlockingQueue` 相比起来具有更高的吞吐量。
 
 3、**PriorityBlockingQueue** 
 
-支持优先级的**无界**阻塞队列。默认情况下元素采取自然顺序升序排列。也可以自定义类实现`compareTo()`方法来指定元素排序规则，或者初始化PriorityBlockingQueue时，指定构造参数`Comparator`来进行排序。
+支持优先级的**无界**阻塞队列。默认情况下元素采取自然顺序升序排列。也可以自定义类实现`compareTo()`方法来指定元素排序规则，或者初始化`PriorityBlockingQueue`时，指定构造参数`Comparator`来进行排序。
 
-PriorityBlockingQueue 只能指定初始的队列大小，后面插入元素的时候，如果空间不够的话会**自动扩容**。
+`PriorityBlockingQueue` 只能指定初始的队列大小，后面插入元素的时候，如果空间不够的话会**自动扩容**。
 
-PriorityQueue 的线程安全版本。不可以插入 null 值，同时，插入队列的对象必须是可比较大小的（comparable），否则报 ClassCastException 异常。它的插入操作 put 方法不会 block，因为它是无界队列（take 方法在队列为空的时候会阻塞）。
+`PriorityQueue` 的线程安全版本。不可以插入 null 值，同时，插入队列的对象必须是可比较大小的（comparable），否则报 ClassCastException 异常。它的插入操作 put 方法不会 block，因为它是无界队列（take 方法在队列为空的时候会阻塞）。
 
 4、**DelayQueue** 
 
-支持延时获取元素的无界阻塞队列。队列使用PriorityBlockingQueue来实现。队列中的元素必须实现Delayed接口，在创建元素时可以指定多久才能从队列中获取当前元素。只有在延迟期满时才能从队列中提取元素。
+支持延时获取元素的无界阻塞队列。队列使用`PriorityBlockingQueue`来实现。队列中的元素必须实现Delayed接口，在创建元素时可以指定多久才能从队列中获取当前元素。只有在延迟期满时才能从队列中提取元素。
 
 5、**SynchronousQueue**
 
 不存储元素的阻塞队列，每一个put必须等待一个take操作，否则不能继续添加元素。支持公平访问队列。
 
-SynchronousQueue可以看成是一个传球手，负责把生产者线程处理的数据直接传递给消费者线程。队列本身不存储任何元素，非常适合传递性场景。SynchronousQueue的吞吐量高于LinkedBlockingQueue和ArrayBlockingQueue。
+`SynchronousQueue`可以看成是一个传球手，负责把生产者线程处理的数据直接传递给消费者线程。队列本身不存储任何元素，非常适合传递性场景。`SynchronousQueue`的吞吐量高于`LinkedBlockingQueue`和`ArrayBlockingQueue`。
 
 6、**LinkedTransferQueue**
 
-由链表结构组成的无界阻塞TransferQueue队列。相对于其他阻塞队列，多了tryTransfer和transfer方法。
+由链表结构组成的无界阻塞TransferQueue队列。相对于其他阻塞队列，多了`tryTransfer`和`transfer`方法。
 
 transfer方法：如果当前有消费者正在等待接收元素（take或者待时间限制的poll方法），transfer可以把生产者传入的元素立刻传给消费者。如果没有消费者等待接收元素，则将元素放在队列的tail节点，并等到该元素被消费者消费了才返回。
 
