@@ -116,8 +116,6 @@ select @@transaction_isolation;
 set session transaction isolation level read uncommitted;
 ```
 
-
-
 ## 索引
 
 ### 什么是索引？

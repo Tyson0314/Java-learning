@@ -19,63 +19,75 @@
 <div align="center"><img src="https://gitee.com/tysondai/img/raw/master/公众号.jpg" style="zoom:90%;" />
     <p>个人公众号</p>
 </div>
-
-
-
 <p align="center">
     <br>
-    <a href="https://gitee.com/tysondai/img/raw/master/个人微信索隆（交流群）.png"><img src="https://gitee.com/tysondai/img/raw/master/WeChat-微信交流群-blue.svg" alt="微信交流群"></a>
-<a href="https://gitee.com/tysondai/img/raw/master/公众号.jpg"><img src="https://gitee.com/tysondai/img/raw/master/公众号-程序员大彬.svg" alt="公众号"></a>
-  <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="https://gitee.com/tysondai/img/raw/master/知乎-程序员大彬.svg" alt="知乎"></a>
-       <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="https://gitee.com/tysondai/img/raw/master/牛客网-程序员大彬.svg" alt="牛客网"></a>
-       <a href="https://juejin.cn/user/201965869218574/posts"><img src="https://gitee.com/tysondai/img/raw/master/掘金-程序员大彬.svg" alt="掘金"></a>
-           <a href="https://github.com/Tyson0314/java-books"><img src="https://gitee.com/tysondai/img/raw/master/PDF-免费计算机电子书籍.svg" alt="免费PDF"></a>
+    <a href="https://gitee.com/tysondai/img/raw/master/个人微信索隆（交流群）.png"><img src="https://gitee.com/tysondai/img/raw/master/微信交流群.png" alt="微信交流群"></a>
+<a href="https://gitee.com/tysondai/img/raw/master/公众号.jpg"><img src="https://gitee.com/tysondai/img/raw/master/公众号.png" alt="公众号"></a>
+  <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="https://gitee.com/tysondai/img/raw/master/知乎.png" alt="知乎"></a>
+       <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="https://gitee.com/tysondai/img/raw/master/牛客网.png" alt="牛客网"></a>
+       <a href="https://juejin.cn/user/201965869218574/posts"><img src="https://gitee.com/tysondai/img/raw/master/掘金.png" alt="掘金"></a>
+           <a href="https://github.com/Tyson0314/java-books"><img src="https://gitee.com/tysondai/img/raw/master/免费计算机电子书籍.png" alt="免费PDF"></a>
         </p>
 
 
 
+
+
 👍**推荐 [200多本经典的计算机书籍](https://github.com/Tyson0314/java-books)**
+
+# 大厂面试系列
+
+1. [字节跳动一面面经](https://mp.weixin.qq.com/s/RH-SunzjqUTTx8HWaCmCcw)
+2. [别再问我Java List八股文了！](https://mp.weixin.qq.com/s/doyy_GYGWoH_YHgyMijStA)
+3. [腾讯面试，你真的懂HTTP吗？](https://mp.weixin.qq.com/s/kC7XRBfO7Z5hZcX6Dz2viw)
+4. [美团二面面经，最后竟然有惊喜？](https://mp.weixin.qq.com/s/3HvOtTU29HGALqmeeOZNWw)
+5. [Java多线程，被面试官难倒了！](https://mp.weixin.qq.com/s/tv8pOLaS6hpwgbKOB9w0Zw)
+6. [京东二面，Redis为什么这么快？](https://mp.weixin.qq.com/s/S3vN5T9HpziRd2s5ysLaSg)
+7. [MySQL索引，给我整不会了！](https://mp.weixin.qq.com/s/Q5CrDlNInpnckJaBQSrA7w)
+8. [别再问我Java虚拟机八股文了！](https://mp.weixin.qq.com/s/npo5-VqQt5sqZiSwPv6LVw)
+9. [计算机网络，问傻了！](https://mp.weixin.qq.com/s/WXcMLa_tdxpRLhO4U8LHIQ)
+10. [Spring这几道题你会吗？](https://mp.weixin.qq.com/s/DtgYRFfOQxQdtQosCU-6aw)
+
+# 精选文章
+
+1. [记一次OOM问题排查](https://mp.weixin.qq.com/s/40C1OdtfGJSrecBoL9Mjbg)
+2. [推荐一款画图神器](https://mp.weixin.qq.com/s/vDtWku41rpeux8ZhZyA81w)
+3. [有哪些值得推荐的Java书籍？](https://mp.weixin.qq.com/s/MUB07APbyDH2-iftGDdGlA)
+4. [这款MarkDown神器，要收费啦！](https://mp.weixin.qq.com/s/aCEi-4vb3kNPF0-E4rB5Kg)
+5. [在B站学Java](https://mp.weixin.qq.com/s/_xfT2Tr6rT8qSAFrtRQ3wQ)
+6. [你见过这样使用Github的吗？](https://mp.weixin.qq.com/s/U_AItugf8KaUPyIun_xagg)
 
 # Java
 
 ## 基础
 
 1. [**Java面试题精选**](Java/Java基础面试题.md)  **精心整理的大厂Java面试题目，附有详细答案** (推荐 :+1:)
-2. [Java基础知识总结](Java/Java基础.md) 
-3. [Java8 新特性总结](Java/Java8.md)
+2. [Java8 新特性总结](Java/Java8.md)
 4. [Java常见关键字总结](Java/Java关键字.md)
 
 ## 集合
 
-[Java集合高频面试题](Java/Java集合面试题.md)(**牛客点赞200+！推荐** :+1:)
-
-[Java常见集合总结](Java/集合.md)
+1. [Java集合高频面试题](Java/Java集合面试题.md)(**牛客点赞200+！推荐** :+1:)
 
 ## 并发
 
 1. [Java并发高频面试题（精华版）](Java/Java并发面试题.md) **精心整理的大厂Java并发编程面试题目，附有详细答案**  (推荐 :+1:)
 
-2. [Java并发知识点总结](Java/并发.md)
-
 ## JVM
 
-[【大厂面试】——JVM高频面试题](Java/JVM高频面试题.md)(推荐 :+1:)
-
-[一万多字！Java虚拟机总结](Java/JVM.md)
+1. [【大厂面试】——JVM高频面试题](Java/JVM高频面试题.md)(推荐 :+1:)
 
 # 数据库
 
 ## MySQL
 
 1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(**知乎1k+收藏，推荐** :+1:)
-2. [MySQL基础知识总结](数据库/MySQL基础.md)
 3. [MySQL执行计划](数据库/MySQL执行计划.md)(推荐 :+1:)
 
 ## Redis
 
 1. [【大厂面试】——Redis30问](中间件/Redis面试题.md)(牛客高赞，推荐 :+1:)
-2. [Redis基础总结](中间件/Redis入门指南总结.md)
-3. [Redis分布式锁(推荐 :+1:)](中间件/Redis分布式锁.md)
+2. [Redis分布式锁(推荐 :+1:)](中间件/Redis分布式锁.md)
 4. [缓存穿透、缓存雪崩、缓存击穿](中间件/缓存穿透、缓存雪崩、缓存击穿.md)
 
 # 框架
@@ -83,7 +95,6 @@
 ## Spring
 
 1. [Spring高频面试题30道](框架/Spring面试题.md)(推荐 :+1:)
-2. [Spring知识点总结](框架/Spring总结.md)
 3. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
 
 ## Spring Boot
