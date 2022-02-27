@@ -41,7 +41,7 @@
 
 ## Spring 用到了哪些设计模式？
 
-1、简单工厂模式：`BeanFactory`就是简单工厂模式的体现，根据传入一个唯一标识来获得 Bean 对象。
+1、**简单工厂模式**：`BeanFactory`就是简单工厂模式的体现，根据传入一个唯一标识来获得 Bean 对象。
 
 ```java
 @Override
@@ -51,11 +51,11 @@ public Object getBean(String name) throws BeansException {
 }
 ```
 
-2、工厂方法模式：`FactoryBean`就是典型的工厂方法模式。spring在使用`getBean()`调用获得该bean时，会自动调用该bean的`getObject()`方法。每个 Bean 都会对应一个 `FactoryBean`，如 `SqlSessionFactory` 对应 `SqlSessionFactoryBean`。
+2、**工厂方法模式**：`FactoryBean`就是典型的工厂方法模式。spring在使用`getBean()`调用获得该bean时，会自动调用该bean的`getObject()`方法。每个 Bean 都会对应一个 `FactoryBean`，如 `SqlSessionFactory` 对应 `SqlSessionFactoryBean`。
 
-3、单例模式：一个类仅有一个实例，提供一个访问它的全局访问点。Spring 创建 Bean 实例默认是单例的。
+3、**单例模式**：一个类仅有一个实例，提供一个访问它的全局访问点。Spring 创建 Bean 实例默认是单例的。
 
-4、适配器模式：SpringMVC中的适配器`HandlerAdatper`。由于应用会有多个Controller实现，如果需要直接调用Controller方法，那么需要先判断是由哪一个Controller处理请求，然后调用相应的方法。当增加新的 Controller，需要修改原来的逻辑，违反了开闭原则（对修改关闭，对扩展开放）。
+4、**适配器模式**：SpringMVC中的适配器`HandlerAdatper`。由于应用会有多个Controller实现，如果需要直接调用Controller方法，那么需要先判断是由哪一个Controller处理请求，然后调用相应的方法。当增加新的 Controller，需要修改原来的逻辑，违反了开闭原则（对修改关闭，对扩展开放）。
 
 为此，Spring提供了一个适配器接口，每一种 Controller 对应一种 `HandlerAdapter` 实现类，当请求过来，SpringMVC会调用`getHandler()`获取相应的Controller，然后获取该Controller对应的 `HandlerAdapter`，最后调用`HandlerAdapter`的`handle()`方法处理请求，实际上调用的是Controller的`handleRequest()`。每次添加新的 Controller 时，只需要增加一个适配器类就可以，无需修改原有的逻辑。
 
@@ -88,15 +88,15 @@ public class HttpRequestHandlerAdapter implements HandlerAdapter {
 }
 ```
 
-5、代理模式：spring 的 aop 使用了动态代理，有两种方式`JdkDynamicAopProxy`和`Cglib2AopProxy`。
+5、**代理模式**：spring 的 aop 使用了动态代理，有两种方式`JdkDynamicAopProxy`和`Cglib2AopProxy`。
 
-6、观察者模式：spring 中 observer 模式常用的地方是 listener 的实现，如`ApplicationListener`。
+6、**观察者模式**：spring 中 observer 模式常用的地方是 listener 的实现，如`ApplicationListener`。
 
-7、模板模式： Spring 中 `jdbcTemplate`、`hibernateTemplate` 等，就使用到了模板模式。
+7、**模板模式**： Spring 中 `jdbcTemplate`、`hibernateTemplate` 等，就使用到了模板模式。
 
 ## 什么是AOP？
 
-面向切面编程，作为面向对象的一种补充，将公共逻辑（事务管理、日志、缓存等）封装成切面，跟业务代码进行分离，可以减少系统的重复代码和降低模块之间的耦合度。切面就是那些与业务无关，但所有业务模块都会调用的公共逻辑。
+**面向切面**编程，作为面向对象的一种补充，将公共逻辑（事务管理、日志、缓存等）封装成切面，跟业务代码进行分离，可以减少系统的重复代码和降低模块之间的耦合度。切面就是那些与业务无关，但所有业务模块都会调用的公共逻辑。
 
 ## AOP有哪些实现方式？
 
@@ -120,11 +120,11 @@ Spring AOP中的动态代理主要有两种方式：JDK动态代理和CGLIB动�
 
 如果目标类实现了接口，Spring AOP会选择使用JDK动态代理目标类。代理类根据目标类实现的接口动态生成，不需要自己编写，生成的动态代理类和目标类都实现相同的接口。JDK动态代理的核心是`InvocationHandler`接口和`Proxy`类。
 
-缺点：目标类必须有实现的接口。如果某个类没有实现接口，那么这个类就不能用JDK动态代理。
+缺点：**目标类必须有实现的接口**。如果某个类没有实现接口，那么这个类就不能用JDK动态代理。
 
 **CGLIB来动态代理**
 
-通过继承实现。如果目标类没有实现接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB（Code Generation Library）可以在运行时动态生成类的字节码，动态创建目标类的子类对象，在子类对象中增强目标类。
+**通过继承实现**。如果目标类没有实现接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB（Code Generation Library）可以在运行时动态生成类的字节码，动态创建目标类的子类对象，在子类对象中增强目标类。
 
 CGLIB是通过继承的方式做的动态代理，因此如果某个类被标记为`final`，那么它是无法使用CGLIB做动态代理的。
 
@@ -138,24 +138,24 @@ CGLIB是通过继承的方式做的动态代理，因此如果某个类被标记
 
 **两者的区别**：
 
-1. jdk动态代理使用jdk中的类Proxy来创建代理对象，它使用反射技术来实现，不需要导入其他依赖。cglib需要引入相关依赖：asm.jar，它使用字节码增强技术来实现。
+1. jdk动态代理使用jdk中的类Proxy来创建代理对象，它使用反射技术来实现，不需要导入其他依赖。cglib需要引入相关依赖：`asm.jar`，它使用字节码增强技术来实现。
 2. 当目标类实现了接口的时候Spring Aop默认使用jdk动态代理方式来增强方法，没有实现接口的时候使用cglib动态代理方式增强方法。
 
 ## Spring AOP相关术语
 
-（1）切面（Aspect）：切面是通知和切点的结合。通知和切点共同定义了切面的全部内容。 
+（1）**切面**（Aspect）：切面是通知和切点的结合。通知和切点共同定义了切面的全部内容。 
 
-（2）连接点（Join point）：指方法，在Spring AOP中，一个连接点总是代表一个方法的执行。连接点是在应用执行过程中能够插入切面的一个点。这个点可以是调用方法时、抛出异常时、甚至修改一个字段时。切面代码可以利用这些点插入到应用的正常流程之中，并添加新的行为。
+（2）**连接点**（Join point）：指方法，在Spring AOP中，一个连接点总是代表一个方法的执行。连接点是在应用执行过程中能够插入切面的一个点。这个点可以是调用方法时、抛出异常时、甚至修改一个字段时。切面代码可以利用这些点插入到应用的正常流程之中，并添加新的行为。
 
-（3）通知（Advice）：在AOP术语中，切面的工作被称为通知。
+（3）**通知**（Advice）：在AOP术语中，切面的工作被称为通知。
 
-（4）切入点（Pointcut）：切点的定义会匹配通知所要织入的一个或多个连接点。我们通常使用明确的类和方法名称，或是利用正则表达式定义所匹配的类和方法名称来指定这些切点。
+（4）**切入点**（Pointcut）：切点的定义会匹配通知所要织入的一个或多个连接点。我们通常使用明确的类和方法名称，或是利用正则表达式定义所匹配的类和方法名称来指定这些切点。
 
-（5）引入（Introduction）：引入允许我们向现有类添加新方法或属性。
+（5）**引入**（Introduction）：引入允许我们向现有类添加新方法或属性。
 
-（6）目标对象（Target Object）： 被一个或者多个切面（aspect）所通知（advise）的对象。它通常是一个代理对象。
+（6）**目标对象**（Target Object）： 被一个或者多个切面（aspect）所通知（advise）的对象。它通常是一个代理对象。
 
-（7）织入（Weaving）：织入是把切面应用到目标对象并创建新的代理对象的过程。在目标对象的生命周期里有以下时间点可以进行织入：
+（7）**织入**（Weaving）：织入是把切面应用到目标对象并创建新的代理对象的过程。在目标对象的生命周期里有以下时间点可以进行织入：
 
 - 编译期：切面在目标类编译时被织入。AspectJ的织入编译器是以这种方式织入切面的。
 - 类加载期：切面在目标类加载到JVM时被织入。需要特殊的类加载器，它可以在目标类被引入应用之前增强该目标类的字节码。AspectJ5的加载时织入就支持以这种方式织入切面。
@@ -167,15 +167,15 @@ CGLIB是通过继承的方式做的动态代理，因此如果某个类被标记
 
 Spring切面可以应用5种类型的通知：
 
-1. 前置通知（Before）：在目标方法被调用之前调用通知功能；
-2. 后置通知（After）：在目标方法完成之后调用通知，此时不会关心方法的输出是什么；
-3. 返回通知（After-returning ）：在目标方法成功执行之后调用通知；
-4. 异常通知（After-throwing）：在目标方法抛出异常后调用通知；
-5. 环绕通知（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的逻辑。
+1. **前置通知**（Before）：在目标方法被调用之前调用通知功能；
+2. **后置通知**（After）：在目标方法完成之后调用通知，此时不会关心方法的输出是什么；
+3. **返回通知**（After-returning ）：在目标方法成功执行之后调用通知；
+4. **异常通知**（After-throwing）：在目标方法抛出异常后调用通知；
+5. **环绕通知**（Around）：通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的逻辑。
 
 ## 什么是IOC？
 
-IOC：控制反转，由Spring容器管理bean的整个生命周期。通过反射实现对其他对象的控制，包括初始化、创建、销毁等，解放手动创建对象的过程，同时降低类之间的耦合度。
+IOC：**控制反转**，由Spring容器管理bean的整个生命周期。通过反射实现对其他对象的控制，包括初始化、创建、销毁等，解放手动创建对象的过程，同时降低类之间的耦合度。
 
 IOC的好处：降低了类之间的耦合，对象创建和初始化交给Spring容器管理，在需要的时候只需向容器进行申请。
 
@@ -190,8 +190,6 @@ IOC的好处：降低了类之间的耦合，对象创建和初始化交给Sprin
 在Spring创建对象的过程中，把对象依赖的属性注入到对象中。依赖注入主要有两种方式：构造器注入和属性注入。
 
 ## IOC容器初始化过程？
-
-ioc 容器初始化过程：BeanDefinition 的资源定位、解析和注册。
 
 1. 从XML中读取配置文件。
 2. 将bean标签解析成 BeanDefinition，如解析 property 元素， 并注入到 BeanDefinition 实例中。
@@ -212,7 +210,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 ## Bean的生命周期
 
-![](E:\project\java\learn\Java-learning\img\bean-life-cycle.jpg)
+![](https://gitee.com/tysondai/img/raw/master/bean生命周期.png)
 
 1.调用bean的构造方法创建Bean
 
@@ -240,14 +238,11 @@ public interface BeanPostProcessor {
 	default Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
 	}
-
 	@Nullable
 	default Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
 		return bean;
 	}
-
 }
-
 public interface InitializingBean {
 	void afterPropertiesSet() throws Exception;
 }
@@ -255,27 +250,25 @@ public interface InitializingBean {
 
 ## BeanFactory和FactoryBean的区别？
 
-BeanFactory：管理Bean的容器，Spring中生成的Bean都是由这个接口的实现来管理的。
+**BeanFactory**：管理Bean的容器，Spring中生成的Bean都是由这个接口的实现来管理的。
 
-FactoryBean：通常是用来创建比较复杂的bean，一般的bean 直接用xml配置即可，但如果一个bean的创建过程中涉及到很多其他的bean 和复杂的逻辑，直接用xml配置比较麻烦，这时可以考虑用FactoryBean，可以隐藏实例化复杂Bean的细节。
+**FactoryBean**：通常是用来创建比较复杂的bean，一般的bean 直接用xml配置即可，但如果一个bean的创建过程中涉及到很多其他的bean 和复杂的逻辑，直接用xml配置比较麻烦，这时可以考虑用FactoryBean，可以隐藏实例化复杂Bean的细节。
 
 当配置文件中bean标签的class属性配置的实现类是FactoryBean时，通过 getBean()方法返回的不是FactoryBean本身，而是调用FactoryBean#getObject()方法所返回的对象，相当于FactoryBean#getObject()代理了getBean()方法。如果想得到FactoryBean必须使用 '&' + beanName 的方式获取。
 
-Mybatis 提供了 SqlSessionFactoryBean，可以简化 SqlSessionFactory 的配置：
+Mybatis 提供了 `SqlSessionFactoryBean`，可以简化 `SqlSessionFactory`的配置：
 
 ```java
 public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, InitializingBean, ApplicationListener<ApplicationEvent> {
-
   @Override
   public void afterPropertiesSet() throws Exception {
     notNull(dataSource, "Property 'dataSource' is required");
     notNull(sqlSessionFactoryBuilder, "Property 'sqlSessionFactoryBuilder' is required");
     state((configuration == null && configLocation == null) || !(configuration != null && configLocation != null),
               "Property 'configuration' and 'configLocation' can not specified with together");
-
     this.sqlSessionFactory = buildSqlSessionFactory();
   }
-    
+
   protected SqlSessionFactory buildSqlSessionFactory() throws IOException {
 	//复杂逻辑
   }
@@ -285,7 +278,6 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
     if (this.sqlSessionFactory == null) {
       afterPropertiesSet();
     }
-
     return this.sqlSessionFactory;
   }
 }
@@ -320,9 +312,7 @@ Spring 将会在应用启动时创建 `SqlSessionFactory`，并使用 `sqlSessio
 /*把用到的资源导入到当前容器中*/
 @Import({Dog.class, Cat.class})
 public class App {
- 
     public static void main(String[] args) throws Exception {
- 
         ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
         System.out.println(context.getBean(Dog.class));
         System.out.println(context.getBean(Cat.class));
@@ -335,25 +325,25 @@ public class App {
 
 ## Bean的作用域
 
-1、singleton：单例，Spring中的bean默认都是单例的。
+1、**singleton**：单例，Spring中的bean默认都是单例的。
 
-2、prototype：每次请求都会创建一个新的bean实例。
+2、**prototype**：每次请求都会创建一个新的bean实例。
 
-3、request：每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。
+3、**request**：每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP request内有效。
 
-4、session：每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP session内有效。
+4、**session**：每一次HTTP请求都会产生一个新的bean，该bean仅在当前HTTP session内有效。
 
-5、global-session：全局session作用域。
+5、**global-session**：全局session作用域。
 
 ## Spring自动装配的方式有哪些？
 
-Spring的自动装配有三种模式：byType(根据类型)，byName(根据名称)、constructor(根据构造函数)。
+Spring的自动装配有三种模式：**byType**(根据类型)，**byName**(根据名称)、**constructor**(根据构造函数)。
 
 **byType**
 
 找到与依赖类型相同的bean注入到另外的bean中，这个过程需要借助setter注入来完成，因此必须存在set方法，否则注入失败。
 
-当xml文件中存在多个相同类型名称不同的实例Bean时，Spring容器依赖注入仍然会失败，因为存在多种适合的选项，Spring容器无法知道该注入那种，此时我们需要为Spring容器提供帮助，指定注入那个Bean实例。可以通过＜bean＞标签的autowire-candidate设置为false来过滤那些不需要注入的实例Bean
+当xml文件中存在多个相同类型名称不同的实例Bean时，Spring容器依赖注入仍然会失败，因为存在多种适合的选项，Spring容器无法知道该注入那种，此时我们需要为Spring容器提供帮助，指定注入那个Bean实例。可以通过`＜bean＞`标签的autowire-candidate设置为false来过滤那些不需要注入的实例Bean
 
 ```xml
 <bean id="userDao"  class="com.zejian.spring.springIoc.dao.impl.UserDaoImpl" />
@@ -379,18 +369,11 @@ Spring的自动装配有三种模式：byType(根据类型)，byName(根据名�
 
 **constructor**
 
-存在单个实例则优先按类型进行参数匹配（无论名称是否匹配），当存在多个类型相同实例时，按名称优先匹配，如果没有找到对应名称，则注入失败，此时可以使用autowire-candidate=”false” 过滤来解决。
+存在单个实例则优先按类型进行参数匹配（无论名称是否匹配），当存在多个类型相同实例时，按名称优先匹配，如果没有找到对应名称，则注入失败。
 
-```xml
-<!--只存在userDao2，userDao3 无法成功注入-->
-<bean id="userDao2" class="com.zejian.spring.springIoc.dao.impl.UserDaoImpl" />
+## @Autowired和@Resource的区别？
 
-<bean id="userDao3" class="com.zejian.spring.springIoc.dao.impl.UserDaoImpl" />
-
-<bean id="userService" autowire="constructor" class="com.zejian.spring.springIoc.service.impl.UserServiceImpl" />
-```
-
-@Autowired 可以传递了一个required=false的属性，false指明当userDao实例存在就注入不存就忽略，如果为true，就必须注入，若userDao实例不存在，就抛出异常。由于默认情况下@Autowired是按类型匹配的(byType)，如果需要按名称(byName)匹配的话，可以使用@Qualifier注解与@Autowired结合。
+默认情况下@Autowired是按类型匹配的(byType)。如果需要按名称(byName)匹配的话，可以使用@Qualifier注解与@Autowired结合。@Autowired 可以传递一个`required=false`的属性，false指明当userDao实例存在就注入不存就忽略，如果为true，就必须注入，若userDao实例不存在，就抛出异常。
 
 ```java
 public class UserServiceImpl implements UserService {
@@ -401,24 +384,14 @@ public class UserServiceImpl implements UserService {
  }
 ```
 
-byName模式 xml 配置：
-
-```xml
-<!-- 根据@Qualifier("userDao1")自动识别 -->
-<bean id="userDao1" class="com.zejian.spring.springIoc.dao.impl.UserDaoImpl" />
-<bean id="userDao2" class="com.zejian.spring.springIoc.dao.impl.UserDaoImpl" />
-
-<bean id="userService" class="com.zejian.spring.springIoc.service.impl.UserServiceImpl" />
-```
-
 @Resource，默认按 byName模式自动注入。@Resource有两个中重要的属性：name和type。Spring容器对于@Resource注解的name属性解析为bean的名字，type属性则解析为bean的类型。因此使用name属性，则按byName模式的自动注入策略，如果使用type属性则按 byType模式自动注入策略。倘若既不指定name也不指定type属性，Spring容器将通过反射技术默认按byName模式注入。
 
 ```java
-@Resource(name=“userDao”)
+@Resource(name="userDao")
 private UserDao  userDao;//用于成员变量
 
 //也可以用于set方法标注
-@Resource(name=“userDao”)
+@Resource(name="userDao")
 public void setUserDao(UserDao userDao) {
    this.userDao= userDao;
 }
@@ -449,36 +422,9 @@ public class UserServiceImpl implements UserService {
 }
 ```
 
-xml配置文件：
-
-```xml
-    <!--基于占位符方式 配置单个properties -->
-    <!--<context:property-placeholder location="conf/jdbc.properties"/>-->
-    <!--基于占位符方式 配置多个properties -->
-    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PreferencesPlaceholderConfigurer">
-        <property name="location" value="conf/jdbc.properties"/>
-    </bean>
-
-    <!--基于SpEL表达式 配置多个properties id值为configProperties 提供java代码中使用 -->
-    <bean id="configProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-        <property name="locations">
-            <list>
-                <value>classpath:/conf/jdbc.properties</value>
-            </list>
-        </property>
-    </bean>
-```
-
-
-
-## @Autowired和@Resource的区别？
-
-@Autowired注解是按照类型（byType）装配依赖对象的,但是存在多个类型⼀致的bean，⽆法通过byType注⼊时，就会再使⽤byName来注⼊，如果还是⽆法判断注⼊哪个bean则会UnsatisfiedDependencyException。
-@Resource会⾸先按照byName来装配，如果找不到bean，会⾃动byType再找⼀次。
-
 ## @Qualifier 注解有什么作用
 
-当需要创建多个相同类型的 bean 并希望仅使用属性装配其中一个 bean 时，可以使用@Qualifier 注解和 @Autowired 通过指定应该装配哪个 bean 来消除歧义。
+当需要创建多个相同类型的 bean 并希望仅使用属性装配其中一个 bean 时，可以使用`@Qualifier` 注解和 `@Autowired` 通过指定应该装配哪个 bean 来消除歧义。
 
 ## @Bean和@Component有什么区别？
 
@@ -523,8 +469,8 @@ public class WebSocketConfig {
 
 事务就是一系列的操作原子执行。Spring事务机制主要包括声明式事务和编程式事务。
 
-- 编程式事务：通过编程的方式管理事务，这种方式带来了很大的灵活性，但很难维护。
-- 声明式事务：将事务管理代码从业务方法中分离出来，通过aop进行封装。Spring声明式事务使得我们无需要去处理获得连接、关闭连接、事务提交和回滚等这些操作。使用 `@Transactional` 注解开启声明式事务。
+- **编程式事务**：通过编程的方式管理事务，这种方式带来了很大的灵活性，但很难维护。
+- **声明式事务**：将事务管理代码从业务方法中分离出来，通过aop进行封装。Spring声明式事务使得我们无需要去处理获得连接、关闭连接、事务提交和回滚等这些操作。使用 `@Transactional` 注解开启声明式事务。
 
 `@Transactional`相关属性如下：
 
@@ -628,12 +574,10 @@ protected void addSingletonFactory(String beanName, ObjectFactory<?> singletonFa
 
 当多个用户同时请求一个服务时，容器会给每一个请求分配一个线程，这时多个线程会并发执行该请求对应的业务逻辑，如果业务逻辑有对单例状态的修改（体现为此单例的成员属性），则必须考虑线程安全问题。 
 
-若每个线程中对全局变量、静态变量只有读操作，而无写操作，那么不会有线程安全问题；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则就可能影响线程安全。
-
 **无状态bean和有状态bean**
 
 - 有实例变量的bean，可以保存数据，是非线程安全的。
-- 没有实例变量的对象。不能保存数据，是线程安全的。
+- 没有实例变量的bean，不能保存数据，是线程安全的。
 
-在Spring中无状态的Bean适合用单例模式，这样可以共享实例提高性能。有状态的Bean在多线程环境下不安全，一般用Prototype模式或者使用ThreadLocal解决线程安全问题。
+在Spring中无状态的Bean适合用单例模式，这样可以共享实例提高性能。有状态的Bean在多线程环境下不安全，一般用`Prototype`模式或者使用`ThreadLocal`解决线程安全问题。
 
