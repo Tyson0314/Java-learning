@@ -101,7 +101,7 @@
 
 [Spring Boot总结](框架/SpringBoot实战.md)
 
-[SpringBoot自动配置原理](框架/SpringBoot自动配置原理.md)
+[SpringBoot面试题总结](框架/SpringBoot面试题总结.md)
 
 ## Spring MVC
 

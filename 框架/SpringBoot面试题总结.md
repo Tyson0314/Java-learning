@@ -7,7 +7,7 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# 自动配置原理
+## 自动配置原理
 
 SpringBoot实现自动配置原理图解：
 
@@ -95,7 +95,7 @@ public class ServerProperties {
 }
 ```
 
-# 实现自动配置
+## 实现自动配置
 
 实现当某个类存在时，自动配置这个类的bean，并且可以在application.properties中配置bean的属性。
 
@@ -274,3 +274,43 @@ public class SpringbootDemoApplication {
 hello.msg=大彬
 ```
 
+
+
+
+
+## @Value原理
+
+@Value的解析就是在bean初始化阶段。BeanPostProcessor定义了bean初始化前后用户可以对bean进行操作的接口方法，它的一个重要实现类AutowiredAnnotationBeanPostProcessor为bean中的@Autowired和@Value注解的注入功能提供支持。
+
+
+
+## 启动过程
+
+准备Environment——发布事件——创建上下文、bean——刷新上下文——结束。
+
+构造SpringApplication的时候会进行初始化的工作，初始化的时候会做以下几件事：
+判断运行环境类型，有三种运行环境：NONE 非 web 的运行环境、SERVLET 普通 web 的运行环境、REACTIVE 响应式 web 的运行环境
+加载 spring.factories 配置文件, 并设置 ApplicationContextInitializer
+加载配置文件, 设置 ApplicationListener
+
+
+SpringApplication构造完成之后调用run方法，启动SpringApplication，run方法执行的时候会做以下几件事：
+构造一个StopWatch，观察SpringApplication的执行
+找出SpringApplicationRunListener，用于监听SpringApplication run方法的执行。监听的过程中会封装SpringApplicationEvent事件，然后使用ApplicationEventMulticaster广播出去，应用程序监听器ApplicationListener会监听到这些事件
+发布starting事件
+加载配置资源到environment，包括命令行参数、application.yml等
+发布environmentPrepared事件
+创建并初始化ApplicationContext，设置environment，加载配置
+refresh ApplicationContext
+
+- 设置beanFactory
+- 调用BeanFactoryPostProcessors
+- 初始化消息源
+- 初始化事件广播器（initApplicationEventMulticaster）
+- 调用onRefresh()方法，默认是空实现
+- 注册监听器
+- 实例化non-lazy-init单例
+- 完成refresh
+- 发布ContextRefreshedEvent事件
+
+发布started事件，启动结束
