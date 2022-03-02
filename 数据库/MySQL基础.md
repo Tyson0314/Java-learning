@@ -1032,12 +1032,18 @@ END;
 CALL ordertotal(20005, 1, @total);
 SELECT @total;
 ```
-### 检查
+### 查看
 创建存储过程的 CREATE 语句。
 ```mysql
 SHOW CREATE PROCEDURE ordertotal;
 ```
 获得包括何时、由谁创建等详细信息的存储过程列表，使用`SHOW PROCEDURE STATUS LIKE 'ordertotal';`
+
+查看存储过程状态：
+
+```mysql
+SHOW PROCEDURE status;
+```
 
 ## 游标
 存储了游标之后，应用程序可以根据需要滚动或浏览其中的数据。MySQL游标只能用于存储过程（和函数）。
