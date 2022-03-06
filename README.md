@@ -30,10 +30,16 @@
         </p>
 
 
+# 简历很重要
 
+[简历投递之后总是石沉大海？](https://zhuanlan.zhihu.com/p/406982597)
 
+# 精选资源
 
-👍**推荐 [200多本经典的计算机书籍](https://github.com/Tyson0314/java-books)**
+- [200多本经典的计算机书籍](https://github.com/Tyson0314/java-books)
+- [谷歌师兄刷题笔记](https://t.1yb.co/A6id)（推荐 :+1:）
+- [BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)（推荐 :+1:）
+- [Java项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
 
 # 大厂面试系列
 
@@ -47,15 +53,11 @@
 8. [别再问我Java虚拟机八股文了！](https://mp.weixin.qq.com/s/npo5-VqQt5sqZiSwPv6LVw)
 9. [计算机网络，问傻了！](https://mp.weixin.qq.com/s/WXcMLa_tdxpRLhO4U8LHIQ)
 10. [Spring这几道题你会吗？](https://mp.weixin.qq.com/s/DtgYRFfOQxQdtQosCU-6aw)
-
-# 精选文章
-
-1. [记一次OOM问题排查](https://mp.weixin.qq.com/s/40C1OdtfGJSrecBoL9Mjbg)
-2. [推荐一款画图神器](https://mp.weixin.qq.com/s/vDtWku41rpeux8ZhZyA81w)
-3. [有哪些值得推荐的Java书籍？](https://mp.weixin.qq.com/s/MUB07APbyDH2-iftGDdGlA)
-4. [这款MarkDown神器，要收费啦！](https://mp.weixin.qq.com/s/aCEi-4vb3kNPF0-E4rB5Kg)
-5. [在B站学Java](https://mp.weixin.qq.com/s/_xfT2Tr6rT8qSAFrtRQ3wQ)
-6. [你见过这样使用Github的吗？](https://mp.weixin.qq.com/s/U_AItugf8KaUPyIun_xagg)
+10. [面向对象编程？](https://mp.weixin.qq.com/s/M8jDnLat61YAbM1-jIhJIA)
+10. [Java内功深厚？](https://mp.weixin.qq.com/s/v_kWSHX9GMS_aoqfwUMKsg)
+10. [面试初级Java开发，面试官问我MySQL架构？](https://mp.weixin.qq.com/s/JvDZCk4IecmaEYfFsRhpjQ)
+10. [手写红黑树？](https://mp.weixin.qq.com/s/yznh_IfMg4hWqU62U-t9GQ)
+10. [面完阿里，直接入职！](https://mp.weixin.qq.com/s/49QJ1FzaGTe-_54PT8_8jA)
 
 # Java
 
@@ -63,7 +65,6 @@
 
 1. [**Java面试题精选**](Java/Java基础面试题.md)  **精心整理的大厂Java面试题目，附有详细答案** (推荐 :+1:)
 2. [Java8 新特性总结](Java/Java8.md)
-4. [Java常见关键字总结](Java/Java关键字.md)
 
 ## 集合
 
@@ -135,10 +136,6 @@
 
 # 数据结构与算法
 
-[谷歌师兄刷题笔记](https://t.1yb.co/A6id)(推荐 :+1:)
-
-[BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)(推荐 :+1:)
-
 [7种常见的排序算法Java代码实现](数据结构与算法/常见的排序算法Java代码实现.md)
 
 [二叉树前序、中序、后序、层序遍历代码实现](数据结构与算法/二叉树前序、中序、后序、层序遍历代码实现.md)
@@ -155,15 +152,14 @@
 
 [Git 超详细总结！](工具/progit2.md)(推荐 :+1:)
 
-[Docker命令大全！](工具/docker.md)
+# 其他精选文章
 
-[Maven实战总结](工具/Maven实战.md)
-
-[Github使用技巧](工具/Github指南.md)
-
-[Jenkins一键部署](工具/jenkins.md)
-
-[npm命令](工具/NPM.md)
+1. [记一次OOM问题排查](https://mp.weixin.qq.com/s/40C1OdtfGJSrecBoL9Mjbg)
+2. [推荐一款画图神器](https://mp.weixin.qq.com/s/vDtWku41rpeux8ZhZyA81w)
+3. [有哪些值得推荐的Java书籍？](https://mp.weixin.qq.com/s/MUB07APbyDH2-iftGDdGlA)
+4. [这款MarkDown神器，要收费啦！](https://mp.weixin.qq.com/s/aCEi-4vb3kNPF0-E4rB5Kg)
+5. [在B站学Java](https://mp.weixin.qq.com/s/_xfT2Tr6rT8qSAFrtRQ3wQ)
+6. [你见过这样使用Github的吗？](https://mp.weixin.qq.com/s/U_AItugf8KaUPyIun_xagg)
 
 
 
