@@ -82,6 +82,7 @@
 ## MySQL
 
 1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(**知乎1k+收藏，推荐** :+1:)
+2. [图解索引下推](https://mp.weixin.qq.com/s/W1XQYmihtSdbLWQKeNwZvQ)(推荐 :+1:)
 3. [MySQL执行计划](数据库/MySQL执行计划.md)(推荐 :+1:)
 
 ## Redis

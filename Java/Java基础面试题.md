@@ -118,7 +118,7 @@ JRE是运行基于Java语言编写的程序所不可缺少的运行环境。也�
 - 静态多态性：通过重载实现，相同的方法有不同的參数列表，可以根据参数的不同，做出不同的处理。
 - 动态多态性：在子类中重写父类的方法。运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
 
-3、抽象。把客观事物用代码抽象出来。
+4、抽象。把客观事物用代码抽象出来。
 
 ## Java的基本数据类型有哪些？
 
@@ -301,11 +301,11 @@ String类是final的，它的所有成员变量也都是final的。为什么是f
 
 字符串常量池（String Pool）保存着所有字符串字面量，这些字面量在编译时期就确定。字符串常量池位于堆内存中，专门用来存储字符串常量。在创建字符串时，JVM首先会检查字符串常量池，如果该字符串已经存在池中，则返回其引用，如果不存在，则创建此字符串并放入池中，并返回其引用。
 
-## object常用方法有哪些？
+## Object常用方法有哪些？
 
 Java面试经常会出现的一道题目，Object的常用方法。下面给大家整理一下。
 
-object常用方法有：`toString()`、`equals()`、`hashCode()`、`clone()`等。
+Object常用方法有：`toString()`、`equals()`、`hashCode()`、`clone()`等。
 
 **toString**
 
@@ -429,7 +429,7 @@ public class Cat {
 
 **clone**
 
-java赋值是复制对象引用，如果我们想要得到一个对象的副本，使用赋值操作是无法达到目的的。Object对象有个clone()方法，实现了对
+Java赋值是复制对象引用，如果我们想要得到一个对象的副本，使用赋值操作是无法达到目的的。Object对象有个clone()方法，实现了对
 
 象中各个属性的复制，但它的可见范围是protected的。
 
@@ -493,7 +493,7 @@ public class Person {
 
 当前线程调用对象的wait()方法之后，当前线程会释放对象锁，进入等待状态。等待其他线程调用此对象的notify()/notifyAll()唤醒或者等待超时时间wait(long timeout)自动唤醒。线程需要获取obj对象锁之后才能调用 obj.wait()。
 
-**notity**
+**notify**
 
 obj.notify()唤醒在此对象上等待的单个线程，选择是任意性的。notifyAll()唤醒在此对象上等待的所有线程。
 
@@ -1032,15 +1032,16 @@ if (obj instanceof String) {
 }
 ```
 
+## 什么是反射？
 
+动态获取的信息以及动态调用对象的方法的功能称为Java语言的反射机制。
 
+在运行状态中，对于任意一个类，能够知道这个类的所有属性和方法。对于任意一个对象，能够调用它的任意一个方法和属性。
 
+## 反射有哪些应用场景呢？
 
-> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Spring Boot、MyBatis、Redis、RabbitMQ、计算机网络、数据结构与算法等等，欢迎大家提pr和star！
->
-> github地址：https://github.com/Tyson0314/Java-learning
->
-> 如果github访问不了，可以访问gitee仓库。
->
-> gitee地址：https://gitee.com/tysondai/Java-learning
+1. JDBC连接数据库时使用`Class.forName()`通过反射加载数据库的驱动程序
+2. Eclispe、IDEA等开发工具利用反射动态解析对象的类型与结构，动态提示对象的属性和方法
+3. Web服务器中利用反射调用了Sevlet的service方法
+4. Spring AOP的特性也是依赖反射实现的
 

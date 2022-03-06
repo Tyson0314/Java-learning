@@ -353,7 +353,7 @@ WeakReference<String> weakRef = new WeakReference<String>(str);
 
 ## GC是什么？为什么要GC？
 
-GC，`Gabage Collection`，即垃圾收集。内存处理是编程人员容易出现问题的地方，忘记或者错误的内存回收会导致程序的不稳定甚至崩溃，Java 提供的 GC 功能可以自动监测对象是否超过作用域从而达到自动回收内存的目的。
+GC（`Garbage Collection`），垃圾回收，是Java与C++的主要区别之一。作为Java开发者，一般不需要专门编写内存回收和垃圾清理代码。这是因为在Java虚拟机中，存在自动内存管理和垃圾清理机制。对JVM中的内存进行标记，并确定哪些内存需要回收，根据一定的回收策略，自动的回收内存，保证JVM中的内存空间，防止出现内存泄露和溢出问题。
 
 ## Minor GC 和 Full GC的区别？
 
@@ -734,11 +734,13 @@ class Person {
 
 ## 如何排查 OOM 的问题？
 
-排查 OOM 的方法：
+> 线上JVM必须配置`-XX:+HeapDumpOnOutOfMemoryError` 和`-XX:HeapDumpPath=/tmp/heapdump.hprof`，当OOM发生时自动 dump 堆内存信息到指定目录
 
-- 增加JVM参数 `-XX:+HeapDumpOnOutOfMemoryError` 和`-XX:HeapDumpPath=/tmp/heapdump.hprof`，当 OOM 发生时自动 dump 堆内存信息到指定目录；
-- jstat 查看监控 JVM 的内存和 GC 情况，评估问题大概出在什么区域；
-- 使用 MAT 工具载入 dump 文件，分析大对象的占用情况 。
+排查 OOM 的方法如下：
+
+- 查看服务器运行日志日志，捕捉到内存溢出异常
+- jstat 查看监控JVM的内存和GC情况，评估问题大概出在什么区域
+- 使用MAT工具载入dump文件，分析大对象的占用情况 
 
 
 

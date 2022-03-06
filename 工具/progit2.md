@@ -452,6 +452,8 @@ git remote add pb https://github.com/paulboone/ticgit
 git remote remove origin
 ```
 
+### 给origin设置多个远程仓库
+
 如果想要给origin设置两个远程仓库地址（git add会报错），可以使用`git remote set-url --add origin url`来设置。
 
 ```bash
