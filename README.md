@@ -58,6 +58,7 @@
 10. [面试初级Java开发，面试官问我MySQL架构？](https://mp.weixin.qq.com/s/JvDZCk4IecmaEYfFsRhpjQ)
 10. [手写红黑树？](https://mp.weixin.qq.com/s/yznh_IfMg4hWqU62U-t9GQ)
 10. [面完阿里，直接入职！](https://mp.weixin.qq.com/s/49QJ1FzaGTe-_54PT8_8jA)
+10. [华为面经](https://mp.weixin.qq.com/s/KmjwoG7pNvAHiX1UNnef6g)
 
 # Java
 
@@ -135,6 +136,8 @@
 [session和cookie详解](网络/session和cookie.md)
 
 # 数据结构与算法
+
+[如何高效的刷LeetCode？](https://www.zhihu.com/question/280279208/answer/2377906738)
 
 [7种常见的排序算法Java代码实现](数据结构与算法/常见的排序算法Java代码实现.md)
 
