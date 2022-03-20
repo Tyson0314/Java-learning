@@ -39,7 +39,8 @@
 - [200多本经典的计算机书籍](https://github.com/Tyson0314/java-books)
 - [谷歌师兄刷题笔记](https://t.1yb.co/A6id)（推荐 :+1:）
 - [BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)（推荐 :+1:）
-- [Java项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
+- [Java优质项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
+- [优质视频教程推荐](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd)（推荐 :+1:）
 
 # 大厂面试系列
 
