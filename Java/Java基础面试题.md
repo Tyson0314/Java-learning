@@ -567,7 +567,7 @@ equals与hashcode的关系：
 
 hashcode方法主要是用来**提升对象比较的效率**，先进行hashcode()的比较，如果不相同，那就不必在进行equals的比较，这样就大大减少了equals比较的次数，当比较对象的数量很大的时候能提升效率。
 
-之所以重写equals()要重写hashcode()，是为了保证equals()方法返回true的情况下hashcode值也要一致，如果重写了equals()没有重写hashcode()，就会出现两个对象相等但hashcode()不相等的情况。这样，当用其中的一个对象作为键保存到hashMap、hashTable或hashSet中，再以另一个对象作为键值去查找他们的时候，则会查找不到。
+之所以重写`equals()`要重写`hashcode()`，是为了保证`equals()`方法返回true的情况下hashcode值也要一致，如果重写了`equals()`没有重写`hashcode()`，就会出现两个对象相等但`hashcode()`不相等的情况。这样，当用其中的一个对象作为键保存到hashMap、hashTable或hashSet中，再以另一个对象作为键值去查找他们的时候，则会查找不到。
 
 ##  Java创建对象有几种方式？
 
@@ -641,7 +641,7 @@ public class LifeCycle {
 
 - 对于基本数据类型，==比较的是他们的值。基本数据类型没有equal方法；
 
-- 对于复合数据类型，==比较的是它们的存放地址(是否是同一个对象)。equals()默认比较地址值，重写的话按照重写逻辑去比较。
+- 对于复合数据类型，==比较的是它们的存放地址(是否是同一个对象)。`equals()`默认比较地址值，重写的话按照重写逻辑去比较。
 
 ## 常见的关键字有哪些？
 
@@ -879,14 +879,14 @@ public class Student extends Person {
 
 ## 接口与抽象类区别？
 
-1、语法层面上
+1、**语法层面**上的区别
 
 - 抽象类可以有方法实现，而接口的方法中只能是抽象方法；
 - 抽象类中的成员变量可以是各种类型的，接口中的成员变量只能是public static final类型；
 - 接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；
 - 一个类只能继承一个抽象类，而一个类却可以实现多个接口。
 
-2、设计层面上的区别
+2、**设计层面**上的区别
 
 - 抽象层次不同。抽象类是对整个类整体进行抽象，包括属性、行为，但是接口只是对类行为进行抽象。继承抽象类是一种"是不是"的关系，而接口实现则是 "有没有"的关系。如果一个类继承了某个抽象类，则子类必定是抽象类的种类，而接口实现则是具备不具备的关系，比如鸟是否能飞。
 - 继承抽象类的是具有相似特点的类，而实现接口的却可以不同的类。
@@ -907,24 +907,24 @@ class BMWCar extends Car implements Alarm {
 
 常见的RuntimeException：
 
-1. ClassCastException //类型转换异常
-2. IndexOutOfBoundsException //数组越界异常
-3. NullPointerException //空指针
-4. ArrayStoreException //数组存储异常
-5. NumberFormatException //数字格式化异常
-6. ArithmeticException //数学运算异常
+1. `ClassCastException` //类型转换异常
+2. `IndexOutOfBoundsException` //数组越界异常
+3. `NullPointerException` //空指针
+4. `ArrayStoreException` //数组存储异常
+5. `NumberFormatException` //数字格式化异常
+6. `ArithmeticException` //数学运算异常
 
 unchecked Exception：
 
-1. NoSuchFieldException //反射异常，没有对应的字段
-2. ClassNotFoundException //类没有找到异常
-3. IllegalAccessException //安全权限异常，可能是反射时调用了private方法
+1. `NoSuchFieldException` //反射异常，没有对应的字段
+2. `ClassNotFoundException` //类没有找到异常
+3. `IllegalAccessException` //安全权限异常，可能是反射时调用了private方法
 
 ## Error和Exception的区别？
 
-Error：JVM 无法解决的严重问题，如栈溢出`StackOverflowError`、内存溢出`OOM`等。程序无法处理的错误。
+**Error**：JVM 无法解决的严重问题，如栈溢出`StackOverflowError`、内存溢出`OOM`等。程序无法处理的错误。
 
-Exception：其它因编程错误或偶然的外在因素导致的一般性问题。可以在代码中进行处理。如：空指针异常、数组下标越界等。
+**Exception**：其它因编程错误或偶然的外在因素导致的一般性问题。可以在代码中进行处理。如：空指针异常、数组下标越界等。
 
 ## 运行时异常和非运行时异常（checked）的区别？
 
@@ -941,11 +941,11 @@ Exception：其它因编程错误或偶然的外在因素导致的一般性问�
 
 ## BIO/NIO/AIO区别的区别？
 
-同步阻塞IO : 用户进程发起一个IO操作以后，必须等待IO操作的真正完成后，才能继续运行。
+**同步阻塞IO** : 用户进程发起一个IO操作以后，必须等待IO操作的真正完成后，才能继续运行。
 
-同步非阻塞IO: 客户端与服务器通过Channel连接，采用多路复用器轮询注册的`Channel`。提高吞吐量和可靠性。用户进程发起一个IO操作以后，可做其它事情，但用户进程需要轮询IO操作是否完成，这样造成不必要的CPU资源浪费。
+**同步非阻塞IO**: 客户端与服务器通过Channel连接，采用多路复用器轮询注册的`Channel`。提高吞吐量和可靠性。用户进程发起一个IO操作以后，可做其它事情，但用户进程需要轮询IO操作是否完成，这样造成不必要的CPU资源浪费。
 
-异步非阻塞IO: 非阻塞异步通信模式，NIO的升级版，采用异步通道实现异步通信，其read和write方法均是异步方法。用户进程发起一个IO操作，然后立即返回，等IO操作真正的完成以后，应用程序会得到IO操作完成的通知。类似Future模式。
+**异步非阻塞IO**: 非阻塞异步通信模式，NIO的升级版，采用异步通道实现异步通信，其read和write方法均是异步方法。用户进程发起一个IO操作，然后立即返回，等IO操作真正的完成以后，应用程序会得到IO操作完成的通知。类似Future模式。
 
 ## 守护线程是什么？
 
@@ -1036,6 +1036,6 @@ if (obj instanceof String) {
 
 1. JDBC连接数据库时使用`Class.forName()`通过反射加载数据库的驱动程序
 2. Eclispe、IDEA等开发工具利用反射动态解析对象的类型与结构，动态提示对象的属性和方法
-3. Web服务器中利用反射调用了Sevlet的service方法
-4. Spring AOP的特性也是依赖反射实现的
+3. Web服务器中利用反射调用了Sevlet的`service`方法
+4. JDK动态代理底层依赖反射实现
 

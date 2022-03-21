@@ -433,11 +433,3 @@ msg.getMessageProperties().setExpiration("3000");
 [线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
 
 
-
-> 最后给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
->
-> github地址：https://github.com/Tyson0314/java-books
->
-> 如果github访问不了，可以访问gitee仓库。
->
-> gitee地址：https://gitee.com/tysondai/java-books
