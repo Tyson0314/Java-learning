@@ -190,25 +190,18 @@ int y = x; // 拆箱 调⽤了 X.intValue()
 下面看一道常见的面试题：
 
 ```java
-public void testAutoBox() {
-     int a = 100;
-     Integer b = 100;
-     System.out.println(a == b);
-     
-     Integer c = 100;
-     Integer d = 100;
-     System.out.println(c == d);
+Integer a = 100;
+Integer b = 100;
+System.out.println(a == b);
 
-     Integer e = 200;
-     Integer f = 200;
-     System.out.println(e == f);
-}
+Integer c = 200;
+Integer d = 200;
+System.out.println(c == d);
 ```
 
 输出：
 
 ```java
-true
 true
 false
 ```
@@ -223,7 +216,7 @@ public static Integer valueOf(int i) {
 }
 ```
 
-`Integer e = 200;` 会调用 调⽤`Integer.valueOf(200)`。而从Integer的valueOf()源码可以看到，这里的实现并不是简单的new Integer，而是用IntegerCache做一个cache。
+`Integer c = 200;` 会调用 调⽤`Integer.valueOf(200)`。而从Integer的valueOf()源码可以看到，这里的实现并不是简单的new Integer，而是用IntegerCache做一个cache。
 
 ```java
 private static class IntegerCache {
@@ -252,7 +245,7 @@ private static class IntegerCache {
 }
 ```
 
-这是IntegerCache静态代码块中的一段，默认Integer cache 的下限是-128，上限默认127。当赋值100给Integer时，刚好在这个范围内，所以从cache中取对应的Integer并返回，所以二次返回的是同一个对象，所以==比较是相等的，当赋值200给Integer时，不在cache 的范围内，所以会new Integer并返回，当然==比较的结果是不相等的。
+这是IntegerCache静态代码块中的一段，默认Integer cache 的下限是-128，上限默认127。当赋值100给Integer时，刚好在这个范围内，所以从cache中取对应的Integer并返回，所以a和b返回的是同一个对象，所以==比较是相等的，当赋值200给Integer时，不在cache 的范围内，所以会new Integer并返回，当然==比较的结果是不相等的。
 
 ## String 为什么不可变？
 
