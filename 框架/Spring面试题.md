@@ -210,7 +210,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 ## Bean的生命周期
 
-![](https://gitee.com/tysondai/img/raw/master/bean生命周期.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/bean生命周期.png)
 
 1.调用bean的构造方法创建Bean
 

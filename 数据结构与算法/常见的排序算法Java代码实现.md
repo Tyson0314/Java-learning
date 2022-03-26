@@ -14,7 +14,7 @@
 
 常见的排序算法主要有：冒泡排序、插入排序、选择排序、快速排序、归并排序、堆排序、基数排序。各种排序算法的时间空间复杂度、稳定性见下图。
 
-![](https://gitee.com/tysondai/img/raw/master/排序算法.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/排序算法.png)
 
 # 冒泡排序
 

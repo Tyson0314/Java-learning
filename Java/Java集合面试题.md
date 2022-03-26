@@ -54,9 +54,9 @@ Java集合类主要由两个接口**Collection**和**Map**派生出来的，Coll
 
 Java集合框架图如下：
 
-![](https://gitee.com/tysondai/img/raw/master/collections2.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/collections2.png)
 
-![](https://gitee.com/tysondai/img/raw/master/map.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/map.png)
 
 List代表了有序可重复集合，可直接根据元素的索引来访问；Set代表无序不可重复集合，只能根据元素本身来访问；Queue是队列集合。Map代表的是存储key-value对的集合，可根据元素的key来访问value。
 
@@ -197,7 +197,7 @@ HashMap有扩容机制，就是当达到扩容条件时会进行扩容。扩容�
 5. 链表的数量大于阈值8，就要转换成红黑树的结构
 6. 添加成功后会检查是否需要扩容
 
-![图片来源网络](https://gitee.com/tysondai/img/raw/master/hashmap-put.png)
+![图片来源网络](https://raw.githubusercontent.com/Tyson0314/img/master/hashmap-put.png)
 
 ### 红黑树的特点？
 
@@ -271,7 +271,7 @@ public class TreeMap<K,V>
 
 TreeMap 的继承结构：
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210905215046510.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210905215046510.png)
 
 **TreeMap的特点：**
 
