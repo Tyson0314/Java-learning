@@ -1,6 +1,5 @@
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [冒泡排序](#%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F)
 - [插入排序](#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F)
@@ -16,7 +15,7 @@
 
 ![](https://raw.githubusercontent.com/Tyson0314/img/master/排序算法.png)
 
-# 冒泡排序
+## 冒泡排序
 
 ```java
     public void bubbleSort(int[] arr) {
@@ -41,7 +40,7 @@
     }
 ```
 
-# 插入排序
+## 插入排序
 
 ```java
     public void insertSort(int[] arr) {
@@ -59,7 +58,7 @@
     }
 ```
 
-# 选择排序
+## 选择排序
 
 ```java
     public void selectionSort(int[] arr) {
@@ -78,12 +77,12 @@
     }
 ```
 
-# 基数排序
+## 基数排序
 
 在基数排序中，因为没有比较操作，所以在时间复杂上，最好的情况与最坏的情况在时间上是一致的，均为 O(d * (n + r))。d 为位数，r 为基数，n 为原数组个数。
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9pbWFnZXMyMDE4LmNuYmxvZ3MuY29tL2Jsb2cvMTI1MjkxMC8yMDE4MDkvMTI1MjkxMC0yMDE4MDkxMzExMDYyOTY4Ni00MDU0Mjk5NjkucG5n?x-oss-process=image/format,png)
 
-# 快速排序
+## 快速排序
 
 ```java
     public void quickSort(int[] arr) {
@@ -126,7 +125,7 @@
     }
 ```
 
-# 归并排序
+## 归并排序
 
 ![归并排序图](https://images2015.cnblogs.com/blog/1024555/201612/1024555-20161218163120151-452283750.png)
 
@@ -179,7 +178,7 @@ public class MergeSort {
 }
 ```
 
-# 堆排序
+## 堆排序
 
 堆是具有下列性质的完全二叉树：每个结点的值都大于或等于其左右孩子结点的值，称为大顶堆；或者每个结点的值都小于或等于其左右孩子结点的值，称为小顶堆。
 

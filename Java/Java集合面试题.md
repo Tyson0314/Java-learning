@@ -141,7 +141,7 @@ while(itr.hasNext()) {
 
 ## Arraylist 和 Vector 的区别
 
-1. ArrayList在内存不够时默认是扩展50% + 1个，Vector是默认扩展1倍。
+1. ArrayList在内存不够时扩容为原来的1.5倍，Vector是扩容为原来的2倍。
 2. Vector属于线程安全级别的，但是大多数情况下不使用Vector，因为操作Vector效率比较低。
 
 ## Arraylist 与 LinkedList的区别
@@ -422,7 +422,7 @@ put 操作流程：
 
 ### CopyOnWrite
 
-写时复制。当我们往容器添加元素时，不直接往容器添加，而是先将当前容器进行复制，复制出一个新的容器，然后往新的容器添加元素，添加完元素之后，再将原容器的引用指向新容器。这样做的好处就是可以对`CopyOnWrite`容器进行并发的读而不需要加锁，因为当前容器不会被修改。
+Copy-On-Write，写时复制。当我们往容器添加元素时，不直接往容器添加，而是先将当前容器进行复制，复制出一个新的容器，然后往新的容器添加元素，添加完元素之后，再将原容器的引用指向新容器。这样做的好处就是可以对`CopyOnWrite`容器进行并发的读而不需要加锁，因为当前容器不会被修改。
 
 ```java
     public boolean add(E e) {
@@ -443,12 +443,18 @@ put 操作流程：
 
 从JDK1.5开始Java并发包里提供了两个使用CopyOnWrite机制实现的并发容器，它们是`CopyOnWriteArrayList`和`CopyOnWriteArraySet`。
 
-`CopyOnWriteArrayList`中add方法添加的时候是需要加锁的，保证同步，避免了多线程写的时候复制出多个副本。读的时候不需要加锁，如果读的时候有其他线程正在向`CopyOnWriteArrayList`添加数据，还是可以读到旧的数据。
-
 **缺点：**
 
 - 内存占用问题。由于CopyOnWrite的写时复制机制，在进行写操作的时候，内存里会同时驻扎两个对象的内存。
 - CopyOnWrite容器不能保证数据的实时一致性，可能读取到旧数据。
+
+### CopyOnWriteArrayList
+
+CopyOnWriteArrayList相当于线程安全的ArrayList，CopyOnWriteArrayList使用了一种叫写时复制的方法，当有新元素add到CopyOnWriteArrayList时，先从原有的数组中拷贝一份出来，然后在新的数组做写操作，写完之后，再将原来的数组引用指向到新数组。
+
+`CopyOnWriteArrayList`中add方法添加的时候是需要加锁的，保证同步，避免了多线程写的时候复制出多个副本。读的时候不需要加锁，如果读的时候有其他线程正在向`CopyOnWriteArrayList`添加数据，还是可以读到旧的数据。
+
+CopyOnWrite并发容器用于读多写少的并发场景。
 
 ### ConcurrentLinkedQueue
 

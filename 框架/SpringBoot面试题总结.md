@@ -1,15 +1,32 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+## Springboot的优点
 
-- [自动配置原理](#%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86)
-- [实现自动配置](#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE)
+- 内置servlet容器，不需要在服务器部署 tomcat。只需要将项目打成 jar 包，使用 java -jar xxx.jar一键式启动项目
+- SpringBoot提供了starter，把常用库聚合在一起，简化复杂的环境配置，快速搭建spring应用环境
+- 可以快速创建独立运行的spring项目，集成主流框架
+- 准生产环境的运行应用监控 
 
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+## SpringBoot 中的 starter 到底是什么 ?
+
+starter提供了一个自动化配置类，一般命名为 XXXAutoConfiguration ，在这个配置类中通过条件注解来决定一个配置是否生效（条件注解就是 Spring 中原本就有的），然后它还会提供一系列的默认配置，也允许开发者根据实际情况自定义相关配置，然后通过类型安全的属性注入将这些配置属性注入进来，新注入的属性会代替掉默认属性。正因为如此，很多第三方框架，我们只需要引入依赖就可以直接使用了。
+
+## 运行 SpringBoot 有哪几种方式？
+
+1. 打包用命令或者者放到容器中运行
+2. 用 Maven/Gradle 插件运行
+3. 直接执行 main 方法运行
+
+## SpringBoot 常用的 Starter 有哪些？
+
+1. spring-boot-starter-web ：提供 Spring MVC + 内嵌的 Tomcat 。
+2. spring-boot-starter-data-jpa ：提供 Spring JPA + Hibernate 。
+3.  spring-boot-starter-data-Redis ：提供 Redis 。
+4. mybatis-spring-boot-starter ：提供 MyBatis 。
 
 ## 自动配置原理
 
 SpringBoot实现自动配置原理图解：
+
+> 公众号【程序员大彬】，回复【自动配置】下载高清图片
 
 ![](https://raw.githubusercontent.com/Tyson0314/img/master/SpringBoot的自动配置原理.jpg)
 
@@ -274,43 +291,6 @@ public class SpringbootDemoApplication {
 hello.msg=大彬
 ```
 
-
-
-
-
 ## @Value原理
 
-@Value的解析就是在bean初始化阶段。BeanPostProcessor定义了bean初始化前后用户可以对bean进行操作的接口方法，它的一个重要实现类AutowiredAnnotationBeanPostProcessor为bean中的@Autowired和@Value注解的注入功能提供支持。
-
-
-
-## 启动过程
-
-准备Environment——发布事件——创建上下文、bean——刷新上下文——结束。
-
-构造SpringApplication的时候会进行初始化的工作，初始化的时候会做以下几件事：
-判断运行环境类型，有三种运行环境：NONE 非 web 的运行环境、SERVLET 普通 web 的运行环境、REACTIVE 响应式 web 的运行环境
-加载 spring.factories 配置文件, 并设置 ApplicationContextInitializer
-加载配置文件, 设置 ApplicationListener
-
-
-SpringApplication构造完成之后调用run方法，启动SpringApplication，run方法执行的时候会做以下几件事：
-构造一个StopWatch，观察SpringApplication的执行
-找出SpringApplicationRunListener，用于监听SpringApplication run方法的执行。监听的过程中会封装SpringApplicationEvent事件，然后使用ApplicationEventMulticaster广播出去，应用程序监听器ApplicationListener会监听到这些事件
-发布starting事件
-加载配置资源到environment，包括命令行参数、application.yml等
-发布environmentPrepared事件
-创建并初始化ApplicationContext，设置environment，加载配置
-refresh ApplicationContext
-
-- 设置beanFactory
-- 调用BeanFactoryPostProcessors
-- 初始化消息源
-- 初始化事件广播器（initApplicationEventMulticaster）
-- 调用onRefresh()方法，默认是空实现
-- 注册监听器
-- 实例化non-lazy-init单例
-- 完成refresh
-- 发布ContextRefreshedEvent事件
-
-发布started事件，启动结束
+@Value的解析就是在bean初始化阶段。BeanPostProcessor定义了bean初始化前后用户可以对bean进行操作的接口方法，它的一个重要实现类`AutowiredAnnotationBeanPostProcessor`为bean中的@Autowired和@Value注解的注入功能提供支持。

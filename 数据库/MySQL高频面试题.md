@@ -70,7 +70,7 @@
 
 举个例子。假定选课关系表为`student_course`(student_no, student_name, age, course_name, grade, credit)，主键为(student_no, course_name)。其中学分完全依赖于课程名称，姓名年龄完全依赖学号，不符合第二范式，会导致数据冗余（学生选n门课，姓名年龄有n条记录）、插入异常（插入一门新课，因为没有学号，无法保存新课记录）等问题。
 
-可以拆分成三个表：学生：`student`(stuent_no, student_name, 年龄)；课程：`course`(course_name, credit)；选课关系：`student_course_relation`(student_no, course_name, grade)。
+应该拆分成三个表：学生：`student`(stuent_no, student_name, 年龄)；课程：`course`(course_name, credit)；选课关系：`student_course_relation`(student_no, course_name, grade)。
 
 **第三范式3NF**
 
@@ -301,6 +301,10 @@ explain select user_id from user_like where blog_id = 1;
 // email列创建前缀索引
 ALTER TABLE table_name ADD KEY(column_name(prefix_length));
 ```
+
+### 索引下推
+
+参考我的另一篇文章：[图解索引下推！](http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247486661&idx=1&sn=4771369fd5c624c96647696ae76eca4a&chksm=ce98f183f9ef789562ac15c02b0d0dfdf3d2f178ea26667f5aded5d24c1004f049b951e85b33&scene=126&&sessionid=1650167859#rd)
 
 ## 常见的存储引擎有哪些？
 
@@ -571,13 +575,15 @@ MySQL主要分为 Server 层和存储引擎层：
 
 ## 什么是分区表？
 
-分区表是一个独立的逻辑表，但是底层由多个物理子表组成。
+分区是把一张表的数据分成N多个区块。分区表是一个独立的逻辑表，但是底层由多个物理子表组成。
 
 当查询条件的数据分布在某一个分区的时候，查询引擎只会去某一个分区查询，而不是遍历整个表。在管理层面，如果需要删除某一个分区的数据，只需要删除对应的分区即可。
 
+分区一般都是放在单机里的，用的比较多的是时间范围分区，方便归档。只不过分库分表需要代码实现，分区则是mysql内部实现。分库分表和分区并不冲突，可以结合使用。
+
 ## 分区表类型
 
-**按照范围分区。**
+**range分区**，按照范围分区。比如按照时间范围分区
 
 ```java
 CREATE TABLE test_range_partition(
@@ -614,7 +620,7 @@ CREATE TABLE test_range_partition(
 
 **list分区**
 
-对于`List`分区，分区字段必须是已知的，如果插入的字段不在分区时枚举值中，将无法插入。
+list分区和range分区相似，主要区别在于list是枚举值列表的集合，range是连续的区间值的集合。对于list分区，分区字段必须是已知的，如果插入的字段不在分区时的枚举值中，将无法插入。
 
 ```java
 create table test_list_partiotion
