@@ -112,6 +112,10 @@ AOP有两种实现方式：静态代理和动态代理。
 
 动态代理：代理类在程序运行时创建，AOP框架不会去修改字节码，而是在内存中临时生成一个代理对象，在运行期间对业务方法进行增强，不会生成新类。
 
+## Spring AOP的实现原理
+
+`Spring`的`AOP`实现原理其实很简单，就是通过**动态代理**实现的。如果我们为`Spring`的某个`bean`配置了切面，那么`Spring`在创建这个`bean`的时候，实际上创建的是这个`bean`的一个代理对象，我们后续对`bean`中方法的调用，实际上调用的是代理类重写的代理方法。而`Spring`的`AOP`使用了两种动态代理，分别是**JDK的动态代理**，以及**CGLib的动态代理**。
+
 ## JDK动态代理和CGLIB动态代理的区别？
 
 Spring AOP中的动态代理主要有两种方式：JDK动态代理和CGLIB动态代理。
@@ -122,7 +126,7 @@ Spring AOP中的动态代理主要有两种方式：JDK动态代理和CGLIB动�
 
 缺点：**目标类必须有实现的接口**。如果某个类没有实现接口，那么这个类就不能用JDK动态代理。
 
-**CGLIB来动态代理**
+**CGLIB动态代理**
 
 **通过继承实现**。如果目标类没有实现接口，那么Spring AOP会选择使用CGLIB来动态代理目标类。CGLIB（Code Generation Library）可以在运行时动态生成类的字节码，动态创建目标类的子类对象，在子类对象中增强目标类。
 
@@ -212,7 +216,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 ## Bean的生命周期
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/bean生命周期.png)
+![](https://gitee.com/tysondai/img/raw/master/bean生命周期.png)
 
 1.调用bean的构造方法创建Bean
 

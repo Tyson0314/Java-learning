@@ -28,7 +28,7 @@ SpringBoot实现自动配置原理图解：
 
 > 公众号【程序员大彬】，回复【自动配置】下载高清图片
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/SpringBoot的自动配置原理.jpg)
+![](https://gitee.com/tysondai/img/raw/master/SpringBoot的自动配置原理.jpg)
 
 在 application.properties 中设置属性 debug=true，可以在控制台查看已启用和未启用的自动配置。
 
