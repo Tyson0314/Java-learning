@@ -22,15 +22,15 @@ Git又是什么呢？简单的说，**Git 是一个管理你的代码历史记�
 
 - 创建一个新的仓库，用来存放项目。
 
-  ![](https://gitee.com/tysondai/img/raw/master/image-20210822154700616.png)
+  ![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822154700616.png)
 
 - 或者你在GitHub上看到别人有一个超级无敌有趣的项目，可以直接fork过来，可以理解成复制过来，变成你自己的。之后你想怎么改就怎么改！
 
-  ![image-20210822155107839](https://gitee.com/tysondai/img/raw/master/image-20210822155107839.png)
+  ![image-20210822155107839](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822155107839.png)
 
 - 然后你可以通过Git命令行`git clone xxx`把项目clone到本地，在本地进行创作。
 
-  ![](https://gitee.com/tysondai/img/raw/master/image-20210822155359118.png)
+  ![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822155359118.png)
 
 - 最后，在本地创作完成，可以使用`git commit -m xxx`提交到本地库，然后使用`git push`把修改推送到GitHub仓库。之后就可以在GitHub上面看到你修改的内容啦~
 
@@ -42,23 +42,23 @@ Git又是什么呢？简单的说，**Git 是一个管理你的代码历史记�
 
 - 评价GitHub项目的两个重要的参数：star和fork。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210822161003170.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822161003170.png)
 
 比较优秀和热门的项目，star数目和fork数目都会比较多。我们可以根据这两个参数筛选出比较好的项目。使用`关键字 stars:>=xxx forks:>=xxx` 可以筛选出star和fork数目大于xxx的相关项目。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210822161122586.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822161122586.png)
 
 - 使用 `awesome 关键字`，可以筛选出比较高质量的学习、书籍、工具类或者插件类的集合。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210822161608599.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822161608599.png)
 
 - 在特定位置搜索关键词。有些关键词出现在项目的不同位置，比如项目名称、项目描述和README等。使用`关键词 in name/description/Readme`，可以搜索到相关的内容。比如使用`spring in name`，可以搜索到在项目名中包含spring的项目。
 
-![image-20210822162144086](https://gitee.com/tysondai/img/raw/master/image-20210822162144086.png)
+![image-20210822162144086](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822162144086.png)
 
 - 指定条件搜索关键词。如`tool language:java`搜索到的是包含关键字tool的Java项目，`tool followers:>1000`可以搜索到包含关键字tool，且follower数量大于1000的项目。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210822163111390.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822163111390.png)
 
 
 
@@ -72,7 +72,7 @@ Git又是什么呢？简单的说，**Git 是一个管理你的代码历史记�
 
 - 文档神器。可以为自己的项目建立wiki，可以用markdown语法写wiki；
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210822172419760.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210822172419760.png)
 
 - 使用GitHub pages建立个人静态网站，搞一个有自己域名的独立博客，想想都觉得开心。使用GitHub pages的好处是搭建简单而且免费，支持静态脚本，并且可以绑定自己的域名。具体可以参考：[GitHub Pages 建立个人网站详细教程 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/58229299)
 

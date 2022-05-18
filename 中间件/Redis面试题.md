@@ -153,7 +153,7 @@ scan的缺点：在scan的过程中如果有键的变化（增加、删除、修
 
 3. EXEC命令进行提交事务
 
-![](https://gitee.com/tysondai/img/raw/master/redis-multi.jpg)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/redis-multi.jpg)
 
 一个事务范围内某个命令出错不会影响其他命令的执行，不保证原子性：
 
@@ -224,7 +224,7 @@ Redis支持两种方式的持久化，一种是`RDB`的方式，一种是`AOF`�
 
 `bgsave`是主流的触发 RDB 持久化的方式，执行过程如下：
 
-![](https://gitee.com/tysondai/img/raw/master/rdb持久化过程.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/rdb持久化过程.png)
 
 - 执行`BGSAVE`命令
 - Redis 父进程判断当前**是否存在正在执行的子进程**，如果存在，`BGSAVE`命令直接返回。
@@ -269,7 +269,7 @@ appendfsync no //由操作系统决定何时进行同步操作
 
 接下来看一下 AOF 持久化执行流程：
 
-![](https://gitee.com/tysondai/img/raw/master/aof工作流程0.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/aof工作流程0.png)
 
 1. 所有的写入命令会追加到 AOP 缓冲区中。
 2. AOF 缓冲区根据对应的策略向硬盘同步。
@@ -334,7 +334,7 @@ SLAVEOF NO ONE //停止接收其他数据库的同步并转化为主数据库。
 
 客户端连接Redis的时候，先连接哨兵，哨兵会告诉客户端Redis主节点的地址，然后客户端连接上Redis并进行后续的操作。当主节点宕机的时候，哨兵监测到主节点宕机，会重新推选出某个表现良好的从节点成为新的主节点，然后通过发布订阅模式通知其他的从服务器，让它们切换主机。
 
-![](https://gitee.com/tysondai/img/raw/master/sentinel.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/sentinel.png)
 
 **工作原理**
 
@@ -353,7 +353,7 @@ Redis cluster集群节点最小配置6个节点以上（3主3从），其中主�
 
 Redis cluster采用**虚拟槽分区**，所有的键根据哈希函数映射到0～16383个整数槽内，每个节点负责维护一部分槽以及槽所映射的键值数据。
 
-![](https://gitee.com/tysondai/img/raw/master/cluster_slots.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/cluster_slots.png)
 
 **哈希槽是如何映射到 Redis 实例上的？**
 
