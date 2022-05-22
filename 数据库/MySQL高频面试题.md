@@ -179,7 +179,7 @@ B+ 树是基于B 树和叶子节点顺序访问指针进行实现，它具有B�
 
 在 B+ 树中，节点中的 `key` 从左到右递增排列，如果某个指针的左右相邻 `key` 分别是 key<sub>i</sub> 和 key<sub>i+1</sub>，则该指针指向节点的所有 `key` 大于等于 key<sub>i</sub> 且小于等于 key<sub>i+1</sub>。
 
-![](https://gitee.com/tysondai/img/raw/master/B+树索引0.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/B+树索引0.png)
 
 进行查找操作时，首先在根节点进行二分查找，找到`key`所在的指针，然后递归地在指针所指向的节点进行查找。直到查找到叶子节点，然后在叶子节点上进行二分查找，找出`key`所对应的数据项。
 
@@ -251,7 +251,7 @@ ADD CONSTRAINT constraint_name UNIQUE KEY(column_1,column_2,...);
 
 如下图，对(a, b) 建立索引，a 在索引树中是全局有序的，而 b 是全局无序，局部有序（当a相等时，会根据b进行排序）。直接执行`b = 2`这种查询条件无法使用索引。
 
-![最左前缀](https://gitee.com/tysondai/img/raw/master/最左前缀.png)
+![最左前缀](https://raw.githubusercontent.com/Tyson0314/img/master/最左前缀.png)
 
 当a的值确定的时候，b是有序的。例如`a = 1`时，b值为1，2是有序的状态。当`a = 2`时候，b的值为1，4也是有序状态。 当执行`a = 1 and b = 2`时a和b字段能用到索引。而执行`a > 1 and b = 2`时，a字段能用到索引，b字段用不到索引。因为a的值此时是一个范围，不是固定的，在这个范围内b值不是有序的，因此b字段无法使用索引。
 
@@ -285,7 +285,7 @@ explain select user_id from user_like where blog_id = 1;
 
 `explain`结果的`Extra`列为`Using where; Using index`， 查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过**索引扫描**找到符合条件的数据，也不需要回表查询数据。
 
-![](https://gitee.com/tysondai/img/raw/master/cover-index.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/cover-index.png)
 
 ### 索引的设计原则？
 
@@ -395,7 +395,7 @@ MVCC 的实现依赖于版本链，版本链是通过表的三个隐藏字段实
 
 每条表记录大概是这样的：
 
-![](https://gitee.com/tysondai/img/raw/master/mvcc9.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/mvcc9.png)
 
 使用事务更新行记录的时候，就会生成版本链，执行过程如下：
 
@@ -407,15 +407,15 @@ MVCC 的实现依赖于版本链，版本链是通过表的三个隐藏字段实
 
 1、初始数据如下，其中`DB_ROW_ID`和`DB_ROLL_PTR`为空。
 
-![](https://gitee.com/tysondai/img/raw/master/mvcc2.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/mvcc2.png)
 
 2、事务A对该行数据做了修改，将`age`修改为12，效果如下：
 
-![](https://gitee.com/tysondai/img/raw/master/mvcc7.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/mvcc7.png)
 
 3、之后事务B也对该行记录做了修改，将`age`修改为8，效果如下：
 
-![](https://gitee.com/tysondai/img/raw/master/mvcc11.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/mvcc11.png)
 
 4、此时undo log有两行记录，并且通过回滚指针连在一起。
 
@@ -435,7 +435,7 @@ MVCC 的实现依赖于版本链，版本链是通过表的三个隐藏字段实
 
 **前提**：`DATA_TRX_ID` 表示每个数据行的最新的事务ID；`up_limit_id`表示当前快照中的最先开始的事务；`low_limit_id`表示当前快照中的最慢开始的事务，即最后一个事务。
 
-![](https://gitee.com/tysondai/img/raw/master/read_view10.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/read_view10.png)
 
 - 如果`DATA_TRX_ID` < `up_limit_id`：说明在创建`read view`时，修改该数据行的事务已提交，该版本的记录可被当前事务读取到。
 - 如果`DATA_TRX_ID` >= `low_limit_id`：说明当前版本的记录的事务是在创建`read view`之后生成的，该版本的数据行不可以被当前事务访问。此时需要通过版本链找到上一个版本，然后重新判断该版本的记录对当前事务的可见性。
@@ -460,7 +460,7 @@ MVCC 的实现依赖于版本链，版本链是通过表的三个隐藏字段实
 
 1、首先，user表只有两条记录，具体如下：
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210922232259664.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210922232259664.png)
 
 2、事务a和事务b同时开启事务`start transaction`；
 
@@ -478,7 +478,7 @@ update user set user_name = 'a';
 
 5、事务b然后执行查询，查到了事务a中插入的数据。（下图左边是事务b，右边是事务a。事务开始之前只有两条记录，事务a插入一条数据之后，事务b查询出来是三条数据）
 
-![](https://gitee.com/tysondai/img/raw/master/幻读1.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/幻读1.png)
 
 以上就是当前读出现的幻读现象。
 
@@ -567,7 +567,7 @@ MySQL主要分为 Server 层和存储引擎层：
 
 垂直划分数据库是根据业务进行划分，例如购物场景，可以将库中涉及商品、订单、用户的表分别划分出成一个库，通过降低单库的大小来提高性能。同样的，分表的情况就是将一个大表根据业务功能拆分成一个个子表，例如商品基本信息和商品描述，商品基本信息一般会展示在商品列表，商品描述在商品详情页，可以将商品基本信息和商品描述拆分成两张表。
 
-![](https://gitee.com/tysondai/img/raw/master/垂直划分.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/垂直划分.png)
 
 **优点**：行记录变小，数据页可以存放更多记录，在查询时减少I/O次数。
 
@@ -581,7 +581,7 @@ MySQL主要分为 Server 层和存储引擎层：
 
 水平划分是根据一定规则，例如时间或id序列值等进行数据的拆分。比如根据年份来拆分不同的数据库。每个数据库结构一致，但是数据得以拆分，从而提升性能。
 
-![](https://gitee.com/tysondai/img/raw/master/水平划分.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/水平划分.png)
 
 **优点**：单库（表）的数据量得以减少，提高性能；切分出的表结构相同，程序改动较少。
 
@@ -852,23 +852,34 @@ select * from page where id > start_id order by id limit 10;
 
 通过主键索引，每次定位到start_id的位置，然后往后遍历10个数据，这样不管数据多大，查询性能都较为稳定。
 
-## B+树一个节点有多大？一千万条数据，B+树多高？
+## 高度为3的B+树，可以存放多少数据？
 
-InnoDB存储引擎有自己的最小储存单元——页（Page），一个页的大小是16K。
+InnoDB存储引擎有自己的最小储存单元——页（Page）。
 
-B+树一个节点的大小设为一页或页的倍数最为合适。因为如果一个节点的大小 < 1页，那么读取这个节点的时候其实读取的还是一页，这样就造成了资源的浪费。
+查询InnoDB页大小的命令如下：
 
-在 MySQL 中 B+ 树的一个节点大小为“1页”，也就是16k。之所以设置为一页，是因为对于大部分业务，一页就足够了：
+```mysql
+mysql> show global status like 'innodb_page_size';
++------------------+-------+
+| Variable_name    | Value |
++------------------+-------+
+| Innodb_page_size | 16384 |
++------------------+-------+
+```
 
-首先InnoDB的B+树中，**非叶子节点存的是key + 指针**；**叶子节点存的是数据行**。
+可以看出 innodb 默认的一页大小为 16384B = 16384/1024 = 16kb。
+
+在MySQL中，B+树一个节点的大小设为一页或页的倍数最为合适。因为如果一个节点的大小 < 1页，那么读取这个节点的时候其实读取的还是一页，这样就造成了资源的浪费。
+
+B+树中**非叶子节点存的是key + 指针**；**叶子节点存的是数据行**。
 
 对于叶子节点，如果一行数据大小为1k，那么一页就能存16条数据。
 
-对于非叶子节点，如果key使用的是bigint，则为8字节，指针在mysql中为6字节，一共是14字节，则16k能存放 16 * 1024 / 14 = 1170 个索引指针。
+对于非叶子节点，如果key使用的是bigint，则为8字节，指针在MySQL中为6字节，一共是14字节，则16k能存放 16 * 1024 / 14 = 1170 个索引指针。
 
 于是可以算出，对于一颗高度为2的B+树，根节点存储索引指针节点，那么它有1170个叶子节点存储数据，每个叶子节点可以存储16条数据，一共 1170 x 16 = 18720 条数据。而对于高度为3的B+树，就可以存放 1170 x 1170 x 16 = 21902400 条数据（**两千多万条数据**），也就是对于两千多万条的数据，我们只需要**高度为3**的B+树就可以完成，通过主键查询只需要3次IO操作就能查到对应数据。
 
-所以在 InnoDB 中B+树高度一般为3层时，就能满足千万级的数据存储，所以一个节点为1页，也就是16k是比较合理的。
+所以在 InnoDB 中B+树高度一般为3层时，就能满足千万级的数据存储。
 
 参考：https://www.cnblogs.com/leefreeman/p/8315844.html
 

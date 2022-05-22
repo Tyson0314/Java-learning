@@ -976,7 +976,7 @@ Class 类提供了一些方法，可以获取成员变量、成员方法、接�
 
 Field提供了类和接口中字段的信息，通过Field类可以动态访问这些字段。下图是Field类提供的一些方法。
 
-![field-method](https://gitee.com/tysondai/img/raw/master/field-method.png)
+![field-method](https://raw.githubusercontent.com/Tyson0314/img/master/field-method.png)
 
 ## Method类
 
@@ -1101,7 +1101,7 @@ public class GenericMethod {
 
 Throwable类是Error和Exception的父类，只有继承于Throwable的类或者其子类才能被抛出。Throwable分为两类：
 
-![exception](https://gitee.com/tysondai/img/raw/master/exception.png)
+![exception](https://raw.githubusercontent.com/Tyson0314/img/master/exception.png)
 
 - Error：JVM 无法解决的严重问题，如栈溢出（StackOverflowError）、内存溢出（OOM）等。程序无法处理的错误。
 
@@ -1198,7 +1198,7 @@ public class ExceptionTest {
 
 Java IO流的核心就是对文件的操作，对于字节 、字符类型的输入和输出流。IO流主要分为两大类，字节流和字符流。字节流可以处理任何类型的数据，如图片，视频等，字符流只能处理字符类型的数据。
 
-![io](https://gitee.com/tysondai/img/raw/master/io.jpg)
+![io](https://raw.githubusercontent.com/Tyson0314/img/master/io.jpg)
 
 > 图片参考：[Java io学习整理](https://zhuanlan.zhihu.com/p/25418336)
 
@@ -1251,13 +1251,13 @@ OutputStreamWriter：字符到字节的转换，可对读取到的字符数据�
 
 同步阻塞I/O模式，数据的读取写入必须阻塞在一个线程内等待其完成。
 
-![bio](https://gitee.com/tysondai/img/raw/master/bio.png)
+![bio](https://raw.githubusercontent.com/Tyson0314/img/master/bio.png)
 
 ## NIO
 
 NIO是一种同步非阻塞的I/O模型，在Java 1.4 中引入了 NIO 框架，对应 java.nio 包，提供了 Channel , Selector，Buffer等抽象。
 
-![nio](https://gitee.com/tysondai/img/raw/master/nio.png)
+![nio](https://raw.githubusercontent.com/Tyson0314/img/master/nio.png)
 
 NIO与IO区别:
 

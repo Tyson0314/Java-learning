@@ -138,7 +138,7 @@ B+ 树是基于B 树和叶子节点顺序访问指针进行实现，它具有B�
 
 在 B+ 树中，节点中的 key 从左到右递增排列，如果某个指针的左右相邻 key 分别是 key<sub>i</sub> 和 key<sub>i+1</sub>，则该指针指向节点的所有 key 大于等于 key<sub>i</sub> 且小于等于 key<sub>i+1</sub>。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20210821165019147.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210821165019147.png)
 
 进行查找操作时，首先在根节点进行二分查找，找到key所在的指针，然后递归地在指针所指向的节点进行查找。直到查找到叶子节点，然后在叶子节点上进行二分查找，找出 key 所对应的数据项。
 
@@ -170,15 +170,15 @@ Index_comment:
 
 如下图，col1 是主键，col2和col3是普通字段。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20200520234137916.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20200520234137916.png)
 
 下图是主键索引对应的 B+树结构，每个节点对应磁盘的一页。
 
-![](https://gitee.com/tysondai/img/raw/master/image-20200520234200868.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20200520234200868.png)
 
 对col3 建立一个单列索引，对应的B+树结构：
 
-![](https://gitee.com/tysondai/img/raw/master/image-20200520234231001.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20200520234231001.png)
 
 ### 索引分类
 1. 主键索引：名为primary的唯一非空索引，不允许有空值。
@@ -208,7 +208,7 @@ Index_comment:
 
 对(a, b) 建立索引，a 在索引树中是全局有序的，而 b 是全局无序，局部有序（当a相等时，会对b进行比较排序）。直接执行`b = 2`这种查询条件没有办法利用索引。
 
-![最左匹配](https://gitee.com/tysondai/img/raw/master/image-20210821103313578.png)
+![最左匹配](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210821103313578.png)
 
 从局部来看，当a的值确定的时候，b是有序的。例如a = 1时，b值为1，2是有序的状态。当a=2时候，b的值为1,4也是有序状态。 因此，你执行`a = 1 and b = 2`是a,b字段能用到索引的。而你执行`a > 1 and b = 2`时，a字段能用到索引，b字段用不到索引。因为a的值此时是一个范围，不是固定的，在这个范围内b值不是有序的，因此b字段用不上索引。
 
@@ -218,7 +218,7 @@ InnoDB使用表的主键构造主键索引树，同时叶子节点中存放的�
 
 聚集索引的叶子节点就是整张表的行记录。InnoDB 主键使用的是聚簇索引。聚集索引要比非聚集索引查询效率高很多。
 
-![](https://gitee.com/tysondai/img/raw/master/mysql-clustered-index.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/mysql-clustered-index.png)
 
 对于InnoDB来说，聚集索引一般是表中的主键索引，如果表中没有显示指定主键，则会选择表中的第一个不允许为NULL的唯一索引。如果没有主键也没有合适的唯一索引，那么innodb内部会生成一个隐藏的主键作为聚集索引，这个隐藏的主键长度为6个字节，它的值会随着数据的插入自增。
 
@@ -244,7 +244,7 @@ explain select user_id from user_like where blog_id = 1;
 
 Extra中为`Using where; Using index`， 查询的列被索引覆盖，where筛选条件不符合最左前缀原则，无法通过索引查找找到符合条件的数据，但可以通过**索引扫描**找到符合条件的数据，也不需要回表查询数据。
 
-![](https://gitee.com/tysondai/img/raw/master/cover-index.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/cover-index.png)
 
 ### 索引失效
 
@@ -322,7 +322,7 @@ MEMORY引擎默认使用哈希索引，将键的哈希值和指向数据行的�
    myisam引擎主键索引和其他索引区别不大，叶子节点都包含索引值和行指针。
    innodb引擎二级索引叶子存储的是索引值和主键值（不是行指针），这样可以减少行移动和数据页分裂时二级索引的维护工作。
 
-   ![myisam-innodb-index](https://gitee.com/tysondai/img/raw/master/myisam-innodb-index.png)
+   ![myisam-innodb-index](https://raw.githubusercontent.com/Tyson0314/img/master/myisam-innodb-index.png)
 
 
 
@@ -351,7 +351,7 @@ mvcc实现依赖于版本链，版本链是通过表的三个隐藏字段实现�
 3. 修改当前行的值，生成一个新版本，更新事务id，使回滚指针指向旧版本的记录，这样就形成一条版本链；
 4. 记录redo log；
 
-![](https://gitee.com/tysondai/img/raw/master/mvcc-impl.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/mvcc-impl.png)
 
 ### read view
 
@@ -388,14 +388,14 @@ repeatable read：在一个事务范围内，第一次select时更新这个read_
 
 事务a和事务b同时开启事务，事务a插入数据然后提交，事务b执行全表的update，然后执行查询，查到了事务A中添加的数据。
 
-![](https://gitee.com/tysondai/img/raw/master/幻读1.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/幻读1.png)
 
 MySQL如何实现避免幻读:
 
 - 在快照读情况下，MySQL通过mvcc来避免幻读。
 - 在当前读情况下，MySQL通过next-key来避免幻读（加行锁和间隙锁来实现的）。
 
-![](https://gitee.com/tysondai/img/raw/master/current-read.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/current-read.png)
 
 next-key包括两部分：行锁和间隙锁。行锁是加在索引上的锁，间隙锁是加在索引之间的。
 
@@ -531,7 +531,7 @@ MySQL主要分为 Server 层和存储引擎层：
 - **Server 层**：主要包括连接器、查询缓存、分析器、优化器、执行器等，所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图，函数等，还有一个通用的日志模块 binglog 日志模块。
 - **存储引擎**： 主要负责数据的存储和读取。server 层通过api与存储引擎进行通信。
 
-![MySQL-archpng](https://gitee.com/tysondai/img/raw/master/mysql-archpng.png)
+![MySQL-archpng](https://raw.githubusercontent.com/Tyson0314/img/master/mysql-archpng.png)
 
 ### Server 层基本组件
 

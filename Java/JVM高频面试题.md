@@ -49,7 +49,7 @@
 
 JVM内存结构分为5大区域，**程序计数器**、**虚拟机栈**、**本地方法栈**、**堆**、**方法区**。
 
-![](https://gitee.com/tysondai/img/raw/master/jvm内存结构0.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/jvm内存结构0.png)
 
 ### 程序计数器
 
@@ -185,7 +185,7 @@ ClassFile {
 
 类的加载指的是将类的`class`文件中的二进制数据读入到内存中，将其放在运行时数据区的方法区内，然后在堆区创建一个此类的对象，通过这个对象可以访问到方法区对应的类信息。
 
-![](https://gitee.com/tysondai/img/raw/master/类加载.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/类加载.png)
 
 **加载**
 
@@ -213,7 +213,7 @@ ClassFile {
 
 一个类加载器收到一个类的加载请求时，它首先不会自己尝试去加载它，而是把这个请求**委派**给父类加载器去完成，这样层层委派，因此所有的加载请求最终都会传送到顶层的启动类加载器中，只有当父类加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。
 
-![](https://gitee.com/tysondai/img/raw/master/双亲委派.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/双亲委派.png)
 
 双亲委派模型的具体实现代码在 `java.lang.ClassLoader`中，此类的 `loadClass()` 方法运行过程如下：先检查类是否已经加载过，如果没有则让父类加载器去加载。当父类加载器加载失败时抛出 `ClassNotFoundException`，此时尝试自己去加载。源码如下：
 
@@ -312,7 +312,7 @@ public class ReferenceCount {
 
 通过`GC Root`对象为起点，从这些节点向下搜索，搜索所走过的路径叫引用链，当一个对象到`GC Root`没有任何的引用链相连时，说明这个对象是不可用的。
 
-![](https://gitee.com/tysondai/img/raw/master/可达性分析0.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/可达性分析0.png)
 
 ## 可作为GC Roots的对象有哪些？
 
@@ -413,7 +413,7 @@ GC（`Garbage Collection`），垃圾回收，是Java与C++的主要区别之一
 
 首先利用可达性去遍历内存，把存活对象和垃圾对象进行标记。标记结束后统一将所有标记的对象回收掉。这种垃圾回收算法效率较低，并且会**产生大量不连续的空间碎片**。
 
-![](https://gitee.com/tysondai/img/raw/master/标记清除.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/标记清除.png)
 
 **复制清除算法**
 
@@ -425,7 +425,7 @@ GC（`Garbage Collection`），垃圾回收，是Java与C++的主要区别之一
 
 根据老年代的特点提出的一种标记算法，标记过程仍然与`标记-清除`算法一样，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉边界以外的内存。
 
-![](https://gitee.com/tysondai/img/raw/master/标记整理.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/标记整理.png)
 
 **分类收集算法**
 
@@ -508,7 +508,7 @@ G1垃圾收集器的目标是在不同应用场景中**追求高吞吐量和低�
 
 G1将整个堆分成相同大小的分区（`Region`），有四种不同类型的分区：`Eden、Survivor、Old和Humongous`。分区的大小取值范围为 1M 到 32M，都是2的幂次方。分区大小可以通过`-XX:G1HeapRegionSize`参数指定。`Humongous`区域用于存储大对象。G1规定只要大小超过了一个分区容量一半的对象就认为是大对象。
 
-![](https://gitee.com/tysondai/img/raw/master/g1分区.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/g1分区.png)
 
 G1 收集器对各个分区回收所获得的空间大小和回收所需时间的经验值进行排序，得到一个优先级列表，每次根据用户设置的最大回收停顿时间，优先回收价值最大的分区。
 
