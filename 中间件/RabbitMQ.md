@@ -39,13 +39,13 @@
 
 文章目录：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210914234334988.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210914234334988.png)
 
 # 简介
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/rabbitmq.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq.png)
 
 ## 基本概念
 
@@ -94,25 +94,23 @@ Exchange规则。
 
 direct交换机会将消息路由到binding key 和 routing key完全匹配的队列中。它是完全匹配、单播的模式。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/rabbitmq-direct.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq-direct.png)
 
 ## fanout
 
 所有发到 fanout 类型交换机的消息都会路由到所有与该交换机绑定的队列上去。fanout 类型转发消息是最快的。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/rabbitmq-fanout.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq-fanout.png)
 
 ## topic
 
 topic交换机使用routing key和binding key进行模糊匹配，匹配成功则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/rabbitmq-topic.png)
+![](https://gitee.com/tysondai/img/raw/master/rabbitmq-topic.png)
 
 ## headers
 
 headers交换机是根据发送的消息内容中的headers属性进行路由的。在绑定Queue与Exchange时指定一组键值对；当消息发送到Exchange时，RabbitMQ会取到该消息的headers（也是一个键值对的形式），对比其中的键值对是否完全匹配Queue与Exchange绑定时指定的键值对；如果完全匹配则消息会路由到该Queue，否则不会路由到该Queue。
-
-
 
 # 消息丢失
 
@@ -431,5 +429,4 @@ msg.getMessageProperties().setExpiration("3000");
 [RabbitMQ发送邮件代码](https://zhuanlan.zhihu.com/p/145908317)
 
 [线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
-
 

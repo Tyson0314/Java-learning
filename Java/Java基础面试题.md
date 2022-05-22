@@ -101,7 +101,7 @@
 
 **JVM** ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。Java 能够跨平台运行的核心在于 JVM 。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220402230447.png)
+![](https://gitee.com/tysondai/img/raw/master/20220402230447.png)
 
 所有的java程序会首先被编译为.class的类文件，这种类文件可以在虚拟机上执行。也就是说class文件并不直接与机器的操作系统交互，而是经过虚拟机间接与操作系统交互，由虚拟机将程序解释给本地系统执行。
 
@@ -111,7 +111,7 @@
 
 英文名称（Java Runtime Environment），就是Java 运行时环境。我们编写的Java程序必须要在JRE才能运行。它主要包含两个部分，JVM 和 Java 核心类库。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220401234008.png)
+![](https://gitee.com/tysondai/img/raw/master/20220401234008.png)
 
 JRE是Java的运行环境，并不是一个开发环境，所以没有包含任何开发工具，如编译器和调试器等。
 
@@ -141,7 +141,7 @@ JRE = JVM + Java 核心类库
 
 JDK = JRE + Java工具 + 编译器 + 调试器
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220402230613.png)
+![](https://gitee.com/tysondai/img/raw/master/20220402230613.png)
 
 ## 面向对象有哪些特性？
 
@@ -1030,7 +1030,7 @@ unchecked Exception：
 
 不同的线程干专业的事情，最终每个线程都没空着，系统的吞吐量自然就上去了。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220423154450.png)
+![](https://gitee.com/tysondai/img/raw/master/20220423154450.png)
 
 
 

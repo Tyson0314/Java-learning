@@ -90,7 +90,7 @@ Java 内存模型（JMM）是基于共享内存的多线程通信机制。
 
 JVM内存结构 = 类加载器 + 执行引擎 + 运行时数据区域 。
 
-![image-20210905150636105](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210905150636105.png)
+![image-20210905150636105](https://gitee.com/tysondai/img/raw/master/image-20210905150636105.png)
 
 > 图片来源：深入理解Java虚拟机-周志明
 
@@ -172,11 +172,11 @@ JDK 1.8 的时候，HotSpot 的永久代被彻底移除了，使用元空间替�
 
 运行时常量池是方法区的一部分，在类加载之后，会将编译器生成的各种字面量和符号引号放到运行时常量池。在运行期间动态生成的常量，如 String 类的 intern()方法，也会被放入运行时常量池。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/string-new.png)
+![](https://gitee.com/tysondai/img/raw/master/string-new.png)
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/string-intern.png)
+![](https://gitee.com/tysondai/img/raw/master/string-intern.png)
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/string-equal.png)
+![](https://gitee.com/tysondai/img/raw/master/string-equal.png)
 
 > 图片来源：https://blog.csdn.net/soonfly
 
@@ -194,11 +194,11 @@ Java 程序通过栈上的 reference 数据来操作堆上的具体对象。对�
 
 - 如果使用句柄的话，那么 Java 堆中将会划分出一块内存来作为句柄池，reference 中存储的就是对象的句柄地址，而句柄中包含了对象实例数据与类型数据各自的具体地址信息。使用句柄来访问的最大好处是 reference 中存储的是稳定的句柄地址，在对象被移动时只会改变句柄中的实例数据指针，而 reference 本身不需要修改。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/object-handle.png)
+![](https://gitee.com/tysondai/img/raw/master/object-handle.png)
 
 - 直接指针。reference 中存储的直接就是对象的地址。对象包含到对象类型数据的指针，通过这个指针可以访问对象类型数据。使用直接指针访问方式最大的好处就是访问对象速度快，它节省了一次指针定位的时间开销，虚拟机hotspot主要是使用直接指针来访问对象。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/direct-pointer.png)
+![](https://gitee.com/tysondai/img/raw/master/direct-pointer.png)
 
 
 
@@ -245,7 +245,7 @@ ClassFile {
 
 加载、验证、准备、解析、初始化、使用和卸载。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210905002423703.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210905002423703.png)
 
 ## 类加载的过程
 
@@ -281,7 +281,7 @@ ClassFile {
 
 一个类加载器收到一个类的加载请求时，它首先不会自己尝试去加载它，而是把这个请求委派给父类加载器去完成，这样层层委派，因此所有的加载请求最终都会传送到顶层的启动类加载器中，只有当父类加载器反馈自己无法完成这个加载请求时，子加载器才会尝试自己去加载。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210905002827546.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210905002827546.png)
 
 双亲委派模型的好处：可以防止内存中出现多份同样的字节码。如果没有双亲委派模型而是由各个类加载器自行加载的话，如果用户编写了一个java.lang.Object的同名类并放在ClassPath中，多个类加载器都去加载这个类到内存中，系统中将会出现多个不同的Object类，那么类之间的比较结果及类的唯一性将无法保证。
 
@@ -339,7 +339,7 @@ public abstract class ClassLoader {
 
 堆中几乎放着所有的对象实例，对堆垃圾回收前的第一步就是要判断那些对象已经死亡（即不能再被任何途径使用的对象）。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/object-dead.png)
+![](https://gitee.com/tysondai/img/raw/master/object-dead.png)
 
 ### 引用计数法
 
@@ -365,7 +365,7 @@ public class ReferenceCountingGc {
 
 通过GC Root对象为起点，从这些节点向下搜索，搜索所走过的路径叫引用链，当一个对象到GC Root没有任何的引用链相连时，说明这个对象是不可用的。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/gc-root-refer.png)
+![](https://gitee.com/tysondai/img/raw/master/gc-root-refer.png)
 
 #### 可作为GC Roots的对象
 
@@ -469,13 +469,13 @@ public class ReferenceCountingGc {
 
 标记清除算法就是分为“标记”和“清除”两个阶段。标记出所有需要回收的对象，标记结束后统一回收所有被标记的对象。这种垃圾回收算法效率较低，并且会产生大量不连续的空间碎片。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210905003458130.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210905003458130.png)
 
 ### 复制清除算法
 
 半区复制，用于新生代垃圾回收。将内存分为大小相同的两块，每次使用其中的一块。当这一块的内存使用完后，就将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210905003714551.png)
+![](https://gitee.com/tysondai/img/raw/master/image-20210905003714551.png)
 
 特点：实现简单，运行高效，但可用内存缩小为了原来的一半，浪费空间。
 
@@ -534,7 +534,7 @@ java -XX:+PrintCommandLineFlags -version
 
 单线程收集器，使用一条垃圾收集线程去完成垃圾收集工作，在进行垃圾收集工作的时候必须暂停其他所有的工作线程（ "Stop The World" ），直到它收集结束。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/serial-collector.png)
+![](https://gitee.com/tysondai/img/raw/master/serial-collector.png)
 
 特点：简单高效；内存消耗最小；没有线程交互的开销，单线程收集效率高；需暂停所有的工作线程，用户体验不好。
 
@@ -542,7 +542,7 @@ java -XX:+PrintCommandLineFlags -version
 
 Serial 收集器的多线程版本，除了使用多线程进行垃圾收集外，其余行为（控制参数、收集算法、回收策略等等）和 Serial 收集器完全一样。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/parnew-collector.png)
+![](https://gitee.com/tysondai/img/raw/master/parnew-collector.png)
 
 除了 Serial 收集器外，只有它能与 CMS 收集器配合工作。
 
@@ -582,7 +582,7 @@ Concurrent Mark Sweep 并发标记清除，目的是获取最短应用停顿时�
 - 重新标记： 在并发标记期间对象的引用关系可能会变化，需要重新进行标记。此阶段也会stw，停顿时间一般会比初始标记阶段的时间稍长，远远比并发标记阶段时间短。
 - 并发清除：清除死亡对象，由于不需要移动存活对象，所以这个阶段也是可以与用户线程同时并发的。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/cms-collector.png)
+![](https://gitee.com/tysondai/img/raw/master/cms-collector.png)
 
 由于在整个过程中耗时最长的并发标记和并发清除阶段中，垃圾收集器线程都可以与用户线程一起工作，所以从总体上来说，CMS收集器的内存回收过程是与用户线程一起并发执行的。
 
@@ -607,7 +607,7 @@ G1垃圾收集器的目标是用在多核、大内存的机器上，在不同应
 
 G1将整个堆分成相同大小的分区（Region），有四种不同类型的分区：Eden、Survivor、Old和Humongous（大对象）。分区的大小取值范围为1M到32M，都是2的幂次方。Region大小可以通过`-XX:G1HeapRegionSize`参数指定。Humongous区域用于存储大对象。G1认为只要大小超过了一个Region容量一半的对象即可判定为大对象。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/g1-region.jpg)
+![](https://gitee.com/tysondai/img/raw/master/g1-region.jpg)
 
 G1 收集器对各个Region回收所获得的空间大小和回收所需时间的经验值进行排序，得到一个优先级列表，每次根据用户设置的最大的回收停顿时间（使用参数-XX：MaxGCPauseMillis指定，默认值是200毫秒），优先处理回收价值最大的 Region。
 

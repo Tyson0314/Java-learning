@@ -98,10 +98,20 @@ springcloud是一个基于Spring Boot实现的微服务架构开发工具。spri
 - Spring Cloud Cluster: 针对ZooKeeper、Redis、Hazelcast、Consul 的选举算法和通用状态模式的实现。
 - Spring Cloud Consul: 服务发现与配置管理工具。
 - Spring Cloud ZooKeeper: 基于ZooKeeper 的服务发现与配置管理组件。
+- Spring Cloud Security：Spring Security组件封装，提供用户验证和权限验证，一般与Spring Security OAuth2 组一起使用，通过搭建授权服务，验证Token或者JWT这种形式对整个微服务系统进行安全验证
+- Spring Cloud Sleuth：分布式链路追踪组件，他分封装了Dapper、Zipkin、Kibana 的组件
+- Spring Cloud Stream：Spring Cloud框架的数据流操作包，可以封装RabbitMq，ActiveMq，Kafka，Redis等消息组件，利用Spring Cloud Stream可以实现消息的接收和发送
 
 spring-boot-starter-actuator：该模块能够自动为Spring Boot 构建的应用提供一系列用于监控的端点。
 
+## 说说对SpringBoot 和SpringCloud的理解
 
+- SpringBoot专注于快速方便的开发单个个体微服务。
+- SpringCloud是关注全局的微服务协调整理治理框架，它将SpringBoot开发的一个个单体微服务整合并管理起来，为各个微服务之间提供，配置管理、服务发现、断路器、路由、微代理、事件总线、全局锁、决策竞选、分布式会话等等集成服务
+- SpringBoot可以离开SpringCloud独立使用开发项目，但是SpringCloud离不开SpringBoot，属于依赖的关系。
+- SpringBoot专注于快速、方便的开发单个微服务个体，SpringCloud关注全局的服务治理框架。
+
+Spring Boot可以离开Spring Cloud独立使用开发项目，但是Spring Cloud离不开Spring Boot，属于依赖的关系。
 
 ## Spring Cloud Eureka
 
