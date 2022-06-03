@@ -457,7 +457,7 @@ WHERE Soundex(cust_contact) = Soundex('Y Lie');
 
 ### 日期处理函数
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200504231137490.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220530235607.png)
 查找2005年9月的所有订单：
 
 ```mysql
@@ -476,7 +476,7 @@ WHERE Year(order_date) = 2005 AND Month(order_date) = 9;
 
 ### 数值处理函数
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200504234157154.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220530233617.png)
 
 ## 汇总数据
 
@@ -511,7 +511,7 @@ SELECT * FROM orders
 GROUP BY cust_id;
 ```
 
-![](../img/mysql/orderby.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220530233523.png)
 
 除聚集计算语句外，SELECT语句中的每个列都必须在GROUP BY子句中给出。
 
@@ -630,7 +630,7 @@ SELECT * FROM role NATURAL JOIN user_role;
 
 返回结果：
 
-![image-20200608232951873](..\img\image-20200608232951873.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220530235619.png)
 
 ### 内连接
 
@@ -642,7 +642,7 @@ SELECT * FROM role INNNER JOIN user_role
 
 返回结果：
 
-![image-20200608232749393](..\img\image-20200608232749393.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220530235640.png)
 
 join…using(column)按指定的属性做等值连接。
 join…on tableA.column1 = tableB.column2 指定条件。
@@ -653,7 +653,7 @@ SELECT * FROM role INNER JOIN user_role ON role.role_id = user_role.role_id
 
 返回结果：
 
-![image-20200608233400458](..\img\image-20200608233400458.png)
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220530235654.png)
 
 ### 外连接
 
