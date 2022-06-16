@@ -294,3 +294,7 @@ hello.msg=大彬
 ## @Value原理
 
 @Value的解析就是在bean初始化阶段。BeanPostProcessor定义了bean初始化前后用户可以对bean进行操作的接口方法，它的一个重要实现类`AutowiredAnnotationBeanPostProcessor`为bean中的@Autowired和@Value注解的注入功能提供支持。
+
+
+
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220612101342.png)

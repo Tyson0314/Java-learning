@@ -569,8 +569,8 @@ synchronized 修饰的方法并没有 `monitorenter` 指令和 `monitorexit` 指
 
 **相同点**：
 
-1. 使当前线程暂停运行，把机会交给其他线程
-2. 任何线程在等待期间被中断都会抛出`InterruptedException`
+1. 它们都可以使当前线程暂停运行，把机会交给其他线程
+2. 任何线程在调用wait()和sleep()之后，在等待期间被中断都会抛出`InterruptedException`
 
 **不同点**：
 
@@ -1146,3 +1146,7 @@ SynchronizedMap一次锁住整张表来保证线程安全，所以每次只能�
 
 JDK1.8 ConcurrentHashMap采用CAS和synchronized来保证并发安全。数据结构采用数组+链表/红黑二叉树。synchronized只锁定当前链表或红黑二叉树的首节点，支持并发访问、修改。
 另外ConcurrentHashMap使用了一种不同的迭代方式。当iterator被创建后集合再发生改变就不再是抛出ConcurrentModificationException，取而代之的是在改变时new新的数据从而不影响原有的数据 ，iterator完成后再将头指针替换为新的数据 ，这样iterator线程可以使用原来老的数据，而写线程也可以并发的完成改变。
+
+
+
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220612101342.png)

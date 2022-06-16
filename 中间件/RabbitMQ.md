@@ -29,18 +29,6 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Spring Boot、MyBatis、Redis、RabbitMQ、计算机网络、数据结构与算法等等，欢迎大家提pr和star！
->
-> github地址：https://github.com/Tyson0314/Java-learning
->
-> 如果github访问不了，可以访问gitee仓库。
->
-> gitee地址：https://gitee.com/tysondai/Java-learning
-
-文章目录：
-
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210914234334988.png)
-
 # 简介
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
@@ -430,3 +418,6 @@ msg.getMessageProperties().setExpiration("3000");
 
 [线上rabbitmq问题](https://juejin.im/post/6844904088212094983#heading-0)
 
+
+
+![](https://raw.githubusercontent.com/Tyson0314/img/master/20220612101342.png)
