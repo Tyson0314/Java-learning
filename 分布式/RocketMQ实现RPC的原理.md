@@ -44,6 +44,7 @@ ClientRemotingProcessor#processReplyMessage中主要做的从消息中获取消�
 六、总结
 所以整体上看来，RocketMQ的Request/Reply模式，其实是利用客户端线程阻塞来换取请求异步变同步以及RocketMQ的回调机制从而间接的实现了RPC效果，但是相比直接RPC调用，数据的链路更长，性能肯定是会有损耗，但是请求会持久化，所以给了重复下发提供了可能。
 
-————————————————
+
+
 版权声明：本文为CSDN博主「林风自在」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/lveex/article/details/122514893

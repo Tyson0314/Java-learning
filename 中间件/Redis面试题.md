@@ -1,40 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [Redis是什么？](#redis%E6%98%AF%E4%BB%80%E4%B9%88)
-- [Redis优缺点？](#redis%E4%BC%98%E7%BC%BA%E7%82%B9)
-- [Redis为什么这么快？](#redis%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%BF%AB)
-- [Redis为何选择单线程](#redis%E4%B8%BA%E4%BD%95%E9%80%89%E6%8B%A9%E5%8D%95%E7%BA%BF%E7%A8%8B)
-- [Redis6.0为何引入多线程？](#redis60%E4%B8%BA%E4%BD%95%E5%BC%95%E5%85%A5%E5%A4%9A%E7%BA%BF%E7%A8%8B)
-- [Redis应用场景有哪些？](#redis%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E6%9C%89%E5%93%AA%E4%BA%9B)
-- [Memcached和Redis的区别？](#memcached%E5%92%8Credis%E7%9A%84%E5%8C%BA%E5%88%AB)
-- [Redis 数据类型有哪些？](#redis-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B)
-- [keys命令存在的问题？](#keys%E5%91%BD%E4%BB%A4%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98)
-- [SortedSet和List异同点？](#sortedset%E5%92%8Clist%E5%BC%82%E5%90%8C%E7%82%B9)
-- [Redis事务](#redis%E4%BA%8B%E5%8A%A1)
-- [持久化机制](#%E6%8C%81%E4%B9%85%E5%8C%96%E6%9C%BA%E5%88%B6)
-  - [RDB方式](#rdb%E6%96%B9%E5%BC%8F)
-  - [AOF方式](#aof%E6%96%B9%E5%BC%8F)
-- [RDB和AOF如何选择？](#rdb%E5%92%8Caof%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9)
-- [Redis常见的部署方式有哪些？](#redis%E5%B8%B8%E8%A7%81%E7%9A%84%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B)
-- [主从复制](#%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6)
-- [哨兵Sentinel](#%E5%93%A8%E5%85%B5sentinel)
-- [Redis cluster](#redis-cluster)
-  - [哈希分区算法有哪些？](#%E5%93%88%E5%B8%8C%E5%88%86%E5%8C%BA%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B)
-- [过期键的删除策略？](#%E8%BF%87%E6%9C%9F%E9%94%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5)
-- [内存淘汰策略有哪些？](#%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%E6%9C%89%E5%93%AA%E4%BA%9B)
-- [如何保证缓存与数据库双写时的数据一致性？](#%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8C%E5%86%99%E6%97%B6%E7%9A%84%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7)
-- [缓存穿透](#%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F)
-- [缓存雪崩](#%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9)
-- [缓存击穿](#%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF)
-- [Redis 怎么实现消息队列？](#redis-%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97)
-- [pipeline的作用？](#pipeline%E7%9A%84%E4%BD%9C%E7%94%A8)
-- [LUA脚本](#lua%E8%84%9A%E6%9C%AC)
-- [什么是RedLock？](#%E4%BB%80%E4%B9%88%E6%98%AFredlock)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## Redis是什么？
 
 Redis（`Remote Dictionary Server`）是一个使用 C 语言编写的，高性能非关系型的键值对数据库。与传统数据库不同的是，Redis 的数据是存在内存中的，所以读写速度非常快，被广泛应用于缓存方向。Redis可以将数据写入磁盘中，保证了数据的安全不丢失，而且Redis的操作是原子性的。
@@ -437,6 +400,8 @@ Redis cluster采用**虚拟槽分区**，所有的键根据哈希函数映射到
 **3、异步更新缓存**
 
 数据库的更新操作完成后不直接操作缓存，而是把这个操作命令封装成消息扔到消息队列中，然后由Redis自己去消费更新数据，消息队列可以保证数据操作顺序一致性，确保缓存系统的数据正常。
+
+以上几个方案都不完美，需要根据业务需求，评估哪种方案影响较小，然后选择相应的方案。
 
 ## 缓存常见问题
 

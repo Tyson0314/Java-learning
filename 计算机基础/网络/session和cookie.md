@@ -1,13 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [cookie](#cookie)
-- [session](#session)
-- [区别](#%E5%8C%BA%E5%88%AB)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 由于HTTP协议是无状态的协议，需要用某种机制来识具体的用户身份，用来跟踪用户的整个会话。常用的会话跟踪技术是cookie与session。
 
 ## cookie
