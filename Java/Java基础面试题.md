@@ -46,7 +46,7 @@
 
 **JVM** ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。Java 能够跨平台运行的核心在于 JVM 。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220402230447.png)
+![](http://img.dabin-coder.cn/image/20220402230447.png)
 
 所有的java程序会首先被编译为.class的类文件，这种类文件可以在虚拟机上执行。也就是说class文件并不直接与机器的操作系统交互，而是经过虚拟机间接与操作系统交互，由虚拟机将程序解释给本地系统执行。
 
@@ -56,7 +56,7 @@
 
 英文名称（Java Runtime Environment），就是Java 运行时环境。我们编写的Java程序必须要在JRE才能运行。它主要包含两个部分，JVM 和 Java 核心类库。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220401234008.png)
+![](http://img.dabin-coder.cn/image/20220401234008.png)
 
 JRE是Java的运行环境，并不是一个开发环境，所以没有包含任何开发工具，如编译器和调试器等。
 
@@ -86,7 +86,7 @@ JRE = JVM + Java 核心类库
 
 JDK = JRE + Java工具 + 编译器 + 调试器
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220402230613.png)
+![](http://img.dabin-coder.cn/image/20220402230613.png)
 
 ## 面向对象有哪些特性？
 
@@ -232,7 +232,11 @@ private static class IntegerCache {
 
 ## String 为什么不可变？
 
-先看下Java8 String类的源码：
+先看看什么是不可变的对象。
+
+如果一个对象，在它创建完成之后，不能再改变它的状态，那么这个对象就是不可变的。不能改变状态的意思是，不能改变对象内的成员变量，包括基本数据类型的值不能改变，引用类型的变量不能指向其他的对象，引用类型指向的对象的状态也不能改变。
+
+接着来看Java8 String类的源码：
 
 ```java
 public final class String
@@ -245,11 +249,26 @@ public final class String
 }
 ```
 
-String类是final的，它的所有成员变量也都是final的。为什么是final的？
+从源码可以看出，String对象其实在内部就是一个个字符，存储在这个value数组里面的。
+
+value数组用final修饰，final 修饰的变量，值不能被修改。因此value不可以指向其他对象。
+
+String类内部所有的字段都是私有的，也就是被private修饰。而且String没有对外提供修改内部状态的方法，因此value数组不能改变。
+
+所以，String是不可变的。
+
+那为什么String要设计成不可变的？
+
+主要有以下几点原因：
 
 1. **线程安全**。同一个字符串实例可以被多个线程共享，因为字符串不可变，本身就是线程安全的。
 2. **支持hash映射和缓存。**因为String的hash值经常会使用到，比如作为 Map 的键，不可变的特性使得 hash 值也不会变，不需要重新计算。
+3. **出于安全考虑**。网络地址URL、文件路径path、密码通常情况下都是以String类型保存，假若String不是固定不变的，将会引起各种安全隐患。比如将密码用String的类型保存，那么它将一直留在内存中，直到垃圾收集器把它清除。假如String类不是固定不变的，那么这个密码可能会被改变，导致出现安全隐患。
 3. **字符串常量池优化**。String对象创建之后，会缓存到字符串常量池中，下次需要创建同样的对象时，可以直接返回缓存的引用。
+
+既然我们的String是不可变的，它内部还有很多substring， replace， replaceAll这些操作的方法。这些方法好像会改变String对象？怎么解释呢？
+
+其实不是的，我们每次调用replace等方法，其实会在堆内存中创建了一个新的对象。然后其value数组引用指向不同的对象。
 
 ## String, StringBuffer 和 StringBuilder区别
 
@@ -975,7 +994,7 @@ unchecked Exception：
 
 不同的线程干专业的事情，最终每个线程都没空着，系统的吞吐量自然就上去了。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220423154450.png)
+![](http://img.dabin-coder.cn/image/20220423154450.png)
 
 
 
@@ -1113,4 +1132,4 @@ Java泛型是JDK 5中引⼊的⼀个新特性， 允许在定义类和接口的�
 
 
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220612101342.png)
+![](http://img.dabin-coder.cn/image/20220612101342.png)

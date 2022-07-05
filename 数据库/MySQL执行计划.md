@@ -91,7 +91,7 @@ where blog_id = (
 
 三个表依次嵌套，发现最里层的子查询 `id`最大，最先执行。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/explain-id.png)
+![](http://img.dabin-coder.cn/image/explain-id.png)
 
 ##  select_type
 
@@ -107,13 +107,13 @@ where blog_id = (
 
 查询的表名，并不一定是真实存在的表，有别名显示别名，也可能为临时表。当from子句中有子查询时，table列是 `<derivenN>`的格式，表示当前查询依赖 id为N的查询，会先执行 id为N的查询。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210804083523885.png)
+![](http://img.dabin-coder.cn/image/image-20210804083523885.png)
 
 ##  partitions
 
 查询时匹配到的分区信息，对于非分区表值为`NULL`，当查询的是分区表时，`partitions`显示分区表命中的分区情况。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802022931773.png)
+![](http://img.dabin-coder.cn/image/image-20210802022931773.png)
 
 ##  type
 
@@ -123,25 +123,25 @@ where blog_id = (
 
 当表仅有一行记录时（系统表），数据量很少，往往不需要进行磁盘IO，速度非常快。比如，Mysql系统表proxies_priv在Mysql服务启动时候已经加载在内存中，对这个表进行查询不需要进行磁盘 IO。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210801233419732.png)
+![](http://img.dabin-coder.cn/image/image-20210801233419732.png)
 
 ### const
 
 单表操作的时候，查询使用了主键或者唯一索引。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/explain-const.png)
+![](http://img.dabin-coder.cn/image/explain-const.png)
 
 ### eq_ref
 
 **多表关联**查询的时候，主键和唯一索引作为关联条件。如下图的sql，对于user表（外循环）的每一行，user_role表（内循环）只有一行满足join条件，只要查找到这行记录，就会跳出内循环，继续外循环的下一轮查询。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210801232638027.png)
+![](http://img.dabin-coder.cn/image/image-20210801232638027.png)
 
 ### ref
 
 查找条件列使用了索引而且不为主键和唯一索引。虽然使用了索引，但该索引列的值并不唯一，这样即使使用索引查找到了第一条数据，仍然不能停止，要在目标值附近进行小范围扫描。但它的好处是不需要扫全表，因为索引是有序的，即便有重复值，也是在一个非常小的范围内做扫描。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/explain-ref.png)
+![](http://img.dabin-coder.cn/image/explain-ref.png)
 
 ### ref_or_null
 
@@ -151,13 +151,13 @@ where blog_id = (
 
 使用了索引合并优化方法，查询使用了两个以上的索引。新建comment表，id为主键，value_id为非唯一索引，执行`explain select content from comment where value_id = 1181000 and id > 1000;`，执行结果显示查询同时使用了id和value_id索引，type列的值为index_merge。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802001215614.png)
+![](http://img.dabin-coder.cn/image/image-20210802001215614.png)
 
 ### range
 
 有范围的索引扫描，相对于index的全索引扫描，它有范围限制，因此要优于index。像between、and、'>'、'<'、in和or都是范围索引扫描。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/explain-range.png)
+![](http://img.dabin-coder.cn/image/explain-range.png)
 
 ### index
 
@@ -165,17 +165,17 @@ index包括select索引列，order by主键两种情况。
 
 1. order by主键。这种情况会按照索引顺序全表扫描数据，拿到的数据是按照主键排好序的，不需要额外进行排序。
 
-   ![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210801225045980.png)
+   ![](http://img.dabin-coder.cn/image/image-20210801225045980.png)
 
 2. select索引列。type为index，而且extra字段为using index，也称这种情况为索引覆盖。所需要取的数据都在索引列，无需回表查询。
 
-   ![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210801225942948.png)
+   ![](http://img.dabin-coder.cn/image/image-20210801225942948.png)
 
 ### all
 
 全表扫描，查询没有用到索引，性能最差。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/explain-all.png)
+![](http://img.dabin-coder.cn/image/explain-all.png)
 
 ##  possible_keys
 
@@ -249,13 +249,13 @@ CREATE TABLE `t_orderdetail` (
 
 查询的列未被索引覆盖，where筛选条件非索引的前导列。对存储引擎返回的结果进行过滤（Post-filter，后过滤），一般发生在MySQL服务器，而不是存储引擎层。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802232729417.png)
+![](http://img.dabin-coder.cn/image/image-20210802232729417.png)
 
 ### using index
 
 查询的列被索引覆盖，并且where筛选条件符合最左前缀原则，通过**索引查找**就能直接找到符合条件的数据，不需要回表查询数据。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802232357282.png)
+![](http://img.dabin-coder.cn/image/image-20210802232357282.png)
 
 ### Using where&Using index
 
@@ -265,17 +265,17 @@ CREATE TABLE `t_orderdetail` (
 
 - where筛选条件不符合最左前缀原则
 
-  ![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802233120283.png)
+  ![](http://img.dabin-coder.cn/image/image-20210802233120283.png)
 
 - where筛选条件是索引列前导列的一个范围
 
-  ![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802233455880.png)
+  ![](http://img.dabin-coder.cn/image/image-20210802233455880.png)
 
 ### null
 
 查询的列未被索引覆盖，并且where筛选条件是索引的前导列，也就是用到了索引，但是部分字段未被索引覆盖，必须回表查询这些字段，Extra中为NULL。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210802234122321.png)
+![](http://img.dabin-coder.cn/image/image-20210802234122321.png)
 
 ### using index condition
 
@@ -283,11 +283,11 @@ CREATE TABLE `t_orderdetail` (
 
 不使用ICP的情况（`set optimizer_switch='index_condition_pushdown=off'`），如下图，在步骤4中，没有使用where条件过滤索引：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/no-icp.png)
+![](http://img.dabin-coder.cn/image/no-icp.png)
 
 使用ICP的情况（`set optimizer_switch='index_condition_pushdown=on'`）：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/icp.png)
+![](http://img.dabin-coder.cn/image/icp.png)
 
 下面的例子使用了ICP：
 
@@ -296,11 +296,11 @@ explain select user_id, order_id, order_status
 from t_order where user_id > 1 and user_id < 5\G;
 ```
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210803084617433.png)
+![](http://img.dabin-coder.cn/image/image-20210803084617433.png)
 
 关掉ICP之后（`set optimizer_switch='index_condition_pushdown=off'`），可以看到extra列为using where，不会使用索引下推。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210803084815503.png)
+![](http://img.dabin-coder.cn/image/image-20210803084815503.png)
 
 ### using temporary
 
@@ -314,7 +314,7 @@ from t_order where user_id > 1 and user_id < 5\G;
 - select 查询字段不全是索引字段
 - select 查询字段都是索引字段，但是 order by 字段和索引字段的顺序不一致
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210804084029239.png)
+![](http://img.dabin-coder.cn/image/image-20210804084029239.png)
 
 ### using join buffer 
 

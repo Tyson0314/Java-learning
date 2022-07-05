@@ -1,6 +1,6 @@
 传统的单体架构的时候，我们基本是单库然后业务单表的结构。每个业务表的ID一般我们都是从1增，通过`AUTO_INCREMENT=1`设置自增起始值，但是在分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据。这种情况根据数据库的自增ID就会产生相同ID的情况，不能保证主键的唯一性。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220508235751.png)
+![](http://img.dabin-coder.cn/image/20220508235751.png)
 
 如上图，如果第一个订单存储在 DB1 上则订单 ID 为1，当一个新订单又入库了存储在 DB2 上订单 ID 也为1。我们系统的架构虽然是分布式的，但是在用户层应是无感知的，重复的订单主键显而易见是不被允许的。那么针对分布式系统如何做到主键唯一性呢？
 
@@ -65,7 +65,7 @@ public static void main(String[] args) {
 
 假设有三台机器，则DB1中order表的起始ID值为1，DB2中order表的起始值为2，DB3中order表的起始值为3，它们自增的步长都为3，则它们的ID生成范围如下图所示：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220509000004.png)
+![](http://img.dabin-coder.cn/image/20220509000004.png)
 
 通过这种方式明显的优势就是依赖于数据库自身不需要其他资源，并且ID号单调自增，可以实现一些对ID有特殊要求的业务。
 
@@ -94,7 +94,7 @@ Snowflake，雪花算法是由Twitter开源的分布式ID生成算法，以划�
 
 这样的划分之后相当于在一毫秒一个数据中心的一台机器上可产生4096个有序的不重复的ID。但是我们 IDC 和机器数肯定不止一个，所以毫秒内能生成的有序ID数是翻倍的。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220508235958.png)
+![](http://img.dabin-coder.cn/image/20220508235958.png)
 
 Snowflake 的[Twitter官方原版](https://github.com/twitter/snowflake/blob/snowflake-2010/src/main/scala/com/twitter/service/snowflake/IdWorker.scala)是用Scala写的，对Scala语言有研究的同学可以去阅读下，以下是 Java 版本的写法。
 
@@ -303,7 +303,7 @@ UidGenerator 依然是以划分命名空间的方式将 64-bit位分割成多个
 - 中间的 workId （数据中心+工作机器，可以其他组成方式）则由 22-bit位组成，可表示 2^22 = 4194304个工作ID。
 - 最后由13-bit位构成自增序列，可表示2^13 = 8192个数。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220509000004.png)
+![](http://img.dabin-coder.cn/image/20220509000004.png)
 
 其中 workId （机器 id），最多可支持约420w次机器启动。内置实现为在启动时由数据库分配（表名为 WORKER_NODE），默认分配策略为用后即弃，后续可提供复用策略。
 
@@ -427,7 +427,7 @@ CREATE TABLE `leaf_alloc` (
 
 原来获取ID每次都需要写数据库，现在只需要把step设置得足够大，比如1000。那么只有当1000个号被消耗完了之后才会去重新读写一次数据库。读写数据库的频率从1减小到了1/step，大致架构如下图所示：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220509000142.png)
+![](http://img.dabin-coder.cn/image/20220509000142.png)
 
 同时Leaf-segment 为了解决 TP999（满足千分之九百九十九的网络请求所需要的最低耗时）数据波动大，当号段使用完之后还是会hang在更新数据库的I/O上，TP999 数据会出现偶尔的尖刺的问题，提供了双buffer优化。
 
@@ -435,7 +435,7 @@ CREATE TABLE `leaf_alloc` (
 
 为了DB取号段的过程能够做到无阻塞，不需要在DB取号段的时候阻塞请求线程，即当号段消费到某个点时就异步的把下一个号段加载到内存中，而不需要等到号段用尽的时候才去更新号段。这样做就可以很大程度上的降低系统的 TP999 指标。详细实现如下图所示：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220509000258.png)
+![](http://img.dabin-coder.cn/image/20220509000258.png)
 
 采用双buffer的方式，Leaf服务内部有两个号段缓存区segment。当前号段已下发10%时，如果下一个号段未更新，则另启一个更新线程去更新下一个号段。当前号段全部下发完后，如果下个号段准备好了则切换到下个号段为当前segment接着下发，循环往复。
 
@@ -454,13 +454,13 @@ Leaf-snowflake是按照下面几个步骤启动的：
 - 如果有注册过直接取回自己的workerID（zk顺序节点生成的int类型ID号），启动服务。
 - 如果没有注册过，就在该父节点下面创建一个持久顺序节点，创建成功后取回顺序号当做自己的workerID号，启动服务。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220509000333.png)
+![](http://img.dabin-coder.cn/image/20220509000333.png)
 
 为了减少对 Zookeeper的依赖性，会在本机文件系统上缓存一个workerID文件。当ZooKeeper出现问题，恰好机器出现问题需要重启时，能保证服务能够正常启动。
 
 上文阐述过在类 snowflake算法上都存在时钟回拨的问题，Leaf-snowflake在解决时钟回拨的问题上是通过校验自身系统时间与 `leaf_forever/${self}`节点记录时间做比较然后启动报警的措施。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220509000708.png)
+![](http://img.dabin-coder.cn/image/20220509000708.png)
 
 美团官方建议是由于强依赖时钟，对时间的要求比较敏感，在机器工作时NTP同步也会造成秒级别的回退，建议可以直接关闭NTP同步。要么在时钟回拨的时候直接不提供服务直接返回ERROR_CODE，等时钟追上即可。或者做一层重试，然后上报报警系统，更或者是发现有时钟回拨之后自动摘除本身节点并报警。
 

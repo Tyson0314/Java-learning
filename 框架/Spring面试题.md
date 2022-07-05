@@ -184,7 +184,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 ## Bean的生命周期
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/bean生命周期.png)
+![](http://img.dabin-coder.cn/image/bean生命周期.png)
 
 1.调用bean的构造方法创建Bean
 
@@ -272,25 +272,120 @@ Spring 将会在应用启动时创建 `SqlSessionFactory`，并使用 `sqlSessio
 
 ## Bean注入容器有哪些方式？
 
-将普通类交给Spring容器管理，通常有以下方法：
+1、@Configuration + @Bean
 
-1、使用`@Configuration`与`@Bean`注解
-
-2、使用`@Controller`、`@Service`、`@Repository`、`@Component` 注解标注该类，然后启用`@ComponentScan`自动扫描
-
-3、使用`@Import` 方法。使用@Import注解把bean导入到当前容器中，代码如下：
+@Configuration用来声明一个配置类，然后使用 @Bean 注解，用于声明一个bean，将其加入到Spring容器中。
 
 ```java
-//@SpringBootApplication
+@Configuration
+public class MyConfiguration {
+    @Bean
+    public Person person() {
+        Person person = new Person();
+        person.setName("大彬");
+        return person;
+    }
+}
+```
+
+2、通过包扫描特定注解的方式
+
+@ComponentScan放置在我们的配置类上，然后可以指定一个路径，进行扫描带有特定注解的bean，然后加至容器中。
+
+特定注解包括@Controller、@Service、@Repository、@Component
+
+```java
+@Component
+public class Person {
+    //...
+}
+ 
+@ComponentScan(basePackages = "com.dabin.test.*")
+public class Demo1 {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Demo1.class);
+        Person bean = applicationContext.getBean(Person.class);
+        System.out.println(bean);
+    }
+}
+```
+
+3、@Import注解导入
+
+@Import注解平时开发用的不多，但是也是非常重要的，在进行Spring扩展时经常会用到，它经常搭配自定义注解进行使用，然后往容器中导入一个配置文件。
+
+```java
 @ComponentScan
 /*把用到的资源导入到当前容器中*/
-@Import({Dog.class, Cat.class})
+@Import({Person.class})
 public class App {
     public static void main(String[] args) throws Exception {
         ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
-        System.out.println(context.getBean(Dog.class));
-        System.out.println(context.getBean(Cat.class));
+        System.out.println(context.getBean(Person.class));
         context.close();
+    }
+}
+```
+
+4、实现BeanDefinitionRegistryPostProcessor进行后置处理。
+
+在Spring容器启动的时候会执行 BeanDefinitionRegistryPostProcessor 的 postProcessBeanDefinitionRegistry 方法，就是等beanDefinition加载完毕之后，对beanDefinition进行后置处理，可以在此进行调整IOC容器中的beanDefinition，从而干扰到后面进行初始化bean。
+
+在下面的代码中，我们手动向beanDefinitionRegistry中注册了person的BeanDefinition。最终成功将person加入到applicationContext中。
+
+```java
+public class Demo1 {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext();
+        MyBeanDefinitionRegistryPostProcessor beanDefinitionRegistryPostProcessor = new MyBeanDefinitionRegistryPostProcessor();
+        applicationContext.addBeanFactoryPostProcessor(beanDefinitionRegistryPostProcessor);
+        applicationContext.refresh();
+        Person bean = applicationContext.getBean(Person.class);
+        System.out.println(bean);
+    }
+}
+ 
+class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor {
+    @Override
+    public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
+        AbstractBeanDefinition beanDefinition = BeanDefinitionBuilder.rootBeanDefinition(Person.class).getBeanDefinition();
+        registry.registerBeanDefinition("person", beanDefinition);
+    }
+    
+    @Override
+    public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
+    }
+}
+```
+
+5、使用FactoryBean接口
+
+如下图代码，使用@Configuration + @Bean的方式将 PersonFactoryBean 加入到容器中，这里没有向容器中直接注入 Person，而是注入 PersonFactoryBean，然后从容器中拿Person这个类型的bean。
+
+```java
+@Configuration
+public class Demo1 {
+    @Bean
+    public PersonFactoryBean personFactoryBean() {
+        return new PersonFactoryBean();
+    }
+ 
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(Demo1.class);
+        Person bean = applicationContext.getBean(Person.class);
+        System.out.println(bean);
+    }
+}
+ 
+class PersonFactoryBean implements FactoryBean<Person> {
+    @Override
+    public Person getObject() throws Exception {
+        return new Person();
+    }
+
+    @Override
+    public Class<?> getObjectType() {
+        return Person.class;
     }
 }
 ```
@@ -347,7 +442,7 @@ Spring的自动装配有三种模式：**byType**(根据类型)，**byName**(根
 
 ## @Autowired和@Resource的区别？
 
-默认情况下@Autowired是按类型匹配的(byType)。如果需要按名称(byName)匹配的话，可以使用@Qualifier注解与@Autowired结合。@Autowired 可以传递一个`required=false`的属性，false指明当userDao实例存在就注入不存就忽略，如果为true，就必须注入，若userDao实例不存在，就抛出异常。
+Autowire是spring的注解。默认情况下@Autowired是按类型匹配的(byType)。如果需要按名称(byName)匹配的话，可以使用@Qualifier注解与@Autowired结合。@Autowired 可以传递一个`required=false`的属性，false指明当userDao实例存在就注入不存就忽略，如果为true，就必须注入，若userDao实例不存在，就抛出异常。
 
 ```java
 public class UserServiceImpl implements UserService {
@@ -358,7 +453,7 @@ public class UserServiceImpl implements UserService {
  }
 ```
 
-@Resource，默认按 byName模式自动注入。@Resource有两个中重要的属性：name和type。Spring容器对于@Resource注解的name属性解析为bean的名字，type属性则解析为bean的类型。因此使用name属性，则按byName模式的自动注入策略，如果使用type属性则按 byType模式自动注入策略。倘若既不指定name也不指定type属性，Spring容器将通过反射技术默认按byName模式注入。
+Resource是j2ee的注解，默认按 byName模式自动注入。@Resource有两个中重要的属性：name和type。name属性指定bean的名字，type属性则指定bean的类型。因此使用name属性，则按byName模式的自动注入策略，如果使用type属性，则按 byType模式自动注入策略。倘若既不指定name也不指定type属性，Spring容器将通过反射技术默认按byName模式注入。
 
 ```java
 @Resource(name="userDao")
@@ -371,9 +466,11 @@ public void setUserDao(UserDao userDao) {
 }
 ```
 
-上述两种自动装配的依赖注入并不适合简单值类型，如int、boolean、long、String以及Enum等，对于这些类型，Spring容器也提供了@Value注入的方式。@Value接收一个String的值，该值指定了将要被注入到内置的java类型属性值，Spring 容器会做好类型转换。一般情况下@Value会与properties文件结合使用。
+上述两种自动装配的依赖注入并不适合简单值类型，如int、boolean、long、String以及Enum等，对于这些类型，Spring容器也提供了@Value注入的方式。
 
-jdbc.properties文件如下：
+@Value和@Autowired、@Resource类似，也是用来对属性进行注入的，只不过@Value是用来从Properties文件中来获取值的，并且@Value可以解析SpEL(Spring表达式)。
+
+比如，jdbc.properties文件如下：
 
 ```properties
 jdbc.driver=com.mysql.jdbc.Driver
@@ -478,7 +575,97 @@ public class WebSocketConfig {
 
 使用`PROPAGATION_NESTED`时，外层事务的回滚可以引起内层事务的回滚。而内层事务的异常并不会导致外层事务的回滚，它是一个真正的嵌套事务。
 
+## Spring事务在什么情况下会失效？
 
+**1.访问权限问题**
+
+java的访问权限主要有四种：private、default、protected、public，它们的权限从左到右，依次变大。
+
+如果事务方法的访问权限不是定义成public，这样会导致事务失效，因为spring要求被代理方法必须是`public`的。
+
+翻开源码，可以看到，在`AbstractFallbackTransactionAttributeSource`类的`computeTransactionAttribute`方法中有个判断，如果目标方法不是public，则返回null，即不支持事务。
+
+```java
+protected TransactionAttribute computeTransactionAttribute(Method method, @Nullable Class<?> targetClass) {
+    // Don't allow no-public methods as required.
+    if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
+      return null;
+    }
+	...
+}
+```
+
+**2. 方法用final修饰**
+
+如果事务方法用final修饰，将会导致事务失效。因为spring事务底层使用了aop，也就是通过jdk动态代理或者cglib，帮我们生成了代理类，在代理类中实现的事务功能。
+
+但如果某个方法用final修饰了，那么在它的代理类中，就无法重写该方法，而添加事务功能。
+
+> 同理，如果某个方法是static的，同样无法通过动态代理，变成事务方法。
+
+**3.对象没有被spring管理**
+
+使用spring事务的前提是：对象要被spring管理，需要创建bean实例。如果类没有加@Controller、@Service、@Component、@Repository等注解，即该类没有交给spring去管理，那么它的方法也不会生成事务。
+
+**4.表不支持事务**
+
+如果MySQL使用的存储引擎是myisam，这样的话是不支持事务的。因为myisam存储引擎不支持事务。
+
+**5.方法内部调用**
+
+如下代码所示，update方法上面没有加 `@Transactional` 注解，调用有 `@Transactional` 注解的 updateOrder 方法，updateOrder 方法上的事务会失效。
+
+因为发生了自身调用，调用该类自己的方法，而没有经过 Spring 的代理类，只有在外部调用事务才会生效。
+
+```java
+@Service
+public class OrderServiceImpl implements OrderService {
+
+    public void update(Order order) {
+        this.updateOrder(order);
+    }
+
+    @Transactional
+    public void updateOrder(Order order) {
+        // update order
+    }
+}
+```
+
+解决方法：
+
+1、再声明一个service，将内部调用改为外部调用
+
+2、使用编程式事务
+
+3、使用AopContext.currentProxy()获取代理对象
+
+```java
+@Servcie
+public class OrderServiceImpl implements OrderService {
+    
+   public void update(Order order) {
+        ((OrderService)AopContext.currentProxy()).updateOrder(order);
+   }
+
+    @Transactional
+    public void updateOrder(Order order) {
+        // update order
+    }
+ }
+```
+
+**6.未开启事务**
+
+如果是spring项目，则需要在配置文件中手动配置事务相关参数。如果忘了配置，事务肯定是不会生效的。
+
+如果是springboot项目，那么不需要手动配置。因为springboot已经在`DataSourceTransactionManagerAutoConfiguration`类中帮我们开启了事务。
+
+**7.吞了异常**
+
+有时候事务不会回滚，有可能是在代码中手动catch了异常。因为开发者自己捕获了异常，又没有手动抛出，把异常吞掉了，这种情况下spring事务不会回滚。
+
+如果想要spring事务能够正常回滚，必须抛出它能够处理的异常。如果没有抛异常，则spring认为程序是正常的。
 
 ## Spring怎么解决循环依赖的问题？
 
@@ -583,6 +770,147 @@ Spring的Bean默认都是单例的，某些情况下，单例是并发不安全�
 
 如果还要进一步考虑到微服务或分布式服务的影响，方式3便不合适了。这种情况下可以借助于可以共享某些信息的分布式缓存中间件，如Redis等。这样即可保证同一种服务的不同服务实例都拥有同一份共享信息了。
 
+## @Async注解的原理
+
+当我们调用第三方接口或者方法的时候，我们不需要等待方法返回才去执行其它逻辑，这时如果响应时间过长，就会极大的影响程序的执行效率。所以这时就需要使用异步方法来并行执行我们的逻辑。在springboot中可以使用@Async注解实现异步操作。
+
+使用@Async注解实现异步操作的步骤：
+
+1.首先在启动类上添加 @EnableAsync 注解。
+
+```java
+@Configuration
+@EnableAsync
+public class App {
+    public static void main(String[] args) {
+         ApplicationContext ctx = new  
+             AnnotationConfigApplicationContext(App.class);
+        MyAsync service = ctx.getBean(MyAsync.class);
+        System.out.println(service.getClass());
+        service.async1();
+        System.out.println("main thread finish...");
+    }
+}
+```
+
+2.在对应的方法上添加@Async注解。
+
+```java
+@Component
+public class MyAsync {
+    @Async
+    public void asyncTest() {
+        try {
+            TimeUnit.SECONDS.sleep(20);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("asyncTest...");
+    }
+}
+```
+
+运行代码，控制台输出：
+
+```java
+main thread finish...
+asyncTest...
+```
+
+证明asyncTest方法异步执行了。
+
+原理：
+
+我们在主启动类上贴了一个@EnableAsync注解，才能使用@Async生效。@EnableAsync的作用是通过@import导入了AsyncConfigurationSelector。在AsyncConfigurationSelector的selectImports方法将ProxyAsyncConfiguration定义为Bean注入容器。在ProxyAsyncConfiguration中通过@Bean的方式注入AsyncAnnotationBeanPostProcessor类。
+
+![](http://img.dabin-coder.cn/image/20220628224208.png)
+
+代码如下：
+
+```java
+@Import(AsyncConfigurationSelector.class)
+public @interface EnableAsync {
+}
+
+public class AsyncConfigurationSelector extends AdviceModeImportSelector<EnableAsync> {
+	public String[] selectImports(AdviceMode adviceMode) {
+		switch (adviceMode) {
+			case PROXY:
+				return new String[] { ProxyAsyncConfiguration.class.getName() };
+			//...
+		}
+	}
+}
+
+public class ProxyAsyncConfiguration extends AbstractAsyncConfiguration {
+    @Bean(name = TaskManagementConfigUtils.ASYNC_ANNOTATION_PROCESSOR_BEAN_NAME)
+    public AsyncAnnotationBeanPostProcessor asyncAdvisor() {
+        //创建postProcessor
+        AsyncAnnotationBeanPostProcessor bpp = new AsyncAnnotationBeanPostProcessor();
+        //...
+    }
+}
+```
+
+AsyncAnnotationBeanPostProcessor往往期创建了一个增强器AsyncAnnotationAdvisor。在AsyncAnnotationAdvisor的buildAdvice方法中，创建了AnnotationAsyncExecutionInterceptor。
+
+```java
+public class AsyncAnnotationBeanPostProcessor extends AbstractBeanFactoryAwareAdvisingPostProcessor {
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) {
+        super.setBeanFactory(beanFactory);
+        //创建一个增强器
+        AsyncAnnotationAdvisor advisor = new AsyncAnnotationAdvisor(this.executor, this.exceptionHandler);
+        //...
+        advisor.setBeanFactory(beanFactory);
+        this.advisor = advisor;
+    }
+}
 
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/20220612101342.png)
+public class AsyncAnnotationAdvisor extends AbstractPointcutAdvisor implements BeanFactoryAware {
+    public AsyncAnnotationAdvisor(
+            @Nullable Supplier<Executor> executor, @Nullable Supplier<AsyncUncaughtExceptionHandler> exceptionHandler) {
+        //增强方法
+        this.advice = buildAdvice(executor, exceptionHandler);
+        this.pointcut = buildPointcut(asyncAnnotationTypes);
+    }
+
+    // 委托给AnnotationAsyncExecutionInterceptor拦截器
+    protected Advice buildAdvice(
+            @Nullable Supplier<Executor> executor, @Nullable Supplier<AsyncUncaughtExceptionHandler> exceptionHandler) {
+        //拦截器
+        AnnotationAsyncExecutionInterceptor interceptor = new AnnotationAsyncExecutionInterceptor(null);
+        interceptor.configure(executor, exceptionHandler);
+        return interceptor;
+    }
+}
+```
+
+AnnotationAsyncExecutionInterceptor继承自AsyncExecutionInterceptor，间接实现了MethodInterceptor。该拦截器的实现的invoke方法把原来方法的调用提交到新的线程池执行，从而实现了方法的异步。
+
+```java
+public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport implements MethodInterceptor, Ordered {
+    public Object invoke(final MethodInvocation invocation) throws Throwable {
+        //...
+        //构建放到AsyncTaskExecutor执行Callable Task
+        Callable<Object> task = () -> {
+            //...
+        };
+        //提交到新的线程池执行
+        return doSubmit(task, executor, invocation.getMethod().getReturnType());
+    }
+}
+```
+
+由上面分析可以看到，@Async注解其实是通过代理的方式来实现异步调用的。
+
+那使用@Async有什么要注意的呢？
+
+1.使用@Aysnc的时候最好配置一个线程池Executor以让线程复用节省资源，或者为SimpleAsyncTaskExecutor设置基于线程池实现的ThreadFactory，在否则会默认使用SimpleAsyncTaskExecutor，该executor会在每次调用时新建一个线程。
+
+2.调用本类的异步方法是不会起作用的。这种方式绕过了代理而直接调用了方法，@Async注解会失效。
+
+
+
+![](http://img.dabin-coder.cn/image/20220612101342.png)

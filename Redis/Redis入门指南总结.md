@@ -428,7 +428,7 @@ ziplist是 Redis 为了节约内存而开发的， 由一系列特殊编码的�
 - 最底层的链表包含所有的元素
 - 跳跃表的查找次数近似于层数，时间复杂度为O(logn)，插入、删除也为 O(logn)
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/redis-skiplist.png)
+![](http://img.dabin-coder.cn/image/redis-skiplist.png)
 
 #### 对象
 
@@ -470,7 +470,7 @@ hash类型内部编码有两种：
 
 Redis3.2版本提供了quicklist内部编码，简单地说它是以一个ziplist为节点的linkedlist，它结合了ziplist和linkedlist两者的优势，为列表类型提供了一种更为优秀的内部编码实现。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/list-api.png)
+![](http://img.dabin-coder.cn/image/list-api.png)
 
 使用场景：
 
@@ -555,7 +555,7 @@ GET #返回文章ID。
 
 3. EXEC命令进行提交事务
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/redis-multi.jpg)
+![](http://img.dabin-coder.cn/image/redis-multi.jpg)
 
 DISCARD：放弃事务，即该事务内的所有命令都将取消
 
@@ -578,7 +578,7 @@ QUEUED
 
 事务里的命令执行时会读取最新的值：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/redis-transaction.png)
+![](http://img.dabin-coder.cn/image/redis-transaction.png)
 
 ### WATCH命令
 
@@ -725,7 +725,7 @@ SLAVEOF NO ONE //停止接收其他数据库的同步并转化为主数据库。
 5. 同步数据集。第一次同步的时候，从数据库启动后会向主数据库发送SYNC命令。主数据库接收到命令后开始在后台保存快照（RDB持久化过程），并将保存快照过程接收到的命令缓存起来。当快照完成后，Redis会将快照文件和缓存的命令发送到从数据库。从数据库接收到后，会载入快照文件并执行缓存的命令。以上过程称为复制初始化。
 6. 复制初始化完成后，主数据库每次收到写命令就会将命令同步给从数据库，从而实现主从数据库数据的一致性。
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/redis-replication.png)
+![](http://img.dabin-coder.cn/image/redis-replication.png)
 
 Redis在2.8及以上版本使用psync命令完成主从数据同步，同步过程分为：全量复制和部分复制。
 
@@ -857,7 +857,7 @@ redis 127.0.0.1:6379> EVALSHA "232fd51614574cf0867b83d384a5e898cfd24e5a" 0
 
 使用evalsha执行Lua脚本过程如下：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/evalsha.png)
+![](http://img.dabin-coder.cn/image/evalsha.png)
 
 ### lua脚本作用
 
@@ -1000,7 +1000,7 @@ public void write(String key,Object data){
 
 解决方法：
 
-![](https://raw.githubusercontent.com/Tyson0314/img/master/image-20210913235221410.png)
+![](http://img.dabin-coder.cn/image/image-20210913235221410.png)
 
 > 图片来源：https://tech.it168.com
 
