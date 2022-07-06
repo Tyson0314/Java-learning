@@ -272,7 +272,7 @@ Spring 将会在应用启动时创建 `SqlSessionFactory`，并使用 `sqlSessio
 
 ## Bean注入容器有哪些方式？
 
-1、@Configuration + @Bean
+1、**@Configuration + @Bean**
 
 @Configuration用来声明一个配置类，然后使用 @Bean 注解，用于声明一个bean，将其加入到Spring容器中。
 
@@ -288,7 +288,7 @@ public class MyConfiguration {
 }
 ```
 
-2、通过包扫描特定注解的方式
+2、**通过包扫描特定注解的方式**
 
 @ComponentScan放置在我们的配置类上，然后可以指定一个路径，进行扫描带有特定注解的bean，然后加至容器中。
 
@@ -310,7 +310,7 @@ public class Demo1 {
 }
 ```
 
-3、@Import注解导入
+3、**@Import注解导入**
 
 @Import注解平时开发用的不多，但是也是非常重要的，在进行Spring扩展时经常会用到，它经常搭配自定义注解进行使用，然后往容器中导入一个配置文件。
 
@@ -327,7 +327,7 @@ public class App {
 }
 ```
 
-4、实现BeanDefinitionRegistryPostProcessor进行后置处理。
+4、**实现BeanDefinitionRegistryPostProcessor进行后置处理。**
 
 在Spring容器启动的时候会执行 BeanDefinitionRegistryPostProcessor 的 postProcessBeanDefinitionRegistry 方法，就是等beanDefinition加载完毕之后，对beanDefinition进行后置处理，可以在此进行调整IOC容器中的beanDefinition，从而干扰到后面进行初始化bean。
 
@@ -358,7 +358,7 @@ class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPos
 }
 ```
 
-5、使用FactoryBean接口
+5、**使用FactoryBean接口**
 
 如下图代码，使用@Configuration + @Bean的方式将 PersonFactoryBean 加入到容器中，这里没有向容器中直接注入 Person，而是注入 PersonFactoryBean，然后从容器中拿Person这个类型的bean。
 
@@ -910,6 +910,8 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport imple
 1.使用@Aysnc的时候最好配置一个线程池Executor以让线程复用节省资源，或者为SimpleAsyncTaskExecutor设置基于线程池实现的ThreadFactory，在否则会默认使用SimpleAsyncTaskExecutor，该executor会在每次调用时新建一个线程。
 
 2.调用本类的异步方法是不会起作用的。这种方式绕过了代理而直接调用了方法，@Async注解会失效。
+
+
 
 
 
