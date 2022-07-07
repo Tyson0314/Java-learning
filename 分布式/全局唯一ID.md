@@ -4,7 +4,7 @@
 
 如上图，如果第一个订单存储在 DB1 上则订单 ID 为1，当一个新订单又入库了存储在 DB2 上订单 ID 也为1。我们系统的架构虽然是分布式的，但是在用户层应是无感知的，重复的订单主键显而易见是不被允许的。那么针对分布式系统如何做到主键唯一性呢？
 
-# UUID
+## UUID
 
 UUID （Universally Unique Identifier），通用唯一识别码的缩写。UUID是由一组32位数的16进制数字所构成，所以UUID理论上的总数为 1632=2128，约等于 3.4 x 10^38。也就是说若每纳秒产生1兆个UUID，要花100亿年才会将所有UUID用完。
 
@@ -52,7 +52,7 @@ public static void main(String[] args) {
 - 信息不安全：基于MAC地址生成UUID的算法可能会造成MAC地址泄露，暴露使用者的位置。
 - 对MySQL索引不利：如果作为数据库主键，在InnoDB引擎下，UUID的无序性可能会引起数据位置频繁变动，严重影响性能，可以查阅 Mysql 索引原理 B+树的知识。
 
-# 数据库生成
+## 数据库生成
 
 是不是一定要基于外界的条件才能满足分布式唯一ID的需求呢，我们能不能在我们分布式数据库的基础上获取我们需要的ID？
 
@@ -71,7 +71,7 @@ public static void main(String[] args) {
 
 但是缺点也很明显，首先它强依赖DB，当DB异常时整个系统不可用。虽然配置主从复制可以尽可能的增加可用性，但是数据一致性在特殊情况下难以保证。主从切换时的不一致可能会导致重复发号。还有就是ID发号性能瓶颈限制在单台MySQL的读写性能。
 
-# 使用redis实现
+## 使用redis实现
 
 Redis实现分布式唯一ID主要是通过提供像 *INCR* 和 *INCRBY* 这样的自增原子命令，由于Redis自身的单线程的特点所以能保证生成的 ID 肯定是唯一有序的。
 
@@ -83,7 +83,7 @@ Redis 实现分布式全局唯一ID，它的性能比较高，生成的数据是
 
 当然现在Redis的使用性很普遍，所以如果其他业务已经引进了Redis集群，则可以资源利用考虑使用Redis来实现。
 
-# 雪花算法-Snowflake
+## 雪花算法-Snowflake
 
 Snowflake，雪花算法是由Twitter开源的分布式ID生成算法，以划分命名空间的方式将 64-bit位分割成多个部分，每个部分代表不同的含义。而 Java中64bit的整数是Long类型，所以在 Java 中 SnowFlake 算法生成的 ID 就是 long 来存储的。
 
@@ -290,7 +290,7 @@ public static void main(String[] args) {
 
 很多其他类雪花算法也是在此思想上的设计然后改进规避它的缺陷，后面介绍的百度 UidGenerator 和 美团分布式ID生成系统 Leaf 中snowflake模式都是在 snowflake 的基础上演进出来的。
 
-# 百度-UidGenerator
+## 百度-UidGenerator
 
 [百度的 UidGenerator](https://github.com/baidu/uid-generator) 是百度开源基于Java语言实现的唯一ID生成器，是在雪花算法 snowflake 的基础上做了一些改进。UidGenerator以组件形式工作在应用项目中, 支持自定义workerId位数和初始化策略，适用于docker等虚拟化环境下实例自动重启、漂移等场景。
 
@@ -323,7 +323,7 @@ PRIMARY KEY(ID)
  COMMENT='DB WorkerID Assigner for UID Generator',ENGINE = INNODB;
 ```
 
-## DefaultUidGenerator 实现
+### DefaultUidGenerator 实现
 
 DefaultUidGenerator 就是正常的根据时间戳和机器位还有序列号的生成方式，和雪花算法很相似，对于时钟回拨也只是抛异常处理。仅有一些不同，如以秒为为单位而不再是毫秒和支持Docker等虚拟化环境。
 
@@ -371,7 +371,7 @@ protected synchronized long nextId() {
 </bean>
 ```
 
-## CachedUidGenerator 实现
+### CachedUidGenerator 实现
 
 而官方建议的性能较高的 CachedUidGenerator 生成方式，是使用 RingBuffer 缓存生成的id。数组每个元素成为一个slot。RingBuffer容量，默认为Snowflake算法中sequence最大值（2^13 = 8192）。可通过 boostPower 配置进行扩容，以提高 RingBuffer 读写吞吐量。
 
@@ -382,13 +382,13 @@ Tail指针、Cursor指针用于环形数组上读写slot：
 - Cursor指针
   表示Consumer消费到的最小序号(序号序列与Producer序列相同)。Cursor不能超过Tail，即不能消费未生产的slot。当Cursor已赶上tail，此时可通过rejectedTakeBufferHandler指定TakeRejectPolicy
 
-[![img](https://img2018.cnblogs.com/blog/1162587/201907/1162587-20190707142503899-1530677221.png)](https://img2018.cnblogs.com/blog/1162587/201907/1162587-20190707142503899-1530677221.png)
+![](http://img.dabin-coder.cn/image/20220706225625.png)
 
 CachedUidGenerator采用了双RingBuffer，Uid-RingBuffer用于存储Uid、Flag-RingBuffer用于存储Uid状态(是否可填充、是否可消费)。
 
 由于数组元素在内存中是连续分配的，可最大程度利用CPU cache以提升性能。但同时会带来「伪共享」FalseSharing问题，为此在Tail、Cursor指针、Flag-RingBuffer中采用了CacheLine 补齐方式。
 
-[![img](https://img2018.cnblogs.com/blog/1162587/201907/1162587-20190707142450492-1894906450.png)](https://img2018.cnblogs.com/blog/1162587/201907/1162587-20190707142450492-1894906450.png)
+![](http://img.dabin-coder.cn/image/20220706225530.png)
 
 RingBuffer填充时机
 
@@ -399,13 +399,13 @@ RingBuffer填充时机
 - 周期填充
   通过Schedule线程，定时补全空闲slots。可通过scheduleInterval配置，以应用定时填充功能，并指定Schedule时间间隔。
 
-# 美团Leaf
+## 美团Leaf
 
 Leaf是美团基础研发平台推出的一个分布式ID生成服务，名字取自德国哲学家、数学家莱布尼茨的著名的一句话：“There are no two identical leaves in the world”，世间不可能存在两片相同的叶子。
 
 Leaf 也提供了两种ID生成的方式，分别是 Leaf-segment 数据库方案和 Leaf-snowflake 方案。
 
-## Leaf-segment 数据库方案
+### Leaf-segment 数据库方案
 
 Leaf-segment 数据库方案，是在上文描述的在使用数据库的方案上，做了如下改变：
 
@@ -444,7 +444,7 @@ CREATE TABLE `leaf_alloc` (
 
 对于这种方案依然存在一些问题，它仍然依赖 DB的稳定性，需要采用主从备份的方式提高 DB的可用性，还有 Leaf-segment方案生成的ID是趋势递增的，这样ID号是可被计算的，例如订单ID生成场景，通过订单id号相减就能大致计算出公司一天的订单量，这个是不能忍受的。
 
-## Leaf-snowflake方案
+### Leaf-snowflake方案
 
 Leaf-snowflake方案完全沿用 snowflake 方案的bit位设计，对于workerID的分配引入了Zookeeper持久顺序节点的特性自动对snowflake节点配置 wokerID。避免了服务规模较大时，动手配置成本太高的问题。
 
@@ -466,7 +466,7 @@ Leaf-snowflake是按照下面几个步骤启动的：
 
 在性能上官方提供的数据目前 Leaf 的性能在4C8G 的机器上QPS能压测到近5w/s，TP999 1ms。
 
-# 总结
+## 总结
 
 以上基本列出了所有常用的分布式ID生成方式，其实大致分类的话可以分为两类：
 
