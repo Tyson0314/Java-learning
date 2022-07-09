@@ -184,7 +184,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 ## Bean的生命周期
 
-![](http://img.dabin-coder.cn/image/bean生命周期.png)
+![](http://img.dabin-coder.cn/image/20220709213529.png)
 
 1.调用bean的构造方法创建Bean
 
@@ -194,17 +194,17 @@ finishBeanFactoryInitialization(beanFactory);
 
 4.如果Bean实现了`BeanFactoryAware`接口，Spring将调用`setBeanFactory()`把bean factory设置给Bean
 
-5.如果Bean实现了`ApplicationContextAware`接口，Spring容器将调用`setApplicationContext()`给Bean设置ApplictionContext
+5.如果存在`BeanPostProcessor`，Spring将调用它们的`postProcessBeforeInitialization`（预初始化）方法，在Bean初始化前对其进行处理
 
-6.如果存在`BeanPostProcessor`，Spring将调用它们的`postProcessBeforeInitialization`（预初始化）方法，在Bean初始化前对其进行处理
+6.如果Bean实现了`InitializingBean`接口，Spring将调用它的`afterPropertiesSet`方法，然后调用xml定义的 init-method 方法，两个方法作用类似，都是在初始化 bean 的时候执行
 
-7.如果Bean实现了`InitializingBean`接口，Spring将调用它的`afterPropertiesSet`方法，然后调用xml定义的 init-method 方法，两个方法作用类似，都是在初始化 bean 的时候执行
+7.如果存在`BeanPostProcessor`，Spring将调用它们的`postProcessAfterInitialization`（后初始化）方法，在Bean初始化后对其进行处理
 
-8.如果存在`BeanPostProcessor`，Spring将调用它们的`postProcessAfterInitialization`（后初始化）方法，在Bean初始化后对其进行处理
+8.Bean初始化完成，供应用使用，这里分两种情况：
 
-9.Bean初始化完成，供应用使用，直到应用被销毁
+8.1 如果Bean为单例的话，那么容器会返回Bean给用户，并存入缓存池。如果Bean实现了`DisposableBean`接口，Spring将调用它的`destory`方法，然后调用在xml中定义的 `destory-method`方法，这两个方法作用类似，都是在Bean实例销毁前执行。
 
-10.如果Bean实现了`DisposableBean`接口，Spring将调用它的`destory`方法，然后调用在xml中定义的 `destory-method`方法，这两个方法作用类似，都是在Bean实例销毁前执行
+8.2 如果Bean是多例的话，容器将Bean返回给用户，剩下的生命周期由用户控制。
 
 ```java
 public interface BeanPostProcessor {
