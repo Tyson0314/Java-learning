@@ -1,3 +1,5 @@
+![](http://img.dabin-coder.cn/image/MySQL知识点总结.jpg)
+
 ## 事务的四大特性？
 
 **事务特性ACID**：**原子性**（`Atomicity`）、**一致性**（`Consistency`）、**隔离性**（`Isolation`）、**持久性**（`Durability`）。

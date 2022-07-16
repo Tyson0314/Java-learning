@@ -1,3 +1,5 @@
+![](http://img.dabin-coder.cn/image/Redis知识点.jpg)
+
 ## Redis是什么？
 
 Redis（`Remote Dictionary Server`）是一个使用 C 语言编写的，高性能非关系型的键值对数据库。与传统数据库不同的是，Redis 的数据是存在内存中的，所以读写速度非常快，被广泛应用于缓存方向。Redis可以将数据写入磁盘中，保证了数据的安全不丢失，而且Redis的操作是原子性的。

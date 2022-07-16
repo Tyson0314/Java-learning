@@ -1,3 +1,5 @@
+![](http://img.dabin-coder.cn/image/并发与多线程知识点总结.jpg)
+
 ## 线程池
 
 线程池：一个管理线程的池子。

@@ -1,3 +1,5 @@
+![](http://img.dabin-coder.cn/image/Java基础.jpg)
+
 ## Java的特点
 
 **Java是一门面向对象的编程语言**。面向对象和面向过程的区别参考下一个问题。

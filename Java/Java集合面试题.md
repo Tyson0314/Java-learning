@@ -1,3 +1,5 @@
+![](http://img.dabin-coder.cn/image/Java集合.jpg)
+
 ## 常见的集合有哪些？
 
 Java集合类主要由两个接口**Collection**和**Map**派生出来的，Collection有三个子接口：List、Set、Queue。
