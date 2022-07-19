@@ -22,6 +22,16 @@ starter提供了一个自动化配置类，一般命名为 XXXAutoConfiguration 
 3.  spring-boot-starter-data-Redis ：提供 Redis 。
 4. mybatis-spring-boot-starter ：提供 MyBatis 。
 
+## Spring Boot 的核心注解是哪个？
+
+启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：
+
+- @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。
+
+- @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能： @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })。
+
+- @ComponentScan：Spring组件扫描。
+
 ## 自动配置原理
 
 SpringBoot实现自动配置原理图解：
@@ -291,9 +301,58 @@ public class SpringbootDemoApplication {
 hello.msg=大彬
 ```
 
-## @Value原理
+## @Value注解的原理
 
 @Value的解析就是在bean初始化阶段。BeanPostProcessor定义了bean初始化前后用户可以对bean进行操作的接口方法，它的一个重要实现类`AutowiredAnnotationBeanPostProcessor`为bean中的@Autowired和@Value注解的注入功能提供支持。
+
+## Spring Boot 需要独立的容器运行吗？
+
+不需要，内置了 Tomcat/ Jetty 等容器。
+
+## Spring Boot 支持哪些日志框架？
+
+Spring Boot 支持 Java Util Logging, Log4j2, Lockback 作为日志框架，如果你使用 Starters 启动器，Spring Boot 将使用 Logback 作为默认日志框架，但是不管是那种日志框架他都支持将配置文件输出到控制台或者文件中。
+
+## YAML 配置的优势在哪里 ?
+
+YAML 配置和传统的 properties 配置相比之下，有这些优势：
+
+- 配置有序
+- 简洁明了，支持数组，数组中的元素可以是基本数据类型也可以是对象
+
+缺点就是不支持 @PropertySource 注解导入自定义的 YAML 配置。
+
+## 什么是 Spring Profiles？
+
+在项目的开发中，有些配置文件在开发、测试或者生产等不同环境中可能是不同的，例如数据库连接、redis的配置等等。那我们如何在不同环境中自动实现配置的切换呢？Spring给我们提供了profiles机制给我们提供的就是来回切换配置文件的功能
+
+Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注册 bean。因此，当应用程序在开发中运行时，只有某些 bean 可以加载，而在 PRODUCTION中，某些其他 bean 可以加载。假设我们的要求是 Swagger 文档仅适用于 QA 环境，并且禁用所有其他文档。这可以使用配置文件来完成。Spring Boot 使得使用配置文件非常简单。
+
+## SpringBoot多数据源事务如何管理
+
+第一种方式是在service层的@TransactionManager中使用transactionManager指定DataSourceConfig中配置的事务。
+
+第二种是使用jta-atomikos实现分布式事务管理。
+
+## spring-boot-starter-parent 有什么用 ?
+
+新创建一个 Spring Boot 项目，默认都是有 parent 的，这个 parent 就是 spring-boot-starter-parent ，spring-boot-starter-parent 主要有如下作用：
+
+1. 定义了 Java 编译版本。
+2. 使用 UTF-8 格式编码。
+3. 执行打包操作的配置。
+4. 自动化的资源过滤。
+5. 自动化的插件配置。
+6. 针对 application.properties 和 application.yml 的资源过滤，包括通过 profile 定义的不同环境的配置文件，例如 application-dev.properties 和 application-dev.yml。
+
+## Spring Boot 打成的 jar 和普通的 jar 有什么区别 ?
+
+- Spring Boot 项目最终打包成的 jar 是可执行 jar ，这种 jar 可以直接通过 `java -jar xxx.jar` 命令来运行，这种 jar 不可以作为普通的 jar 被其他项目依赖，即使依赖了也无法使用其中的类。
+- Spring Boot 的 jar 无法被其他项目依赖，主要还是他和普通 jar 的结构不同。普通的 jar 包，解压后直接就是包名，包里就是我们的代码，而 Spring Boot 打包成的可执行 jar 解压后，在 `\BOOT-INF\classes` 目录下才是我们的代码，因此无法被直接引用。如果非要引用，可以在 pom.xml 文件中增加配置，将 Spring Boot 项目打包成两个 jar ，一个可执行，一个可引用。
+
+## SpringBoot多数据源拆分的思路
+
+先在properties配置文件中配置两个数据源，创建分包mapper，使用@ConfigurationProperties读取properties中的配置，使用@MapperScan注册到对应的mapper包中 。
 
 
 

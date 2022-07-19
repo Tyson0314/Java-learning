@@ -126,7 +126,7 @@ return h&(length-1);  //第三步 取模运算
 
 在JDK1.8的实现中，优化了高位运算的算法，通过`hashCode()`的高16位异或低16位实现的：这么做可以在数组比较小的时候，也能保证考虑到高低位都参与到Hash的计算中，可以减少冲突，同时不会有太大的开销。
 
-## 为什么建议设置HashMap的容量？
+### 为什么建议设置HashMap的容量？
 
 HashMap有扩容机制，就是当达到扩容条件时会进行扩容。扩容条件就是当HashMap中的元素个数超过临界值时就会自动扩容（threshold = loadFactor * capacity）。
 
@@ -149,7 +149,7 @@ HashMap有扩容机制，就是当达到扩容条件时会进行扩容。扩容�
 5. 链表的数量大于阈值8，就要转换成红黑树的结构
 6. 添加成功后会检查是否需要扩容
 
-![图片来源网络](http://img.dabin-coder.cn/image/hashmap-put.png)
+![](http://img.dabin-coder.cn/image/map_put.png)
 
 ### 红黑树的特点？
 

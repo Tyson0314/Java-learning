@@ -1,82 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [简介](#%E7%AE%80%E4%BB%8B)
-  - [netty 核心组件](#netty-%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6)
-  - [NIO](#nio)
-- [简单的 netty 应用程序](#%E7%AE%80%E5%8D%95%E7%9A%84-netty-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)
-  - [Echo 服务器](#echo-%E6%9C%8D%E5%8A%A1%E5%99%A8)
-    - [ChannelHandler 和业务逻辑](#channelhandler-%E5%92%8C%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91)
-    - [引导服务器](#%E5%BC%95%E5%AF%BC%E6%9C%8D%E5%8A%A1%E5%99%A8)
-  - [Echo 客户端](#echo-%E5%AE%A2%E6%88%B7%E7%AB%AF)
-    - [ChannelHandler](#channelhandler)
-    - [引导客户端](#%E5%BC%95%E5%AF%BC%E5%AE%A2%E6%88%B7%E7%AB%AF)
-  - [构建和运行 Echo 服务器和客户端](#%E6%9E%84%E5%BB%BA%E5%92%8C%E8%BF%90%E8%A1%8C-echo-%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF)
-- [Netty 的组件和设计](#netty-%E7%9A%84%E7%BB%84%E4%BB%B6%E5%92%8C%E8%AE%BE%E8%AE%A1)
-  - [Channel 接口](#channel-%E6%8E%A5%E5%8F%A3)
-  - [EventLoop 接口](#eventloop-%E6%8E%A5%E5%8F%A3)
-  - [ChannelFuture 接口](#channelfuture-%E6%8E%A5%E5%8F%A3)
-  - [ChannelHandler](#channelhandler-1)
-  - [ChannelPipeline](#channelpipeline)
-  - [ChannelInitializer](#channelinitializer)
-  - [引导](#%E5%BC%95%E5%AF%BC)
-- [传输](#%E4%BC%A0%E8%BE%93)
-  - [传输迁移](#%E4%BC%A0%E8%BE%93%E8%BF%81%E7%A7%BB)
-  - [传输 API](#%E4%BC%A0%E8%BE%93-api)
-  - [内置的传输](#%E5%86%85%E7%BD%AE%E7%9A%84%E4%BC%A0%E8%BE%93)
-    - [Epoll](#epoll)
-- [ByteBuf](#bytebuf)
-    - [Upooled 缓冲区](#upooled-%E7%BC%93%E5%86%B2%E5%8C%BA)
-- [ChannelHandler](#channelhandler-2)
-  - [Channel 的生命周期](#channel-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
-  - [ChannelHandler 的生命周期](#channelhandler-%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
-  - [ChannelInboundHandler 接口](#channelinboundhandler-%E6%8E%A5%E5%8F%A3)
-  - [ChannelOutboundHandler 接口](#channeloutboundhandler-%E6%8E%A5%E5%8F%A3)
-  - [ChannelHandlerAdapter](#channelhandleradapter)
-  - [资源管理](#%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86)
-- [ChannelPipeline 接口](#channelpipeline-%E6%8E%A5%E5%8F%A3)
-  - [修改ChannelPipeline](#%E4%BF%AE%E6%94%B9channelpipeline)
-  - [ChannelHandlerContext 接口](#channelhandlercontext-%E6%8E%A5%E5%8F%A3)
-  - [异常处理](#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
-- [EventLoop 和线程模型](#eventloop-%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B)
-  - [EventLoop 接口](#eventloop-%E6%8E%A5%E5%8F%A3-1)
-  - [任务调度](#%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6)
-  - [实现细节](#%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82)
-- [引导](#%E5%BC%95%E5%AF%BC-1)
-  - [引导客户端](#%E5%BC%95%E5%AF%BC%E5%AE%A2%E6%88%B7%E7%AB%AF-1)
-  - [引导服务器](#%E5%BC%95%E5%AF%BC%E6%9C%8D%E5%8A%A1%E5%99%A8-1)
-  - [在引导过程添加多个 ChannelHandler](#%E5%9C%A8%E5%BC%95%E5%AF%BC%E8%BF%87%E7%A8%8B%E6%B7%BB%E5%8A%A0%E5%A4%9A%E4%B8%AA-channelhandler)
-  - [关闭](#%E5%85%B3%E9%97%AD)
-- [编解码器](#%E7%BC%96%E8%A7%A3%E7%A0%81%E5%99%A8)
-  - [解码器](#%E8%A7%A3%E7%A0%81%E5%99%A8)
-    - [抽象类 ByteToMessageDecoder](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-bytetomessagedecoder)
-    - [抽象类 ReplayingDecoder](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-replayingdecoder)
-    - [抽象类 MessageToMessageDecoder](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-messagetomessagedecoder)
-    - [TooLongFrameException 类](#toolongframeexception-%E7%B1%BB)
-  - [编码器](#%E7%BC%96%E7%A0%81%E5%99%A8)
-    - [抽象类 MessageToByteEncoder](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-messagetobyteencoder)
-    - [抽象类 MessageToMessageEncoder](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-messagetomessageencoder)
-  - [编解码器类](#%E7%BC%96%E8%A7%A3%E7%A0%81%E5%99%A8%E7%B1%BB)
-    - [抽象类 ByteToMessageCodec](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-bytetomessagecodec)
-    - [抽象类 MessageToMessageCodec](#%E6%8A%BD%E8%B1%A1%E7%B1%BB-messagetomessagecodec)
-    - [CombinedChannelDuplexHandler 类](#combinedchannelduplexhandler-%E7%B1%BB)
-- [预置的 ChannelHandler 和编解码器](#%E9%A2%84%E7%BD%AE%E7%9A%84-channelhandler-%E5%92%8C%E7%BC%96%E8%A7%A3%E7%A0%81%E5%99%A8)
-  - [SSL/TLS](#ssltls)
-  - [HTTP/HTTPS 应用程序](#httphttps-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)
-    - [添加 HTTP 支持](#%E6%B7%BB%E5%8A%A0-http-%E6%94%AF%E6%8C%81)
-    - [聚合 HTTP 消息](#%E8%81%9A%E5%90%88-http-%E6%B6%88%E6%81%AF)
-    - [HTTP 压缩](#http-%E5%8E%8B%E7%BC%A9)
-    - [HTTPS](#https)
-    - [WebSocket](#websocket)
-  - [空闲的连接和超时](#%E7%A9%BA%E9%97%B2%E7%9A%84%E8%BF%9E%E6%8E%A5%E5%92%8C%E8%B6%85%E6%97%B6)
-  - [基于分隔符的协议](#%E5%9F%BA%E4%BA%8E%E5%88%86%E9%9A%94%E7%AC%A6%E7%9A%84%E5%8D%8F%E8%AE%AE)
-  - [基于长度的协议](#%E5%9F%BA%E4%BA%8E%E9%95%BF%E5%BA%A6%E7%9A%84%E5%8D%8F%E8%AE%AE)
-  - [写大型数据](#%E5%86%99%E5%A4%A7%E5%9E%8B%E6%95%B0%E6%8D%AE)
-- [ctx.write() 和 channel().write() 的区别](#ctxwrite-%E5%92%8C-channelwrite-%E7%9A%84%E5%8C%BA%E5%88%AB)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
 ## 简介
 
 ### netty 核心组件
@@ -545,7 +466,7 @@ ChannelPipeline 的用于访问ChannelHandler 的操作：
 
 ChannelHandlerContext 代表了ChannelHandler 和ChannelPipeline 之间的关联，每当有ChannelHandler 添加到ChannelPipeline 中时，都会创建ChannelHandlerContext。
 
-![ChannelHandler/ChannelPipeline/ChannelHandlerContext/Channel的关系](https://img2018.cnblogs.com/blog/1252910/201909/1252910-20190912194315417-1954624274.png)
+![](http://img.dabin-coder.cn/image/netty1.png)
 
 | 方法            | 描述                                                       |
 | --------------- | ---------------------------------------------------------- |
@@ -636,7 +557,7 @@ ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
 
 ### 实现细节
 
-![EventLoop执行逻辑](https://img2018.cnblogs.com/blog/1252910/201909/1252910-20190912194501807-1452675286.png)
+![](http://img.dabin-coder.cn/image/netty-eventloop执行逻辑.png)
 
 
 
@@ -654,7 +575,7 @@ BootStrap 类被用于客户端或者使用了无连接协议的应用程序中�
 
 ### 引导服务器
 
-![ServerBoostrap和ServerChannel](https://img2018.cnblogs.com/blog/1252910/201909/1252910-20190912194603147-253748270.png)
+![](http://img.dabin-coder.cn/image/ServerBoostrap和ServerChannel.png)
 
 在基类AbstractBootstrap有handler方法，目的是添加一个handler，监听Bootstrap的动作。
 
@@ -851,7 +772,7 @@ public class CombinedByteCharCodec extends CombinedChannelDuplexHandler<ByteToCh
 
 Java 提供了 javax.net.ssl 支持 SSL/TSL，用以实现数据安全。
 
-![通过sslHandler进行加密和解密的数据流](https://img2018.cnblogs.com/blog/1252910/201909/1252910-20190912194735716-1864410788.png)
+![](http://img.dabin-coder.cn/image/sslhandler加解密.png)
 
 添加 SSL/TLS 支持：
 
@@ -1008,7 +929,7 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
 
 WebSocket 在客户端和服务器之间提供了真正的双向数据交换。
 
-![WebSocket握手](https://img2018.cnblogs.com/blog/1252910/201909/1252910-20190912194009527-799081544.png)
+![](http://img.dabin-coder.cn/image/netty-websocket协议.png)
 
 WebSocketFrame 类型：
 
@@ -1071,7 +992,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 
 用于空闲连接以及超时的 ChannelHandler。
 
-![用于空闲连接以及超时的ChannelHandler](https://img2018.cnblogs.com/blog/1252910/201909/1252910-20190912194117618-854988800.png)
+![](http://img.dabin-coder.cn/image/用于空闲连接以及超时的ChannelHandler.png)
 
 发送心跳：
 

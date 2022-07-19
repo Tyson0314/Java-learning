@@ -44,7 +44,7 @@ Spring MVC的工作原理如下：
 6. 倒序执行所有注册拦截器的postHandler方法
 7. 请求视图解析和视图渲染
 
-![Spring MVC处理流程](https://img-blog.csdnimg.cn/20190125180502787.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1R5c29uMDMxNA==,size_16,color_FFFFFF,t_70)
+![](http://img.dabin-coder.cn/image/spring_mvc原理.png)
 
 ## Spring MVC的主要组件？
 
@@ -62,6 +62,36 @@ Spring MVC的工作原理如下：
 - @RequestBody：注解实现接收 http 请求的 json 数据，将 json 数据转换为 java 对象。
 - @PathVariable：获得URL中路径变量中的值
 - @RestController：@Controller+@ResponseBody
+- @ExceptionHandler标识一个方法为全局异常处理的方法。
+
+## @Controller 注解有什么用？
+
+`@Controller` 注解标记一个类为 Spring Web MVC 控制器。Spring MVC 会将扫描到该注解的类，然后扫描这个类下面带有 `@RequestMapping` 注解的方法，根据注解信息，为这个方法生成一个对应的处理器对象，在上面的 HandlerMapping 和 HandlerAdapter组件中讲到过。
+
+当然，除了添加 `@Controller` 注解这种方式以外，你还可以实现 Spring MVC 提供的 `Controller` 或者 `HttpRequestHandler` 接口，对应的实现类也会被作为一个处理器对象
+
+## @RequestMapping 注解有什么用？
+
+`@RequestMapping` 注解，用于配置处理器的 HTTP 请求方法，URI等信息，这样才能将请求和方法进行映射。这个注解可以作用于类上面，也可以作用于方法上面，在类上面一般是配置这个控制器的 URI 前缀。
+
+## @RestController 和 @Controller 有什么区别？
+
+`@RestController` 注解，在 `@Controller` 基础上，增加了 `@ResponseBody` 注解，更加适合目前前后端分离的架构下，提供 Restful API ，返回 JSON 数据格式。
+
+## @RequestMapping 和 @GetMapping 注解有什么不同？
+
+1. `@RequestMapping`：可注解在类和方法上；`@GetMapping` 仅可注册在方法上
+2. `@RequestMapping`：可进行 GET、POST、PUT、DELETE 等请求方法；`@GetMapping` 是 `@RequestMapping` 的 GET 请求方法的特例。
+
+## @RequestParam 和 @PathVariable 两个注解的区别
+
+两个注解都用于方法参数，获取参数值的方式不同，`@RequestParam` 注解的参数从请求携带的参数中获取，而 `@PathVariable` 注解从请求的 URI 中获取
+
+## @RequestBody和@RequestParam的区别
+
+@RequestBody一般处理的是在ajax请求中声明contentType: "application/json; charset=utf-8"时候。也就是json数据或者xml数据。
+
+@RequestParam一般就是在ajax里面没有声明contentType的时候，为默认的`x-www-form-urlencoded`格式时。
 
 ## Spring MVC的异常处理
 
@@ -78,12 +108,77 @@ Spring MVC的工作原理如下：
 3. 通过ModelMap对象，可以在这个对象里面调用put方法，把对象加到里面，前端就可以通过el表达式拿到；
 4. 绑定数据到 Session中。
 
-## RequestBody和RequestParam的区别
+## SpringMvc的Controller是不是单例模式？
 
-@RequestBody一般处理的是在ajax请求中声明contentType: "application/json; charset=utf-8"时候。也就是json数据或者xml数据。
+单例模式。在多线程访问的时候有线程安全问题，解决方案是在控制器里面不要写可变状态量，如果需要使用这些可变状态，可以使用ThreadLocal，为每个线程单独生成一份变量副本，独立操作，互不影响。
 
-@RequestParam一般就是在ajax里面没有声明contentType的时候，为默认的`x-www-form-urlencoded`格式时。
+## 介绍下 Spring MVC 拦截器？
 
+Spring MVC 拦截器对应HandlerInterceor接口，该接口位于org.springframework.web.servlet的包中，定义了三个方法，若要实现该接口，就要实现其三个方法：
 
+1. **前置处理（preHandle()方法）**：该方法在执行控制器方法之前执行。返回值为Boolean类型，如果返回false，表示拦截请求，不再向下执行，如果返回true，表示放行，程序继续向下执行（如果后面没有其他Interceptor，就会执行controller方法）。所以此方法可对请求进行判断，决定程序是否继续执行，或者进行一些初始化操作及对请求进行预处理。
+2. **后置处理（postHandle()方法）**：该方法在执行控制器方法调用之后，且在返回ModelAndView之前执行。由于该方法会在DispatcherServlet进行返回视图渲染之前被调用，所以此方法多被用于处理返回的视图，可通过此方法对请求域中的模型和视图做进一步的修改。
+3. **已完成处理（afterCompletion()方法）**：该方法在执行完控制器之后执行，由于是在Controller方法执行完毕后执行该方法，所以该方法适合进行一些资源清理，记录日志信息等处理操作。
+
+可以通过拦截器进行权限检验，参数校验，记录日志等操作
+
+## SpringMvc怎么配置拦截器？
+
+有两种写法，一种是实现HandlerInterceptor接口，另外一种是继承适配器类，接着在接口方法当中，实现处理逻辑；然后在SpringMvc的配置文件中配置拦截器即可：
+
+```java
+<!-- 配置SpringMvc的拦截器 -->
+<mvc:interceptors>
+    <bean id="myInterceptor" class="com.dabin.MyHandlerInterceptor"></bean>
+ 
+    <!-- 只拦截部分请求 -->
+    <mvc:interceptor>
+       <mvc:mapping path="/xxx.do" />
+       <bean class="com.dabin.MyHandlerInterceptorAdapter" />
+    </mvc:interceptor>
+</mvc:interceptors>
+```
+
+## Spring MVC 的拦截器和 Filter 过滤器有什么差别？
+
+有以下几点：
+
+- **功能相同**：拦截器和 Filter 都能实现相应的功能
+- **容器不同**：拦截器构建在 Spring MVC 体系中；Filter 构建在 Servlet 容器之上
+- **使用便利性不同**：拦截器提供了三个方法，分别在不同的时机执行；过滤器仅提供一个方法
+
+## 什么是REST?
+
+REST，英文全称，Resource Representational State Transfer，对资源的访问状态的变化通过url的变化表述出来。
+
+Resource：**资源**。资源是REST架构或者说整个网络处理的核心。
+
+Representational：**某种表现形式**，比如用JSON，XML，JPEG等。
+
+State Transfer：**状态变化**。通过HTTP method实现。
+
+REST描述的是在网络中client和server的一种交互形式。用大白话来说，就是**通过URL就知道要什么资源，通过HTTP method就知道要干什么，通过HTTP status code就知道结果如何**。
+
+举个例子：
+
+```java
+GET /tasks 获取所有任务
+POST /tasks 创建新任务
+GET /tasks/{id} 通过任务id获取任务
+PUT /tasks/{id} 更新任务
+DELETE /tasks/{id} 删除任务
+```
+
+GET代表获取一个资源，POST代表添加一个资源，PUT代表修改一个资源，DELETE代表删除一个资源。
+
+server提供的RESTful API中，URL中只使用名词来指定资源，原则上不使用动词。用`HTTP Status Code`传递server的状态信息。比如最常用的 200 表示成功，500 表示Server内部错误等。
+
+## 使用REST有什么优势呢？
+
+第一，**风格统一**了，不会出现`delUser/deleteUser/removeUser`各种命名的代码了。
+
+第二，**面向资源**，一目了然，具有自解释性。
+
+第三，**充分利用 HTTP 协议本身语义**。
 
 ![](http://img.dabin-coder.cn/image/20220612101342.png)

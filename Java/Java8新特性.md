@@ -1,36 +1,3 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [函数式编程](#%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B)
-- [Lambda 表达式](#lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F)
-- [函数式接口](#%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3)
-- [内置的函数式接口](#%E5%86%85%E7%BD%AE%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E6%8E%A5%E5%8F%A3)
-  - [Predicate 断言](#predicate-%E6%96%AD%E8%A8%80)
-  - [Comparator](#comparator)
-  - [Consumer](#consumer)
-- [Stream](#stream)
-  - [Filter 过滤](#filter-%E8%BF%87%E6%BB%A4)
-  - [Sorted 排序](#sorted-%E6%8E%92%E5%BA%8F)
-  - [Map 转换](#map-%E8%BD%AC%E6%8D%A2)
-  - [Match 匹配](#match-%E5%8C%B9%E9%85%8D)
-  - [Count 计数](#count-%E8%AE%A1%E6%95%B0)
-  - [Reduce](#reduce)
-  - [flatMap](#flatmap)
-- [Parallel-Streams](#parallel-streams)
-- [Map 集合](#map-%E9%9B%86%E5%90%88)
-- [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-> 本文已经收录到github仓库，此仓库用于分享Java相关知识总结，包括Java基础、MySQL、Spring Boot、MyBatis、Redis、RabbitMQ等等，欢迎大家提pr和star！
->
-> github地址：https://github.com/Tyson0314/Java-learning
->
-> 如果github访问不了，可以访问gitee仓库。
->
-> gitee地址：https://gitee.com/tysondai/Java-learning
-
 ## 函数式编程
 
 面向对象编程：面向对象的语言，一切皆对象，如果想要调用一个函数，函数必须属于一个类或对象，然后在使用类或对象进行调用。面向对象编程可能需要多写很多重复的代码行。
@@ -46,8 +13,6 @@
 ```
 
 函数式编程：在某些编程语言中，如js、c++，我们可以直接写一个函数，然后在需要的时候进行调用，即函数式编程。
-
-
 
 ## Lambda 表达式
 
@@ -675,11 +640,3 @@ public class MapTest3 {
 `https://juejin.im/post/5c3d7c8a51882525dd591ac7#heading-16`
 
 
-
-最后给大家分享一个github仓库，上面放了**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
-
-github地址：https://github.com/Tyson0314/java-books
-
-如果github访问不了，可以访问gitee仓库。
-
-gitee地址：https://gitee.com/tysondai/java-books

@@ -44,9 +44,9 @@
 
 ## JKD/JRE/JVM三者的关系
 
-### JVM
+**JVM**
 
-**JVM** ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。Java 能够跨平台运行的核心在于 JVM 。
+英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。Java 能够跨平台运行的核心在于 JVM 。
 
 ![](http://img.dabin-coder.cn/image/20220402230447.png)
 
@@ -54,7 +54,7 @@
 
 针对不同的系统有不同的 jvm 实现，有 Linux 版本的 jvm 实现，也有Windows 版本的 jvm 实现，但是同一段代码在编译后的字节码是一样的。这就是Java能够跨平台，实现一次编写，多处运行的原因所在。
 
-### JRE
+**JRE**
 
 英文名称（Java Runtime Environment），就是Java 运行时环境。我们编写的Java程序必须要在JRE才能运行。它主要包含两个部分，JVM 和 Java 核心类库。
 
@@ -64,7 +64,7 @@ JRE是Java的运行环境，并不是一个开发环境，所以没有包含任�
 
 如果你只是想运行Java程序，而不是开发Java程序的话，那么你只需要安装JRE即可。
 
-### JDK
+**JDK**
 
 英文名称（Java Development Kit），就是 Java 开发工具包
 
@@ -78,15 +78,11 @@ JRE是Java的运行环境，并不是一个开发环境，所以没有包含任�
 
 ![](https://cdn.jsdelivr.net/gh/Tyson0314/img/20220404120507.png)
 
-
-
-### 总结
-
 最后，总结一下JDK/JRE/JVM，他们三者的关系
 
-JRE = JVM + Java 核心类库
+**JRE = JVM + Java 核心类库**
 
-JDK = JRE + Java工具 + 编译器 + 调试器
+**JDK = JRE + Java工具 + 编译器 + 调试器**
 
 ![](http://img.dabin-coder.cn/image/20220402230613.png)
 

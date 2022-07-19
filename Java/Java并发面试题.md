@@ -646,15 +646,15 @@ class SeasonThreadTask implements Runnable{
 
 ## 线程间通信方式
 
-### volatile
+**volatile**
 
 **volatile** 使用共享内存实现线程间相互通信。多个线程同时监听一个变量，当这个变量被某一个线程修改的时候，其他线程可以感知到这个变化。
 
-### wait 和 notify
+**wait 和 notify**
 
 `wait/notify`为Object对象的方法，调用`wait/notify`需要先获得对象的锁。对象调用`wait()`之后线程释放锁，将线程放到对象的等待队列，当通知线程调用此对象的`notify()`方法后，等待线程并不会立即从`wait()`返回，需要等待通知线程释放锁（通知线程执行完同步代码块），等待队列里的线程获取锁，获取锁成功才能从`wait()`方法返回，即从`wait()`方法返回前提是线程获得锁。
 
-### join
+**join**
 
 当在一个线程调用另一个线程的`join()`方法时，当前线程阻塞等待被调用join方法的线程执行完毕才能继续执行。`join()`是基于等待通知机制实现的。
 
