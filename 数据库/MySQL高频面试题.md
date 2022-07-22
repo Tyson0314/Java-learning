@@ -142,11 +142,11 @@ utf8 就像是阉割版的utf8mb4，只支持部分字符。比如`emoji`表情�
 
 如果改成`collation=utf8mb4_bin`，就是指**挨个比较二进制位大小**。
 
-于是**"debug"和"Debug"就不是同一个单词。**
+于是**"debug"和"Debug"就不是同一个单词**。
 
 如果改成`collation=utf8mb4_bin`，就是指**挨个比较二进制位大小**。
 
-于是**"debug"和"Debug"就不是同一个单词。**
+于是**"debug"和"Debug"就不是同一个单词**。
 
 **那utf8mb4对比utf8有什么劣势吗？**
 
