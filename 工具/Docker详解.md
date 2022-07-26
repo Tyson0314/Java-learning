@@ -20,7 +20,7 @@ docker的基本命令：
 - docker run：运行image，运行起来后就是docker container。
 - docker pull：到Docker Hub（docker registry）下载别人写好的image。
 
-![](../img/docker/docker.jpg)
+![](http://img.dabin-coder.cn/image/docker.jpg)
 
 > 图片来源：知乎小灰
 
@@ -209,32 +209,32 @@ Docker官方维护了一个DockerHub的公共仓库，里边包含有很多平�
 
 ### 修改镜像存放位置
 
-1. 查看镜像存放位置：
+1、查看镜像存放位置：
 
-   ```
-   docker info | grep "Docker Root Dir"
-    Docker Root Dir: /var/lib/docker
-   ```
+```
+docker info | grep "Docker Root Dir"
+ Docker Root Dir: /var/lib/docker
+```
 
-2. 关闭docker服务：
+2、关闭docker服务：
 
-   ```
-   systemctl stop docker
-   ```
+```
+systemctl stop docker
+```
 
-3. 原镜像目录移动到目标目录：
+3、原镜像目录移动到目标目录：
 
-   ```
-   mv /var/lib/docker /home/data/docker
-   ```
+```
+mv /var/lib/docker /home/data/docker
+```
 
-4. 建立软连接：
+4、建立软连接：
 
-   ```
-   ln -s /home/data/docker /var/lib/docker
-   ```
+```
+ln -s /home/data/docker /var/lib/docker
+```
 
-5. 再次查看镜像存放位置，发现已经修改。
+5、再次查看镜像存放位置，发现已经修改。
 
 ## docker容器常用命令
 
@@ -326,17 +326,17 @@ docker attach container_name/container_id
 
 使用exit退出命令行之后，重新进入容器：
 
-1. 先查询容器id：`docker inspect --format "{{.State.Pid}}" nginx`
+1、先查询容器id：`docker inspect --format "{{.State.Pid}}" nginx`
 
-2. 根据查到的容器id进入容器：`nsenter --target 28487 --mount --uts --ipc --net --pid`
+2、根据查到的容器id进入容器：`nsenter --target 28487 --mount --uts --ipc --net --pid`
 
-   ```
-   [root@VM_0_7_centos ~]# docker inspect --format "{{.State.Pid}}" nginx
-   28487
-   [root@VM_0_7_centos ~]# nsenter --target 28487 --mount --uts --ipc --net --pid
-   mesg: ttyname failed: No such device
-   root@b217a35fc808:/# ls -l
-   ```
+```
+[root@VM_0_7_centos ~]# docker inspect --format "{{.State.Pid}}" nginx
+28487
+[root@VM_0_7_centos ~]# nsenter --target 28487 --mount --uts --ipc --net --pid
+mesg: ttyname failed: No such device
+root@b217a35fc808:/# ls -l
+```
 
 ### 删除容器
 
