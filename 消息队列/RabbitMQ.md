@@ -1,41 +1,10 @@
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-
-
-- [简介](#%E7%AE%80%E4%BB%8B)
-  - [基本概念](#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5)
-  - [什么时候使用MQ](#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BD%BF%E7%94%A8mq)
-  - [优缺点](#%E4%BC%98%E7%BC%BA%E7%82%B9)
-- [Exchange 类型](#exchange-%E7%B1%BB%E5%9E%8B)
-  - [direct](#direct)
-  - [fanout](#fanout)
-  - [topic](#topic)
-  - [headers](#headers)
-- [消息丢失](#%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1)
-  - [生产者确认机制](#%E7%94%9F%E4%BA%A7%E8%80%85%E7%A1%AE%E8%AE%A4%E6%9C%BA%E5%88%B6)
-  - [路由不可达消息](#%E8%B7%AF%E7%94%B1%E4%B8%8D%E5%8F%AF%E8%BE%BE%E6%B6%88%E6%81%AF)
-    - [Return消息机制](#return%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6)
-    - [备份交换机](#%E5%A4%87%E4%BB%BD%E4%BA%A4%E6%8D%A2%E6%9C%BA)
-  - [消费者手动消息确认](#%E6%B6%88%E8%B4%B9%E8%80%85%E6%89%8B%E5%8A%A8%E6%B6%88%E6%81%AF%E7%A1%AE%E8%AE%A4)
-  - [持久化](#%E6%8C%81%E4%B9%85%E5%8C%96)
-  - [镜像队列](#%E9%95%9C%E5%83%8F%E9%98%9F%E5%88%97)
-- [重复消费](#%E9%87%8D%E5%A4%8D%E6%B6%88%E8%B4%B9)
-- [消费端限流](#%E6%B6%88%E8%B4%B9%E7%AB%AF%E9%99%90%E6%B5%81)
-- [死信队列](#%E6%AD%BB%E4%BF%A1%E9%98%9F%E5%88%97)
-- [其他](#%E5%85%B6%E4%BB%96)
-  - [pull模式](#pull%E6%A8%A1%E5%BC%8F)
-  - [消息过期时间](#%E6%B6%88%E6%81%AF%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4)
-- [参考链接](#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# 简介
+## 什么是RabbitMQ？
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。
 
 ![](http://img.dabin-coder.cn/image/rabbitmq.png)
 
-## 基本概念
+## RabbitMQ的组件
 
 Message：由消息头和消息体组成。消息体是不透明的，而消息头则由一系列的可选属性组成，这些属性包括routing-key、priority、delivery-mode（是否持久性存储）等。
 
@@ -57,15 +26,23 @@ Broker：消息队列服务器实体。
 
 以常见的订单系统为例，用户点击下单按钮之后的业务逻辑可能包括：扣减库存、生成相应单据、发短信通知。这种场景下就可以用 MQ 。将短信通知放到 MQ 异步执行，在下单的主流程（比如扣减库存、生成相应单据）完成之后发送一条消息到 MQ， 让主流程快速完结，而由另外的线程消费MQ的消息。
 
-## 优缺点
+## RabbitMQ的优缺点
 
 缺点：使用erlang实现，不利于二次开发和维护；性能较kafka差，持久化消息和ACK确认的情况下生产和消费消息单机吞吐量大约在1-2万左右，kafka单机吞吐量在十万级别。
 
 优点：有管理界面，方便使用；可靠性高；功能丰富，支持消息持久化、消息确认机制、多种消息分发机制。
 
+## RabbitMQ 有哪些重要的角色？
 
+RabbitMQ 中重要的角色有：生产者、消费者和代理。
 
-# Exchange 类型
+1. 生产者：消息的创建者，负责创建和推送数据到消息服务器；
+
+2. 消费者：消息的接收方，用于处理数据和确认消息；
+
+3. 代理：就是 RabbitMQ 本身，用于扮演“快递”的角色，本身不生产消息，只是扮演“快递”的角色。
+
+## Exchange 类型
 
 Exchange分发消息时根据类型的不同分发策略不同，目前共四种类型：direct、fanout、topic、headers 。headers 模式根据消息的headers进行路由，此外 headers 交换器和 direct 交换器完全一致，但性能差很多。
 
@@ -78,35 +55,35 @@ Exchange规则。
 | topic    | 模糊匹配                                                     |
 | headers  | Exchange不依赖于routing key与binding key的匹配规则来路由消息，而是根据发送的消息内容中的header属性进行匹配。 |
 
-## direct
+**direct**
 
 direct交换机会将消息路由到binding key 和 routing key完全匹配的队列中。它是完全匹配、单播的模式。
 
 ![](http://img.dabin-coder.cn/image/rabbitmq-direct.png)
 
-## fanout
+**fanout**
 
 所有发到 fanout 类型交换机的消息都会路由到所有与该交换机绑定的队列上去。fanout 类型转发消息是最快的。
 
 ![](http://img.dabin-coder.cn/image/rabbitmq-fanout.png)
 
-## topic
+**topic**
 
-topic交换机使用routing key和binding key进行模糊匹配，匹配成功则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“#”，用于做模糊匹配，其中“\*”用于匹配一个单词，“#”用于匹配多个单词。
+topic交换机使用routing key和binding key进行模糊匹配，匹配成功则将消息发送到相应的队列。routing key和binding key都是句点号“. ”分隔的字符串，binding key中可以存在两种特殊字符“*”与“##”，用于做模糊匹配，其中“\*”用于匹配一个单词，“##”用于匹配多个单词。
 
 ![](http://img.dabin-coder.cn/image/rabbitmq-topic.png)
 
-## headers
+**headers**
 
 headers交换机是根据发送的消息内容中的headers属性进行路由的。在绑定Queue与Exchange时指定一组键值对；当消息发送到Exchange时，RabbitMQ会取到该消息的headers（也是一个键值对的形式），对比其中的键值对是否完全匹配Queue与Exchange绑定时指定的键值对；如果完全匹配则消息会路由到该Queue，否则不会路由到该Queue。
 
-# 消息丢失
+## 消息丢失
 
 消息丢失场景：生产者生产消息到RabbitMQ Server消息丢失、RabbitMQ Server存储的消息丢失和RabbitMQ Server到消费者消息丢失。
 
 消息丢失从三个方面来解决：生产者确认机制、消费者手动确认消息和持久化。
 
-## 生产者确认机制
+### 生产者确认机制
 
 生产者发送消息到队列，无法确保发送的消息成功的到达server。
 
@@ -120,7 +97,7 @@ headers交换机是根据发送的消息内容中的headers属性进行路由的
 ```yaml
 spring:
     rabbitmq:   
-        #开启 confirm 确认机制
+        ##开启 confirm 确认机制
         publisher-confirms: true
 ```
 
@@ -139,20 +116,20 @@ final RabbitTemplate.ConfirmCallback confirmCallback = (CorrelationData correlat
 rabbitTemplate.setConfirmCallback(confirmCallback);
 ```
 
-## 路由不可达消息
+### 路由不可达消息
 
 生产者确认机制只确保消息正确到达交换机，对于从交换机路由到Queue失败的消息，会被丢弃掉，导致消息丢失。
 
 对于不可路由的消息，有两种处理方式：Return消息机制和备份交换机。
 
-### Return消息机制
+**Return消息机制**
 
 Return消息机制提供了回调函数 ReturnCallback，当消息从交换机路由到Queue失败才会回调这个方法。需要将`mandatory` 设置为 `true` ，才能监听到路由不可达的消息。
 
 ```yaml
 spring:
     rabbitmq:
-        #触发ReturnCallback必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发ReturnCallback
+        ##触发ReturnCallback必须设置mandatory=true, 否则Exchange没有找到Queue就会丢弃掉消息, 而不会触发ReturnCallback
         template.mandatory: true
 ```
 
@@ -167,11 +144,11 @@ rabbitTemplate.setReturnCallback(returnCallback);
 
 当消息从交换机路由到Queue失败时，会返回 `return exchange: , routingKey: MAIL, replyCode: 312, replyText: NO_ROUTE`。
 
-### 备份交换机
+**备份交换机**
 
 备份交换机alternate-exchange 是一个普通的exchange，当你发送消息到对应的exchange时，没有匹配到queue，就会自动转移到备份交换机对应的queue，这样消息就不会丢失。
 
-## 消费者手动消息确认
+### 消费者手动消息确认
 
 有可能消费者收到消息还没来得及处理MQ服务就宕机了，导致消息丢失。因为消息者默认采用自动ack，一旦消费者收到消息后会通知MQ Server这条消息已经处理好了，MQ 就会移除这条消息。
 
@@ -180,7 +157,7 @@ rabbitTemplate.setReturnCallback(returnCallback);
 消费者设置手动ack：
 
 ```java
-#设置消费端手动 ack
+##设置消费端手动 ack
 spring.rabbitmq.listener.simple.acknowledge-mode=manual
 ```
 
@@ -204,7 +181,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 当消息消费失败时，消费端给broker回复nack，如果consumer设置了requeue为false，则nack后broker会删除消息或者进入死信队列，否则消息会重新入队。
 
-## 持久化
+### 持久化
 
 如果RabbitMQ服务异常导致重启，将会导致消息丢失。RabbitMQ提供了持久化的机制，将内存中的消息持久化到硬盘上，即使重启RabbitMQ，消息也不会丢失。
 
@@ -216,15 +193,13 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 
 当发布一条消息到交换机上时，Rabbit会先把消息写入持久化日志，然后才向生产者发送响应。一旦从队列中消费了一条消息的话并且做了确认，RabbitMQ会在持久化日志中移除这条消息。在消费消息前，如果RabbitMQ重启的话，服务器会自动重建交换机和队列，加载持久化日志中的消息到相应的队列或者交换机上，保证消息不会丢失。
 
-## 镜像队列
+### 镜像队列
 
 当MQ发生故障时，会导致服务不可用。引入RabbitMQ的镜像队列机制，将queue镜像到集群中其他的节点之上。如果集群中的一个节点失效了，能自动地切换到镜像中的另一个节点以保证服务的可用性。
 
 通常每一个镜像队列都包含一个master和多个slave，分别对应于不同的节点。发送到镜像队列的所有消息总是被直接发送到master和所有的slave之上。除了publish外所有动作都只会向master发送，然后由master将命令执行的结果广播给slave，从镜像队列中的消费操作实际上是在master上执行的。
 
-
-
-# 重复消费
+## 消息重复消费怎么处理？
 
 消息重复的原因有两个：1.生产时消息重复，2.消费时消息重复。
 
@@ -238,9 +213,7 @@ spring.rabbitmq.listener.simple.acknowledge-mode=manual
 2. 如果不存在，则正常消费，消费完毕后写入redis/db
 3. 如果存在，则证明消息被消费过，直接丢弃
 
-
-
-# 消费端限流
+## 消费端怎么进行限流？
 
 当 RabbitMQ 服务器积压大量消息时，队列里的消息会大量涌入消费端，可能导致消费端服务器奔溃。这种情况下需要对消费端限流。
 
@@ -249,7 +222,7 @@ Spring RabbitMQ 提供参数 prefetch 可以设置单个请求处理的消息个
 开启消费端限流：
 
 ```properties
-#在单个请求中处理的消息个数，unack的最大数量
+##在单个请求中处理的消息个数，unack的最大数量
 spring.rabbitmq.listener.simple.prefetch=2
 ```
 
@@ -261,7 +234,7 @@ spring.rabbitmq.listener.simple.prefetch=2
 void basicQos(int prefetchSize, int prefetchCount, boolean global) throws IOException;
 ```
 
-# 死信队列
+## 什么是死信队列？
 
 消费失败的消息存放的队列。
 
@@ -383,9 +356,7 @@ public class DeadListener {
 
 当普通队列中有死信时，RabbitMQ 就会自动的将这个消息重新发布到设置的死信交换机去，然后被路由到死信队列。可以监听死信队列中的消息做相应的处理。
 
-# 其他
-
-## pull模式
+## 说说pull模式
 
 pull模式主要是通过channel.basicGet方法来获取消息，示例代码如下：
 
@@ -395,7 +366,7 @@ System.out.println(new String(response.getBody()));
 channel.basicAck(response.getEnvelope().getDeliveryTag(),false);
 ```
 
-## 消息过期时间
+## 怎么设置消息的过期时间？
 
 在生产端发送消息的时候可以给消息设置过期时间，单位为毫秒(ms)
 
@@ -406,7 +377,7 @@ msg.getMessageProperties().setExpiration("3000");
 
 也可以在创建队列的时候指定队列的ttl，从消息入队列开始计算，超过该时间的消息将会被移除。
 
-# 参考链接
+## 参考链接
 
 [RabbitMQ基础](https://www.jianshu.com/p/79ca08116d57)
 
