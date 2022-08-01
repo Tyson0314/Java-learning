@@ -16,17 +16,17 @@
 
 如果大家想要实时关注我更新的文章以及分享的干货的话，可以关注我的**公众号『 程序员大彬 』**，后台回复『 PDF 』可以**下载最新版本的大厂高频面试题目PDF版本**。
 
-<div align="center"><img src="http://img.topjavaer.cn/image/公众号.jpg" style="zoom:90%;" />
+<div align="center"><img src="http://img.dabin-coder.cn/image/公众号.jpg" style="zoom:90%;" />
     <p>个人公众号</p>
 </div>
 <p align="center">
     <br>
-    <a href="http://img.topjavaer.cn/image/个人微信索隆（交流群）.png"><img src="http://img.topjavaer.cn/image/微信交流群.png" alt="微信交流群"></a>
-<a href="http://img.topjavaer.cn/image/公众号.jpg"><img src="http://img.topjavaer.cn/image/公众号.png" alt="公众号"></a>
-  <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="http://img.topjavaer.cn/image/知乎.png" alt="知乎"></a>
-       <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="http://img.topjavaer.cn/image/牛客网.png" alt="牛客网"></a>
-       <a href="https://juejin.cn/user/201965869218574/posts"><img src="http://img.topjavaer.cn/image/掘金.png" alt="掘金"></a>
-           <a href="https://github.com/Tyson0314/java-books"><img src="http://img.topjavaer.cn/image/免费计算机电子书籍.png" alt="免费PDF"></a>
+    <a href="http://img.dabin-coder.cn/image/个人微信索隆（交流群）.png"><img src="http://img.dabin-coder.cn/image/微信交流群.png" alt="微信交流群"></a>
+<a href="http://img.dabin-coder.cn/image/公众号.jpg"><img src="http://img.dabin-coder.cn/image/公众号.png" alt="公众号"></a>
+  <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="http://img.dabin-coder.cn/image/知乎.png" alt="知乎"></a>
+       <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="http://img.dabin-coder.cn/image/牛客网.png" alt="牛客网"></a>
+       <a href="https://juejin.cn/user/201965869218574/posts"><img src="http://img.dabin-coder.cn/image/掘金.png" alt="掘金"></a>
+           <a href="https://github.com/Tyson0314/java-books"><img src="http://img.dabin-coder.cn/image/免费计算机电子书籍.png" alt="免费PDF"></a>
         </p>
 
 
@@ -180,7 +180,7 @@
 
 如果想进**技术、面试交流群**，可以扫描下方二维码加我微信，**备注加群**，我拉你进群，群里有BAT大佬，互相学习~
 
-<div align="center"><img src="http://img.topjavaer.cn/image/个人微信索隆.jpg" style="zoom:60%;" />
+<div align="center"><img src="http://img.dabin-coder.cn/image/个人微信索隆.jpg" style="zoom:60%;" />
     <p></p>
 </div>
 
@@ -191,7 +191,7 @@
 
 | 微信                                                        | 支付宝                                                       |
 | ----------------------------------------------------------- | ------------------------------------------------------------ |
-| ![](http://img.topjavaer.cn/image/微信收款.png) | ![](http://img.topjavaer.cn/image/支付宝赞赏码.png) |
+| ![](http://img.dabin-coder.cn/image/微信收款.png) | ![](http://img.dabin-coder.cn/image/支付宝赞赏码.png) |
 
 每笔赞赏我会在下面记录下来，感谢你们，我会更加努力，砥砺前行~
 

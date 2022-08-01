@@ -38,7 +38,7 @@ SpringBoot实现自动配置原理图解：
 
 > 公众号【程序员大彬】，回复【自动配置】下载高清图片
 
-![](http://img.topjavaer.cn/image/SpringBoot的自动配置原理.jpg)
+![](http://img.dabin-coder.cn/image/SpringBoot的自动配置原理.jpg)
 
 在 application.properties 中设置属性 debug=true，可以在控制台查看已启用和未启用的自动配置。
 
@@ -356,4 +356,4 @@ Spring Profiles 允许用户根据配置文件（dev，test，prod 等）来注�
 
 
 
-![](http://img.topjavaer.cn/image/20220612101342.png)
+![](http://img.dabin-coder.cn/image/20220612101342.png)

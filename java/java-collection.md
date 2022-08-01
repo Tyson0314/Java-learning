@@ -1,4 +1,4 @@
-![](http://img.topjavaer.cn/image/Java集合.jpg)
+![](http://img.dabin-coder.cn/image/Java集合.jpg)
 
 ## 常见的集合有哪些？
 
@@ -6,9 +6,9 @@ Java集合类主要由两个接口**Collection**和**Map**派生出来的，Coll
 
 Java集合框架图如下：
 
-![](http://img.topjavaer.cn/image/collections2.png)
+![](http://img.dabin-coder.cn/image/collections2.png)
 
-![](http://img.topjavaer.cn/image/map.png)
+![](http://img.dabin-coder.cn/image/map.png)
 
 List代表了有序可重复集合，可直接根据元素的索引来访问；Set代表无序不可重复集合，只能根据元素本身来访问；Queue是队列集合。Map代表的是存储key-value对的集合，可根据元素的key来访问value。
 
@@ -149,7 +149,7 @@ HashMap有扩容机制，就是当达到扩容条件时会进行扩容。扩容�
 5. 链表的数量大于阈值8，就要转换成红黑树的结构
 6. 添加成功后会检查是否需要扩容
 
-![](http://img.topjavaer.cn/image/map_put.png)
+![](http://img.dabin-coder.cn/image/map_put.png)
 
 ### 红黑树的特点？
 
@@ -223,7 +223,7 @@ public class TreeMap<K,V>
 
 TreeMap 的继承结构：
 
-![](http://img.topjavaer.cn/image/image-20210905215046510.png)
+![](http://img.dabin-coder.cn/image/image-20210905215046510.png)
 
 **TreeMap的特点：**
 
@@ -560,4 +560,4 @@ https://coolshell.cn/articles/9606.htm（HashMap 死循环）
 
 
 
-![](http://img.topjavaer.cn/image/20220612101342.png)
+![](http://img.dabin-coder.cn/image/20220612101342.png)

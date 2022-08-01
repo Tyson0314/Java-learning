@@ -69,7 +69,7 @@
 
 如下图所示，线程 A 持有资源 2，线程 B 持有资源 1，他们同时都想申请对方持有的资源，所以这两个线程就会互相等待而进入死锁状态。
 
-![](http://img.topjavaer.cn/image/死锁.png)
+![](http://img.dabin-coder.cn/image/死锁.png)
 
 下面通过例子说明线程死锁，代码来自并发编程之美。
 
@@ -160,7 +160,7 @@ Thread[线程 2,5,main]waiting get resource1
 
 进程一共有`5`种状态，分别是创建、就绪、运行（执行）、终止、阻塞。
 
-![](http://img.topjavaer.cn/image/20220613090034.png)
+![](http://img.dabin-coder.cn/image/20220613090034.png)
 
 - 运行状态就是进程正在`CPU`上运行。在单处理机环境下，每一时刻最多只有一个进程处于运行状态。
 - 就绪状态就是说进程已处于准备运行的状态，即进程获得了除`CPU`之外的一切所需资源，一旦得到`CPU`即可运行。
@@ -285,4 +285,4 @@ Linux下，进程不能直接读写内存物理地址，只能访问【虚拟内
 
 
 
-![](http://img.topjavaer.cn/image/20220612101342.png)
+![](http://img.dabin-coder.cn/image/20220612101342.png)

@@ -1,10 +1,10 @@
-![](http://img.topjavaer.cn/image/计算机网络知识.jpg)
+![](http://img.dabin-coder.cn/image/计算机网络知识.jpg)
 
 ## 网络分层结构
 
 计算机网络体系大致分为三种，OSI七层模型、TCP/IP四层模型和五层模型。一般面试的时候考察比较多的是五层模型。
 
-![](http://img.topjavaer.cn/image/tcp5layer2.png)
+![](http://img.dabin-coder.cn/image/tcp5layer2.png)
 
 **五层模型**：应用层、传输层、网络层、数据链路层、物理层。
 
@@ -35,7 +35,7 @@
 
 假设发送端为客户端，接收端为服务端。开始时客户端和服务端的状态都是`CLOSED`。
 
-![](http://img.topjavaer.cn/image/三次握手图解.png)
+![](http://img.dabin-coder.cn/image/三次握手图解.png)
 
 1. 第一次握手：客户端向服务端发起建立连接请求，客户端会随机生成一个起始序列号x，客户端向服务端发送的字段中包含标志位`SYN=1`，序列号`seq=x`。第一次握手前客户端的状态为`CLOSE`，第一次握手后客户端的状态为`SYN-SENT`。此时服务端的状态为`LISTEN`。
 2. 第二次握手：服务端在收到客户端发来的报文后，会随机生成一个服务端的起始序列号y，然后给客户端回复一段报文，其中包括标志位`SYN=1`，`ACK=1`，序列号`seq=y`，确认号`ack=x+1`。第二次握手前服务端的状态为`LISTEN`，第二次握手后服务端的状态为`SYN-RCVD`，此时客户端的状态为`SYN-SENT`。（其中`SYN=1`表示要和客户端建立一个连接，`ACK=1`表示确认序号有效）
@@ -52,7 +52,7 @@
 
 ## 四次挥手
 
-![](http://img.topjavaer.cn/image/四次挥手0.png)
+![](http://img.dabin-coder.cn/image/四次挥手0.png)
 
 1. A的应用进程先向其TCP发出连接释放报文段（`FIN=1，seq=u`），并停止再发送数据，主动关闭TCP连接，进入`FIN-WAIT-1`（终止等待1）状态，等待B的确认。
 2. B收到连接释放报文段后即发出确认报文段（`ACK=1，ack=u+1，seq=v`），B进入`CLOSE-WAIT`（关闭等待）状态，此时的TCP处于半关闭状态，A到B的连接释放。
@@ -79,7 +79,7 @@
 
 ## 说说TCP报文首部有哪些字段，其作用又分别是什么？
 
-![](http://img.topjavaer.cn/image/tcp报文.png)
+![](http://img.dabin-coder.cn/image/tcp报文.png)
 
 - **16位端口号**：源端口号，主机该报文段是来自哪里；目标端口号，要传给哪个上层协议或应用程序
 - **32位序号**：一次TCP通信（从TCP连接建立到断开）过程中某一个传输方向上的字节流的每个字节的编号。
@@ -142,7 +142,7 @@ TCP是面向流，没有界限的一串数据。TCP底层并不了解上层业�
 
 TCP 利用滑动窗口实现流量控制。流量控制是为了控制发送方发送速率，保证接收方来得及接收。 TCP会话的双方都各自维护一个发送窗口和一个接收窗口。接收窗口大小取决于应用、系统、硬件的限制。发送窗口则取决于对端通告的接收窗口。接收方发送的确认报文中的window字段可以用来控制发送方窗口大小，从而影响发送方的发送速率。将接收方的确认报文window字段设置为 0，则发送方不能发送数据。
 
-![](http://img.topjavaer.cn/image/image-20210921112213523.png)
+![](http://img.dabin-coder.cn/image/image-20210921112213523.png)
 
 
 TCP头包含window字段，16bit位，它代表的是窗口的字节容量，最大为65535。这个字段是接收端告诉发送端自己还有多少缓冲区可以接收数据。于是发送端就可以根据这个接收端的处理能力来发送数据，而不会导致接收端处理不过来。接收窗口的大小是约等于发送窗口的大小。
@@ -151,7 +151,7 @@ TCP头包含window字段，16bit位，它代表的是窗口的字节容量，最
 
 防止过多的数据注入到网络中。 几种拥塞控制方法：慢开始( slow-start )、拥塞避免( congestion avoidance )、快重传( fast retransmit )和快恢复( fast recovery )。
 
-![](http://img.topjavaer.cn/image/拥塞控制.jpg)
+![](http://img.dabin-coder.cn/image/拥塞控制.jpg)
 
 **慢开始**
 
@@ -232,7 +232,7 @@ Content-Length:112
 
 ## HTTP状态码有哪些？
 
-![](http://img.topjavaer.cn/image/http-status-code.png)
+![](http://img.dabin-coder.cn/image/http-status-code.png)
 
 ## HTTP 协议包括哪些请求？
 
@@ -317,7 +317,7 @@ HTTP2.0相比HTTP1.1支持的特性：
 
 服务端可以向证书颁发机构CA申请证书，以避免中间人攻击（防止证书被篡改）。证书包含三部分内容：**证书内容、证书签名算法和签名**，签名是为了验证身份。
 
-![](http://img.topjavaer.cn/image/image-20211004111441594.png)
+![](http://img.dabin-coder.cn/image/image-20211004111441594.png)
 
 服务端把证书传输给浏览器，浏览器从证书里取公钥。证书可以证明该公钥对应本网站。
 
@@ -339,29 +339,29 @@ HTTP2.0相比HTTP1.1支持的特性：
 
 1. **协商加密算法** 。在`Client Hello`里面客户端会告知服务端自己当前的一些信息，包括客户端要使用的TLS版本，支持的加密算法，要访问的域名，给服务端生成的一个随机数（Nonce）等。需要提前告知服务器想要访问的域名以便服务器发送相应的域名的证书过来。
 
-   ![](http://img.topjavaer.cn/image/image-20210921104210833.png)
+   ![](http://img.dabin-coder.cn/image/image-20210921104210833.png)
 
 2. 服务端响应`Server Hello`，告诉客户端服务端**选中的加密算法**。
 
-   ![](http://img.topjavaer.cn/image/image-20210921105450791.png)
+   ![](http://img.dabin-coder.cn/image/image-20210921105450791.png)
 
 3. 接着服务端给客户端发来了2个证书。第二个证书是第一个证书的签发机构（CA）的证书。
 
-   ![](http://img.topjavaer.cn/image/image-20211004172007102.png)
+   ![](http://img.dabin-coder.cn/image/image-20211004172007102.png)
 
 4. 客户端使用证书的认证机构CA公开发布的RSA公钥**对该证书进行验证**，下图表明证书认证成功。
 
-   ![](http://img.topjavaer.cn/image/image-20210921105929268.png)
+   ![](http://img.dabin-coder.cn/image/image-20210921105929268.png)
 
 5. 验证通过之后，浏览器和服务器通过**密钥交换算法**产生共享的**对称密钥**。
 
-   ![](http://img.topjavaer.cn/image/image-20210921110025197.png)
+   ![](http://img.dabin-coder.cn/image/image-20210921110025197.png)
 
-   ![](http://img.topjavaer.cn/image/image-20210921110155075.png)
+   ![](http://img.dabin-coder.cn/image/image-20210921110155075.png)
 
 6. 开始传输数据，使用同一个对称密钥来加解密。
 
-   ![](http://img.topjavaer.cn/image/image-20210921110315068.png)
+   ![](http://img.dabin-coder.cn/image/image-20210921110315068.png)
 
 ## DNS 的解析过程？
 
@@ -380,7 +380,7 @@ HTTP2.0相比HTTP1.1支持的特性：
 4. 服务器**响应请求**，返回响应数据。
 5. 浏览器**解析响应内容，进行渲染**，呈现给用户。
 
-![](http://img.topjavaer.cn/image/输入url返回页面过程1.png)
+![](http://img.dabin-coder.cn/image/输入url返回页面过程1.png)
 
 
 ## 什么是cookie和session？
@@ -389,7 +389,7 @@ HTTP2.0相比HTTP1.1支持的特性：
 
 **cookie**就是由服务器发给客户端的特殊信息，而这些信息以文本文件的方式存放在客户端，然后客户端每次向服务器发送请求的时候都会带上这些特殊的信息。说得更具体一些：当用户使用浏览器访问一个支持cookie的网站的时候，用户会提供包括用户名在内的个人信息并且提交至服务器；接着，服务器在向客户端回传相应的超文本的同时也会发回这些个人信息，当然这些信息并不是存放在HTTP响应体中的，而是存放于HTTP响应头；当客户端浏览器接收到来自服务器的响应之后，浏览器会将这些信息存放在一个统一的位置。 自此，客户端再向服务器发送请求的时候，都会把相应的cookie存放在HTTP请求头再次发回至服务器。服务器在接收到来自客户端浏览器的请求之后，就能够通过分析存放于请求头的cookie得到客户端特有的信息，从而动态生成与该客户端相对应的内容。网站的登录界面中“请记住我”这样的选项，就是通过cookie实现的。
 
-![](http://img.topjavaer.cn/image/cookie.png)
+![](http://img.dabin-coder.cn/image/cookie.png)
 
 **cookie工作流程**：
 
@@ -399,7 +399,7 @@ HTTP2.0相比HTTP1.1支持的特性：
 
 **session原理**：首先浏览器请求服务器访问web站点时，服务器首先会检查这个客户端请求是否已经包含了一个session标识、称为SESSIONID，如果已经包含了一个sessionid则说明以前已经为此客户端创建过session，服务器就按照sessionid把这个session检索出来使用，如果客户端请求不包含session id，则服务器为此客户端创建一个session，并且生成一个与此session相关联的独一无二的sessionid存放到cookie中，这个sessionid将在本次响应中返回到客户端保存，这样在交互的过程中，浏览器端每次请求时，都会带着这个sessionid，服务器根据这个sessionid就可以找得到对应的session。以此来达到共享数据的目的。 这里需要注意的是，session不会随着浏览器的关闭而死亡，而是等待超时时间。
 
-![](http://img.topjavaer.cn/image/session.png)
+![](http://img.dabin-coder.cn/image/session.png)
 
 ## cookie和session的区别？
 
@@ -505,4 +505,4 @@ ping，**Packet Internet Groper**，是一种因特网包探索器，用于测�
 7. 根据目的主机返回的ICMP回送回答报文中的时间戳，从而计算出往返时间
 8. 最终显示结果有这几项：发送到目的主机的IP地址、发送 & 收到 & 丢失的分组数、往返时间的最小、最大& 平均值
 
-![](http://img.topjavaer.cn/image/20220612101342.png)
+![](http://img.dabin-coder.cn/image/20220612101342.png)

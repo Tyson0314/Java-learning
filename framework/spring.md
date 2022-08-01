@@ -1,4 +1,4 @@
-![](http://img.topjavaer.cn/image/Spring总结.jpg)
+![](http://img.dabin-coder.cn/image/Spring总结.jpg)
 
 ## Spring的优点
 
@@ -186,7 +186,7 @@ finishBeanFactoryInitialization(beanFactory);
 
 ## Bean的生命周期
 
-![](http://img.topjavaer.cn/image/20220709213529.png)
+![](http://img.dabin-coder.cn/image/20220709213529.png)
 
 1.调用bean的构造方法创建Bean
 
@@ -845,7 +845,7 @@ asyncTest...
 
 我们在主启动类上贴了一个@EnableAsync注解，才能使用@Async生效。@EnableAsync的作用是通过@import导入了AsyncConfigurationSelector。在AsyncConfigurationSelector的selectImports方法将ProxyAsyncConfiguration定义为Bean注入容器。在ProxyAsyncConfiguration中通过@Bean的方式注入AsyncAnnotationBeanPostProcessor类。
 
-![](http://img.topjavaer.cn/image/20220628224208.png)
+![](http://img.dabin-coder.cn/image/20220628224208.png)
 
 代码如下：
 
@@ -937,4 +937,4 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport imple
 
 
 
-![](http://img.topjavaer.cn/image/20220612101342.png)
+![](http://img.dabin-coder.cn/image/20220612101342.png)

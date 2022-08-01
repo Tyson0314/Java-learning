@@ -76,5 +76,5 @@
 
 后台回复『 **笔记**』即可领取大彬斩获大厂offer的**面试笔记**。
 
-![](http://img.topjavaer.cn/image/公众号.jpg)
+![](http://img.dabin-coder.cn/image/公众号.jpg)
 
