@@ -518,6 +518,10 @@ public static int[] findKMax(int[] nums, int k) {
 
 动态规划的解题思路：1、状态定义；2、状态转移方程；3、初始状态。
 
+### 不同路径
+
+[不同路径](/leetcode/unique-paths.md)
+
 ### 最长回文子串
 
 从给定的字符串 `s` 中找到最长的回文子串的长度。
