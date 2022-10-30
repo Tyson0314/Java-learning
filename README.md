@@ -6,6 +6,14 @@
 
 [点击此处](https://zhuanlan.zhihu.com/p/395162772) 查看我的**自学路线**。
 
+# 面试网站
+
+大彬自己搭建了一个**小破站**，将**本仓库所有的面试题**都整理到小破站了，欢迎大家访问~
+
+网站地址：https://topjavaer.cn
+
+![](http://img.dabin-coder.cn/image/image-20221030165150524.png)
+
 # 仓库简介
 
 **本仓库用于分享互联网大厂高频面试题、Java核心知识总结，包括Java基础、并发、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！**
@@ -30,6 +38,7 @@
         </p>
 
 
+
 # 简历很重要
 
 [简历投递之后总是石沉大海？](https://zhuanlan.zhihu.com/p/406982597)
@@ -41,25 +50,6 @@
 - [BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)（推荐 :+1:）
 - [Java优质项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
 - [优质视频教程推荐](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd)（推荐 :+1:）
-
-# 大厂面试系列
-
-1. [字节跳动一面面经](https://mp.weixin.qq.com/s/RH-SunzjqUTTx8HWaCmCcw)
-2. [别再问我Java List八股文了！](https://mp.weixin.qq.com/s/doyy_GYGWoH_YHgyMijStA)
-3. [腾讯面试，你真的懂HTTP吗？](https://mp.weixin.qq.com/s/kC7XRBfO7Z5hZcX6Dz2viw)
-4. [美团二面面经，最后竟然有惊喜？](https://mp.weixin.qq.com/s/3HvOtTU29HGALqmeeOZNWw)
-5. [Java多线程，被面试官难倒了！](https://mp.weixin.qq.com/s/tv8pOLaS6hpwgbKOB9w0Zw)
-6. [京东二面，Redis为什么这么快？](https://mp.weixin.qq.com/s/S3vN5T9HpziRd2s5ysLaSg)
-7. [MySQL索引，给我整不会了！](https://mp.weixin.qq.com/s/Q5CrDlNInpnckJaBQSrA7w)
-8. [别再问我Java虚拟机八股文了！](https://mp.weixin.qq.com/s/npo5-VqQt5sqZiSwPv6LVw)
-9. [计算机网络，问傻了！](https://mp.weixin.qq.com/s/WXcMLa_tdxpRLhO4U8LHIQ)
-10. [Spring这几道题你会吗？](https://mp.weixin.qq.com/s/DtgYRFfOQxQdtQosCU-6aw)
-10. [面向对象编程？](https://mp.weixin.qq.com/s/M8jDnLat61YAbM1-jIhJIA)
-10. [Java内功深厚？](https://mp.weixin.qq.com/s/v_kWSHX9GMS_aoqfwUMKsg)
-10. [面试初级Java开发，面试官问我MySQL架构？](https://mp.weixin.qq.com/s/JvDZCk4IecmaEYfFsRhpjQ)
-10. [手写红黑树？](https://mp.weixin.qq.com/s/yznh_IfMg4hWqU62U-t9GQ)
-10. [面完阿里，直接入职！](https://mp.weixin.qq.com/s/49QJ1FzaGTe-_54PT8_8jA)
-10. [华为面经](https://mp.weixin.qq.com/s/KmjwoG7pNvAHiX1UNnef6g)
 
 # Java
 
@@ -86,20 +76,23 @@
 
 1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(**知乎1k+收藏，推荐** :+1:)
 2. [图解索引下推](https://mp.weixin.qq.com/s/W1XQYmihtSdbLWQKeNwZvQ)(推荐 :+1:)
-3. [MySQL执行计划](数据库/MySQL执行计划.md)(推荐 :+1:)
+3. [MySQL执行计划详解](数据库/MySQL执行计划.md)(推荐 :+1:)
 
 ## Redis
 
 1. [【大厂面试】——Redis30问](Redis/Redis面试题.md)(牛客高赞，推荐 :+1:)
-2. [Redis分布式锁(推荐 :+1:)](Redis/Redis分布式锁.md)
-4. [缓存穿透、缓存雪崩、缓存击穿](Redis/缓存穿透、缓存雪崩、缓存击穿.md)
+2. [缓存穿透、缓存雪崩、缓存击穿](Redis/缓存穿透、缓存雪崩、缓存击穿.md)
+
+## ElasticSearch
+
+1. [ElasticSearch高频面试题](https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg)
 
 # 框架
 
 ## Spring
 
 1. [Spring高频面试题30道](框架/Spring面试题.md)(推荐 :+1:)
-3. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
+2. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
 
 ## Spring Boot
 
@@ -121,60 +114,116 @@
 
 ## SpringCloud
 
+[[SpringCloud面试题](https://topjavaer.cn/framework/springcloud-interview.html)(推荐 :+1:)
+
 [SpringCloud总结](框架/SpringCloud微服务实战.md)
 
 ## Netty
 
 [Netty实战笔记](框架/netty实战.md)
 
+# 分布式
+
+## 微服务
+
+[微服务面试题](https://topjavaer.cn/distributed/micro-service.html)
+
+## RPC
+
+[RPC面试题](https://topjavaer.cn/distributed/rpc.html)
+
+## 全局唯一ID
+
+[全局唯一ID](https://topjavaer.cn/distributed/global-unique-id.html)
+
+## 分布式事务
+
+[分布式事务总结](https://topjavaer.cn/distributed/distributed-transaction.html)
+
+## 分布式架构
+
+[分布式架构演进](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247490543&idx=1&sn=ee34bee96511d5e548381e0576f8b484&chksm=ce98e6a9f9ef6fbf7db9c2b6d2fed26853a3bc13a50c3228ab57bea55afe0772008cdb1f957b&token=1594696656&lang=zh_CN#rd)
+
+# 高并发
+
+## 限流
+
+[限流算法总结](https://topjavaer.cn/advance/concurrent/1-current-limiting.html)
+
+## 负载均衡
+
+[负载均衡](https://topjavaer.cn/advance/concurrent/2-load-balance.html)
+
 # 消息队列
 
 ## RabbitMQ
 
 1. [消息队列面试题](消息队列/消息队列面试题.md)
-1. [RabbitMQ核心知识总结](消息队列/RabbitMQ.md) (推荐 :+1:)
-2. [死信队列](消息队列/死信队列.md)
+2. [RabbitMQ面试题总结](消息队列/rabbitmq.md) (推荐 :+1:)
+3. [Kafka面试题总结](消息队列/kafka.md) (推荐 :+1:)
+4. [死信队列](消息队列/死信队列.md)
 
 # 计算机网络
 
 [【大厂面试】—— 计算机网络常见面试题总结](计算机基础/网络/计算机网络高频面试题.md) （**知乎1k+收藏！推荐 :+1:**）
 
-[session和cookie详解](计算机基础/网络/session和cookie.md)
-
 # 数据结构与算法
 
 [如何高效的刷LeetCode？](https://www.zhihu.com/question/280279208/answer/2377906738)
 
-[7种常见的排序算法Java代码实现](计算机基础/数据结构与算法/常见的排序算法Java代码实现.md)
+[120道Leetcode题解（高频）](https://topjavaer.cn/leetcode/hot120/)
 
-[二叉树前序、中序、后序、层序遍历代码实现](计算机基础/数据结构与算法/二叉树前序、中序、后序、层序遍历代码实现.md)
-
-[常见数据结构总结](计算机基础/数据结构与算法/数据结构.md)
+[常见数据结构总结](https://topjavaer.cn/computer-basic/data-structure.html)
 
 # 设计模式
 
 [字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
 
-[设计模式总结](其他/设计模式.md)
+[设计模式总结](https://topjavaer.cn/advance/design-pattern/)
+
+# 海量数据场景题
+
+1. [统计不同电话号码的个数](https://topjavaer.cn/system-design/1-scan-code-login.html)
+2. [出现频率最高的100个词](https://topjavaer.cn/mass-data/2-find-hign-frequency-word.html)
+3. [查找两个大文件共同的URL](https://topjavaer.cn/mass-data/3-find-same-url.html)
+4. [如何在100亿的数据中找到中位数](https://topjavaer.cn/mass-data/4-find-mid-num.html)
+5. [找出最热门的查询串](https://topjavaer.cn/mass-data/5-find-hot-string.html)
+6. [如何找出排名前500的数字](https://topjavaer.cn/mass-data/6-top-500-num.html)
 
 # 工具
 
-[Git 超详细总结！](工具/progit2.md)(推荐 :+1:)
+[Git 超详细总结！](工具/git-overview.md)(推荐 :+1:)
 
-# 其他精选文章
+[Linux 常用命令总结！](工具/linux-overview.md)
 
-1. [记一次OOM问题排查](https://mp.weixin.qq.com/s/40C1OdtfGJSrecBoL9Mjbg)
-2. [推荐一款画图神器](https://mp.weixin.qq.com/s/vDtWku41rpeux8ZhZyA81w)
-3. [有哪些值得推荐的Java书籍？](https://mp.weixin.qq.com/s/MUB07APbyDH2-iftGDdGlA)
-4. [这款MarkDown神器，要收费啦！](https://mp.weixin.qq.com/s/aCEi-4vb3kNPF0-E4rB5Kg)
-5. [在B站学Java](https://mp.weixin.qq.com/s/_xfT2Tr6rT8qSAFrtRQ3wQ)
-6. [你见过这样使用Github的吗？](https://mp.weixin.qq.com/s/U_AItugf8KaUPyIun_xagg)
+[Docker 基础总结！](工具/docker-overview.md)
 
+[Maven 基础总结！](tools/maven-overview.md)
 
+# 大厂面试系列
 
-**本仓库持续更新中，欢迎star和pr~**
+1. [字节跳动一面面经](https://mp.weixin.qq.com/s/RH-SunzjqUTTx8HWaCmCcw)
+2. [别再问我Java List八股文了！](https://mp.weixin.qq.com/s/doyy_GYGWoH_YHgyMijStA)
+3. [腾讯面试，你真的懂HTTP吗？](https://mp.weixin.qq.com/s/kC7XRBfO7Z5hZcX6Dz2viw)
+4. [美团二面面经，最后竟然有惊喜？](https://mp.weixin.qq.com/s/3HvOtTU29HGALqmeeOZNWw)
+5. [Java多线程，被面试官难倒了！](https://mp.weixin.qq.com/s/tv8pOLaS6hpwgbKOB9w0Zw)
+6. [京东二面，Redis为什么这么快？](https://mp.weixin.qq.com/s/S3vN5T9HpziRd2s5ysLaSg)
+7. [MySQL索引，给我整不会了！](https://mp.weixin.qq.com/s/Q5CrDlNInpnckJaBQSrA7w)
+8. [别再问我Java虚拟机八股文了！](https://mp.weixin.qq.com/s/npo5-VqQt5sqZiSwPv6LVw)
+9. [计算机网络，问傻了！](https://mp.weixin.qq.com/s/WXcMLa_tdxpRLhO4U8LHIQ)
+10. [Spring这几道题你会吗？](https://mp.weixin.qq.com/s/DtgYRFfOQxQdtQosCU-6aw)
+11. [面向对象编程？](https://mp.weixin.qq.com/s/M8jDnLat61YAbM1-jIhJIA)
+12. [Java内功深厚？](https://mp.weixin.qq.com/s/v_kWSHX9GMS_aoqfwUMKsg)
+13. [面试初级Java开发，面试官问我MySQL架构？](https://mp.weixin.qq.com/s/JvDZCk4IecmaEYfFsRhpjQ)
+14. [手写红黑树？](https://mp.weixin.qq.com/s/yznh_IfMg4hWqU62U-t9GQ)
+15. [面完阿里，直接入职！](https://mp.weixin.qq.com/s/49QJ1FzaGTe-_54PT8_8jA)
+16. [华为面经](https://mp.weixin.qq.com/s/KmjwoG7pNvAHiX1UNnef6g)
 
+# 其他优质文章
 
+[优质文章汇总，持续更新中~](https://topjavaer.cn/advance/excellent-article/)
+
+![](http://img.dabin-coder.cn/image/image-20221030172546796.png)
 
 # 交流
 
@@ -185,24 +234,27 @@
 </div>
 
 
+
 # 赞赏
 
 如果觉得**本仓库**对您有帮助的话，可以请大彬**喝一杯咖啡**（小伙伴们赞赏的时候可以备注下哦~）
 
-| 微信                                                        | 支付宝                                                       |
-| ----------------------------------------------------------- | ------------------------------------------------------------ |
+| 微信                                              | 支付宝                                                |
+| ------------------------------------------------- | ----------------------------------------------------- |
 | ![](http://img.dabin-coder.cn/image/微信收款.png) | ![](http://img.dabin-coder.cn/image/支付宝赞赏码.png) |
 
 每笔赞赏我会在下面记录下来，感谢你们，我会更加努力，砥砺前行~
 
-| 日期       | 来源         | **用户** | **金额** | 备注   |
-| ---------- | ------------ | -------- | -------- | ------ |
-| 2021.11.19 | 微信收款码   | *张      | 6.66元   | 支持！ |
-| 2021.11.25 | 支付宝收款码 | *海      | 1元      |        |
-| 2021.12.10 | 微信收款码   | 浩*y     | 10元     |        |
-| 2021.12.15 | 微信收款码   | biubiu*  | 6.66元   | 好     |
-| 2022.02.17 | 微信收款码   | *齐      | 8元      |        |
-| 2022.05.03 | 微信收款码   | *哈      | 2元      |        |
+| 日期       | 来源         | **用户** | **金额** | 备注                     |
+| ---------- | ------------ | -------- | -------- | ------------------------ |
+| 2021.11.19 | 微信收款码   | *张      | 6.66元   | 支持！                   |
+| 2021.11.25 | 支付宝收款码 | *海      | 1元      |                          |
+| 2021.12.10 | 微信收款码   | 浩*y     | 10元     |                          |
+| 2021.12.15 | 微信收款码   | biubiu*  | 6.66元   | 好                       |
+| 2022.02.17 | 微信收款码   | *齐      | 8元      |                          |
+| 2022.05.03 | 微信收款码   | *哈      | 2元      |                          |
+| 2022.06.12 | 微信收款码   | *可      | 8.8元    |                          |
+| 2022.10.19 | 微信收款码   | *斌      | 10元     | 支持一下，希望能持续更新 |
 
 
 
