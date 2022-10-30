@@ -183,7 +183,7 @@
 
 # 海量数据场景题
 
-1. [统计不同电话号码的个数](https://topjavaer.cn/system-design/1-scan-code-login.html)
+1. [统计不同电话号码的个数](https://topjavaer.cn/mass-data/1-count-phone-num.html)
 2. [出现频率最高的100个词](https://topjavaer.cn/mass-data/2-find-hign-frequency-word.html)
 3. [查找两个大文件共同的URL](https://topjavaer.cn/mass-data/3-find-same-url.html)
 4. [如何在100亿的数据中找到中位数](https://topjavaer.cn/mass-data/4-find-mid-num.html)
