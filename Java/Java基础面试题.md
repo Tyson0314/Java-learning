@@ -921,7 +921,7 @@ class BMWCar extends Car implements Alarm {
 5. `NumberFormatException` //数字格式化异常
 6. `ArithmeticException` //数学运算异常
 
-unchecked Exception：
+checked Exception：
 
 1. `NoSuchFieldException` //反射异常，没有对应的字段
 2. `ClassNotFoundException` //类没有找到异常
