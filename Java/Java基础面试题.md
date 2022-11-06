@@ -1,12 +1,19 @@
+---
+sidebar: heading
+
+---
+
+![](http://img.dabin-coder.cn/image/Java基础.jpg)
+
 ## Java的特点
 
-**Java是一门面向对象的编程语言。**面向对象和面向过程的区别参考下一个问题。
+**Java是一门面向对象的编程语言**。面向对象和面向过程的区别参考下一个问题。
 
-**Java具有平台独立性和移植性。**
+**Java具有平台独立性和移植性**。
 
 - Java有一句口号：`Write once, run anywhere`，一次编写、到处运行。这也是Java的魅力所在。而实现这种特性的正是Java虚拟机JVM。已编译的Java程序可以在任何带有JVM的平台上运行。你可以在windows平台编写代码，然后拿到linux上运行。只要你在编写完代码后，将代码编译成.class文件，再把class文件打成Java包，这个jar包就可以在不同的平台上运行了。
 
-**Java具有稳健性。**
+**Java具有稳健性**。
 
 - Java是一个强类型语言，它允许扩展编译时检查潜在类型不匹配问题的功能。Java要求显式的方法声明，它不支持C风格的隐式声明。这些严格的要求保证编译程序能捕捉调用错误，这就导致更可靠的程序。
 - 异常处理是Java中使得程序更稳健的另一个特征。异常是某种类似于错误的异常条件出现的信号。使用`try/catch/finally`语句，程序员可以找到出错的处理代码，这就简化了出错处理和恢复的任务。
@@ -18,6 +25,83 @@
 - Java 没有指针，它的引用可以理解为安全指针，而 C++ 具有和 C 一样的指针。
 - Java 支持自动垃圾回收，而 C++ 需要手动回收。
 - Java 不支持多重继承，只能通过实现多个接口来达到相同目的，而 C++ 支持多重继承。
+
+## JDK/JRE/JVM三者的关系
+
+**JVM**
+
+英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。Java 能够跨平台运行的核心在于 JVM 。
+
+![](http://img.dabin-coder.cn/image/20220402230447.png)
+
+所有的java程序会首先被编译为.class的类文件，这种类文件可以在虚拟机上执行。也就是说class文件并不直接与机器的操作系统交互，而是经过虚拟机间接与操作系统交互，由虚拟机将程序解释给本地系统执行。
+
+针对不同的系统有不同的 jvm 实现，有 Linux 版本的 jvm 实现，也有Windows 版本的 jvm 实现，但是同一段代码在编译后的字节码是一样的。这就是Java能够跨平台，实现一次编写，多处运行的原因所在。
+
+**JRE**
+
+英文名称（Java Runtime Environment），就是Java 运行时环境。我们编写的Java程序必须要在JRE才能运行。它主要包含两个部分，JVM 和 Java 核心类库。
+
+![](http://img.dabin-coder.cn/image/20220401234008.png)
+
+JRE是Java的运行环境，并不是一个开发环境，所以没有包含任何开发工具，如编译器和调试器等。
+
+如果你只是想运行Java程序，而不是开发Java程序的话，那么你只需要安装JRE即可。
+
+**JDK**
+
+英文名称（Java Development Kit），就是 Java 开发工具包
+
+学过Java的同学，都应该安装过JDK。当我们安装完JDK之后，目录结构是这样的
+
+![](http://img.dabin-coder.cn/image/20220404120509.png)
+
+可以看到，JDK目录下有个JRE，也就是JDK中已经集成了 JRE，不用单独安装JRE。
+
+另外，JDK中还有一些好用的工具，如jinfo，jps，jstack等。
+
+![](http://img.dabin-coder.cn/image/20220404120507.png)
+
+最后，总结一下JDK/JRE/JVM，他们三者的关系
+
+**JRE = JVM + Java 核心类库**
+
+**JDK = JRE + Java工具 + 编译器 + 调试器**
+
+![](http://img.dabin-coder.cn/image/20220402230613.png)
+
+## Java程序是编译执行还是解释执行？
+
+先看看什么是编译型语言和解释型语言。
+
+**编译型语言**
+
+在程序运行之前，通过编译器将源程序编译成机器码可运行的二进制，以后执行这个程序时，就不用再进行编译了。
+
+优点：编译器一般会有预编译的过程对代码进行优化。因为编译只做一次，运行时不需要编译，所以编译型语言的程序执行效率高，可以脱离语言环境独立运行。
+
+缺点：编译之后如果需要修改就需要整个模块重新编译。编译的时候根据对应的运行环境生成机器码，不同的操作系统之间移植就会有问题，需要根据运行的操作系统环境编译不同的可执行文件。
+
+**总结**：执行速度快、效率高；依靠编译器、跨平台性差些。
+
+**代表语言**：C、C++、Pascal、Object-C以及Swift。
+
+**解释型语言**
+
+定义：解释型语言的源代码不是直接翻译成机器码，而是先翻译成中间代码，再由解释器对中间代码进行解释运行。在运行的时候才将源程序翻译成机器码，翻译一句，然后执行一句，直至结束。
+
+优点：
+
+1. 有良好的平台兼容性，在任何环境中都可以运行，前提是安装了解释器（如虚拟机）。
+2. 灵活，修改代码的时候直接修改就可以，可以快速部署，不用停机维护。
+
+缺点：每次运行的时候都要解释一遍，性能上不如编译型语言。
+
+总结：解释型语言执行速度慢、效率低；依靠解释器、跨平台性好。
+
+代表语言：JavaScript、Python、Erlang、PHP、Perl、Ruby。
+
+对于Java这种语言，它的**源代码**会先通过javac编译成**字节码**，再通过jvm将字节码转换成**机器码**执行，即解释运行 和编译运行配合使用，所以可以称为混合型或者半编译型。
 
 ## 面向对象和面向过程的区别？
 
@@ -40,54 +124,6 @@
 
 黑白双方负责接受用户的输入，并告知棋盘系统棋子布局发生变化，棋盘系统接收到了棋子的变化的信息就负责在屏幕上面显示出这种变化，同时利用规则系统来对棋局进行判定。
 
-## JKD/JRE/JVM三者的关系
-
-### JVM
-
-**JVM** ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。Java 能够跨平台运行的核心在于 JVM 。
-
-![](http://img.dabin-coder.cn/image/20220402230447.png)
-
-所有的java程序会首先被编译为.class的类文件，这种类文件可以在虚拟机上执行。也就是说class文件并不直接与机器的操作系统交互，而是经过虚拟机间接与操作系统交互，由虚拟机将程序解释给本地系统执行。
-
-针对不同的系统有不同的 jvm 实现，有 Linux 版本的 jvm 实现，也有Windows 版本的 jvm 实现，但是同一段代码在编译后的字节码是一样的。这就是Java能够跨平台，实现一次编写，多处运行的原因所在。
-
-### JRE
-
-英文名称（Java Runtime Environment），就是Java 运行时环境。我们编写的Java程序必须要在JRE才能运行。它主要包含两个部分，JVM 和 Java 核心类库。
-
-![](http://img.dabin-coder.cn/image/20220401234008.png)
-
-JRE是Java的运行环境，并不是一个开发环境，所以没有包含任何开发工具，如编译器和调试器等。
-
-如果你只是想运行Java程序，而不是开发Java程序的话，那么你只需要安装JRE即可。
-
-### JDK
-
-英文名称（Java Development Kit），就是 Java 开发工具包
-
-学过Java的同学，都应该安装过JDK。当我们安装完JDK之后，目录结构是这样的
-
-![](https://cdn.jsdelivr.net/gh/Tyson0314/img/20220404120509.png)
-
-可以看到，JDK目录下有个JRE，也就是JDK中已经集成了 JRE，不用单独安装JRE。
-
-另外，JDK中还有一些好用的工具，如jinfo，jps，jstack等。
-
-![](https://cdn.jsdelivr.net/gh/Tyson0314/img/20220404120507.png)
-
-
-
-### 总结
-
-最后，总结一下JDK/JRE/JVM，他们三者的关系
-
-JRE = JVM + Java 核心类库
-
-JDK = JRE + Java工具 + 编译器 + 调试器
-
-![](http://img.dabin-coder.cn/image/20220402230613.png)
-
 ## 面向对象有哪些特性？
 
 面向对象四大特性：封装，继承，多态，抽象
@@ -102,6 +138,27 @@ JDK = JRE + Java工具 + 编译器 + 调试器
 - 动态多态性：在子类中重写父类的方法。运行期间判断所引用对象的实际类型，根据其实际类型调用相应的方法。
 
 4、抽象。把客观事物用代码抽象出来。
+
+## 数组到底是不是对象？
+
+先说说对象的概念。对象是根据某个类创建出来的一个实例，表示某类事物中一个具体的个体。
+
+对象具有各种属性，并且具有一些特定的行为。站在计算机的角度，对象就是内存中的一个内存块，在这个内存块封装了一些数据，也就是类中定义的各个属性。
+
+所以，对象是用来封装数据的。
+
+java中的数组具有java中其他对象的一些基本特点。比如封装了一些数据，可以访问属性，也可以调用方法。
+
+因此，可以说，数组是对象。
+
+也可以通过代码验证数组是对象的事实。比如以下的代码，输出结果为java.lang.Object。
+
+```java
+Class clz = int[].class;
+System.out.println(clz.getSuperclass().getName());
+```
+
+由此，可以看出，数组类的父类就是Object类，那么可以推断出数组就是对象。
 
 ## Java的基本数据类型有哪些？
 
@@ -119,6 +176,8 @@ JDK = JRE + Java工具 + 编译器 + 调试器
 | 二进制位数 | 1       | 8    | 16        | 16    | 32      | 64   | 32    | 64     |
 | 包装类     | Boolean | Byte | Character | Short | Integer | Long | Float | Double |
 
+在Java规范中，没有明确指出boolean的大小。在《Java虚拟机规范》给出了单个boolean占4个字节，和boolean数组1个字节的定义，具体 **还要看虚拟机实现是否按照规范来**，因此boolean占用1个字节或者4个字节都是有可能的。
+
 ## 为什么不能用浮点型表示金额？
 
 由于计算机中保存的小数其实是十进制的小数的近似值，并不是准确值，所以，千万不要在代码中使用浮点数来表示金额等重要的指标。
@@ -127,8 +186,10 @@ JDK = JRE + Java工具 + 编译器 + 调试器
 
 ## 什么是值传递和引用传递？
 
-- 值传递是对基本型变量而言的,传递的是该变量的一个副本，改变副本不影响原变量。
-- 引用传递一般是对于对象型变量而言的,传递的是该对象地址的一个副本, 并不是原对象本身 。所以对引用对象进行操作会同时改变原对象。
+- 值传递是对基本型变量而言的，传递的是该变量的一个副本，改变副本不影响原变量。
+- 引用传递一般是对于对象型变量而言的，传递的是该对象地址的一个副本，并不是原对象本身，两者指向同一片内存空间。所以对引用对象进行操作会同时改变原对象。
+
+**java中不存在引用传递，只有值传递**。即不存在变量a指向变量b，变量b指向对象的这种情况。
 
 ## 了解Java的包装类型吗？为什么需要包装类？
 
@@ -228,7 +289,7 @@ private static class IntegerCache {
 }
 ```
 
-这是IntegerCache静态代码块中的一段，默认Integer cache 的下限是-128，上限默认127。当赋值100给Integer时，刚好在这个范围内，所以从cache中取对应的Integer并返回，所以a和b返回的是同一个对象，所以==比较是相等的，当赋值200给Integer时，不在cache 的范围内，所以会new Integer并返回，当然==比较的结果是不相等的。
+这是IntegerCache静态代码块中的一段，默认Integer cache 的下限是-128，上限默认127。当赋值100给Integer时，刚好在这个范围内，所以从cache中取对应的Integer并返回，所以a和b返回的是同一个对象，所以`==`比较是相等的，当赋值200给Integer时，不在cache 的范围内，所以会new Integer并返回，当然`==`比较的结果是不相等的。
 
 ## String 为什么不可变？
 
@@ -262,13 +323,25 @@ String类内部所有的字段都是私有的，也就是被private修饰。而�
 主要有以下几点原因：
 
 1. **线程安全**。同一个字符串实例可以被多个线程共享，因为字符串不可变，本身就是线程安全的。
-2. **支持hash映射和缓存。**因为String的hash值经常会使用到，比如作为 Map 的键，不可变的特性使得 hash 值也不会变，不需要重新计算。
+2. **支持hash映射和缓存**。因为String的hash值经常会使用到，比如作为 Map 的键，不可变的特性使得 hash 值也不会变，不需要重新计算。
 3. **出于安全考虑**。网络地址URL、文件路径path、密码通常情况下都是以String类型保存，假若String不是固定不变的，将会引起各种安全隐患。比如将密码用String的类型保存，那么它将一直留在内存中，直到垃圾收集器把它清除。假如String类不是固定不变的，那么这个密码可能会被改变，导致出现安全隐患。
-3. **字符串常量池优化**。String对象创建之后，会缓存到字符串常量池中，下次需要创建同样的对象时，可以直接返回缓存的引用。
+4. **字符串常量池优化**。String对象创建之后，会缓存到字符串常量池中，下次需要创建同样的对象时，可以直接返回缓存的引用。
 
 既然我们的String是不可变的，它内部还有很多substring， replace， replaceAll这些操作的方法。这些方法好像会改变String对象？怎么解释呢？
 
 其实不是的，我们每次调用replace等方法，其实会在堆内存中创建了一个新的对象。然后其value数组引用指向不同的对象。
+
+## 为何JDK9要将String的底层实现由char[]改成byte[]?
+
+主要是为了**节约String占用的内存**。
+
+在大部分Java程序的堆内存中，String占用的空间最大，并且绝大多数String只有Latin-1字符，这些Latin-1字符只需要1个字节就够了。
+
+而在JDK9之前，JVM因为String使用char数组存储，每个char占2个字节，所以即使字符串只需要1字节，它也要按照2字节进行分配，浪费了一半的内存空间。
+
+到了JDK9之后，对于每个字符串，会先判断它是不是只有Latin-1字符，如果是，就按照1字节的规格进行分配内存，如果不是，就按照2字节的规格进行分配，这样便提高了内存使用率，同时GC次数也会减少，提升效率。
+
+不过Latin-1编码集支持的字符有限，比如不支持中文字符，因此对于中文字符串，用的是UTF16编码（两个字节），所以用byte[]和char[]实现没什么区别。
 
 ## String, StringBuffer 和 StringBuilder区别
 
@@ -282,6 +355,62 @@ String类内部所有的字段都是私有的，也就是被private修饰。而�
 - String 不可变，因此是线程安全的
 - StringBuilder 不是线程安全的
 - StringBuffer 是线程安全的，内部使用 synchronized 进行同步
+
+## 什么是StringJoiner？
+
+StringJoiner是 Java 8 新增的一个 API，它基于 StringBuilder 实现，用于实现对字符串之间通过分隔符拼接的场景。
+
+StringJoiner 有两个构造方法，第一个构造要求依次传入分隔符、前缀和后缀。第二个构造则只要求传入分隔符即可（前缀和后缀默认为空字符串）。
+
+```java
+StringJoiner(CharSequence delimiter, CharSequence prefix, CharSequence suffix)
+StringJoiner(CharSequence delimiter)
+```
+
+有些字符串拼接场景，使用 StringBuffer 或 StringBuilder 则显得比较繁琐。
+
+比如下面的例子：
+
+```java
+List<Integer> values = Arrays.asList(1, 3, 5);
+StringBuilder sb = new StringBuilder("(");
+
+for (int i = 0; i < values.size(); i++) {
+	sb.append(values.get(i));
+	if (i != values.size() -1) {
+		sb.append(",");
+	}
+}
+
+sb.append(")");
+```
+
+而通过StringJoiner来实现拼接List的各个元素，代码看起来更加简洁。
+
+```java
+List<Integer> values = Arrays.asList(1, 3, 5);
+StringJoiner sj = new StringJoiner(",", "(", ")");
+
+for (Integer value : values) {
+	sj.add(value.toString());
+}
+```
+
+另外，像平时经常使用的Collectors.joining(",")，底层就是通过StringJoiner实现的。
+
+源码如下：
+
+```java
+public static Collector<CharSequence, ?, String> joining(
+    CharSequence delimiter,CharSequence prefix,CharSequence suffix) {
+    return new CollectorImpl<>(
+            () -> new StringJoiner(delimiter, prefix, suffix),
+            StringJoiner::add, StringJoiner::merge,
+            StringJoiner::toString, CH_NOID);
+}
+```
+
+
 
 ## String 类的常用方法有哪些？
 
@@ -307,6 +436,49 @@ String类内部所有的字段都是私有的，也就是被private修饰。而�
 ## 什么是字符串常量池？
 
 字符串常量池（String Pool）保存着所有字符串字面量，这些字面量在编译时期就确定。字符串常量池位于堆内存中，专门用来存储字符串常量。在创建字符串时，JVM首先会检查字符串常量池，如果该字符串已经存在池中，则返回其引用，如果不存在，则创建此字符串并放入池中，并返回其引用。
+
+## String最大长度是多少？
+
+String类提供了一个length方法，返回值为int类型，而int的取值上限为2^31 -1。
+
+所以理论上String的最大长度为2^31 -1。
+
+**达到这个长度的话需要多大的内存吗**？
+
+String内部是使用一个char数组来维护字符序列的，一个char占用两个字节。如果说String最大长度是2^31 -1的话，那么最大的字符串占用内存空间约等于4GB。
+
+也就是说，我们需要有大于4GB的JVM运行内存才行。
+
+**那String一般都存储在JVM的哪块区域呢**？
+
+字符串在JVM中的存储分两种情况，一种是String对象，存储在JVM的堆栈中。一种是字符串常量，存储在常量池里面。
+
+**什么情况下字符串会存储在常量池呢**？
+
+当通过字面量进行字符串声明时，比如String s = "程序新大彬";，这个字符串在编译之后会以常量的形式进入到常量池。
+
+**那常量池中的字符串最大长度是2^31-1吗**？
+
+不是的，常量池对String的长度是有另外限制的。。Java中的UTF-8编码的Unicode字符串在常量池中以CONSTANT_Utf8类型表示。
+
+```java
+CONSTANT_Utf8_info {
+    u1 tag;
+    u2 length;
+    u1 bytes[length];
+}
+```
+
+length在这里就是代表字符串的长度，length的类型是u2，u2是无符号的16位整数，也就是说最大长度可以做到2^16-1 即 65535。
+
+不过javac编译器做了限制，需要length < 65535。所以字符串常量在常量池中的最大长度是65535 - 1 = 65534。
+
+最后总结一下：
+
+String在不同的状态下，具有不同的长度限制。
+
+- 字符串常量长度不能超过65534
+- 堆内字符串的长度不超过2^31-1
 
 ## Object常用方法有哪些？
 
@@ -844,7 +1016,7 @@ public class B extends A {
 
 ## 方法重载和重写的区别？
 
-**同个类中的多个方法可以有相同的方法名称，但是有不同的参数列表，这就称为方法重载。**参数列表又叫参数签名，包括参数的类型、参数的个数、参数的顺序，只要有一个不同就叫做参数列表不同。
+**同个类中的多个方法可以有相同的方法名称，但是有不同的参数列表，这就称为方法重载**。参数列表又叫参数签名，包括参数的类型、参数的个数、参数的顺序，只要有一个不同就叫做参数列表不同。
 
 重载是面向对象的一个基本特性。
 
@@ -862,7 +1034,7 @@ public class OverrideTest {
 }
 ```
 
-**方法的重写描述的是父类和子类之间的。当父类的功能无法满足子类的需求，可以在子类对方法进行重写。**方法重写时， 方法名与形参列表必须一致。
+**方法的重写描述的是父类和子类之间的。当父类的功能无法满足子类的需求，可以在子类对方法进行重写**。方法重写时， 方法名与形参列表必须一致。
 
 如下代码，Person为父类，Student为子类，在Student中重写了dailyTask方法。
 
@@ -888,9 +1060,9 @@ public class Student extends Person {
 
 1、**语法层面**上的区别
 
-- 抽象类可以有方法实现，而接口的方法中只能是抽象方法（Java 8 开始接口方法可以有默认实现）；
+- 抽象类可以有方法实现，而接口的方法中只能是抽象方法（Java 8 之后接口方法可以有默认实现）；
 - 抽象类中的成员变量可以是各种类型的，接口中的成员变量只能是public static final类型；
-- 接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法；
+- 接口中不能含有静态代码块以及静态方法，而抽象类可以有静态代码块和静态方法（Java 8之后接口可以有静态方法）；
 - 一个类只能继承一个抽象类，而一个类却可以实现多个接口。
 
 2、**设计层面**上的区别
@@ -1071,17 +1243,60 @@ Java不支持多继承的原因：
 - Optional 类 ：Optional 类已经成为 Java 8 类库的一部分，用来解决空指针异常。
 - Date Time API ：加强对日期与时间的处理。
 
-> [Java8 新特性总结]([Java-learning/Java8.md at master · Tyson0314/Java-learning (github.com)](https://github.com/Tyson0314/Java-learning/blob/master/Java/Java8.md))
+> [Java8 新特性总结](https://github.com/Tyson0314/Java-learning/blob/master/Java/Java8新特性.md)
 
-## 什么是序列化和反序列化？
+## 序列化和反序列化
 
-序列化：把内存中的对象转换为字节序列的过程。
+- 序列化：把对象转换为字节序列的过程称为对象的序列化.
+- 反序列化：把字节序列恢复为对象的过程称为对象的反序列化.
 
-反序列化：把字节序列恢复为Java对象的过程。
+## 什么时候需要用到序列化和反序列化呢?
 
-## 如何实现序列化
+当我们只在本地 JVM 里运行下 Java 实例，这个时候是不需要什么序列化和反序列化的，但当我们需要将内存中的对象持久化到磁盘，数据库中时，当我们需要与浏览器进行交互时，当我们需要实现 RPC 时，这个时候就需要序列化和反序列化了.
 
-实现`Serializable`接口即可。序列化的时候（如`objectOutputStream.writeObject(user)`），会判断user是否实现了`Serializable`，如果对象没有实现`Serializable`接口，在序列化的时候会抛出`NotSerializableException`异常。源码如下：
+前两个需要用到序列化和反序列化的场景，是不是让我们有一个很大的疑问? 我们在与浏览器交互时，还有将内存中的对象持久化到数据库中时，好像都没有去进行序列化和反序列化，因为我们都没有实现 Serializable 接口，但一直正常运行.
+
+下面先给出结论:
+
+**只要我们对内存中的对象进行持久化或网络传输，这个时候都需要序列化和反序列化.**
+
+理由:
+
+服务器与浏览器交互时真的没有用到 Serializable 接口吗? JSON 格式实际上就是将一个对象转化为字符串，所以服务器与浏览器交互时的数据格式其实是字符串，我们来看来 String 类型的源码:
+
+```
+public final class String
+    implements java.io.Serializable，Comparable<String>，CharSequence {
+    /\*\* The value is used for character storage. \*/
+    private final char value\[\];
+
+    /\*\* Cache the hash code for the string \*/
+    private int hash; // Default to 0
+
+    /\*\* use serialVersionUID from JDK 1.0.2 for interoperability \*/
+    private static final long serialVersionUID = -6849794470754667710L;
+
+    ......
+}
+```
+
+String 类型实现了 Serializable 接口，并显示指定 serialVersionUID 的值.
+
+然后我们再来看对象持久化到数据库中时的情况，Mybatis 数据库映射文件里的 insert 代码:
+
+```
+<insert id="insertUser" parameterType="org.tyshawn.bean.User">
+    INSERT INTO t\_user(name，age) VALUES (#{name}，#{age})
+</insert>
+```
+
+实际上我们并不是将整个对象持久化到数据库中，而是将对象中的属性持久化到数据库中，而这些属性（如Date/String）都实现了 Serializable 接口。
+
+## 实现序列化和反序列化为什么要实现 Serializable 接口?
+
+在 Java 中实现了 Serializable 接口后， JVM 在类加载的时候就会发现我们实现了这个接口，然后在初始化实例对象的时候就会在底层帮我们实现序列化和反序列化。
+
+如果被写对象类型不是String、数组、Enum，并且没有实现Serializable接口，那么在进行序列化的时候，将抛出NotSerializableException。源码如下：
 
 ```java
 // remaining cases
@@ -1102,6 +1317,20 @@ if (obj instanceof String) {
     }
 }
 ```
+
+## 实现 Serializable 接口之后，为什么还要显示指定 serialVersionUID 的值?
+
+如果不显示指定 serialVersionUID，JVM 在序列化时会根据属性自动生成一个 serialVersionUID，然后与属性一起序列化，再进行持久化或网络传输. 在反序列化时，JVM 会再根据属性自动生成一个新版 serialVersionUID，然后将这个新版 serialVersionUID 与序列化时生成的旧版 serialVersionUID 进行比较，如果相同则反序列化成功，否则报错.
+
+如果显示指定了 serialVersionUID，JVM 在序列化和反序列化时仍然都会生成一个 serialVersionUID，但值为我们显示指定的值，这样在反序列化时新旧版本的 serialVersionUID 就一致了.
+
+如果我们的类写完后不再修改，那么不指定serialVersionUID，不会有问题，但这在实际开发中是不可能的，我们的类会不断迭代，一旦类被修改了，那旧对象反序列化就会报错。 所以在实际开发中，我们都会显示指定一个 serialVersionUID。
+
+## static 属性为什么不会被序列化?
+
+因为序列化是针对对象而言的，而 static 属性优先于对象存在，随着类的加载而加载，所以不会被序列化.
+
+看到这个结论，是不是有人会问，serialVersionUID 也被 static 修饰，为什么 serialVersionUID 会被序列化? 其实 serialVersionUID 属性并没有被序列化，JVM 在序列化对象时会自动生成一个 serialVersionUID，然后将我们显示指定的 serialVersionUID 属性值赋给自动生成的 serialVersionUID.
 
 ## transient关键字的作用？
 
@@ -1128,7 +1357,86 @@ Java泛型是JDK 5中引⼊的⼀个新特性， 允许在定义类和接口的�
 
 泛型最⼤的好处是可以提⾼代码的复⽤性。以List接口为例，我们可以将String、 Integer等类型放⼊List中， 如不⽤泛型， 存放String类型要写⼀个List接口， 存放Integer要写另外⼀个List接口， 泛型可以很好的解决这个问题。
 
-## String为什么不可变？
+## 如何停止一个正在运行的线程？
+
+有几种方式。
+
+1、**使用线程的stop方法**。
+
+使用stop()方法可以强制终止线程。不过stop是一个被废弃掉的方法，不推荐使用。
+
+使用Stop方法，会一直向上传播ThreadDeath异常，从而使得目标线程解锁所有锁住的监视器，即释放掉所有的对象锁。使得之前被锁住的对象得不到同步的处理，因此可能会造成数据不一致的问题。
+
+2、**使用interrupt方法中断线程**，该方法只是告诉线程要终止，但最终何时终止取决于计算机。调用interrupt方法仅仅是在当前线程中打了一个停止的标记，并不是真的停止线程。
+
+接着调用 Thread.currentThread().isInterrupted()方法，可以用来判断当前线程是否被终止，通过这个判断我们可以做一些业务逻辑处理，通常如果isInterrupted返回true的话，会抛一个中断异常，然后通过try-catch捕获。
+
+3、**设置标志位**
+
+设置标志位，当标识位为某个值时，使线程正常退出。设置标志位是用到了共享变量的方式，为了保证共享变量在内存中的可见性，可以使用volatile修饰它，这样的话，变量取值始终会从主存中获取最新值。
+
+但是这种volatile标记共享变量的方式，在线程发生阻塞时是无法完成响应的。比如调用Thread.sleep() 方法之后，线程处于不可运行状态，即便是主线程修改了共享变量的值，该线程此时根本无法检查循环标志，所以也就无法实现线程中断。
+
+因此，interrupt() 加上手动抛异常的方式是目前中断一个正在运行的线程**最为正确**的方式了。
+
+## 什么是跨域？
+
+简单来讲，跨域是指从一个域名的网页去请求另一个域名的资源。由于有**同源策略**的关系，一般是不允许这么直接访问的。但是，很多场景经常会有跨域访问的需求，比如，在前后端分离的模式下，前后端的域名是不一致的，此时就会发生跨域问题。
+
+**那什么是同源策略呢**？
+
+所谓同源是指"协议+域名+端口"三者相同，即便两个不同的域名指向同一个ip地址，也非同源。
+
+同源策略限制以下几种行为：
+
+```mipsasm
+1. Cookie、LocalStorage 和 IndexDB 无法读取
+2. DOM 和 Js对象无法获得
+3. AJAX 请求不能发送
+```
+
+**为什么要有同源策略**？
+
+举个例子，假如你刚刚在网银输入账号密码，查看了自己的余额，然后再去访问其他带颜色的网站，这个网站可以访问刚刚的网银站点，并且获取账号密码，那后果可想而知。因此，从安全的角度来讲，同源策略是有利于保护网站信息的。
+
+## 跨域问题怎么解决呢？
+
+嗯，有以下几种方法：
+
+**CORS**，跨域资源共享
+
+CORS（Cross-origin resource sharing），跨域资源共享。CORS 其实是浏览器制定的一个规范，浏览器会自动进行 CORS 通信，它的实现主要在服务端，通过一些 HTTP Header 来限制可以访问的域，例如页面 A 需要访问 B 服务器上的数据，如果 B 服务器 上声明了允许 A 的域名访问，那么从 A 到 B 的跨域请求就可以完成。
+
+**@CrossOrigin注解**
+
+如果项目使用的是Springboot，可以在Controller类上添加一个 @CrossOrigin(origins ="*") 注解就可以实现对当前controller 的跨域访问了，当然这个标签也可以加到方法上，或者直接加到入口类上对所有接口进行跨域处理。注意SpringMVC的版本要在4.2或以上版本才支持@CrossOrigin。
+
+**nginx反向代理接口跨域**
+
+nginx反向代理跨域原理如下： 首先同源策略是浏览器的安全策略，不是HTTP协议的一部分。服务器端调用HTTP接口只是使用HTTP协议，不会执行JS脚本，不需要同源策略，也就不存在跨越问题。
+
+nginx反向代理接口跨域实现思路如下：通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。
+
+```js
+// proxy服务器
+server {
+    listen       81;
+    server_name  www.domain1.com;
+    location / {
+        proxy_pass   http://www.domain2.com:8080;  #反向代理
+        proxy_cookie_domain www.domain2.com www.domain1.com; #修改cookie里域名
+        index  index.html index.htm;
+        
+        add_header Access-Control-Allow-Origin http://www.domain1.com;
+    }
+}
+```
+
+这样我们的前端代理只要访问 http:www.domain1.com:81/*就可以了。
+
+**通过jsonp跨域**
+
+通常为了减轻web服务器的负载，我们把js、css，img等静态资源分离到另一台独立域名的服务器上，在html页面中再通过相应的标签从不同域名下加载静态资源，这是浏览器允许的操作，基于此原理，我们可以通过动态创建script，再请求一个带参网址实现跨域通信。
 
 
 
