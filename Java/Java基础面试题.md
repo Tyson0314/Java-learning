@@ -1,8 +1,3 @@
----
-sidebar: heading
-
----
-
 ![](http://img.dabin-coder.cn/image/Java基础.jpg)
 
 ## Java的特点
