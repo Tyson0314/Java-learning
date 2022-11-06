@@ -190,6 +190,25 @@
 5. [找出最热门的查询串](https://topjavaer.cn/mass-data/5-find-hot-string.html)
 6. [如何找出排名前500的数字](https://topjavaer.cn/mass-data/6-top-500-num.html)
 
+# 大厂面经汇总
+
+- [字节跳动](./interview/1-byte-and-dance.md)
+- [腾讯](./interview/2-tencent.md)
+- [百度](./interview/3-baidu.md)
+- [阿里](./interview/4-ali.md)
+- [快手](./interview/5-kuaishou.md)
+- [美团](./interview/6-meituan.md)
+- [shopee](./interview/7-shopee.md)
+- [京东](./interview/8-jingdong.md)
+- [华为](./interview/9-huawei.md)
+- [网易](./interview/10-netease.md)
+
+# 其他优质文章
+
+[优质文章汇总，持续更新中~](https://topjavaer.cn/advance/excellent-article/)
+
+![](http://img.dabin-coder.cn/image/image-20221030172546796.png)
+
 # 工具
 
 [Git 超详细总结！](工具/git-overview.md)(推荐 :+1:)
@@ -199,31 +218,6 @@
 [Docker 基础总结！](工具/docker-overview.md)
 
 [Maven 基础总结！](tools/maven-overview.md)
-
-# 大厂面试系列
-
-1. [字节跳动一面面经](https://mp.weixin.qq.com/s/RH-SunzjqUTTx8HWaCmCcw)
-2. [别再问我Java List八股文了！](https://mp.weixin.qq.com/s/doyy_GYGWoH_YHgyMijStA)
-3. [腾讯面试，你真的懂HTTP吗？](https://mp.weixin.qq.com/s/kC7XRBfO7Z5hZcX6Dz2viw)
-4. [美团二面面经，最后竟然有惊喜？](https://mp.weixin.qq.com/s/3HvOtTU29HGALqmeeOZNWw)
-5. [Java多线程，被面试官难倒了！](https://mp.weixin.qq.com/s/tv8pOLaS6hpwgbKOB9w0Zw)
-6. [京东二面，Redis为什么这么快？](https://mp.weixin.qq.com/s/S3vN5T9HpziRd2s5ysLaSg)
-7. [MySQL索引，给我整不会了！](https://mp.weixin.qq.com/s/Q5CrDlNInpnckJaBQSrA7w)
-8. [别再问我Java虚拟机八股文了！](https://mp.weixin.qq.com/s/npo5-VqQt5sqZiSwPv6LVw)
-9. [计算机网络，问傻了！](https://mp.weixin.qq.com/s/WXcMLa_tdxpRLhO4U8LHIQ)
-10. [Spring这几道题你会吗？](https://mp.weixin.qq.com/s/DtgYRFfOQxQdtQosCU-6aw)
-11. [面向对象编程？](https://mp.weixin.qq.com/s/M8jDnLat61YAbM1-jIhJIA)
-12. [Java内功深厚？](https://mp.weixin.qq.com/s/v_kWSHX9GMS_aoqfwUMKsg)
-13. [面试初级Java开发，面试官问我MySQL架构？](https://mp.weixin.qq.com/s/JvDZCk4IecmaEYfFsRhpjQ)
-14. [手写红黑树？](https://mp.weixin.qq.com/s/yznh_IfMg4hWqU62U-t9GQ)
-15. [面完阿里，直接入职！](https://mp.weixin.qq.com/s/49QJ1FzaGTe-_54PT8_8jA)
-16. [华为面经](https://mp.weixin.qq.com/s/KmjwoG7pNvAHiX1UNnef6g)
-
-# 其他优质文章
-
-[优质文章汇总，持续更新中~](https://topjavaer.cn/advance/excellent-article/)
-
-![](http://img.dabin-coder.cn/image/image-20221030172546796.png)
 
 # 交流
 
