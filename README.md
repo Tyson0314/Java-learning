@@ -55,33 +55,38 @@
 
 ## 基础
 
-1. [**Java面试题精选**](Java/Java基础面试题.md)  **精心整理的大厂Java面试题目，附有详细答案** (推荐 :+1:)
-2. [Java8 新特性总结](Java/Java8.md)
+1. [**Java面试题精选**](docs/java/java-basic.md)  **精心整理的大厂Java面试题目，附有详细答案** (推荐 :+1:)
+2. [Java8 新特性总结](docs/java/java8-all.md)
 
 ## 集合
 
-1. [Java集合高频面试题](Java/Java集合面试题.md)(**牛客点赞200+！推荐** :+1:)
+1. [Java集合高频面试题](docs/java/java-collection.md)(**牛客点赞200+！推荐** :+1:)
 
 ## 并发
 
-1. [Java并发高频面试题（精华版）](Java/Java并发面试题.md) **精心整理的大厂Java并发编程面试题目，附有详细答案**  (推荐 :+1:)
+1. [Java并发高频面试题（精华版）](docs/java/java-concurrent.md) **精心整理的大厂Java并发编程面试题目，附有详细答案**  (推荐 :+1:)
 
 ## JVM
 
-1. [【大厂面试】——JVM高频面试题](Java/JVM高频面试题.md)(推荐 :+1:)
+1. [【大厂面试】——JVM高频面试题](/docs/java/jvm.md)(推荐 :+1:)
 
 # 数据库
 
 ## MySQL
 
-1. [【大厂面试】—— MySQL高频面试题50道](数据库/MySQL高频面试题.md)(**知乎1k+收藏，推荐** :+1:)
-2. [图解索引下推](https://mp.weixin.qq.com/s/W1XQYmihtSdbLWQKeNwZvQ)(推荐 :+1:)
-3. [MySQL执行计划详解](数据库/MySQL执行计划.md)(推荐 :+1:)
+- [MySQL高频面试题50道](docs/database/mysql.md)(**知乎1k+收藏，推荐** :+1:)
+
+**重要知识点**：
+
+- [8种最坑SQL语法](docs/advance/excellent-article/7-sql-optimize.md)
+
+- [MySQL执行计划详解](docs/database/mysql-execution-plan.md)(推荐 :+1:)
+
+- [图解索引下推](https://mp.weixin.qq.com/s/W1XQYmihtSdbLWQKeNwZvQ)(推荐 :+1:)
 
 ## Redis
 
-1. [【大厂面试】——Redis30问](Redis/Redis面试题.md)(牛客高赞，推荐 :+1:)
-2. [缓存穿透、缓存雪崩、缓存击穿](Redis/缓存穿透、缓存雪崩、缓存击穿.md)
+1. [Redis高频面试题总结](docs/redis/redis.md)(牛客高赞，推荐 :+1:)
 
 ## ElasticSearch
 
@@ -91,54 +96,52 @@
 
 ## Spring
 
-1. [Spring高频面试题30道](框架/Spring面试题.md)(推荐 :+1:)
-2. [Spring用到哪些设计模式?](框架/Spring用到哪些设计模式.md)
+1. [Spring高频面试题30道](docs/framework/spring.md)(推荐 :+1:)
+2. [Spring用到哪些设计模式?]() todo
 
 ## Spring Boot
 
 [Spring Boot总结](框架/SpringBoot实战.md)
 
-[SpringBoot面试题总结](框架/SpringBoot面试题总结.md)
+[SpringBoot面试题总结](docs/framework/springboot.md)
 
 ## Spring MVC
 
-[Spring MVC入门知识点](框架/SpringMVC.md)
-
-[Spring MVC面试题总结](框架/SpringMVC面试题.md)
+[Spring MVC面试题总结](docs/framework/springmvc.md)
 
 ## Mybatis
 
 [Mybatis入门知识点](框架/深入浅出Mybatis技术原理与实战.md)
 
-[Mybatis面试题总结](框架/Mybatis面试题.md)
+[Mybatis面试题总结](docs/framework/mybatis.md)
 
 ## SpringCloud
 
-[[SpringCloud面试题](https://topjavaer.cn/framework/springcloud-interview.html)(推荐 :+1:)
+[[SpringCloud面试题](docs/framework/springcloud-interview.md)(推荐 :+1:)
 
-[SpringCloud总结](框架/SpringCloud微服务实战.md)
+[SpringCloud总结](docs/framework/springcloud-overview.md)
 
 ## Netty
 
-[Netty实战笔记](框架/netty实战.md)
+[Netty实战笔记](docs/framework/netty-overview.md)
 
 # 分布式
 
 ## 微服务
 
-[微服务面试题](https://topjavaer.cn/distributed/micro-service.html)
+[微服务面试题](docs/advance/distributed/4-micro-service.md)
 
 ## RPC
 
-[RPC面试题](https://topjavaer.cn/distributed/rpc.html)
+[RPC面试题](docs/advance/distributed/3-rpc.md)
 
 ## 全局唯一ID
 
-[全局唯一ID](https://topjavaer.cn/distributed/global-unique-id.html)
+[全局唯一ID](docs/advance/distributed/1-global-unique-id.md)
 
 ## 分布式事务
 
-[分布式事务总结](https://topjavaer.cn/distributed/distributed-transaction.html)
+[分布式事务总结](docs/advance/distributed/6-distributed-transaction.md)
 
 ## 分布式架构
 
@@ -148,38 +151,30 @@
 
 ## 限流
 
-[限流算法总结](https://topjavaer.cn/advance/concurrent/1-current-limiting.html)
+[限流算法总结](docs/advance/concurrent/1-current-limiting.md)
 
 ## 负载均衡
 
-[负载均衡](https://topjavaer.cn/advance/concurrent/2-load-balance.html)
+[负载均衡](docs/advance/concurrent/2-load-balance.md)
 
 # 消息队列
 
 ## RabbitMQ
 
-1. [消息队列面试题](消息队列/消息队列面试题.md)
-2. [RabbitMQ面试题总结](消息队列/rabbitmq.md) (推荐 :+1:)
-3. [Kafka面试题总结](消息队列/kafka.md) (推荐 :+1:)
-4. [死信队列](消息队列/死信队列.md)
+1. [消息队列面试题](docs/message-queue/mq.md)
+2. [RabbitMQ面试题总结](docs/message-queue/rabbitmq.md) (推荐 :+1:)
+3. [Kafka面试题总结](docs/message-queue/kafka.md) (推荐 :+1:)
+4. [死信队列]() todo
 
 # 计算机网络
 
-[【大厂面试】—— 计算机网络常见面试题总结](计算机基础/网络/计算机网络高频面试题.md) （**知乎1k+收藏！推荐 :+1:**）
+[计算机网络常见面试题总结](docs/computer-basic/network.md) （**知乎1k+收藏！推荐 :+1:**）
 
 # 数据结构与算法
 
-[如何高效的刷LeetCode？](https://www.zhihu.com/question/280279208/answer/2377906738)
-
-[120道Leetcode题解（高频）](https://topjavaer.cn/leetcode/hot120/)
-
-[常见数据结构总结](https://topjavaer.cn/computer-basic/data-structure.html)
-
-# 设计模式
-
-[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
-
-[设计模式总结](https://topjavaer.cn/advance/design-pattern/)
+- [常见数据结构总结](docs/computer-basic/data-structure.md)
+- [如何高效的刷LeetCode？](https://www.zhihu.com/question/280279208/answer/2377906738)
+- [120道Leetcode题解（高频）](https://topjavaer.cn/leetcode/hot120/)
 
 # 海量数据场景题
 
@@ -189,21 +184,49 @@
 4. [如何在100亿的数据中找到中位数](https://topjavaer.cn/mass-data/4-find-mid-num.html)
 5. [找出最热门的查询串](https://topjavaer.cn/mass-data/5-find-hot-string.html)
 6. [如何找出排名前500的数字](https://topjavaer.cn/mass-data/6-top-500-num.html)
+7. [如何按照 query 的频度排序？](https://topjavaer.cn/mass-data/7-query-frequency-sort.html)
+8. [大数据中 TopK 问题的常用套路](https://topjavaer.cn/mass-data/8-topk-template.html)
+
+# 系统设计
+
+- [扫码登录](docs/advance/system-design/1-scan-code-login.md)
+- [订单超时未支付自动取消](docs/advance/system-design/2-order-timeout-auto-cancel.md)
+- [短链系统设计](docs/advance/system-design/3-short-url.md)
+- [超卖问题](docs/advance/system-design/4-oversold.md)
+- [秒杀系统设计](docs/advance/system-design/5-second-kill.md)
+- [微信红包系统如何设计？](docs/advance/system-design/6-wechat-redpacket-design.md)
+- [如何把一个文件较快的发送到100w个服务器？](docs/advance/system-design/7-file-send.md)
+
+# 安全
+
+- [什么是JWT？](docs/advance/excellent-article/16-what-is-jwt.md)
+- [单点登录（SSO）设计与实现](docs/advance/system-design/8-sso-design.md)
+
+# 编程实践
+
+1. [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
+2. [干掉 “重复代码” 的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
 
 # 大厂面经汇总
 
-- [字节跳动](./interview/1-byte-and-dance.md)
-- [腾讯](./interview/2-tencent.md)
-- [百度](./interview/3-baidu.md)
-- [阿里](./interview/4-ali.md)
-- [快手](./interview/5-kuaishou.md)
-- [美团](./interview/6-meituan.md)
-- [shopee](./interview/7-shopee.md)
-- [京东](./interview/8-jingdong.md)
-- [华为](./interview/9-huawei.md)
-- [网易](./interview/10-netease.md)
+- [字节跳动](docs/campus-recruit/interview/1-byte-and-dance.md)
+- [腾讯](docs/campus-recruit/interview/2-tencent.md)
+- [百度](docs/campus-recruit/interview/3-baidu.md)
+- [阿里](docs/campus-recruit/interview/4-ali.md)
+- [快手](docs/campus-recruit/interview/5-kuaishou.md)
+- [美团](docs/campus-recruit/interview/6-meituan.md)
+- [shopee](docs/campus-recruit/interview/7-shopee.md)
+- [京东](docs/campus-recruit/interview/8-jingdong.md)
+- [华为](docs/campus-recruit/interview/9-huawei.md)
+- [网易](docs/campus-recruit/interview/10-netease.md)
 
-# 其他优质文章
+# 设计模式
+
+[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
+
+[设计模式总结](https://topjavaer.cn/advance/design-pattern/)
+
+# 优质文章
 
 [优质文章汇总，持续更新中~](https://topjavaer.cn/advance/excellent-article/)
 
@@ -211,13 +234,13 @@
 
 # 工具
 
-[Git 超详细总结！](工具/git-overview.md)(推荐 :+1:)
+[Git 超详细总结！](docs/tools/git-overview.md)(推荐 :+1:)
 
-[Linux 常用命令总结！](工具/linux-overview.md)
+[Linux 常用命令总结！](docs/tools/linux-overview.md)
 
-[Docker 基础总结！](工具/docker-overview.md)
+[Docker 基础总结！](docs/tools/docker-overview.md)
 
-[Maven 基础总结！](tools/maven-overview.md)
+[Maven 基础总结！](docs/tools/maven-overview.md)
 
 # 交流
 
@@ -249,6 +272,6 @@
 | 2022.05.03 | 微信收款码   | *哈      | 2元      |                          |
 | 2022.06.12 | 微信收款码   | *可      | 8.8元    |                          |
 | 2022.10.19 | 微信收款码   | *斌      | 10元     | 支持一下，希望能持续更新 |
-
-
+| 2022.11.16 | 支付宝收款码 | *雄      | 2元      |                          |
+| 2022.12.02 | 微信收款码   | *军      | 5元      |                          |
 
