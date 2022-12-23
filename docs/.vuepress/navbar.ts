@@ -9,33 +9,44 @@ export default navbar([
         link: "/",
         icon: "home",
     },
-    {
-        text: "校招",
-        icon: "campus",
-        children: [
-			{text: "校招分享", link: "/campus-recruit/share"},
-            {text: "简历应该这么写", link: "/campus-recruit/resume.md"},
-            {text: "项目经验介绍", link: "/campus-recruit/project-experience.md"},
-            {text: "编程语言", link: "/campus-recruit/program-language"},
-			{text: "面经总结", link: "/campus-recruit/interview/"},
-			{text: "秋招内推", link: "https://docs.qq.com/sheet/DYW9ObnpobXNRTXpq"},
-        ],
-    },
+    //{
+    //    text: "校招",
+    //    icon: "campus",
+    //    children: [
+	//		{text: "校招分享", link: "/campus-recruit/share"},
+    //        {text: "简历应该这么写", link: "/campus-recruit/resume.md"},
+    //        {text: "项目经验介绍", link: "/campus-recruit/project-experience.md"},
+    //        {text: "编程语言", link: "/campus-recruit/program-language"},
+	//		{text: "面经总结", link: "/campus-recruit/interview/"},
+	//		{text: "秋招内推", link: "https://docs.qq.com/sheet/DYW9ObnpobXNRTXpq"},
+    //    ],
+    //},
+    //{
+    //    text: "校招",
+    //    icon: "campus",
+    //    children: [
+    //		{text: "校招分享", link: "/campus-recruit/share"},
+    //        {text: "简历应该这么写", link: "/campus-recruit/resume.md"},
+    //        {text: "项目经验介绍", link: "/campus-recruit/project-experience.md"},
+    //        {text: "编程语言", link: "/campus-recruit/program-language"},
+    //		{text: "面经总结", link: "/campus-recruit/interview/"},
+    //		{text: "秋招内推", link: "https://docs.qq.com/sheet/DYW9ObnpobXNRTXpq"},
+    //    ],
+    //},
     {
         text: "Java",
         icon: "java",
         children: [
-            {text: "基础", link: "/java/java-basic.md"},
-            {text: "集合", link: "/java/java-collection.md"},
-            {text: "并发", link: "/java/java-concurrent.md"},
-            {text: "JVM", link: "/java/jvm.md"},
-            {text: "Java8", link: "/java/java8"},
-        ]
-    },
-    {
-        text: "框架",
-        icon: "framework",
-        children: [
+			{
+				text: "Java",
+				children: [
+					{text: "基础", link: "/java/java-basic.md"},
+					{text: "集合", link: "/java/java-collection.md"},
+					{text: "并发", link: "/java/java-concurrent.md"},
+					{text: "JVM", link: "/java/jvm.md"},
+					{text: "Java8", link: "/java/java8"},
+				]
+			},
             {
                 text: "框架",
                 children: [
@@ -44,7 +55,7 @@ export default navbar([
                     {text: "Mybatis面试题", link: "/framework/mybatis.md"},
                     {text: "SpringBoot面试题", link: "/framework/springboot.md"},
                     {text: "SpringCloud详解", link: "/framework/springcloud/"},
-					{text: "SpringCloud面试题", link: "/framework/springcloud-interview.md"},
+                    {text: "SpringCloud面试题", link: "/framework/springcloud-interview.md"},
                     {text: "Netty详解", link: "/framework/netty/"},
                 ]
             },
@@ -53,7 +64,7 @@ export default navbar([
                 children: [
                     {text: "消息队列面试题", link: "/message-queue/mq.md"},
                     {text: "RabbitMQ面试题", link: "/message-queue/rabbitmq.md"},
-					{text: "Kafka面试题", link: "/message-queue/kafka.md"},
+                    {text: "Kafka面试题", link: "/message-queue/kafka.md"},
                 ]
             }
         ]
@@ -67,12 +78,6 @@ export default navbar([
             {text: "算法", link: "/computer-basic/algorithm.md"},
 			{text: "LeetCode题解", link: "/leetcode/hot120"},
             {text: "数据结构", link: "/computer-basic/data-structure.md"},
-        ]
-    },
-    {
-        text: "数据库",
-        icon: "db",
-        children: [
             {
                 text: "关系型数据库",
                 children: [
@@ -194,10 +199,35 @@ export default navbar([
             },
         ]
     },
+    // {
+    //     text: "珍藏资源",
+    //     icon: "collection",
+    //     children: [
+    //         {
+    //             text: "学习资源",
+    //             children: [
+    //                 {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books"},
+    //                 {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md"},
+    //             ]
+    //         },
+    //         {
+    //             text: "学习路线",
+    //             children: [
+    //                 {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md"},
+    //                 {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
+    //             ]
+    //         },
+    //
+    //     ]
+    // },
     {
-        text: "珍藏资源",
-        icon: "collection",
+        text: "关于",
+        icon: "about",
         children: [
+            {text: "关于我", link: "/about/introduce.md"},
+            {text: "网站日记", link: "/other/site-diary.md"},
+            {text: "联系我", link: "/about/contact.md"},
+			{text: "留言区", link: "/other/leave-a-message.md"},
             {
                 text: "学习资源",
                 children: [
@@ -212,17 +242,6 @@ export default navbar([
                     {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
                 ]
             },
-
-        ]
-    },
-    {
-        text: "关于",
-        icon: "about",
-        children: [
-            {text: "关于我", link: "/about/introduce.md"},
-            {text: "网站日记", link: "/other/site-diary.md"},
-            {text: "联系我", link: "/about/contact.md"},
-			{text: "留言区", link: "/other/leave-a-message.md"},
         ]
     },
 
