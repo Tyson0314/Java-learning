@@ -27,11 +27,11 @@ candidates 中的每个数字在每个组合中只能使用 一次 。
 
 剪枝：
 
-![](http://img.dabin-coder.cn/image/1587051935261.png)
+![](http://img.topjavaer.cn/img/1587051935261.png)
 
 去重复组合：
 
-![](http://img.dabin-coder.cn/image/1587050948930.png)
+![](http://img.topjavaer.cn/img/1587050948930.png)
 
 ```java
 class Solution {

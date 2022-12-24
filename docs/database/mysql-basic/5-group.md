@@ -7,7 +7,7 @@ SELECT * FROM orders
 GROUP BY cust_id;
 ```
 
-![](http://img.dabin-coder.cn/image/20220530233523.png)
+![](http://img.topjavaer.cn/img/20220530233523.png)
 
 除聚集计算语句外，SELECT语句中的每个列都必须在GROUP BY子句中给出。
 

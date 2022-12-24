@@ -4,7 +4,7 @@
 
 Java 提供了 javax.net.ssl 支持 SSL/TSL，用以实现数据安全。
 
-![](http://img.dabin-coder.cn/image/sslhandler加解密.png)
+![](http://img.topjavaer.cn/img/sslhandler加解密.png)
 
 添加 SSL/TLS 支持：
 
@@ -161,7 +161,7 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
 
 WebSocket 在客户端和服务器之间提供了真正的双向数据交换。
 
-![](http://img.dabin-coder.cn/image/netty-websocket协议.png)
+![](http://img.topjavaer.cn/img/netty-websocket协议.png)
 
 WebSocketFrame 类型：
 
@@ -224,7 +224,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 
 用于空闲连接以及超时的 ChannelHandler。
 
-![](http://img.dabin-coder.cn/image/用于空闲连接以及超时的ChannelHandler.png)
+![](http://img.topjavaer.cn/img/用于空闲连接以及超时的ChannelHandler.png)
 
 发送心跳：
 

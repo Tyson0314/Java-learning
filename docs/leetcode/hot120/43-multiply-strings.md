@@ -19,7 +19,7 @@
 
 参考自：https://leetcode-cn.com/problems/multiply-strings/solution/you-hua-ban-shu-shi-da-bai-994-by-breezean/
 
-![](http://img.dabin-coder.cn/image/1587226241610.png)
+![](http://img.topjavaer.cn/img/1587226241610.png)
 
 ```java
 class Solution {

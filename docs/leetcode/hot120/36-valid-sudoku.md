@@ -18,7 +18,7 @@
 
 **示例**
 
-![](http://img.dabin-coder.cn/image/sudoku.png)
+![](http://img.topjavaer.cn/img/sudoku.png)
 
 ```java
 输入：board = 

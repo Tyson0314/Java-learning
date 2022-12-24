@@ -38,7 +38,7 @@ ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
 
 ## 实现细节
 
-![](http://img.dabin-coder.cn/image/netty-eventloop执行逻辑.png)
+![](http://img.topjavaer.cn/img/netty-eventloop执行逻辑.png)
 
 
 

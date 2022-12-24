@@ -34,10 +34,10 @@ ThreadPoolExecutor有以下这些参数。
 
 最后分享一份大彬精心整理的**大厂面试手册**，包含**操作系统、计算机网络、Java基础、JVM、分布式**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
 
-![](http://img.dabin-coder.cn/image/面试手册1.png)
+![](http://img.topjavaer.cn/img/面试手册1.png)
 
-![](http://img.dabin-coder.cn/image/面试手册.png)
+![](http://img.topjavaer.cn/img/面试手册.png)
 
 **手册获取方式**：微信搜索「**程序员大彬**」或者扫描下面的二维码，关注后发送关键字「**手册**」就可以找到下载链接了（**无套路，无解压密码**）。
 
-![](http://img.dabin-coder.cn/image/image-20221207225029295.png)
+![](http://img.topjavaer.cn/img/image-20221207225029295.png)

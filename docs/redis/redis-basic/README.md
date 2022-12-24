@@ -8,7 +8,7 @@ star: true
 
 **本专栏是大彬学习MySQL基础知识的学习笔记，如有错误，可以在评论区指出**~
 
-![](http://img.dabin-coder.cn/image/Redis知识点.jpg)
+![](http://img.topjavaer.cn/img/Redis知识点.jpg)
 
 ## Redis总结
 

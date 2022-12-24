@@ -30,7 +30,7 @@
 
 回溯。剪枝优化。
 
-![](http://img.dabin-coder.cn/image/image-20200526090917688.png)
+![](http://img.topjavaer.cn/img/image-20200526090917688.png)
 
 ```java
 class Solution {

@@ -20,7 +20,7 @@
 
 **解题思路**
 
-![](http://img.dabin-coder.cn/image/image-20221106172125452.png)
+![](http://img.topjavaer.cn/img/image-20221106172125452.png)
 
 > 作者：画手大鹏
 > 链接：https://leetcode.cn/problems/remove-element/solutions/10388/hua-jie-suan-fa-27-yi-chu-yuan-su-by-guanpengchn/

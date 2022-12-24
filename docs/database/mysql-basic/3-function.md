@@ -19,7 +19,7 @@ WHERE Soundex(cust_contact) = Soundex('Y Lie');
 
 ## 日期处理函数
 
-![](http://img.dabin-coder.cn/image/20220530235607.png)
+![](http://img.topjavaer.cn/img/20220530235607.png)
 查找2005年9月的所有订单：
 
 ```mysql
@@ -38,5 +38,5 @@ WHERE Year(order_date) = 2005 AND Month(order_date) = 9;
 
 ## 数值处理函数
 
-![](http://img.dabin-coder.cn/image/20220530233617.png)
+![](http://img.topjavaer.cn/img/20220530233617.png)
 

@@ -10,7 +10,7 @@
 
 **示例**
 
-![](http://img.dabin-coder.cn/image/mat1.jpg)
+![](http://img.topjavaer.cn/img/mat1.jpg)
 
 ```java
 输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]

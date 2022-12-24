@@ -14,7 +14,7 @@
 
 当默认的中央仓库无法满足项目需要，可以通过 repositories 元素在 POM 中配置远程仓库。maven 中央仓库 id 为 central，若其他仓库 id 命名为 central，则会覆盖中央仓库的配置。
 
-![](http://img.dabin-coder.cn/image/使用Jboss maven仓库.png)
+![](http://img.topjavaer.cn/img/使用Jboss maven仓库.png)
 
 maven中的仓库分为两种，snapshot 快照仓库和 release 发布仓库。元素 releases 的 enabled 为 true 表示开启 Jboss 仓库 release 版本下载支持，maven 会从 Jboss 仓库下载 release 版本的构件。
 

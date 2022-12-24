@@ -11,7 +11,7 @@
 
 **示例**：
 
-![](http://img.dabin-coder.cn/image/image-20221121021212085.png)
+![](http://img.topjavaer.cn/img/image-20221121021212085.png)
 
 ```java
 输入：matrix = [[1,3,5,7],[10,11,16,20],[23,30,34,60]], target = 3

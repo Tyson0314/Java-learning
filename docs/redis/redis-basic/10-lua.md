@@ -31,7 +31,7 @@ redis 127.0.0.1:6379> EVALSHA "232fd51614574cf0867b83d384a5e898cfd24e5a" 0
 
 使用evalsha执行Lua脚本过程如下：
 
-![](http://img.dabin-coder.cn/image/evalsha.png)
+![](http://img.topjavaer.cn/img/evalsha.png)
 
 ## lua脚本作用
 

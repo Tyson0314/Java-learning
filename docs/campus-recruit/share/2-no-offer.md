@@ -52,5 +52,5 @@ sidebar: heading
 
 最后，如果秋招面试过程有疑问、offer抉择问题、简历问题等，可以扫码加大彬的微信交流~
 
-![](http://img.dabin-coder.cn/image/个人微信索隆.jpg)
+![](http://img.topjavaer.cn/img/个人微信索隆.jpg)
 

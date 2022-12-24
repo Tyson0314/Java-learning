@@ -8,7 +8,7 @@
 
 问总共有多少条不同的路径？
 
-![](http://img.dabin-coder.cn/image/uniquePaths1.png)
+![](http://img.topjavaer.cn/img/uniquePaths1.png)
 
 **示例**：
 
@@ -38,7 +38,7 @@
 
 2、然后是**状态转移方程**。根据题意，只能向右和向下运动，当前位置`(i, j)`只能从`(i-1, j)`和`(i, j-1)`两个方向走过来，由此可以确定状态方程为`dp[i][j] = dp[i-1][j] + dp[i][j-1]`。
 
-![](http://img.dabin-coder.cn/image/uniquePaths2.png)
+![](http://img.topjavaer.cn/img/uniquePaths2.png)
 
 3、**初始状态**。对于第一行 `dp[0][j]`和第一列 `dp[i][0]`，由于都在边界，只有一个方向可以走，所以只能为 1。
 

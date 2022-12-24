@@ -26,7 +26,7 @@ ChannelPipeline 的用于访问ChannelHandler 的操作：
 
 ChannelHandlerContext 代表了ChannelHandler 和ChannelPipeline 之间的关联，每当有ChannelHandler 添加到ChannelPipeline 中时，都会创建ChannelHandlerContext。
 
-![](http://img.dabin-coder.cn/image/netty1.png)
+![](http://img.topjavaer.cn/img/netty1.png)
 
 | 方法            | 描述                                                       |
 | --------------- | ---------------------------------------------------------- |

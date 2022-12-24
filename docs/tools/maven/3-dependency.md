@@ -33,13 +33,13 @@ maven 在编译、测试和运行项目时会使用不同的 classpath（编译c
 
 spring-core 是 account 的第一直接依赖，common-logging 是 spring-core 的第二直接依赖，common-logging 是 account 的传递性依赖。第一直接依赖的范围和第二直接依赖的范围共同决定了传递性依赖的范围。下表左边是第一直接依赖的范围，上面一行是第二直接依赖的范围，中间部分是传递依赖的范围
 
-![](http://img.dabin-coder.cn/image/传递性依赖.png)
+![](http://img.topjavaer.cn/img/传递性依赖.png)
 
 ## 排除依赖
 
 传递性依赖可能会带来一些问题，像引入一些类库的 SNAPSHOT 版本，会影响到当前项目的稳定性。此时可以通过 exclusions 元素声明排除传递性依赖，exclusions 元素可以包含一个或多个 exclusion 元素，因此可以排除多个传递性依赖。声明 exclusion 时只需要 groupId 和 artifactId，而不需要 version 元素。
 
-![](http://img.dabin-coder.cn/image/排查依赖.png)
+![](http://img.topjavaer.cn/img/排查依赖.png)
 
 ## 优化依赖
 

@@ -54,9 +54,9 @@ Go也是一种静态的编译型语言，语法和C相近，但是采用了不�
 
 不信你打开招聘网站，搜搜Java和Go岗位的招聘量。如下图，同一地区，Java招聘岗位是500+，Go招聘岗位是175。由此看来，Java岗位的需求量还是比较多的（当然Java方向也比较卷）。
 
-![](http://img.dabin-coder.cn/image/20220620084914.png)
+![](http://img.topjavaer.cn/img/20220620084914.png)
 
-![](http://img.dabin-coder.cn/image/20220620084855.png)
+![](http://img.topjavaer.cn/img/20220620084855.png)
 
 Java社区非常活跃，各种文档和学习资料非常丰富。因为使用广泛，所以很多同事朋友沟通交流。 开发框架也是降低学习难度的有力工具，Spring框架是Java开发时常用框架，有非常丰富的组件和易用的功能，Spring Boot和Spring Cloud更是简化了开发过程中的琐碎工作，自动化配置依赖模块、开箱即用和约定优于配置，这些策略使得Spring框架在快速开发领域非常受欢迎。 
 

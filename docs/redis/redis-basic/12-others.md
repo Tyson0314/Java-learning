@@ -76,6 +76,6 @@ public void write(String key,Object data){
 
 解决方法：
 
-![](http://img.dabin-coder.cn/image/image-20210913235221410.png)
+![](http://img.topjavaer.cn/img/image-20210913235221410.png)
 
 > 图片来源：https://tech.it168.com

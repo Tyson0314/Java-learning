@@ -34,7 +34,7 @@ hash类型内部编码有两种：
 
 Redis3.2版本提供了quicklist内部编码，简单地说它是以一个ziplist为节点的linkedlist，它结合了ziplist和linkedlist两者的优势，为列表类型提供了一种更为优秀的内部编码实现。
 
-![](http://img.dabin-coder.cn/image/list-api.png)
+![](http://img.topjavaer.cn/img/list-api.png)
 
 使用场景：
 

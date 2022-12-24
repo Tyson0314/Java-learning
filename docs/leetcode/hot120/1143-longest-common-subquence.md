@@ -25,7 +25,7 @@
 
 解法一：`dp[i][j]`表示text1以i-1结尾的子串和text2以j-1结尾的子串的最长公共子序列的长度。dp横坐标或纵坐标为0表示空字符串，`dp[0][j] = dp[i][0] = 0`，无需额外处理base case。
 
-![](http://img.dabin-coder.cn/image/longestCommonSubsequence.png)
+![](http://img.topjavaer.cn/img/longestCommonSubsequence.png)
 
 ```java
 class Solution {

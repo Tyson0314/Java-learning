@@ -10,7 +10,7 @@ BootStrap 类被用于客户端或者使用了无连接协议的应用程序中�
 
 ## 引导服务器
 
-![](http://img.dabin-coder.cn/image/ServerBoostrap和ServerChannel.png)
+![](http://img.topjavaer.cn/img/ServerBoostrap和ServerChannel.png)
 
 在基类AbstractBootstrap有handler方法，目的是添加一个handler，监听Bootstrap的动作。
 

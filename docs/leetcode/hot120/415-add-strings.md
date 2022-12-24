@@ -17,7 +17,7 @@
 
 **解题思路**
 
-![image-20221029095055775](http://img.dabin-coder.cn/image/image-20221029095055775.png)
+![image-20221029095055775](http://img.topjavaer.cn/img/image-20221029095055775.png)
 
 **参考代码**：
 

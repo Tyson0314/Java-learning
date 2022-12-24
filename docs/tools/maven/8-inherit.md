@@ -129,7 +129,7 @@ springframework 依赖的 version 继承自父模块，可以省略，可避免�
 
 使用 import 依赖范围可以导入依赖管理配置，将目标 pom 的 dependencyManagement 配置导入合并到当前 pom 的 dependencyManagement 元素中。
 
-![](http://img.dabin-coder.cn/image/使用import依赖范围导入依赖管理配置.png)
+![](http://img.topjavaer.cn/img/使用import依赖范围导入依赖管理配置.png)
 
 ## 插件管理
 

@@ -6,7 +6,7 @@
 
 给定一个 `*m* x *n*` 的矩阵，如果一个元素为 **0** ，则将其所在行和列的所有元素都设为 **0** 。请使用 **[原地](http://baike.baidu.com/item/原地算法)** 算法**。**
 
-![](http://img.dabin-coder.cn/image/image-20221121020953873.png)
+![](http://img.topjavaer.cn/img/image-20221121020953873.png)
 
 **示例**：
 

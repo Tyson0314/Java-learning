@@ -28,7 +28,7 @@ struct sdshdr {
 set name "Redis"
 ```
 
-![](http://img.dabin-coder.cn/image/sds.png)
+![](http://img.topjavaer.cn/img/sds.png)
 
 free属性的值为0，表示这个SDS没有分配任何未使用空间。
 
@@ -92,7 +92,7 @@ ziplist是 Redis 为了节约内存而开发的， 由一系列特殊编码的�
 - 最底层的链表包含所有的元素
 - 跳跃表的查找次数近似于层数，时间复杂度为O(logn)，插入、删除也为 O(logn)
 
-![](http://img.dabin-coder.cn/image/redis-skiplist.png)
+![](http://img.topjavaer.cn/img/redis-skiplist.png)
 
 ## 对象
 

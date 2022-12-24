@@ -4,9 +4,9 @@ maven 的生命周期和插件相互绑定，用以完成具体的构建任务�
 
 ## 内置绑定
 
-![](http://img.dabin-coder.cn/image/maven内置绑定1.png)
+![](http://img.topjavaer.cn/img/maven内置绑定1.png)
 
-![](http://img.dabin-coder.cn/image/maven内置绑定2.png)
+![](http://img.topjavaer.cn/img/maven内置绑定2.png)
 
 ## 自定义绑定
 

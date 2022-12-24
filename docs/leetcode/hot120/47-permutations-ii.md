@@ -21,7 +21,7 @@
 
 > 参考自：https://leetcode-cn.com/problems/permutations-ii/solution/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/
 
-![](http://img.dabin-coder.cn/image/permutations-ii.png)
+![](http://img.topjavaer.cn/img/permutations-ii.png)
 
 ```java
 class Solution {

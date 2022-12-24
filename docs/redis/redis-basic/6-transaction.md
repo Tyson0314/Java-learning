@@ -9,7 +9,7 @@
 
 3. EXEC命令进行提交事务
 
-![](http://img.dabin-coder.cn/image/redis-multi.jpg)
+![](http://img.topjavaer.cn/img/redis-multi.jpg)
 
 DISCARD：放弃事务，即该事务内的所有命令都将取消
 
@@ -32,7 +32,7 @@ QUEUED
 
 事务里的命令执行时会读取最新的值：
 
-![](http://img.dabin-coder.cn/image/redis-transaction.png)
+![](http://img.topjavaer.cn/img/redis-transaction.png)
 
 ## WATCH命令
 

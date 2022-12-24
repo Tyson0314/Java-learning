@@ -6,7 +6,7 @@ category: maven
 star: true
 ---
 
-![](http://img.dabin-coder.cn/image/maven-img.png)
+![](http://img.topjavaer.cn/img/maven-img.png)
 
 ## Maven总结
 

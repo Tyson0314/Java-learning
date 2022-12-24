@@ -23,7 +23,7 @@
 - 同时移动 p 与 q，直到 q 指向的为 NULL
 - 将 p 的下一个节点指向下下个节点
 
-![](http://img.dabin-coder.cn/image/删除链表nth.gif)
+![](http://img.topjavaer.cn/img/删除链表nth.gif)
 
 > 作者：cxywushixiong
 > 链接：https://leetcode.cn/problems/remove-nth-node-from-end-of-list/solution/dong-hua-tu-jie-leetcode-di-19-hao-wen-ti-shan-chu/

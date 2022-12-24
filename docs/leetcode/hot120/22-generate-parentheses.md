@@ -42,7 +42,7 @@
 
 我们以 `n = 2` 为例，画树形结构图。
 
-![](http://img.dabin-coder.cn/image/括号生成.jpg)
+![](http://img.topjavaer.cn/img/括号生成.jpg)
 
 画图以后，可以分析出的结论：
 

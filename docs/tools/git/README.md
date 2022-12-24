@@ -6,7 +6,7 @@ category: git
 star: true
 ---
 
-![](http://img.dabin-coder.cn/image/git-status.png)
+![](http://img.topjavaer.cn/img/git-status.png)
 
 ## Git总结
 

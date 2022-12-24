@@ -40,7 +40,7 @@ SELECT * FROM role NATURAL JOIN user_role;
 
 返回结果：
 
-![](http://img.dabin-coder.cn/image/20220530235619.png)
+![](http://img.topjavaer.cn/img/20220530235619.png)
 
 ## 内连接
 
@@ -52,7 +52,7 @@ SELECT * FROM role INNNER JOIN user_role
 
 返回结果：
 
-![](http://img.dabin-coder.cn/image/20220530235640.png)
+![](http://img.topjavaer.cn/img/20220530235640.png)
 
 join…using(column)按指定的属性做等值连接。
 join…on tableA.column1 = tableB.column2 指定条件。
@@ -63,7 +63,7 @@ SELECT * FROM role INNER JOIN user_role ON role.role_id = user_role.role_id
 
 返回结果：
 
-![](http://img.dabin-coder.cn/image/20220530235654.png)
+![](http://img.topjavaer.cn/img/20220530235654.png)
 
 ## 外连接
 

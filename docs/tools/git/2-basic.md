@@ -14,7 +14,7 @@ git clone https://github.com/...
 
 查看文件状态：`git status`
 
-![](http://img.dabin-coder.cn/image/git生命周期.png)
+![](http://img.topjavaer.cn/img/git生命周期.png)
 
 > 图片来源：`https://img2018.cnblogs.com/blog/1252910/201907/1252910-20190726163854195-886320537.png`
 
@@ -120,7 +120,7 @@ git commit -m "add readme.md"
 
 单独执行`git commit`，不带上-m参数，会进入 vim 编辑器界面：
 
-![](http://img.dabin-coder.cn/image/image-20210830225020753.png)
+![](http://img.topjavaer.cn/img/image-20210830225020753.png)
 
 此时应该这么操作：
 
