@@ -53,22 +53,11 @@
 
 # Java
 
-## 基础
-
-1. [**Java面试题精选**](docs/java/java-basic.md)  **精心整理的大厂Java面试题目，附有详细答案** (推荐 :+1:)
-2. [Java8 新特性总结](docs/java/java8-all.md)
-
-## 集合
-
-1. [Java集合高频面试题](docs/java/java-collection.md)(**牛客点赞200+！推荐** :+1:)
-
-## 并发
-
-1. [Java并发高频面试题（精华版）](docs/java/java-concurrent.md) **精心整理的大厂Java并发编程面试题目，附有详细答案**  (推荐 :+1:)
-
-## JVM
-
-1. [【大厂面试】——JVM高频面试题](/docs/java/jvm.md)(推荐 :+1:)
+- [**Java高频面试题总结**](docs/java/java-basic.md)  (推荐 :+1:)
+- [Java8 新特性总结](docs/java/java8-all.md)
+- [Java集合高频面试题](docs/java/java-collection.md)(推荐 :+1:)
+- [Java并发高频面试题](docs/java/java-concurrent.md)   (推荐 :+1:)
+- [JVM高频面试题](/docs/java/jvm.md)(推荐 :+1:)
 
 # 数据库
 
@@ -86,18 +75,17 @@
 
 ## Redis
 
-1. [Redis高频面试题总结](docs/redis/redis.md)(牛客高赞，推荐 :+1:)
+- [Redis高频面试题总结](docs/redis/redis.md)(牛客高赞，推荐 :+1:)
 
 ## ElasticSearch
 
-1. [ElasticSearch高频面试题](https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg)
+- [ElasticSearch高频面试题](https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg)
 
 # 框架
 
 ## Spring
 
 1. [Spring高频面试题30道](docs/framework/spring.md)(推荐 :+1:)
-2. [Spring用到哪些设计模式?]() todo
 
 ## Spring Boot
 
@@ -125,47 +113,6 @@
 
 [Netty实战笔记](docs/framework/netty-overview.md)
 
-# 分布式
-
-## 微服务
-
-[微服务面试题](docs/advance/distributed/4-micro-service.md)
-
-## RPC
-
-[RPC面试题](docs/advance/distributed/3-rpc.md)
-
-## 全局唯一ID
-
-[全局唯一ID](docs/advance/distributed/1-global-unique-id.md)
-
-## 分布式事务
-
-[分布式事务总结](docs/advance/distributed/6-distributed-transaction.md)
-
-## 分布式架构
-
-[分布式架构演进](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247490543&idx=1&sn=ee34bee96511d5e548381e0576f8b484&chksm=ce98e6a9f9ef6fbf7db9c2b6d2fed26853a3bc13a50c3228ab57bea55afe0772008cdb1f957b&token=1594696656&lang=zh_CN#rd)
-
-# 高并发
-
-## 限流
-
-[限流算法总结](docs/advance/concurrent/1-current-limiting.md)
-
-## 负载均衡
-
-[负载均衡](docs/advance/concurrent/2-load-balance.md)
-
-# 消息队列
-
-## RabbitMQ
-
-1. [消息队列面试题](docs/message-queue/mq.md)
-2. [RabbitMQ面试题总结](docs/message-queue/rabbitmq.md) (推荐 :+1:)
-3. [Kafka面试题总结](docs/message-queue/kafka.md) (推荐 :+1:)
-4. [死信队列]() todo
-
 # 计算机网络
 
 [计算机网络常见面试题总结](docs/computer-basic/network.md) （**知乎1k+收藏！推荐 :+1:**）
@@ -175,6 +122,45 @@
 - [常见数据结构总结](docs/computer-basic/data-structure.md)
 - [如何高效的刷LeetCode？](https://www.zhihu.com/question/280279208/answer/2377906738)
 - [120道Leetcode题解（高频）](https://topjavaer.cn/leetcode/hot120/)
+
+# 设计模式
+
+[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
+
+[设计模式的六大原则](https://topjavaer.cn/advance/design-pattern/1-principle.html)
+
+常见的**设计模式**详解：
+
+- [设计模式之单例模式](https://topjavaer.cn/advance/design-pattern/2-singleton.html)
+- [设计模式之工厂模式](https://topjavaer.cn/advance/design-pattern/3-factory.html)
+- [设计模式之模板模式](https://topjavaer.cn/advance/design-pattern/4-template.html)
+- [设计模式之策略模式](https://topjavaer.cn/advance/design-pattern/5-strategy.html)
+- [设计模式之责任链模式](https://topjavaer.cn/advance/design-pattern/6-chain.html)
+- [设计模式之迭代器模式](https://topjavaer.cn/advance/design-pattern/7-iterator.html)
+- [设计模式之装饰器模式](https://topjavaer.cn/advance/design-pattern/8-decorator.html)
+- [设计模式之适配器模式](https://topjavaer.cn/advance/design-pattern/9-adapter.html)
+- [设计模式之观察者模式](https://topjavaer.cn/advance/design-pattern/10-observer.html)
+- [设计模式之代理模式](https://topjavaer.cn/advance/design-pattern/11-proxy.html)
+- [设计模式之建造者模式](https://topjavaer.cn/advance/design-pattern/12-builder.html)
+
+# 分布式
+
+- [微服务面试题](docs/advance/distributed/4-micro-service.md)
+- [RPC面试题](docs/advance/distributed/3-rpc.md)
+- [全局唯一ID](docs/advance/distributed/1-global-unique-id.md)
+- [分布式事务总结](docs/advance/distributed/6-distributed-transaction.md)
+- [分布式架构演进](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247490543&idx=1&sn=ee34bee96511d5e548381e0576f8b484&chksm=ce98e6a9f9ef6fbf7db9c2b6d2fed26853a3bc13a50c3228ab57bea55afe0772008cdb1f957b&token=1594696656&lang=zh_CN#rd)
+
+# 高并发
+
+- [限流算法总结](docs/advance/concurrent/1-current-limiting.md)
+- [负载均衡](docs/advance/concurrent/2-load-balance.md)
+
+# 消息队列
+
+1. [消息队列面试题](docs/message-queue/mq.md)
+2. [RabbitMQ面试题总结](docs/message-queue/rabbitmq.md) (推荐 :+1:)
+3. [Kafka面试题总结](docs/message-queue/kafka.md) (推荐 :+1:)
 
 # 海量数据场景题
 
@@ -207,29 +193,6 @@
 1. [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
 2. [干掉 “重复代码” 的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
 
-- docs/campus-recruit/interview/9-huawei.md)
-- [网易](docs/campus-recruit/interview/10-netease.md)
-
-# 设计模式
-
-[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
-
-[设计模式的六大原则](https://topjavaer.cn/advance/design-pattern/1-principle.html)
-
-常见的**设计模式**详解：
-
-- [设计模式之单例模式](https://topjavaer.cn/advance/design-pattern/2-singleton.html)
-- [设计模式之工厂模式](https://topjavaer.cn/advance/design-pattern/3-factory.html)
-- [设计模式之模板模式](https://topjavaer.cn/advance/design-pattern/4-template.html)
-- [设计模式之策略模式](https://topjavaer.cn/advance/design-pattern/5-strategy.html)
-- [设计模式之责任链模式](https://topjavaer.cn/advance/design-pattern/6-chain.html)
-- [设计模式之迭代器模式](https://topjavaer.cn/advance/design-pattern/7-iterator.html)
-- [设计模式之装饰器模式](https://topjavaer.cn/advance/design-pattern/8-decorator.html)
-- [设计模式之适配器模式](https://topjavaer.cn/advance/design-pattern/9-adapter.html)
-- [设计模式之观察者模式](https://topjavaer.cn/advance/design-pattern/10-observer.html)
-- [设计模式之代理模式](https://topjavaer.cn/advance/design-pattern/11-proxy.html)
-- [设计模式之建造者模式](https://topjavaer.cn/advance/design-pattern/12-builder.html)
-
 # 大厂面经汇总
 
 - [字节跳动](docs/campus-recruit/interview/1-byte-and-dance.md)
@@ -240,7 +203,8 @@
 - [美团](docs/campus-recruit/interview/6-meituan.md)
 - [shopee](docs/campus-recruit/interview/7-shopee.md)
 - [京东](docs/campus-recruit/interview/8-jingdong.md)
-- [华为](
+- [华为](docs/campus-recruit/interview/9-huawei.md)
+- [网易](docs/campus-recruit/interview/10-netease.md)
 
 # 优质文章
 
