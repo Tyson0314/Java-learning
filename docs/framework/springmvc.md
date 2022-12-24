@@ -48,7 +48,7 @@ Spring MVC的工作原理如下：
 6. 倒序执行所有注册拦截器的postHandler方法
 7. 请求视图解析和视图渲染
 
-![](http://img.dabin-coder.cn/image/spring_mvc原理.png)
+![](http://img.topjavaer.cn/img/spring_mvc原理.png)
 
 ## Spring MVC的主要组件？
 
@@ -185,4 +185,4 @@ server提供的RESTful API中，URL中只使用名词来指定资源，原则上
 
 第三，**充分利用 HTTP 协议本身语义**。
 
-![](http://img.dabin-coder.cn/image/20220612101342.png)
+![](http://img.topjavaer.cn/img/20220612101342.png)

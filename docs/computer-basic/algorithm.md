@@ -2,7 +2,7 @@
 sidebar: heading
 ---
 
-![](http://img.dabin-coder.cn/image/数据结构与算法.jpg)
+![](http://img.topjavaer.cn/img/数据结构与算法.jpg)
 
 ## 二叉树的遍历
 
@@ -10,7 +10,7 @@ sidebar: heading
 
 二叉树的先序、中序和后序属于深度优先遍历DFS，层次遍历属于广度优先遍历BFS。
 
-![](http://img.dabin-coder.cn/image/前序中序后序.png)
+![](http://img.topjavaer.cn/img/前序中序后序.png)
 
 四种主要的遍历思想为：
 
@@ -137,7 +137,7 @@ public void levelTraverse(TreeNode root) {
 
 常见的排序算法主要有：冒泡排序、插入排序、选择排序、快速排序、归并排序、堆排序、基数排序。各种排序算法的时间空间复杂度、稳定性见下图。
 
-![](http://img.dabin-coder.cn/image/排序算法时间空间复杂度.png)
+![](http://img.topjavaer.cn/img/排序算法时间空间复杂度.png)
 
 ### 冒泡排序
 
@@ -423,7 +423,7 @@ public static int[] CountingSort(int[] array) {
 - 治理： 对每个子序列分别调用归并排序MergeSort， 进行递归操作
 - 合并： 合并两个排好序的子序列，生成排序结果
 
-![](http://img.dabin-coder.cn/image/20220327151830.png)
+![](http://img.topjavaer.cn/img/20220327151830.png)
 
 时间复杂度：对长度为n的序列，需进行logn次二路归并，每次归并的时间为O(n)，故时间复杂度是O(nlgn)。
 
@@ -542,7 +542,7 @@ public static int[] findKMax(int[] nums, int k) {
 
 注意事项：总是先得到小子串的回文判定，然后大子串才能参考小子串的判断结果，即填表顺序很重要。
 
-![](http://img.dabin-coder.cn/image/image-20201115230411764.png)
+![](http://img.topjavaer.cn/img/image-20201115230411764.png)
 
 时间复杂度O(N2)，空间复杂度O(N2)，因为使用了二维数组。
 
@@ -653,7 +653,7 @@ class Solution {
 
 动态规划。`dp[i][j]`表示text1以i-1结尾的子串和text2以j-1结尾的子串的最长公共子序列的长度。dp横坐标或纵坐标为0表示空字符串，`dp[0][j] = dp[i][0] = 0`，无需额外处理base case。
 
-![](http://img.dabin-coder.cn/image/longestCommonSubsequence.png)
+![](http://img.topjavaer.cn/img/longestCommonSubsequence.png)
 
 ```java
 class Solution {
@@ -734,7 +734,7 @@ class Solution {
 
 给定 `n` 个非负整数表示每个宽度为 `1` 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。
 
-![](http://img.dabin-coder.cn/image/接雨水.png)
+![](http://img.topjavaer.cn/img/接雨水.png)
 
 示例：
 
@@ -778,7 +778,7 @@ class Solution {
 
 ### 单词拆分
 
-![](http://img.dabin-coder.cn/image/word-break.png)
+![](http://img.topjavaer.cn/img/word-break.png)
 
 ```java
 class Solution {
@@ -921,7 +921,7 @@ class Solution {
 
 1、排序；2、同一层级相同元素剪枝。
 
-![](http://img.dabin-coder.cn/image/permutations-ii.png)
+![](http://img.topjavaer.cn/img/permutations-ii.png)
 
 ```java
 class Solution {

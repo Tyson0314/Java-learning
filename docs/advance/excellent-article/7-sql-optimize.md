@@ -10,7 +10,7 @@
 
 **SQL语句的执行顺序：**
 
-![](http://img.dabin-coder.cn/image/sql优化1.png)
+![](http://img.topjavaer.cn/img/sql优化1.png)
 
 ## 1、LIMIT 语句
 

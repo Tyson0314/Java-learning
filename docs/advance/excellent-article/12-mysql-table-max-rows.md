@@ -64,9 +64,9 @@ SET global innodb_buffer_pool_size= 1*1024*1024*1024 (1G);
 
 先来看一组测试数据，这组数据是在 mysql8.0 的版本，并且是在我本机上，由于本机还跑着 idea , 浏览器等各种工具，所以并不是机器配置就是用于数据库配置，所以测试数据只限于参考。
 
-![](http://img.dabin-coder.cn/image/max-row1.png)
+![](http://img.topjavaer.cn/img/max-row1.png)
 
-![](http://img.dabin-coder.cn/image/max-row2.png)
+![](http://img.topjavaer.cn/img/max-row2.png)
 
 看到这组数据似乎好像真的和标题对应，当数据达到 2000w 以后，查询时长急剧上升；难道这就是铁律吗？
 
@@ -90,17 +90,17 @@ gmt_modified datetime comment '修改时间'
 
 有人统计过，如果建表的时候，自增字段选择无符号的 bigint , 那么自增长最大值是 `18446744073709551615`，按照一秒新增一条记录的速度，大约什么时候能用完？
 
-![](http://img.dabin-coder.cn/image/max-row3.png)
+![](http://img.topjavaer.cn/img/max-row3.png)
 
 ## **4 表空间**
 
 下面我们再来看看索引的结构，对了，我们下面讲内容都是基于 Innodb 引擎的，大家都知道 Innodb 的索引内部用的是 B+ 树
 
-![](http://img.dabin-coder.cn/image/max-row4.png)
+![](http://img.topjavaer.cn/img/max-row4.png)
 
 这张表数据，在硬盘上存储也是类似如此的，它实际是放在一个叫 `person.ibd` （innodb data）的文件中，也叫做表空间；虽然数据表中，他们看起来是一条连着一条，但是实际上在文件中它被分成很多小份的数据页，而且每一份都是 16K。大概就像下面这样，当然这只是我们抽象出来的，在表空间中还有段、区、组等很多概念，但是我们需要跳出来看。
 
-![](http://img.dabin-coder.cn/image/max-row5.png)
+![](http://img.topjavaer.cn/img/max-row5.png)
 
 ## **5 页的数据结构**
 
@@ -108,7 +108,7 @@ gmt_modified datetime comment '修改时间'
 
 页中会记录数据所以会存在读写操作，读写操作会存在中断或者其他异常导致数据不全等，那就会需要有校验机制，所以里面还有会校验码，而读操作最重要的就是效率问题，如果按照记录一个个进行遍历，那肯定是很费劲的，所以这里面还会为数据生成对应的页目录（`Page Directory`）; 所以实际页的内部结构像是下面这样的。
 
-![](http://img.dabin-coder.cn/image/max-row6.png)
+![](http://img.topjavaer.cn/img/max-row6.png)
 
 从图中可以看出，一个 InnoDB 数据页的存储空间大致被划分成了 7 个部分，有的部分占用的字节数是确定的，有的部分占用的字节数是不确定的。
 
@@ -118,7 +118,7 @@ gmt_modified datetime comment '修改时间'
 
 这个过程的图示如下：
 
-![](http://img.dabin-coder.cn/image/max-row7.png)
+![](http://img.topjavaer.cn/img/max-row7.png)
 
 刚刚上面说到了数据的新增的过程。
 
@@ -128,9 +128,9 @@ gmt_modified datetime comment '修改时间'
 
 在 mysql 中索引的数据结构和刚刚描述的页几乎是一模一样的，而且大小也是 16K, 但是在索引页中记录的是页 (数据页，索引页) 的最小主键 id 和页号，以及在索引页中增加了层级的信息，从 0 开始往上算，所以页与页之间就有了上下层级的概念。
 
-![](http://img.dabin-coder.cn/image/max-row8.png)看到这个图之后，是不是有点似曾相似的感觉，是不是像一棵二叉树啊，对，没错！它就是一棵树，只不过我们在这里只是简单画了三个节点，2 层结构的而已，如果数据多了，可能就会扩展到 3 层的树，这个就是我们常说的 B+ 树，最下面那一层的 page level =0, 也就是叶子节点，其余都是非叶子节点。
+![](http://img.topjavaer.cn/img/max-row8.png)看到这个图之后，是不是有点似曾相似的感觉，是不是像一棵二叉树啊，对，没错！它就是一棵树，只不过我们在这里只是简单画了三个节点，2 层结构的而已，如果数据多了，可能就会扩展到 3 层的树，这个就是我们常说的 B+ 树，最下面那一层的 page level =0, 也就是叶子节点，其余都是非叶子节点。
 
-![](http://img.dabin-coder.cn/image/max-row9.png)
+![](http://img.topjavaer.cn/img/max-row9.png)
 
 看上图中，我们是单拿一个节点来看，首先它是一个非叶子节点（索引页），在它的内容区中有 id 和 页号地址两部分，这个 id 是对应页中记录的最小记录 id 值，页号地址是指向对应页的指针；而数据页与此几乎大同小异，区别在于数据页记录的是真实的行数据而不是页地址，而且 id 的也是顺序的。
 
@@ -144,7 +144,7 @@ gmt_modified datetime comment '修改时间'
 
 需要注意的是，图中的页号只是个示例，实际情况下并不是连续的，在磁盘中存储也不一定是顺序的。
 
-![](http://img.dabin-coder.cn/image/max-row10.png)至此，
+![](http://img.topjavaer.cn/img/max-row10.png)至此，
 
 我们大概已经了解了表的数据是怎么个结构了，也大概知道查询数据是个怎么的过程了，这样我们也就能大概估算这样的结构能存放多少数据了。
 
@@ -165,7 +165,7 @@ gmt_modified datetime comment '修改时间'
 
 `Total =x^(z-1) *y `也就是说总数会等于 x 的 `z-1` 次方 与 Y 的乘积。
 
-![](http://img.dabin-coder.cn/image/max-row11.png)
+![](http://img.topjavaer.cn/img/max-row11.png)
 
 > X =？
 

@@ -44,7 +44,7 @@ The document has moved <A HREF="https://www.howardliu.cn/how-to-use-branch-effic
 
 从上面的信息可以看出来，新浪做了 302 跳转，同时为了兼容性，还返回用于手动调整的 HTML 内容。整个交互流程如下：
 
-![](http://img.dabin-coder.cn/image/20220522153248.png)
+![](http://img.topjavaer.cn/img/20220522153248.png)
 
 ## 短链生成方式
 
@@ -60,7 +60,7 @@ The document has moved <A HREF="https://www.howardliu.cn/how-to-use-branch-effic
 
 对于碰撞问题，最简单的一种思路是，如果发生碰撞，就给原始 URL 附加上特殊字符串，直到躲开碰撞为止。具体操作如下图：
 
-![](http://img.dabin-coder.cn/image/20220522154823.png)
+![](http://img.topjavaer.cn/img/20220522154823.png)
 
 ### 发号器
 

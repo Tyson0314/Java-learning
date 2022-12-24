@@ -210,4 +210,4 @@
 
 **获取方式**：微信搜索「**程序员大彬**」或者扫描下面的二维码，关注后发送关键字「**MySQL**」就可以找到下载链接了（**无套路，无解压密码**）。
 
-![](http://img.dabin-coder.cn/image/公众号.jpg)
+![](http://img.topjavaer.cn/img/公众号.jpg)

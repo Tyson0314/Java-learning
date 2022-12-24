@@ -2,7 +2,7 @@
 sidebar: heading
 ---
 
-![](http://img.dabin-coder.cn/image/并发与多线程知识点总结.jpg)
+![](http://img.topjavaer.cn/img/并发与多线程知识点总结.jpg)
 
 ## 线程池
 
@@ -48,7 +48,7 @@ new Object()过程如下：
 
 ### 线程池执行原理？
 
-![线程池执行流程](http://img.dabin-coder.cn/image/线程池执行流程.png)
+![线程池执行流程](http://img.topjavaer.cn/img/线程池执行流程.png)
 
 1. 当线程池里存活的线程数小于核心线程数`corePoolSize`时，这时对于一个新提交的任务，线程池会创建一个线程去处理任务。当线程池里面存活的线程数小于等于核心线程数`corePoolSize`时，线程池里面的线程会一直存活着，就算空闲时间超过了`keepAliveTime`，线程也不会被销毁，而是一直阻塞在那里一直等待任务队列的任务来执行。
 2. 当线程池里面存活的线程数已经等于corePoolSize了，这是对于一个新提交的任务，会被放进任务队列workQueue排队等待执行。
@@ -183,7 +183,7 @@ public static ExecutorService newCachedThreadPool() {
 3. 修改 `ScheduledFutureTask` 的 time 变量为下次将要被执行的时间；
 4. 把这个修改 time 之后的 `ScheduledFutureTask` 放回 `DelayQueue` 中（`DelayQueue.add()`)。
 
-![](http://img.dabin-coder.cn/image/scheduled-task.jpg)
+![](http://img.topjavaer.cn/img/scheduled-task.jpg)
 
 适用场景：周期性执行任务的场景，需要限制线程数量的场景。
 
@@ -209,7 +209,7 @@ public static ExecutorService newCachedThreadPool() {
 
 **终止(TERMINATED)**：表示该线程已经执行完毕。
 
-![](http://img.dabin-coder.cn/image/image-20210909235618175.png)
+![](http://img.topjavaer.cn/img/image-20210909235618175.png)
 
 > 图片来源：Java并发编程的艺术
 
@@ -385,7 +385,7 @@ class RunnableDemo implements Runnable {
 
 如下图所示，线程 A 持有资源 2，线程 B 持有资源 1，他们同时都想申请对方持有的资源，所以这两个线程就会互相等待而进入死锁状态。
 
-![死锁](http://img.dabin-coder.cn/image/死锁.png)
+![死锁](http://img.topjavaer.cn/img/死锁.png)
 
 下面通过例子说明线程死锁，代码来自并发编程之美。
 
@@ -676,7 +676,7 @@ class SeasonThreadTask implements Runnable{
 
 每个线程都有一个`ThreadLocalMap`（`ThreadLocal`内部类），Map中元素的键为`ThreadLocal`，而值对应线程的变量副本。
 
-![](http://img.dabin-coder.cn/image/threadlocal.png)
+![](http://img.topjavaer.cn/img/threadlocal.png)
 
 调用`threadLocal.set()`-->调用`getMap(Thread)`-->返回当前线程的`ThreadLocalMap<ThreadLocal, value>`-->`map.set(this, value)`，this是`threadLocal`本身。源码如下：
 
@@ -785,7 +785,7 @@ private volatile int state;//共享变量，使用volatile修饰保证线程可�
 
 同步器依赖内部的同步队列（一个FIFO双向队列）来完成同步状态的管理，当前线程获取同步状态失败时，同步器会将当前线程以及等待状态（独占或共享 ）构造成为一个节点（Node）并将其加入同步队列并进行自旋，当同步状态释放时，会把首节点中的后继节点对应的线程唤醒，使其再次尝试获取同步状态。
 
-![](http://img.dabin-coder.cn/image/aqs.png)
+![](http://img.topjavaer.cn/img/aqs.png)
 
 ## ReentrantLock 是如何实现可重入性的?
 
@@ -1191,4 +1191,4 @@ Future接口主要包括5个方法：
 
 > 参考链接：https://blog.csdn.net/u014209205/article/details/80598209
 
-![](http://img.dabin-coder.cn/image/20220612101342.png)
+![](http://img.topjavaer.cn/img/20220612101342.png)

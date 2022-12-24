@@ -28,11 +28,11 @@ Spring的AOP即声明式事务管理默认是针对`unchecked exception`回滚�
 
 第一点要注意的就是在`@Transactional`注解的方法中，再调用本类中的其他方法method2时，那么method2方法上的`@Transactional`注解是不！会！生！效！的！但是加上也并不会报错，拿图片简单帮助理解一下吧。这一点也是面试中会问到的事务失效的场景。
 
-![](http://img.dabin-coder.cn/image/spring事务1.png)
+![](http://img.topjavaer.cn/img/spring事务1.png)
 
 通过代理对象在目标对象前后进行方法增强，也就是事务的开启提交和回滚。那么继续调用本类中其他方法是怎样呢，如下图：
 
-![](http://img.dabin-coder.cn/image/spring事务2.png)
+![](http://img.topjavaer.cn/img/spring事务2.png)
 
 可见目标对象内部的自我调用，也就是通过this.指向的目标对象将不会执行方法的增强。
 
@@ -74,9 +74,9 @@ public interface TransactionalService {
 
 Service中实现对事务的控制：实现类（各种情况的说明都写在图片里了，这样方便阅读，有助于快速理解吧）
 
-![](http://img.dabin-coder.cn/image/spring事务3.png)
+![](http://img.topjavaer.cn/img/spring事务3.png)
 
-![](http://img.dabin-coder.cn/image/spring事务4.png)
+![](http://img.topjavaer.cn/img/spring事务4.png)
 
 上面两种情况不管使不使用代理调用方法1和方法2，方法`transactionalMethod`都处在一个事务中，四条更新操作全部失败。
 
@@ -86,15 +86,15 @@ Service中实现对事务的控制：实现类（各种情况的说明都写在�
 
 如果想要方法1和方法2均单独保持事务一致性怎么办呢，刚说过了，如果不是用代理调用`@Transactional`注解是不生效的，所以一定要使用代理调用实现，然后让方法1和方法2分别单独开启新的事务，便OK啦。下面摆上图片。
 
-![](http://img.dabin-coder.cn/image/spring事务5.png)
+![](http://img.topjavaer.cn/img/spring事务5.png)
 
-![](http://img.dabin-coder.cn/image/spring事务6.png)
+![](http://img.topjavaer.cn/img/spring事务6.png)
 
 这两种情况都是方法1和方法2均处在单独的事务中，各自保持事务的一致性。
 
 接下来进行进一步的优化，可以在`transactionalMethod`方法中分别对方法1和方法2进行控制。要将代码的艺术发挥到极致嘛，下面装逼开始。
 
-![](http://img.dabin-coder.cn/image/spring事务7.png)
+![](http://img.topjavaer.cn/img/spring事务7.png)
 
 代码太长了，超过屏幕了，粘贴出来截的图，红框注释需要仔细看，希望不要影响你的阅读体验，至此，本篇关于`@Transactioinal`注解的使用就到此为止啦，
 

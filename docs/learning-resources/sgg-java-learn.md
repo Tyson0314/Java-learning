@@ -2,31 +2,31 @@
 
 ## 全套视频共5部分
 
-![](http://img.dabin-coder.cn/image/image-20220319142501022.png)
+![](http://img.topjavaer.cn/img/image-20220319142501022.png)
 
 ## 基础必备
 
-![](http://img.dabin-coder.cn/image/image-20220319142551879.png)
+![](http://img.topjavaer.cn/img/image-20220319142551879.png)
 
 ## 微服务核心
 
-![](http://img.dabin-coder.cn/image/image-20220319142612142.png)
+![](http://img.topjavaer.cn/img/image-20220319142612142.png)
 
 ## 微服务生态
 
-![](http://img.dabin-coder.cn/image/image-20220319142638848.png)
+![](http://img.topjavaer.cn/img/image-20220319142638848.png)
 
-![](http://img.dabin-coder.cn/image/image-20220319142651513.png)
+![](http://img.topjavaer.cn/img/image-20220319142651513.png)
 
 ## 项目实战
 
-![](http://img.dabin-coder.cn/image/image-20220319142705479.png)
+![](http://img.topjavaer.cn/img/image-20220319142705479.png)
 
 ## 选学技术
 
-![](http://img.dabin-coder.cn/image/image-20220319142723454.png)
+![](http://img.topjavaer.cn/img/image-20220319142723454.png)
 
-![](http://img.dabin-coder.cn/image/image-20220319142734177.png)
+![](http://img.topjavaer.cn/img/image-20220319142734177.png)
 
 ## 获取方式
 

@@ -283,7 +283,7 @@ public class InternalUserCart extends AbstractCart {
 
 抽象类和三个子类的实现关系图，如下所示：
 
-![](http://img.dabin-coder.cn/image/重复代码1.png)
+![](http://img.topjavaer.cn/img/重复代码1.png)
 
 是不是比三个独立的购物车程序简单了很多呢？接下来，我们再看看如何能避免三个 if 逻辑。
 
@@ -322,7 +322,7 @@ public Cart right(@RequestParam("userId") int userId) {
 
 比如，创建用户方法和支付方法的定义是这样的：
 
-![](http://img.dabin-coder.cn/image/重复代码2.png)
+![](http://img.topjavaer.cn/img/重复代码2.png)
 
 代码很容易实现，直接根据接口定义实现填充操作、加签名、请求调用操作即可：
 

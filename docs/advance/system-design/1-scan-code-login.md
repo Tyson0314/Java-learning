@@ -12,7 +12,7 @@ sidebar: heading
 
 整体流程图如下图。
 
-![](http://img.dabin-coder.cn/image/整个流程.png)
+![](http://img.topjavaer.cn/img/整个流程.png)
 
 下面分阶段来看看设计原理。
 
@@ -30,7 +30,7 @@ sidebar: heading
 
 这个阶段的交互过程如下图所示。
 
-![](http://img.dabin-coder.cn/image/第一阶段.png)
+![](http://img.topjavaer.cn/img/第一阶段.png)
 
 **2、已扫描待确认阶段**
 
@@ -52,7 +52,7 @@ PC 端的定时器，会轮询到二维码的状态已经发生变化，会将 P
 
 这个阶段是交互过程如下图所示。
 
-![](http://img.dabin-coder.cn/image/20220411002823.png)
+![](http://img.topjavaer.cn/img/20220411002823.png)
 
 **3、已确认**
 
@@ -64,7 +64,7 @@ PC 端的定时器，会轮询到二维码的状态已经发生变化，会将 P
 
 这个阶段是交互过程如下图所示。
 
-![](http://img.dabin-coder.cn/image/20220411002832.png)
+![](http://img.topjavaer.cn/img/20220411002832.png)
 
 以上就是整个扫码登录功能的详细设计！
 

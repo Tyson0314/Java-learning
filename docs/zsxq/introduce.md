@@ -32,9 +32,9 @@ sidebar: heading
 
 **精心整理的面试手册最新版**。目前已经更新迭代了**15**个版本，**持续更新**中，面试手册是星球球友**专享**，不会对外提供下载。
 
-![](http://img.dabin-coder.cn/image/image-20220316234337881.png)
+![](http://img.topjavaer.cn/img/image-20220316234337881.png)
 
-![](http://img.dabin-coder.cn/image/image-20211127150136157.png)
+![](http://img.topjavaer.cn/img/image-20211127150136157.png)
 
 这份面试手册已经帮助好多位读者拿到offer了，其中也有拿了字节、快手、平安等大厂offer的。
 

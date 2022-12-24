@@ -64,11 +64,11 @@ sidebar: heading
 
   改版后：
 
-  ![](http://img.dabin-coder.cn/image/image-20220809084502495.png)
+  ![](http://img.topjavaer.cn/img/image-20220809084502495.png)
 
   改版前：
 
-  ![](http://img.dabin-coder.cn/image/image-20220801004446607.png)
+  ![](http://img.topjavaer.cn/img/image-20220801004446607.png)
 
 - 2022.08.07，完善设计模式、Docker、Git部分内容
 
@@ -76,13 +76,13 @@ sidebar: heading
 
 - 2022.07.31，应粉丝要求，增加暗黑模式~很贴心有木有！
 
-  ![](http://img.dabin-coder.cn/image/image-20220801004603404.png)
+  ![](http://img.topjavaer.cn/img/image-20220801004603404.png)
 
-  ![](http://img.dabin-coder.cn/image/image-20220801004446607.png)
+  ![](http://img.topjavaer.cn/img/image-20220801004446607.png)
 
 - 2022.07.30，SEO优化，小破站被谷歌、百度等搜索引擎收录啦！
 
-  ![](http://img.dabin-coder.cn/image/image-20220801003633682.png)
+  ![](http://img.topjavaer.cn/img/image-20220801003633682.png)
 
 - 2022.07.29，增加工具-[Nginx面试题](https://mp.weixin.qq.com/s/SKKEeYxif0wWJo6n57rd6A)
 

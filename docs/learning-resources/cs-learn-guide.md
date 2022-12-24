@@ -6,7 +6,7 @@ sidebar: heading
 
 首先看看计算机专业的培养体系，基本上每个学校都差不多：
 
-![](http://img.dabin-coder.cn/image/20220703110718.png)
+![](http://img.topjavaer.cn/img/20220703110718.png)
 
 像计算机组成原理、操作系统等课程让我们了解计算机体系结构的基本知识和概念，计算机是怎么运行的，学习计算机的基本组成原理和内部运行机制，并探索硬、软件之间相互作用的关系，以及如何有效利用硬件提高系统性能。
 
@@ -25,7 +25,7 @@ sidebar: heading
 5. **数据结构与算法**
 6. **数据库基础**
 
-![](http://img.dabin-coder.cn/image/20220703162734.png)
+![](http://img.topjavaer.cn/img/20220703162734.png)
 
 ## 操作系统
 
@@ -37,7 +37,7 @@ sidebar: heading
 
 强推《深入理解计算机系统》 这本书。
 
-![](http://img.dabin-coder.cn/image/20220703132845.jpg)
+![](http://img.topjavaer.cn/img/20220703132845.jpg)
 
 CSAPP是一本很好的书，糅合了计算机组成原理、操作系统、网络编程、并行程序设计原理等课程的基础知识。对于刚接触编程，或者像大彬这种非科班出身的人来说，这是一本指导性的书，它会告诉你，要想成为一个优秀的程序员，应当重点理解哪些计算机底层原理，告诉你应该在以后的自学过程中，应该重点学习哪些课程，比如操作系统和体系结构等。
 
@@ -47,7 +47,7 @@ Udacity的Advanced OS公开课：https://www.classcentral.com/course/udacity-adv
 
 还有国内不错的操作系统的课程，清华大学的公开课：https://www.xuetangx.com/course/THU08091000267/5883104?channel=search_result
 
-![](http://img.dabin-coder.cn/image/20220703132955.png)
+![](http://img.topjavaer.cn/img/20220703132955.png)
 
 由清华大学两位老师向勇、陈渝讲授，同时配有一套完整的实验，实验内容是从无到有地建立起一个小却五脏俱全的操作系统，以主流操作系统为实例，以教学操作系统ucore为实验环境，讲授操作系统的概念、基本原理和实现技术，为学生从事操作系统软件研究和开发，以及充分利用操作系统功能进行应用软件研究和开发打下扎实的基础。 
 
@@ -55,7 +55,7 @@ Udacity的Advanced OS公开课：https://www.classcentral.com/course/udacity-adv
 
 课程地址：https://pdos.csail.mit.edu/6.828/2018/schedule.html
 
-![](http://img.dabin-coder.cn/image/20220626115851.png)
+![](http://img.topjavaer.cn/img/20220626115851.png)
 
 MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实践相结合的经典**。
 
@@ -88,7 +88,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 《计算机是怎样跑起来的》这本书相对比较基础，描述计算机各个方面。从单片机电路开始，汇编，结构化程序，数据结构于算法，面向对象，数据库，TCP/IP原理，加密解密，XML，软件工程统统有清晰描述，易于理解。在知识的整体理解基础上再阅读文档，学习编程会事半功倍。所以而推荐本书。
 
-![](http://img.dabin-coder.cn/image/20220703123249.jpg)
+![](http://img.topjavaer.cn/img/20220703123249.jpg)
 
 另外还有两本书也不错，推荐给大家《计算机组成与设计：硬件 / 软件接口》 、《深入理解计算机系统》
 
@@ -98,13 +98,13 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 刘宏伟老师主讲，他的课不仅适合考研人，也非常适合初学者，初学者也听得懂。
 
-![](http://img.dabin-coder.cn/image/20220703131541.png)
+![](http://img.topjavaer.cn/img/20220703131541.png)
 
 【麻省理工学院-中文字幕版】计算机组成原理：https://www.bilibili.com/video/BV1kU4y177x9
 
 课程为 MIT 6.004 Computation Structures, Spring 2017，如果英文不错，可以跟着学学，课程质量很高。
 
-![](http://img.dabin-coder.cn/image/20220703131900.png)
+![](http://img.topjavaer.cn/img/20220703131900.png)
 
 
 
@@ -118,13 +118,13 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 特别是《编译器设计 第二版》这本书，对于对编译有兴趣的同学，这本书绝对是值得推荐的。
 
-![](http://img.dabin-coder.cn/image/20220703133449.jpg)
+![](http://img.topjavaer.cn/img/20220703133449.jpg)
 
 这本书覆盖了编译器从前端到后端的全部主题，很多算法都可以在 JVM C2 compiler 中找到对应实现。整体翻译很流畅，不愧是经典！
 
 哈工大的编译原理视频：https://www.bilibili.com/video/BV1zW411t7YE?p=1&vd_source=2b77c4a826e636ae19a4f75a4b2ca146
 
-![](http://img.dabin-coder.cn/image/20220703132211.png)
+![](http://img.topjavaer.cn/img/20220703132211.png)
 
 比起很多砖头书和博客，强太多！陈鄞老师的 PPT 做的很好，讲得也很通俗易懂，课程评价也很高。推荐！
 
@@ -132,7 +132,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 课程前置知识：具备计算机程序设计语言和程序设计知识，对数据结构与算法、计算机原理、离散数学等相关知识有一定了解更好。视频简洁明了，适合多刷几遍。
 
-![](http://img.dabin-coder.cn/image/20220703132547.png)
+![](http://img.topjavaer.cn/img/20220703132547.png)
 
 ## 数据结构和算法
 
@@ -146,7 +146,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 《大话数据结构》 这本书最大的特点是，通篇以一种趣味方式来叙述，大量引用了各种各样的生活知识来类比，并充分运用图形语言来体现抽象内容，对数据结构所涉及到的一些经典算法做到逐行分析、多算法比较。这本书特别适合初学者。
 
-![](http://img.dabin-coder.cn/image/20220703150022.jpg)
+![](http://img.topjavaer.cn/img/20220703150022.jpg)
 
 《算法图解》是非常好的入门算法书，示例丰富，图文并茂，以让人容易理解的方式阐释了算法，旨在帮助程序员在日常项目中更好地发挥算法的能量。
 
@@ -162,7 +162,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 https://www.bilibili.com/video/BV1H4411N7oD
 
-![](http://img.dabin-coder.cn/image/20220703150635.png)
+![](http://img.topjavaer.cn/img/20220703150635.png)
 
 浙江大学陈越姥姥和何钦铭教授联合授课，非常经典的课程。姥姥我的偶像！
 
@@ -182,7 +182,7 @@ https://www.bilibili.com/video/BV1H4411N7oD
 
 ### [牛客网](https://www.nowcoder.com/)
 
-![](http://img.dabin-coder.cn/image/20220619223253.png)
+![](http://img.topjavaer.cn/img/20220619223253.png)
 
 作为牛客红名大佬，来给牛客宣传一波！（牛客打钱！）
 
@@ -190,7 +190,7 @@ https://www.bilibili.com/video/BV1H4411N7oD
 
 ### [LeetCode](https://leetcode.cn/)
 
-![](http://img.dabin-coder.cn/image/20220619231232.png)
+![](http://img.topjavaer.cn/img/20220619231232.png)
 
 **力扣，强推**！力扣虐我千百遍，我待力扣如初恋！
 
@@ -202,7 +202,7 @@ https://www.bilibili.com/video/BV1H4411N7oD
 
 ### [LintCode](https://www.lintcode.com/)
 
-![](http://img.dabin-coder.cn/image/20220619231320.png)
+![](http://img.topjavaer.cn/img/20220619231320.png)
 
 与Leetcode类似的刷题网站。
 
@@ -218,7 +218,7 @@ LintCode的UI、tagging、filter更加灵活，更有优点，大家选择其中
 
 《计算机网络自顶向下方法》
 
-![](http://img.dabin-coder.cn/image/20220703144400.jpg)
+![](http://img.topjavaer.cn/img/20220703144400.jpg)
 
 这本书是经典的计算机网络教材，采用作者独创的自顶向下方法来讲授计算机网络的原理及其协议，自第1版出版以来已经被数百所大学和学院选作教材。书中从应用层讲起，然后展开，摆脱了从物理层开始的枯燥，直接接触应用实例，更能吸引读者的兴趣。而且，书上很多例子举的很好，生动形象。
 
@@ -228,11 +228,11 @@ LintCode的UI、tagging、filter更加灵活，更有优点，大家选择其中
 
 https://www.bilibili.com/video/BV1JV411t7ow?p=7&vd_source=2b77c4a826e636ae19a4f75a4b2ca146
 
-![](http://img.dabin-coder.cn/image/20220703143955.png)
+![](http://img.topjavaer.cn/img/20220703143955.png)
 
 另外还可以看看哈尔滨工业大学李全龙老师的计算机网络课程：https://www.bilibili.com/video/BV1Up411Z7hC
 
-![](http://img.dabin-coder.cn/image/20220703144500.png)
+![](http://img.topjavaer.cn/img/20220703144500.png)
 
 **计算机网络核心知识点**：
 
@@ -260,11 +260,11 @@ https://www.bilibili.com/video/BV1JV411t7ow?p=7&vd_source=2b77c4a826e636ae19a4f7
 
 伯克利的 CS168 课程：https://archive.org/details/UCBerkeley_Course_Computer_Science_186
 
-![](http://img.dabin-coder.cn/image/20220703152850.png)
+![](http://img.topjavaer.cn/img/20220703152850.png)
 
 国内中国人民大学王珊老师的《数据库系统概论》：https://www.bilibili.com/video/BV1pW411W7Do
 
-![](http://img.dabin-coder.cn/image/20220703153133.png)
+![](http://img.topjavaer.cn/img/20220703153133.png)
 
 
 

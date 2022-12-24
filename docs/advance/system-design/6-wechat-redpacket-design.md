@@ -11,7 +11,7 @@ sidebar: heading
 
 我们先了解下微信红包支付的流程：
 
-![](http://img.dabin-coder.cn/image/image-20221129002112859.png)
+![](http://img.topjavaer.cn/img/image-20221129002112859.png)
 
 一个发红包的流程经过抽象可以得到如下路径：包 -> 发 -> 抢 -> 拆
 
@@ -24,13 +24,13 @@ sidebar: heading
 
 最后的拆红包过程类似于一个秒杀活动的过程，需要做好库存扣减和秒杀记录的操作。更新库存就是更新红包发送的订单，写入秒杀记录就是写入红包领取的信息流水。还需要以用户为中心记录用户整体的红包领取记录。最后调用支付系统将拆红包后的金额转入用户零钱中，成功之后更新抢红包的订单状态为转账成功。
 
-![](http://img.dabin-coder.cn/image/image-20221129002128841.png)
+![](http://img.topjavaer.cn/img/image-20221129002128841.png)
 
 ### **架构**
 
 接下来我们在了解下微信红包的整体架构：
 
-![](http://img.dabin-coder.cn/image/image-20221129002141666.png)
+![](http://img.topjavaer.cn/img/image-20221129002141666.png)
 
 **可用性**
 
@@ -68,7 +68,7 @@ sidebar: heading
 
 方案：
 
-![](http://img.dabin-coder.cn/image/image-20221129002154044.png)
+![](http://img.topjavaer.cn/img/image-20221129002154044.png)
 
 用户记录，零钱入账等非关键路径可以使用MQ异步执行，增加对账机制兜底保障，实现最终一致性。
 
@@ -82,7 +82,7 @@ sidebar: heading
 
 方案一：分库分表
 
-![](http://img.dabin-coder.cn/image/image-20221129002210589.png)
+![](http://img.topjavaer.cn/img/image-20221129002210589.png)
 
 方案特点
 
@@ -93,7 +93,7 @@ sidebar: heading
 
 方案二：SET化
 
-![](http://img.dabin-coder.cn/image/image-20221129002222281.png)
+![](http://img.topjavaer.cn/img/image-20221129002222281.png)
 
 方案特点：
 
@@ -111,7 +111,7 @@ sidebar: heading
 
 2.如何解决DB锁竞争？
 
-![](http://img.dabin-coder.cn/image/image-20221129002235645.png)
+![](http://img.topjavaer.cn/img/image-20221129002235645.png)
 
 答：将stick到同一台server上的所有请求接收到进程后，按照红包ID排队，然后串行的进入worker进程进行处理，从而达到排队的效果，为防止server中请求队列过载导致队列被降级，从而所有请求涌进DB，系统增加了server服务器同部署的memcached，用于控制拆同一个红包请求并发数，用于请求队列过载降级。
 
@@ -123,7 +123,7 @@ sidebar: heading
 
 4.如何平衡扩容？
 
-![](http://img.dabin-coder.cn/image/image-20221129002245215.png)
+![](http://img.topjavaer.cn/img/image-20221129002245215.png)
 
 ### **总结**
 

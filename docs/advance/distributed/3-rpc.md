@@ -24,7 +24,7 @@ RPC是一个完整的远程调用方案，它通常包括通信协议和序列�
 
 > stub说的都是“一小块代码”，通常是有个caller要调用callee的时候，中间需要一些特殊处理的逻辑，就会用这种“小块代码”去做。
 
-![](http://img.dabin-coder.cn/image/20220508160414.png)
+![](http://img.topjavaer.cn/img/20220508160414.png)
 
 1. 服务消费端（client）以本地调用的方式调用远程服务；
 2. 客户端 Stub（client stub） 接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体（序列化）：`RpcRequest`；

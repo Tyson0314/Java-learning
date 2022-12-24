@@ -6,7 +6,7 @@ sidebar: heading
 
 我本科学的不是计算机，大四开始自学Java，并且找到了中大厂的offer。自学路上遇到不少问题，每天晚上都是坚持到一两点才睡觉，**最终也拿到了30w的offer**。
 
-![](http://img.dabin-coder.cn/image/image-20211206000941636.png)
+![](http://img.topjavaer.cn/img/image-20211206000941636.png)
 
 在这里也提醒学弟学妹们，要尽早确定以后的方向，读研还是工作，找工作的话，也要尽快确定工作岗位，想转行的，需要花更多的时间准备。很多同学到了大四快毕业的时候，才思考自己未来要做什么，这个时候已经有点晚了。如果错过了校招，走社招渠道去找工作，难度将会提升一个等级，到时后悔也来不及！
 
@@ -68,7 +68,7 @@ sidebar: heading
 
 首先看一下Java学习路线图：
 
-![](http://img.dabin-coder.cn/image/Java学习路线-gitmind-清晰.png)
+![](http://img.topjavaer.cn/img/Java学习路线-gitmind-清晰.png)
 
 在这里也给大家分享一份精心整理的**大厂高频面试题PDF**，小伙伴靠着这份手册拿过阿里offer，需要的小伙伴可以自行下载：
 
@@ -76,7 +76,7 @@ http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224
 
 ## Java
 
-![](http://img.dabin-coder.cn/image/Java基础.jpg)
+![](http://img.topjavaer.cn/img/Java基础.jpg)
 
 推荐书籍：
 
@@ -204,7 +204,7 @@ JSP数据交互
 
 ### Spring
 
-![](http://img.dabin-coder.cn/image/Spring总结.jpg)
+![](http://img.topjavaer.cn/img/Spring总结.jpg)
 
 大部分公司都会用到 Spring框架，必学！。主要理解 Spring 面向切面、依赖注入的特性，学会使用 Spring 构建应用程序。推荐书籍《Spring实战》，通过demo的方式带你一步步搭建Spring应用
 
@@ -246,7 +246,7 @@ https://www.bilibili.com/video/BV18E411x7eT
 
 ## 并发
 
-![](http://img.dabin-coder.cn/image/并发与多线程知识点总结.jpg)
+![](http://img.topjavaer.cn/img/并发与多线程知识点总结.jpg)
 
 什么是并发编程，简单来说就是为了充分利用cpu，多个任务同时执行，快速完成任务。
 
@@ -270,7 +270,7 @@ https://www.bilibili.com/video/BV1B7411L7tE
 
 ## Redis
 
-![](http://img.dabin-coder.cn/image/Redis知识点.jpg)
+![](http://img.topjavaer.cn/img/Redis知识点.jpg)
 
 用来缓存热点数据，加快读写速度，从而提高性能。现在Java后端的面试基本都会问到Redis。
 
@@ -296,7 +296,7 @@ https://www.bilibili.com/video/BV1L4411y7mn
 
 ## JVM
 
-![](http://img.dabin-coder.cn/image/JVM知识点总结.jpg)
+![](http://img.topjavaer.cn/img/JVM知识点总结.jpg)
 
 JVM也是面试经常会问的内容。Java开发者不用自己进行内存管理、垃圾回收，JVM帮我们做了，但是还是有必要了解下JVM的工作原理，这样在出现oom等问题的时候，才有思路去排查和解决问题。书籍推荐周老师的《深入理解Java虚拟机》。
 
@@ -335,7 +335,7 @@ JVM的基础知识：
 
 强推《深入理解计算机系统》 这本书。
 
-![](http://img.dabin-coder.cn/image/20220703132845.jpg)
+![](http://img.topjavaer.cn/img/20220703132845.jpg)
 
 CSAPP是一本很好的书，糅合了计算机组成原理、操作系统、网络编程、并行程序设计原理等课程的基础知识。对于刚接触编程，或者像大彬这种非科班出身的人来说，这是一本指导性的书，它会告诉你，要想成为一个优秀的程序员，应当重点理解哪些计算机底层原理，告诉你应该在以后的自学过程中，应该重点学习哪些课程，比如操作系统和体系结构等。
 
@@ -345,7 +345,7 @@ Udacity的Advanced OS公开课：https://www.classcentral.com/course/udacity-adv
 
 还有国内不错的操作系统的课程，清华大学的公开课：https://www.xuetangx.com/course/THU08091000267/5883104?channel=search_result
 
-![](http://img.dabin-coder.cn/image/20220703132955.png)
+![](http://img.topjavaer.cn/img/20220703132955.png)
 
 由清华大学两位老师向勇、陈渝讲授，同时配有一套完整的实验，实验内容是从无到有地建立起一个小却五脏俱全的操作系统，以主流操作系统为实例，以教学操作系统ucore为实验环境，讲授操作系统的概念、基本原理和实现技术，为学生从事操作系统软件研究和开发，以及充分利用操作系统功能进行应用软件研究和开发打下扎实的基础。 
 
@@ -353,7 +353,7 @@ Udacity的Advanced OS公开课：https://www.classcentral.com/course/udacity-adv
 
 课程地址：https://pdos.csail.mit.edu/6.828/2018/schedule.html
 
-![](http://img.dabin-coder.cn/image/20220626115851.png)
+![](http://img.topjavaer.cn/img/20220626115851.png)
 
 MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实践相结合的经典**。
 
@@ -380,7 +380,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 ### 数据结构和算法
 
-![](http://img.dabin-coder.cn/image/数据结构与算法.jpg)
+![](http://img.topjavaer.cn/img/数据结构与算法.jpg)
 
 为什么学习数据结构与算法？对于计算机专业的同学来说，这门课程是必修的，考研基本也是必考科目。对于程序员来说，数据结构与算法也是面试、笔试必备的非常重要的考察点。
 
@@ -392,7 +392,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 《大话数据结构》 这本书最大的特点是，通篇以一种趣味方式来叙述，大量引用了各种各样的生活知识来类比，并充分运用图形语言来体现抽象内容，对数据结构所涉及到的一些经典算法做到逐行分析、多算法比较。这本书特别适合初学者。
 
-![](http://img.dabin-coder.cn/image/20220703150022.jpg)
+![](http://img.topjavaer.cn/img/20220703150022.jpg)
 
 《算法图解》是非常好的入门算法书，示例丰富，图文并茂，以让人容易理解的方式阐释了算法，旨在帮助程序员在日常项目中更好地发挥算法的能量。
 
@@ -408,7 +408,7 @@ MIT6.828 是一门非常值得学习的课程，广受好评，是**理论与实
 
 https://www.bilibili.com/video/BV1H4411N7oD
 
-![](http://img.dabin-coder.cn/image/20220703150635.png)
+![](http://img.topjavaer.cn/img/20220703150635.png)
 
 浙江大学陈越姥姥和何钦铭教授联合授课，非常经典的课程。姥姥我的偶像！
 
@@ -428,7 +428,7 @@ https://www.bilibili.com/video/BV1H4411N7oD
 
 ### [牛客网](https://www.nowcoder.com/)
 
-![](http://img.dabin-coder.cn/image/20220619223253.png)
+![](http://img.topjavaer.cn/img/20220619223253.png)
 
 作为牛客红名大佬，来给牛客宣传一波！（牛客打钱！）
 
@@ -436,7 +436,7 @@ https://www.bilibili.com/video/BV1H4411N7oD
 
 ### [LeetCode](https://leetcode.cn/)
 
-![](http://img.dabin-coder.cn/image/20220619231232.png)
+![](http://img.topjavaer.cn/img/20220619231232.png)
 
 **力扣，强推**！力扣虐我千百遍，我待力扣如初恋！
 
@@ -448,7 +448,7 @@ https://www.bilibili.com/video/BV1H4411N7oD
 
 ### [LintCode](https://www.lintcode.com/)
 
-![](http://img.dabin-coder.cn/image/20220619231320.png)
+![](http://img.topjavaer.cn/img/20220619231320.png)
 
 与Leetcode类似的刷题网站。
 
@@ -458,7 +458,7 @@ LintCode的UI、tagging、filter更加灵活，更有优点，大家选择其中
 
 ### 数据库
 
-![](http://img.dabin-coder.cn/image/MySQL知识点总结.jpg)
+![](http://img.topjavaer.cn/img/MySQL知识点总结.jpg)
 
 互联网应用大多属于数据密集型应用，对于真实世界的数据密集型应用而言，除非你准备从基础组件的轮子造起，不然根本没那么多机会去摆弄花哨的数据结构和算法。
 
@@ -475,11 +475,11 @@ LintCode的UI、tagging、filter更加灵活，更有优点，大家选择其中
 
 伯克利的 CS168 课程：https://archive.org/details/UCBerkeley_Course_Computer_Science_186
 
-![](http://img.dabin-coder.cn/image/20220703152850.png)
+![](http://img.topjavaer.cn/img/20220703152850.png)
 
 国内中国人民大学王珊老师的《数据库系统概论》：https://www.bilibili.com/video/BV1pW411W7Do
 
-![](http://img.dabin-coder.cn/image/20220703153133.png)
+![](http://img.topjavaer.cn/img/20220703153133.png)
 
 MySQL基础知识：
 
@@ -497,7 +497,7 @@ MySQL基础知识：
 
 ### 计算机网络
 
-![](http://img.dabin-coder.cn/image/计算机网络知识.jpg)
+![](http://img.topjavaer.cn/img/计算机网络知识.jpg)
 
 计算机网络这门课需要学习计算机网络的概念、原理和体系结构，知道计算机分层结构，物理层、数据链路层、介质访问子层、网络层、传输层和应用层的基本原理和协议，掌握以 TCP/IP 协议族为主的网络协议结构，并且了解网络新技术的最新发展。
 
@@ -505,7 +505,7 @@ MySQL基础知识：
 
 《计算机网络自顶向下方法》
 
-![](http://img.dabin-coder.cn/image/20220703144400.jpg)
+![](http://img.topjavaer.cn/img/20220703144400.jpg)
 
 这本书是经典的计算机网络教材，采用作者独创的自顶向下方法来讲授计算机网络的原理及其协议，自第1版出版以来已经被数百所大学和学院选作教材。书中从应用层讲起，然后展开，摆脱了从物理层开始的枯燥，直接接触应用实例，更能吸引读者的兴趣。而且，书上很多例子举的很好，生动形象。
 
@@ -515,11 +515,11 @@ MySQL基础知识：
 
 https://www.bilibili.com/video/BV1JV411t7ow?p=7&vd_source=2b77c4a826e636ae19a4f75a4b2ca146
 
-![](http://img.dabin-coder.cn/image/20220703143955.png)
+![](http://img.topjavaer.cn/img/20220703143955.png)
 
 另外还可以看看哈尔滨工业大学李全龙老师的计算机网络课程：https://www.bilibili.com/video/BV1Up411Z7hC
 
-![](http://img.dabin-coder.cn/image/20220703144500.png)
+![](http://img.topjavaer.cn/img/20220703144500.png)
 
 **计算机网络核心知识点**：
 
@@ -542,7 +542,7 @@ https://www.bilibili.com/video/BV1dW411M7xL
 
 ## 设计模式
 
-![](http://img.dabin-coder.cn/image/设计模式.jpg)
+![](http://img.topjavaer.cn/img/设计模式.jpg)
 
 设计模式是软件开发人员在软件开发过程中面临的一般问题的解决方案。对于具有丰富的开发经验的开发人员，学习设计模式有助于了解在软件开发过程中所面临的问题的最佳解决方案；对于那些经验不足的开发人员，学习设计模式有助于通过一种简单快捷的方式来学习软件设计。
 
@@ -636,7 +636,7 @@ https://github.com/newbee-ltd/newbee-mall
 
 newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 newbee-mall-admin 商城后台管理系统，基于 Spring Boot 2.X 及相关技术栈开发。 前台商城系统包含首页门户、商品分类、新品上线、首页轮播、商品推荐、商品搜索、商品展示、购物车、订单结算、订单流程、个人订单管理、会员中心、帮助中心等模块。 后台管理系统包含数据面板、轮播图管理、商品管理、订单管理、会员管理、分类管理、设置等模块。
 
-![](http://img.dabin-coder.cn/image/image-20210827001950033.png)
+![](http://img.topjavaer.cn/img/image-20210827001950033.png)
 
 ### litemall
 
@@ -656,9 +656,9 @@ https://github.com/linlinjava/litemall
 - 优惠券列表、优惠券选择
 - ...
 
-![](http://img.dabin-coder.cn/image/litemall.png)
+![](http://img.topjavaer.cn/img/litemall.png)
 
-![](http://img.dabin-coder.cn/image/litemall01.png)
+![](http://img.topjavaer.cn/img/litemall01.png)
 
 在这里也分享一份非常棒的Java学习笔记，**Github标星137k+**！这份笔记主要Java基础、容器、Java IO、并发和虚拟机等内容，排版精良，内容更是无可挑剔。
 
@@ -682,9 +682,9 @@ https://github.com/elunez/eladmin
 
 使用的技术栈也比较新，给作者点赞！
 
-![](http://img.dabin-coder.cn/image/image-20210826235913747.png)
+![](http://img.topjavaer.cn/img/image-20210826235913747.png)
 
-![](http://img.dabin-coder.cn/image/image-20210826235952292.png)
+![](http://img.topjavaer.cn/img/image-20210826235952292.png)
 
 ### vhr
 
@@ -694,7 +694,7 @@ https://github.com/lenve/vhr
 
 微人事是一个前后端分离的人力资源管理系统，项目采用SpringBoot+Vue开发。项目加入常见的企业级应用所涉及到的技术点，例如 Redis、RabbitMQ 等。
 
-![](http://img.dabin-coder.cn/image/vhr01.png)
+![](http://img.topjavaer.cn/img/vhr01.png)
 
 
 
@@ -706,7 +706,7 @@ https://github.com/zhisheng17/blog
 
 `My-Blog` 使用的是 Docker + SpringBoot + Mybatis + thymeleaf 打造的一个个人博客模板。此项目在 [Tale](https://github.com/otale/tale) 博客系统基础上进行修改的。
 
-![](http://img.dabin-coder.cn/image/blog.png)
+![](http://img.topjavaer.cn/img/blog.png)
 
 ### community
 
@@ -716,7 +716,7 @@ https://github.com/codedrinker/community
 
 码问社区。开源论坛、问答系统，现有功能提问、回复、通知、最新、最热、消除零回复功能。技术栈 Spring、Spring Boot、MyBatis、MySQL/H2、Bootstrap。
 
-![](http://img.dabin-coder.cn/image/image-20210826234936711.png)
+![](http://img.topjavaer.cn/img/image-20210826234936711.png)
 
 
 
@@ -745,7 +745,7 @@ V部落，Vue+SpringBoot实现的多用户博客管理平台！
 5.mavon-editor
 6.vue-router
 
-![](http://img.dabin-coder.cn/image/20220505162337.png)
+![](http://img.topjavaer.cn/img/20220505162337.png)
 
 ### gpmall
 
@@ -757,9 +757,9 @@ https://github.com/2227324689/gpmall
 
 后端的主要架构是基于springboot+dubbo+mybatis。
 
-![](http://img.dabin-coder.cn/image/20220505162427.png)
+![](http://img.topjavaer.cn/img/20220505162427.png)
 
-![](http://img.dabin-coder.cn/image/20220505162154.png)
+![](http://img.topjavaer.cn/img/20220505162154.png)
 
 ### guns
 
@@ -773,7 +773,7 @@ Guns基于**插件化架构**，在建设系统时，可以自由组合细粒度
 
 使用Guns可以快速开发出各类信息化管理系统，例如OA办公系统、项目管理系统、商城系统、供应链系统、客户关系管理系统等。
 
-![](http://img.dabin-coder.cn/image/20220505162031.png)
+![](http://img.topjavaer.cn/img/20220505162031.png)
 
 ### music-website
 
@@ -785,7 +785,7 @@ https://github.com/Yin-Hongwei/music-website
 
 前端技术栈：Vue3.0 + TypeScript + Vue-Router + Vuex + Axios + ElementPlus + Echarts。
 
-![](http://img.dabin-coder.cn/image/20220505161944.jpg)
+![](http://img.topjavaer.cn/img/20220505161944.jpg)
 
 
 
@@ -797,7 +797,7 @@ https://github.com/Yin-Hongwei/music-website
 
 仓库持续更新中~
 
-![](http://img.dabin-coder.cn/image/书单new.png)
+![](http://img.topjavaer.cn/img/书单new.png)
 
 有需要的自取：
 

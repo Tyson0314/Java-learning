@@ -161,4 +161,4 @@ mybatis底层使用`PreparedStatement`，默认情况下，将对所有的 sql �
 
 
 
-![](http://img.dabin-coder.cn/image/20220612101342.png)
+![](http://img.topjavaer.cn/img/20220612101342.png)

@@ -51,7 +51,7 @@ sidebar: heading
 3. 将位图中对应的位设置为 1，即arr[2] = arr[2] **|** 000..00010000。
 4. 这就将电话号码映射到了位图的某一位了。
 
-![](http://img.dabin-coder.cn/image/20220423094735.png)
+![](http://img.topjavaer.cn/img/20220423094735.png)
 
 最后，统计位图中bit值为1的数量，便能得到不同电话号码的个数了。
 

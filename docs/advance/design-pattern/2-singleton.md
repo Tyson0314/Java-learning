@@ -40,11 +40,40 @@ public class Singleton {
 
 饿汉式单例的**缺点**：单例对象的创建，不是**延时加载**。
 
+## 懒汉式
+
+与饿汉式思想不同，懒汉式支持延时加载，将对象的创建延迟到了获取对象的时候。不过为了线程安全，在获取对象的操作需要加锁，这就导致了低性能。
+
+```java
+public class Singleton { 
+  private static final Singleton instance;
+  
+  private Singleton () {}
+  
+  public static synchronized Singleton getInstance() {    
+    if (instance == null) {      
+      instance = new Singleton();    
+    }    
+
+    return instance;  
+  }
+}
+```
+
+上述代码加的锁只有在第一次创建对象时有用，而之后每次获取对象，其实是不需要加锁的（双重检查锁定优化了这个问题）。
+
+懒汉式单例**优点**：
+
+- 对象的创建是线程安全的。
+- 支持延时加载。
+
+懒汉式单例**缺点**：
+
+- 获取对象的操作被加上了锁，影响了并发性能。
+
 ## 双重检查锁定
 
-双重校验锁先判断 instance 是否已经被实例化，如果没有被实例化，那么才对实例化语句进行加锁。
-
-instance使用static修饰的原因：getInstance为静态方法，因为静态方法的内部不能直接使用非静态变量，只有静态成员才能在没有创建对象时进行初始化，所以返回的这个实例必须是静态的。
+双重检查锁定将懒汉式中的 `synchronized` 方法改成了 `synchronized` 代码块。如下：
 
 ```
 public class Singleton {  
@@ -62,6 +91,10 @@ public class Singleton {
     }  
 }  
 ```
+双重校验锁先判断 instance 是否已经被实例化，如果没有被实例化，那么才对实例化语句进行加锁。
+
+instance使用static修饰的原因：getInstance为静态方法，因为静态方法的内部不能直接使用非静态变量，只有静态成员才能在没有创建对象时进行初始化，所以返回的这个实例必须是静态的。
+
 为什么两次判断`instance == null`：
 
 | Time | Thread A             | Thread B             |
@@ -94,11 +127,15 @@ instance = memory;　　  // 3：设置instance指向刚分配的内存地址
 | T7   |                          | 访问`instance`（此时对象还未完成初始化） |
 | T8   | 初始化`instance`         |                                          |
 
+双重检查锁定单例**优点**：
+
+- 对象的创建是线程安全的。
+- 支持延时加载。
+- 获取对象时不需要加锁。
+
 ## 静态内部类
 
 它与饿汉模式一样，也是利用了类初始化机制，因此不存在多线程并发的问题。不一样的是，它是在内部类里面去创建对象实例。这样的话，只要应用中不使用内部类，JVM就不会去加载这个单例类，也就不会创建单例对象，从而实现懒汉式的延迟加载。也就是说这种方式可以同时保证延迟加载和线程安全。
-
-![](http://img.dabin-coder.cn/image/singleton-class-init.png)
 
 基于类初始化的方案的实现代码更简洁。
 
@@ -113,5 +150,23 @@ public class Instance {
     }
 }
 ```
-但基于volatile的双重检查锁定的方案有一个额外的优势：除了可以对静态字段实现延迟初始化外，还可以对实例字段实现延迟初始化。字段延迟初始化降低了初始化类或创建实例的开销，但增加了访问被延迟初始化的字段的开销。在大多数时候，正常的初始化要优于延迟初始化。
+如上述代码，`InstanceHolder` 是一个静态内部类，当外部类 `Instance` 被加载的时候，并不会创建 `InstanceHolder` 实例对象。
+
+只有当调用 `getInstance()` 方法时，`InstanceHolder` 才会被加载，这个时候才会创建 `Instance`。`Instance` 的唯一性、创建过程的线程安全性，都由 JVM 来保证。
+
+静态内部类单例**优点**：
+
+- 对象的创建是线程安全的。
+- 支持延时加载。
+- 获取对象时不需要加锁。
+
+## 枚举
+
+用枚举来实现单例，是最简单的方式。这种实现方式通过 **Java 枚举**类型本身的特性，保证了实例创建的线程安全性和实例的唯一性。
+
+```java
+public enum Singleton {
+  INSTANCE; // 该对象全局唯一
+}
+```
 

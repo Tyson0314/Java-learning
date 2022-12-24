@@ -20,7 +20,7 @@ JVM调优一直是面试官很喜欢问的问题。周末在网上看到一篇JV
 
 使用 `jstat -gcutil pid 1000` 每隔一秒打印一次 gc 统计信息。
 
-![](http://img.dabin-coder.cn/image/jvm调优1.png)
+![](http://img.topjavaer.cn/img/jvm调优1.png)
 
 可以看到，单次 gc 平均耗时是 60ms 左右，还算可以接受，但 YGC 非常频繁，基本上每秒一次，有的时候还会一秒两次，在一秒两次的时候，服务对业务响应时长的压力就会变得很大。
 
@@ -35,7 +35,7 @@ JVM调优一直是面试官很喜欢问的问题。周末在网上看到一篇JV
 
 看到的 gc log 形如：
 
-![](http://img.dabin-coder.cn/image/jvm调优2.png)
+![](http://img.topjavaer.cn/img/jvm调优2.png)
 
 单次 GC 方面并不能直接看出问题，但可以看到 gc 前有很多次 18ms 左右的停顿。
 
@@ -59,11 +59,11 @@ JVM调优一直是面试官很喜欢问的问题。周末在网上看到一篇JV
 
 除了 GC 太频繁之外，GC 后各分代的平均大小也需要调整。
 
-![](http://img.dabin-coder.cn/image/jvm调优3.png)
+![](http://img.topjavaer.cn/img/jvm调优3.png)
 
 我们知道 GC 的提升机制，每次 GC 后，JVM 存活代数大于 `MaxTenuringThreshold` 的对象提升到老年代。当然，JVM 还有动态年龄计算的规则：按照年龄从小到大对其所占用的大小进行累积，当累积的某个年龄大小超过了 survivor 区的一半时，取这个年龄和 MaxTenuringThreshold 中更小的一个值，作为新的晋升年龄阈值，但看各代总的内存大小，是达不到 survivor 区的一半的。
 
-![](http://img.dabin-coder.cn/image/jvm调优4.png)
+![](http://img.topjavaer.cn/img/jvm调优4.png)
 
 所以这十五个分代内的对象会一直在两个 survivor 区之间来回复制，再观察各分代的平均大小，可以看到，四代以上的对象已经有一半都会保留到老年区了，所以可以将这些对象直接提升到老年代，以减少对象在两个 survivor 区之间复制的性能开销。
 

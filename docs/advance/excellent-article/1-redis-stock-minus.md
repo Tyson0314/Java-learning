@@ -12,7 +12,7 @@
 - 扣减库存服务（StockService）
 - 调用
 
-![](http://img.dabin-coder.cn/image/库存扣减1.png)
+![](http://img.topjavaer.cn/img/库存扣减1.png)
 
 ------
 

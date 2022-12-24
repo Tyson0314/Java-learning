@@ -107,13 +107,13 @@ static class Registrar implements ImportBeanDefinitionRegistrar, DeterminableImp
 
 就是通过以上这个方法获取扫描的包路径，可以debug查看具体的值：
 
-![](http://img.dabin-coder.cn/image/springboot自动配置1.png)那metadata是什么呢，可以看到是标注在@SpringBootApplication注解上的DemosbApplication，也就是我们的主配置类Application：
+![](http://img.topjavaer.cn/img/springboot自动配置1.png)那metadata是什么呢，可以看到是标注在@SpringBootApplication注解上的DemosbApplication，也就是我们的主配置类Application：
 
-![](http://img.dabin-coder.cn/image/springboot自动配置2.png)其实就是将主配置类（即@SpringBootApplication标注的类）的所在包及子包里面所有组件扫描加载到Spring容器。因此我们要把DemoApplication放在项目的最高级中（最外层目录）。
+![](http://img.topjavaer.cn/img/springboot自动配置2.png)其实就是将主配置类（即@SpringBootApplication标注的类）的所在包及子包里面所有组件扫描加载到Spring容器。因此我们要把DemoApplication放在项目的最高级中（最外层目录）。
 
 看看注解@Import(AutoConfigurationImportSelector.class)，@Import注解就是给Spring容器中导入一些组件，这里传入了一个组件的选择器:AutoConfigurationImportSelector。
 
-![](http://img.dabin-coder.cn/image/springboot自动配置3.png)可以从图中看出AutoConfigurationImportSelector 继承了 DeferredImportSelector 继承了 ImportSelector，ImportSelector有一个方法为：selectImports。将所有需要导入的组件以全类名的方式返回，这些组件就会被添加到容器中。
+![](http://img.topjavaer.cn/img/springboot自动配置3.png)可以从图中看出AutoConfigurationImportSelector 继承了 DeferredImportSelector 继承了 ImportSelector，ImportSelector有一个方法为：selectImports。将所有需要导入的组件以全类名的方式返回，这些组件就会被添加到容器中。
 
 ```
 public String[] selectImports(AnnotationMetadata annotationMetadata) {
@@ -130,7 +130,7 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
 
 会给容器中导入非常多的自动配置类（xxxAutoConfiguration）；就是给容器中导入这个场景需要的所有组件，并配置好这些组件。
 
-![](http://img.dabin-coder.cn/image/springboot自动配置4.png)有了自动配置类，免去了我们手动编写配置注入功能组件等的工作。那是如何获取到这些配置类的呢，看看下面这个方法：
+![](http://img.topjavaer.cn/img/springboot自动配置4.png)有了自动配置类，免去了我们手动编写配置注入功能组件等的工作。那是如何获取到这些配置类的呢，看看下面这个方法：
 
 ```
 protected AutoConfigurationImportSelector.AutoConfigurationEntry 
@@ -209,7 +209,7 @@ private static Map<String, List<String>> loadSpringFactories(@Nullable ClassLoad
 
 可以知道SpringBoot在启动的时候从类路径下的META-INF/spring.factories中获取EnableAutoConfiguration指定的值，将这些值作为自动配置类导入到容器中，自动配置类就生效，帮我们进行自动配置工作。以前我们需要自己配置的东西，自动配置类都帮我们完成了。如下图可以发现Spring常见的一些类已经自动导入。
 
-![](http://img.dabin-coder.cn/image/springboot自动配置5.png)接下来看@ComponentScan注解，@ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class), @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })，这个注解就是扫描包，然后放入spring容器。
+![](http://img.topjavaer.cn/img/springboot自动配置5.png)接下来看@ComponentScan注解，@ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class), @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })，这个注解就是扫描包，然后放入spring容器。
 
 ```
 @ComponentScan(excludeFilters = {
@@ -365,7 +365,7 @@ protected void onRefresh() throws BeansException {
 
 他在这里并没有直接实现，但是我们找他的具体实现：
 
-![](http://img.dabin-coder.cn/image/springboot自动配置6.png)比如Tomcat跟web有关，我们可以看到有个ServletWebServerApplicationContext：
+![](http://img.topjavaer.cn/img/springboot自动配置6.png)比如Tomcat跟web有关，我们可以看到有个ServletWebServerApplicationContext：
 
 ```
 @Override
@@ -413,7 +413,7 @@ public interface ServletWebServerFactory {
 
 可以看到 它是一个接口，为什么会是接口。因为我们不止是Tomcat一种web容器。
 
-![](http://img.dabin-coder.cn/image/springboot自动配置7.png)
+![](http://img.topjavaer.cn/img/springboot自动配置7.png)
 
 我们看到还有Jetty，那我们来看TomcatServletWebServerFactory：
 
@@ -476,7 +476,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
 
 我们先来看maven配置写入版本号，如果自定义一个stater的话必须依赖spring-boot-autoconfigure这个包,我们先看下项目目录。
 
-![](http://img.dabin-coder.cn/image/springboot自动配置8.png)img
+![](http://img.topjavaer.cn/img/springboot自动配置8.png)img
 
 ```
 public class GwServiceImpl  implements GwService{

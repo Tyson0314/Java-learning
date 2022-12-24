@@ -52,7 +52,7 @@ HTTP 不提供数据包的传输功能，也就是数据包从浏览器到服务
 
 其实 HTTP 协议的格式很像我们信封，有个固定的格式。
 
-![](http://img.dabin-coder.cn/image/http-rpc1.png)
+![](http://img.topjavaer.cn/img/http-rpc1.png)
 
 左上角写邮编，右上角贴邮票，然后地址姓名啥的依次来。
 
@@ -64,7 +64,7 @@ HTTP 不提供数据包的传输功能，也就是数据包从浏览器到服务
 
 响应就状态行、响应报头、响应体。
 
-![](http://img.dabin-coder.cn/image/http-rpc2.png)
+![](http://img.topjavaer.cn/img/http-rpc2.png)
 
 所以 HTTP 的本质是什么？
 
@@ -98,7 +98,7 @@ public User getUserById(Long id) {
 
 可能还有些小伙伴不太清楚，再来看个图。
 
-![](http://img.dabin-coder.cn/image/http-rpc3.png)
+![](http://img.topjavaer.cn/img/http-rpc3.png)
 
 把之前的用户实现拆分出来弄了一个用户服务，订单相关的也拆成了订单服务，都单独部署。
 
@@ -146,7 +146,7 @@ RPC 和 HTTP 的之间的关系也清楚了。
 
 在说 RPC 和 HTTP 的区别之前，我觉的有必要了解一下 OSI 的七层网络结构模型（
 
-![](http://img.dabin-coder.cn/image/http-rpc4.png)
+![](http://img.topjavaer.cn/img/http-rpc4.png)
 
 它可以分为以下几层：（从上到下）
 
@@ -158,7 +158,7 @@ RPC 和 HTTP 的之间的关系也清楚了。
 - **第六层：链路层。**将上面的网络层的数据包封装成数据帧，便于物理层传输。
 - **第七层：物理层。**这一层主要就是传输这些二进制数据。
 
-![](http://img.dabin-coder.cn/image/http-rpc5.png)
+![](http://img.topjavaer.cn/img/http-rpc5.png)
 
 > **实际应用过程中，五层协议结构里面是没有表示层和会话层的。应该说它们和应用层合并了。**
 
@@ -185,7 +185,7 @@ RPC 和 HTTP 的之间的关系也清楚了。
 - **Client Stub**
 - **Server Stub（这个Stub大家可以理解为存根）**
 
-![](http://img.dabin-coder.cn/image/http-rpc6.png)
+![](http://img.topjavaer.cn/img/http-rpc6.png)
 
 分别说说这几个组件：
 
@@ -196,7 +196,7 @@ RPC 和 HTTP 的之间的关系也清楚了。
 
 RPC 主要是用在大型企业里面，因为大型企业里面系统繁多，业务线复杂，而且效率优势非常重要的一块，这个时候 RPC 的优势就比较明显了。
 
-![](http://img.dabin-coder.cn/image/http-rpc7.png)
+![](http://img.topjavaer.cn/img/http-rpc7.png)
 
 比如我们有一个处理订单的系统服务，先声明它的所有的接口，然后将整个项目打包，服务端这边引入，然后实现相应的功能，客户端这边也只需要引入就可以调用了。
 
@@ -240,7 +240,7 @@ RPC 主要是用在大型企业里面，因为大型企业里面系统繁多，�
 
 平时的工作主要就是进行接口的开发，还要写一大份接口文档，严格地标明输入输出是什么？说清楚每一个接口的请求方法，以及请求参数需要注意的事项等。
 
-![](http://img.dabin-coder.cn/image/http-rpc8.png)
+![](http://img.topjavaer.cn/img/http-rpc8.png)
 
 比如下面这个例子：
 

@@ -14,7 +14,7 @@ Git工作流程如下：
 
 Git 的工作流程图如下：
 
-![](http://img.dabin-coder.cn/image/git-work-flow.png)
+![](http://img.topjavaer.cn/img/git-work-flow.png)
 
 > 图片来源：https://blog.csdn.net/ThinkWon/article/details/94346816
 
@@ -32,11 +32,11 @@ Git 的三种状态：已修改（modified）、已暂存（staged）和已提�
 
 基本的 Git 工作流程：在工作目录修改文件；暂存文件，将文件快照放到暂存区域；提交更新到本地库。暂存区保存了下次将要提交的文件列表信息，一般在 Git 仓库目录中。
 
-![](http://img.dabin-coder.cn/image/git工作流程.png)
+![](http://img.topjavaer.cn/img/git工作流程.png)
 
 > 图片来源：`https://img2018.cnblogs.com/blog/1252910/201907/1252910-20190726163829113-2056815874.png`
 
-![](http://img.dabin-coder.cn/image/git-status.png)
+![](http://img.topjavaer.cn/img/git-status.png)
 
 ## 配置
 
@@ -85,7 +85,7 @@ git clone https://github.com/...
 
 查看文件状态：`git status`
 
-![](http://img.dabin-coder.cn/image/git生命周期.png)
+![](http://img.topjavaer.cn/img/git生命周期.png)
 
 > 图片来源：`https://img2018.cnblogs.com/blog/1252910/201907/1252910-20190726163854195-886320537.png`
 
@@ -191,7 +191,7 @@ git commit -m "add readme.md"
 
 单独执行`git commit`，不带上-m参数，会进入 vim 编辑器界面：
 
-![](http://img.dabin-coder.cn/image/image-20210830225020753.png)
+![](http://img.topjavaer.cn/img/image-20210830225020753.png)
 
 此时应该这么操作：
 

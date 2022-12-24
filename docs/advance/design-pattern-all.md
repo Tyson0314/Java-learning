@@ -84,7 +84,7 @@ instance = memory;　　  // 3：设置instance指向刚分配的内存地址
 
 它与饿汉模式一样，也是利用了类初始化机制，因此不存在多线程并发的问题。不一样的是，它是在内部类里面去创建对象实例。这样的话，只要应用中不使用内部类，JVM就不会去加载这个单例类，也就不会创建单例对象，从而实现懒汉式的延迟加载。也就是说这种方式可以同时保证延迟加载和线程安全。
 
-![](http://img.dabin-coder.cn/image/singleton-class-init.png)
+![](http://img.topjavaer.cn/img/singleton-class-init.png)
 
 基于类初始化的方案的实现代码更简洁。
 
@@ -188,7 +188,7 @@ reader.read();
 
 多了一层抽象，减少了工厂的数量（HpMouseFactory和HpKeyboFactory合并为HpFactory）。
 
-![](http://img.dabin-coder.cn/image/抽象工厂.png)
+![](http://img.topjavaer.cn/img/抽象工厂.png)
 
 
 
@@ -203,7 +203,7 @@ reader.read();
 
 示例图如下:
 
-![](http://img.dabin-coder.cn/image/模板方法.jpg)
+![](http://img.topjavaer.cn/img/模板方法.jpg)
 
 以游戏为例。创建一个抽象类，它的模板方法被设置为 final，这样它就不会被重写。
 
@@ -288,7 +288,7 @@ public class TemplatePatternDemo {
 
 示例图如下:
 
-![](http://img.dabin-coder.cn/image/策略模式.png)
+![](http://img.topjavaer.cn/img/策略模式.png)
 
 以计算器为例，如果我们想得到两个数字相加的和，我们需要用到“+”符号，得到相减的差，需要用到“-”符号等等。虽然我们可以通过字符串比较使用if/else写成通用方法，但是计算的符号每次增加，我们就不得不加在原先的方法中进行增加相应的代码，如果后续计算方法增加、修改或删除，那么会使后续的维护变得困难。
 
@@ -632,11 +632,11 @@ InputStream in = new LowerCaseInputStream(
 
 对象适配器模式通过组合对象进行适配。
 
-![](http://img.dabin-coder.cn/image/适配器对象适配,png)
+![](http://img.topjavaer.cn/img/适配器对象适配,png)
 
 类适配器通过继承来完成适配。
 
-![](http://img.dabin-coder.cn/image/适配器-类继承,png)
+![](http://img.topjavaer.cn/img/适配器-类继承,png)
 
 适配器模式的**优点**：
 

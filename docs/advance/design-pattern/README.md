@@ -8,7 +8,7 @@ star: true
 
 **本专栏是大彬学习设计模式基础知识的学习笔记，如有错误，可以在评论区指出**~
 
-![](http://img.dabin-coder.cn/image/设计模式.jpg)
+![](http://img.topjavaer.cn/img/设计模式.jpg)
 ## 设计模式详解
 
 - [设计模式的六大原则](./1-principle.md)

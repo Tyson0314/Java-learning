@@ -38,7 +38,7 @@ Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 
 
 为了说明这个 SQL 查询语句的执行过程，我们先来看一下 city 这个索引的示意图。
 
-![](http://img.dabin-coder.cn/image/order-by-1.png)
+![](http://img.topjavaer.cn/img/order-by-1.png)
 
 图 2 city 字段的索引示意图
 
@@ -56,7 +56,7 @@ Extra 这个字段中的“Using filesort”表示的就是需要排序，MySQL 
 
 我们暂且把这个排序过程，称为全字段排序，执行流程的示意图如下所示，下一篇文章中我们还会用到这个排序。
 
-![](http://img.dabin-coder.cn/image/order-by-10.png)
+![](http://img.topjavaer.cn/img/order-by-10.png)
 
 图 3 全字段排序
 
@@ -88,7 +88,7 @@ select @b-@a;
 
 这个方法是通过查看 OPTIMIZER_TRACE 的结果来确认的，你可以从 number_of_tmp_files 中看到是否使用了临时文件。
 
-![](http://img.dabin-coder.cn/image/order-by-2.png)
+![](http://img.topjavaer.cn/img/order-by-2.png)
 
 图 4 全排序的 OPTIMIZER_TRACE 部分结果
 
@@ -142,7 +142,7 @@ city、name、age 这三个字段的定义总长度是 36，我把 max_length_fo
 
 这个执行流程的示意图如下，我把它称为 rowid 排序。
 
-![](http://img.dabin-coder.cn/image/order-by-23.png)
+![](http://img.topjavaer.cn/img/order-by-23.png)
 
 图 5 rowid 排序
 
@@ -158,7 +158,7 @@ city、name、age 这三个字段的定义总长度是 36，我把 max_length_fo
 
 因为这时候除了排序过程外，在排序完成后，还要根据 id 去原表取值。由于语句是 limit 1000，因此会多读 1000 行。
 
-![](http://img.dabin-coder.cn/image/order-by-4.png)
+![](http://img.topjavaer.cn/img/order-by-4.png)
 
 图 6 rowid 排序的 OPTIMIZER_TRACE 部分输出
 
@@ -197,7 +197,7 @@ alter table t add index city_user(city, name);
 
 作为与 city 索引的对比，我们来看看这个索引的示意图。
 
-![](http://img.dabin-coder.cn/image/order-by-5.png)
+![](http://img.topjavaer.cn/img/order-by-5.png)
 
 图 7 city 和 name 联合索引示意图
 
@@ -210,13 +210,13 @@ alter table t add index city_user(city, name);
 3. 从索引 (city,name) 取下一个记录主键 id；
 4. 重复步骤 2、3，直到查到第 1000 条记录，或者是不满足 city='杭州’条件时循环结束。
 
-![](http://img.dabin-coder.cn/image/order-by-9.png)
+![](http://img.topjavaer.cn/img/order-by-9.png)
 
 图 8 引入 (city,name) 联合索引后，查询语句的执行计划
 
 可以看到，这个查询过程不需要临时表，也不需要排序。接下来，我们用 explain 的结果来印证一下。
 
-![](http://img.dabin-coder.cn/image/order-by-6.png)
+![](http://img.topjavaer.cn/img/order-by-6.png)
 
 图 9 引入 (city,name) 联合索引后，查询语句的执行计划
 
@@ -240,13 +240,13 @@ alter table t add index city_user_age(city, name, age);
 2. 从索引 (city,name,age) 取下一个记录，同样取出这三个字段的值，作为结果集的一部分直接返回；
 3. 重复执行步骤 2，直到查到第 1000 条记录，或者是不满足 city='杭州’条件时循环结束。
 
-![](http://img.dabin-coder.cn/image/order-by-7.png)
+![](http://img.topjavaer.cn/img/order-by-7.png)
 
 图 10 引入 (city,name,age) 联合索引后，查询语句的执行流程
 
 然后，我们再来看看 explain 的结果。
 
-![](http://img.dabin-coder.cn/image/order-by-8.png)
+![](http://img.topjavaer.cn/img/order-by-8.png)
 
 图 11 引入 (city,name,age) 联合索引后，查询语句的执行计划
 

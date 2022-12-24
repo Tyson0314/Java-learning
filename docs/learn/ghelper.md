@@ -12,7 +12,7 @@ Chrome下载链接：[点击下载](https://links.jianshu.com/go?to=https%3A%2F%
 
 Ghelper可以在google play商店进行下载，需要访问google商店，无法直接下载的小伙伴，可以微信搜索「**程序员大彬**」或者扫描下面的二维码，发送关键字「**ghelper**」下载。
 
-![](http://img.dabin-coder.cn/image/公众号.jpg)
+![](http://img.topjavaer.cn/img/公众号.jpg)
 
 
 
@@ -24,21 +24,21 @@ Ghelper可以在google play商店进行下载，需要访问google商店，无�
 
   ③. 找到【扩展程序】
 
-![](http://img.dabin-coder.cn/image/image-20221029164558200.png)
+![](http://img.topjavaer.cn/img/image-20221029164558200.png)
 
   ④. 打开【开发者选项】
 
-![](http://img.dabin-coder.cn/image/image-20221029164617082.png)
+![](http://img.topjavaer.cn/img/image-20221029164617082.png)
 
 步骤④
 
   ⑤. 将插件文件【拖拽】至界面中，点击【添加扩展程序】即可完成。
 
-![](http://img.dabin-coder.cn/image/image-20221029164638825.png)
+![](http://img.topjavaer.cn/img/image-20221029164638825.png)
 
 拖拽
 
-![](http://img.dabin-coder.cn/image/image-20221029164652442.png)
+![](http://img.topjavaer.cn/img/image-20221029164652442.png)
 
 确认添加
 
@@ -46,7 +46,7 @@ Ghelper可以在google play商店进行下载，需要访问google商店，无�
 
 **最后可以通过右上角插件按钮管理已添加的插件**
 
-![image-20221029164706044](http://img.dabin-coder.cn/image/image-20221029164706044.png)
+![image-20221029164706044](http://img.topjavaer.cn/img/image-20221029164706044.png)
 
 图钉按钮可固定
 
@@ -56,8 +56,8 @@ Ghelper可以在google play商店进行下载，需要访问google商店，无�
 
 >  最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
 
-![](http://img.dabin-coder.cn/image/Image.png)
+![](http://img.topjavaer.cn/img/Image.png)
 
-![](http://img.dabin-coder.cn/image/image-20221030094126118.png)
+![](http://img.topjavaer.cn/img/image-20221030094126118.png)
 
 **Github地址**：https://github.com/Tyson0314/java-books

@@ -141,7 +141,7 @@ fetch('api/user/1', {
 
 服务端会验证token，如果验证通过就会返回相应的资源。整个流程就是这样的:
 
-![](http://img.dabin-coder.cn/image/jwt.png)
+![](http://img.topjavaer.cn/img/jwt.png)
 
 ## 总结
 

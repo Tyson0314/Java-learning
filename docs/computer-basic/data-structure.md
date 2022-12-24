@@ -2,7 +2,7 @@
 sidebar: heading
 ---
 
-![](http://img.dabin-coder.cn/image/数据结构与算法.jpg)
+![](http://img.topjavaer.cn/img/数据结构与算法.jpg)
 
 ## 各种数据结构应用场景
 
@@ -85,7 +85,7 @@ sidebar: heading
 
 **平衡二叉搜索树**，它是一 棵空树或它的左右两个子树的高度差的绝对值不超过1。
 
-![](http://img.dabin-coder.cn/image/image-20220722233208322.png)
+![](http://img.topjavaer.cn/img/image-20220722233208322.png)
 
 简单了解一下**左旋与右旋**的概念。
 
@@ -93,13 +93,13 @@ sidebar: heading
 
 四种旋转情况
 
-![](http://img.dabin-coder.cn/image/四种旋转情况.png)
+![](http://img.topjavaer.cn/img/四种旋转情况.png)
 
 ### 红黑树
 
 红黑树是对AVL树的优化，只要求部分平衡，用非严格的平衡来换取增删节点时候旋转次数的降低，提高了插入和删除的性能。查找性能并没有提高，查找的时间复杂度是O(logn)。红黑树通过左旋、右旋和变色维持平衡。
 
-![](http://img.dabin-coder.cn/image/20220619165116.png)
+![](http://img.topjavaer.cn/img/20220619165116.png)
 
 对于插入节点，AVL和红黑树都是最多两次旋转来实现平衡。对于删除节点，avl需要维护从被删除节点到根节点root这条路径上所有节点的平衡，旋转的量级为O(logN)，而红黑树最多只需旋转3次。
 
@@ -124,7 +124,7 @@ sidebar: heading
 
 也称B-树，属于多叉树又名平衡多路查找树。
 
-![](http://img.dabin-coder.cn/image/B-树.png)
+![](http://img.topjavaer.cn/img/B-树.png)
 
 规则：
 
@@ -140,7 +140,7 @@ B-树的特性：
 
 B+树是B-树的变体，也是一种多路搜索树。B+的搜索与B-树基本相同，区别是B+树只有达到叶子结点才命中，B-树可以在非叶子结点命中。B+树更适合文件索引系统。
 
-![](http://img.dabin-coder.cn/image/B+树.jpg)
+![](http://img.topjavaer.cn/img/B+树.jpg)
 
 B-和B+树的区别：
 
@@ -157,7 +157,7 @@ B-和B+树的区别：
 - 线性表可以没有元素，称为空表；树中可以没有节点，称为空树；但是，在图中不允许没有顶点(有穷非空性)。
 - 线性表中的各元素是线性关系，树中的各元素是层次关系，而图中各顶点的关系是用边来表示(边集可以为空)。
 
-![](http://img.dabin-coder.cn/image/20220619165442.png)
+![](http://img.topjavaer.cn/img/20220619165442.png)
 
 ### 相关术语
 
@@ -208,13 +208,13 @@ B-和B+树的区别：
 
 图的邻接矩阵(Adjacency Matrix)存储方式是用两个数组来表示图。一个一维数组存储图中顶点信息，一个二维数组(称为邻接矩阵)存储图中的边或弧的信息。
 
-![](http://img.dabin-coder.cn/image/20220619165526.png)
+![](http://img.topjavaer.cn/img/20220619165526.png)
 
 2、**邻接表**
 
 邻接表由表头节点和表节点两部分组成，图中每个顶点均对应一个存储在数组中的表头节点。如果这个表头节点所对应的顶点存在邻接节点，则把邻接节点依次存放于表头节点所指向的单向链表中。
 
-![](http://img.dabin-coder.cn/image/20220619165617.png)
+![](http://img.topjavaer.cn/img/20220619165617.png)
 
 下面给出建立图的邻接表中所使用的边结点类的定义
 

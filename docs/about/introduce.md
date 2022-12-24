@@ -7,7 +7,7 @@ sidebar: heading
 
 我是非科班出身，本科学的不是计算机，大四开始自学Java，并且找到了中大厂的offer。自学路上遇到不少问题，每天晚上都是坚持到一两点才睡觉，**最终也拿到了30w的offer**。
 
-![](http://img.dabin-coder.cn/image/image-20211206000941636.png)
+![](http://img.topjavaer.cn/img/image-20211206000941636.png)
 
 下面来说说自己的经历吧（附自学路线）。
 

@@ -10,10 +10,10 @@ MySQL45讲专栏通过探讨 MySQL 实战中最常见的 **36 个** 痛点问题
 
 建议大家都去听听这个专栏，干货满满！
 
-![](http://img.dabin-coder.cn/image/mysql45.jpg)
+![](http://img.topjavaer.cn/img/mysql45.jpg)
 
 
 
 **手册获取方式**：微信搜索「**程序员大彬**」或者扫描下面的二维码，关注后发送关键字「**1003**」就可以找到下载链接了（**无套路，无解压密码**）。
 
-![](http://img.dabin-coder.cn/image/公众号.jpg)
+![](http://img.topjavaer.cn/img/公众号.jpg)

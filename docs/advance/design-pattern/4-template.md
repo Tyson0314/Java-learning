@@ -9,7 +9,7 @@
 
 示例图如下:
 
-![](http://img.dabin-coder.cn/image/模板方法.jpg)
+![](http://img.topjavaer.cn/img/模板方法.jpg)
 
 以游戏为例。创建一个抽象类，它的模板方法被设置为 final，这样它就不会被重写。
 

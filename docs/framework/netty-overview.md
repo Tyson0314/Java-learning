@@ -462,7 +462,7 @@ ChannelPipeline 的用于访问ChannelHandler 的操作：
 
 ChannelHandlerContext 代表了ChannelHandler 和ChannelPipeline 之间的关联，每当有ChannelHandler 添加到ChannelPipeline 中时，都会创建ChannelHandlerContext。
 
-![](http://img.dabin-coder.cn/image/netty1.png)
+![](http://img.topjavaer.cn/img/netty1.png)
 
 | 方法            | 描述                                                       |
 | --------------- | ---------------------------------------------------------- |
@@ -553,7 +553,7 @@ ScheduledFuture<?> future = ch.eventLoop().scheduleAtFixedRate(
 
 ## 实现细节
 
-![](http://img.dabin-coder.cn/image/netty-eventloop执行逻辑.png)
+![](http://img.topjavaer.cn/img/netty-eventloop执行逻辑.png)
 
 
 
@@ -571,7 +571,7 @@ BootStrap 类被用于客户端或者使用了无连接协议的应用程序中�
 
 ## 引导服务器
 
-![](http://img.dabin-coder.cn/image/ServerBoostrap和ServerChannel.png)
+![](http://img.topjavaer.cn/img/ServerBoostrap和ServerChannel.png)
 
 在基类AbstractBootstrap有handler方法，目的是添加一个handler，监听Bootstrap的动作。
 
@@ -768,7 +768,7 @@ public class CombinedByteCharCodec extends CombinedChannelDuplexHandler<ByteToCh
 
 Java 提供了 javax.net.ssl 支持 SSL/TSL，用以实现数据安全。
 
-![](http://img.dabin-coder.cn/image/sslhandler加解密.png)
+![](http://img.topjavaer.cn/img/sslhandler加解密.png)
 
 添加 SSL/TLS 支持：
 
@@ -925,7 +925,7 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
 
 WebSocket 在客户端和服务器之间提供了真正的双向数据交换。
 
-![](http://img.dabin-coder.cn/image/netty-websocket协议.png)
+![](http://img.topjavaer.cn/img/netty-websocket协议.png)
 
 WebSocketFrame 类型：
 
@@ -988,7 +988,7 @@ public class WebSocketServerInitializer extends ChannelInitializer<Channel> {
 
 用于空闲连接以及超时的 ChannelHandler。
 
-![](http://img.dabin-coder.cn/image/用于空闲连接以及超时的ChannelHandler.png)
+![](http://img.topjavaer.cn/img/用于空闲连接以及超时的ChannelHandler.png)
 
 发送心跳：
 

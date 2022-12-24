@@ -41,7 +41,7 @@ projects:
 
 **希望我的分享可以帮助更多的小伙伴，我踩过的坑你们不要再踩**！
 
-[<img src="https://img.shields.io/badge/Wechat-微信交流群-success">](http://img.dabin-coder.cn/image/微信群.png)
+[<img src="https://img.shields.io/badge/Wechat-微信交流群-success">](http://img.topjavaer.cn/img/微信群.png)
 [<img src="https://img.shields.io/badge/公众号-程序员大彬-orange">](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247488751&idx=1&sn=507e27534b6ea5f4b3771b30e1fcf57e&chksm=ce98e9a9f9ef60bfbf1370899b49181bae5247e5935714f7ad9e3d06c0028a25c0bfc34d4441#rd)
 [<img src="https://img.shields.io/badge/哔哩哔哩-我是大彬呀-pink">](https://space.bilibili.com/1729916794)
 [<img src="https://img.shields.io/badge/知乎-程序员大彬-blue">](https://www.zhihu.com/people/dai-shu-bin-13)
@@ -57,7 +57,7 @@ projects:
 
 ## 学习路线
 
-![](http://img.dabin-coder.cn/image/20220530232715.png)
+![](http://img.topjavaer.cn/img/20220530232715.png)
 
 > 微信搜索【程序员大彬】，回复【学习路线】获取**高清图**
 
@@ -67,15 +67,15 @@ projects:
 
 交流群学习氛围很浓厚，截个图给大家感受下。
 
-<img src="http://img.dabin-coder.cn/image/交流群1.png"  />
+<img src="http://img.topjavaer.cn/img/交流群1.png"  />
 
-![](http://img.dabin-coder.cn/image/交流群2.png)
+![](http://img.topjavaer.cn/img/交流群2.png)
 
-<img src="http://img.dabin-coder.cn/image/交流群3.png" style="zoom: 50%;" />
+<img src="http://img.topjavaer.cn/img/交流群3.png" style="zoom: 50%;" />
 
 感兴趣的小伙伴可以扫描下方的二维码**加我微信**，**备注加群**，我拉你进群，一起学习成长！
 
-![](http://img.dabin-coder.cn/image/微信加群.png)
+![](http://img.topjavaer.cn/img/微信加群.png)
 
 ## 参与贡献
 

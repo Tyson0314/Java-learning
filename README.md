@@ -207,6 +207,29 @@
 1. [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
 2. [干掉 “重复代码” 的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
 
+- docs/campus-recruit/interview/9-huawei.md)
+- [网易](docs/campus-recruit/interview/10-netease.md)
+
+# 设计模式
+
+[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
+
+[设计模式的六大原则](https://topjavaer.cn/advance/design-pattern/1-principle.html)
+
+常见的**设计模式**详解：
+
+- [设计模式之单例模式](https://topjavaer.cn/advance/design-pattern/2-singleton.html)
+- [设计模式之工厂模式](https://topjavaer.cn/advance/design-pattern/3-factory.html)
+- [设计模式之模板模式](https://topjavaer.cn/advance/design-pattern/4-template.html)
+- [设计模式之策略模式](https://topjavaer.cn/advance/design-pattern/5-strategy.html)
+- [设计模式之责任链模式](https://topjavaer.cn/advance/design-pattern/6-chain.html)
+- [设计模式之迭代器模式](https://topjavaer.cn/advance/design-pattern/7-iterator.html)
+- [设计模式之装饰器模式](https://topjavaer.cn/advance/design-pattern/8-decorator.html)
+- [设计模式之适配器模式](https://topjavaer.cn/advance/design-pattern/9-adapter.html)
+- [设计模式之观察者模式](https://topjavaer.cn/advance/design-pattern/10-observer.html)
+- [设计模式之代理模式](https://topjavaer.cn/advance/design-pattern/11-proxy.html)
+- [设计模式之建造者模式](https://topjavaer.cn/advance/design-pattern/12-builder.html)
+
 # 大厂面经汇总
 
 - [字节跳动](docs/campus-recruit/interview/1-byte-and-dance.md)
@@ -217,14 +240,7 @@
 - [美团](docs/campus-recruit/interview/6-meituan.md)
 - [shopee](docs/campus-recruit/interview/7-shopee.md)
 - [京东](docs/campus-recruit/interview/8-jingdong.md)
-- [华为](docs/campus-recruit/interview/9-huawei.md)
-- [网易](docs/campus-recruit/interview/10-netease.md)
-
-# 设计模式
-
-[字节跳动大佬总结的设计模式PDF](https://t.1yb.co/y96J)
-
-[设计模式总结](https://topjavaer.cn/advance/design-pattern/)
+- [华为](
 
 # 优质文章
 

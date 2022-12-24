@@ -21,7 +21,7 @@ docker的基本命令：
 
 3、docker pull：到Docker Hub（docker registry）下载别人写好的image。
 
-![](http://img.dabin-coder.cn/image/docker.jpg)
+![](http://img.topjavaer.cn/img/docker.jpg)
 
 > 图片来源：知乎小灰
 

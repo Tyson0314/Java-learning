@@ -25,11 +25,11 @@ sidebar: heading
 
 像下面这份简历就是反例，不够简洁，不仅不能吸引到面试官，反而更容易被面试官PASS掉。
 
-![](http://img.dabin-coder.cn/image/image-20210903002410309.png)
+![](http://img.topjavaer.cn/img/image-20210903002410309.png)
 
 而下面这份简历，相比之下就整洁很多，看起来清爽很多，也是我自己个人在用的简历模板。
 
-![](http://img.dabin-coder.cn/image/image-20210904111225259.png)
+![](http://img.topjavaer.cn/img/image-20210904111225259.png)
 
 要注意，简历上不要出现错别字，如果简历上出现错别字，会给HR或者技术面试官留下很不好的印象。**所以写完简历以后一定要仔细检查，可以让朋友帮忙检查一下**。
 
@@ -63,11 +63,11 @@ sidebar: heading
 
 可以到招聘网站上看看应聘岗位的岗位要求，下面是阿里巴巴国际事业部Java开发岗位的要求：
 
-![](http://img.dabin-coder.cn/image/image-20210904110034702.png)
+![](http://img.topjavaer.cn/img/image-20210904110034702.png)
 
 基本就是Java基础、并发、数据库、中间件、框架等，可以参考以下优秀模板：
 
-![](http://img.dabin-coder.cn/image/image-20220711224619409.png)
+![](http://img.topjavaer.cn/img/image-20220711224619409.png)
 
 要注意的地方：
 
@@ -91,7 +91,7 @@ sidebar: heading
 
 下面是一份写的还不错的简历（来源：牛客网），截取了项目经历部分，写的还不错，大家可以参考下。
 
-![](http://img.dabin-coder.cn/image/image-20220711230732013.png)
+![](http://img.topjavaer.cn/img/image-20220711230732013.png)
 
 **注意**：
 
@@ -122,7 +122,7 @@ sidebar: heading
 
 社招的话，一般比较看重项目经验，这一块可以弱化。
 
-![](http://img.dabin-coder.cn/image/image-20210904102957363.png)
+![](http://img.topjavaer.cn/img/image-20210904102957363.png)
 
 
 

@@ -25,11 +25,11 @@ Markdown是一种**轻量级标记语言**，排版语法简洁，让使用者�
 
 **基础语法**：
 
-![](http://img.dabin-coder.cn/image/image-20211205134819994.png)
+![](http://img.topjavaer.cn/img/image-20211205134819994.png)
 
 **代码高亮**：输入 ``` 后并输入语言名，换行，开始写代码，Typora 会自动实现代码高亮的效果（如下图）。
 
-![](http://img.dabin-coder.cn/image/image-20211205133939439.png)
+![](http://img.topjavaer.cn/img/image-20211205133939439.png)
 
 ##  图床
 
@@ -41,15 +41,15 @@ Typora 里的图片是链接到本地图片的，如果将文档同步到其他�
 
 2、选择图床，设置相关参数。PicGo 支持多个图床平台，如七牛、阿里云OSS等。
 
-![](http://img.dabin-coder.cn/image/图床1.png)
+![](http://img.topjavaer.cn/img/图床1.png)
 
 3、设置 PicGo server。
 
-![](http://img.dabin-coder.cn/image/图床2.png)
+![](http://img.topjavaer.cn/img/图床2.png)
 
 4、打开 Typora 中的「文件-偏好设置-图像」选项，配置上传服务为 PicGo 和 PicGo 的路径。
 
-![](http://img.dabin-coder.cn/image/图床3.png)
+![](http://img.topjavaer.cn/img/图床3.png)
 
 配置完成之后，当你在 Typora 中插入本地图片时，PicGo 会自动将图片上传图床并使用 Markdown 语法替换图片地址。
 
@@ -64,7 +64,7 @@ Typora 支持 LaTeX 语法，可以往文档插入数学公式。
 
 **常用语法**：
 
-![](http://img.dabin-coder.cn/image/latex语法.png)
+![](http://img.topjavaer.cn/img/latex语法.png)
 
 下面举几个例子：
 
@@ -78,7 +78,7 @@ f(n)=
 	\end{cases}
 $$
 ```
-![](http://img.dabin-coder.cn/image/image-20211204235551407.png)
+![](http://img.topjavaer.cn/img/image-20211204235551407.png)
 
 **矩阵**：
 ```
@@ -93,7 +93,7 @@ X=\left|
 \right|
 $$
 ```
-![](http://img.dabin-coder.cn/image/image-20211204235601934.png)
+![](http://img.topjavaer.cn/img/image-20211204235601934.png)
 
 **偏导数和微分：**
 ```
@@ -103,7 +103,7 @@ $$
 $$
 ```
 
-![](http://img.dabin-coder.cn/image/image-20211204235614665.png)
+![](http://img.topjavaer.cn/img/image-20211204235614665.png)
 
 ##  目录
 
@@ -146,7 +146,7 @@ B-->D;
 C-->D;
 ```
 
-![](http://img.dabin-coder.cn/image/image-20211204235313626.png)
+![](http://img.topjavaer.cn/img/image-20211204235313626.png)
 
 **时序图**：
 
@@ -158,7 +158,7 @@ sequenceDiagram
     John-->>-Alice: I feel great!
 ```
 
-![](http://img.dabin-coder.cn/image/image-20211204235348115.png)
+![](http://img.topjavaer.cn/img/image-20211204235348115.png)
 
 ##  导入导出
 
@@ -170,7 +170,7 @@ Typora 支持导入和导出的文件格式：`html`、`pdf`、`docx`、`epub`�
 
 **专注模式**：使你正在编辑的那一行保留颜色，而其他行的字体呈灰色。
 
-![](http://img.dabin-coder.cn/image/image-20211204235513676.png)
+![](http://img.topjavaer.cn/img/image-20211204235513676.png)
 
 
 

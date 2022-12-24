@@ -5,11 +5,11 @@
 
 对象适配器模式通过组合对象进行适配。
 
-![](http://img.dabin-coder.cn/image/适配器对象适配,png)
+![](http://img.topjavaer.cn/img/image-20221224093518386.png)
 
 类适配器通过继承来完成适配。
 
-![](http://img.dabin-coder.cn/image/适配器-类继承,png)
+![](http://img.topjavaer.cn/img/image-20221224093534895.png)
 
 适配器模式的**优点**：
 

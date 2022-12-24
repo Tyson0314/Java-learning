@@ -25,11 +25,11 @@ sidebar: heading
 
  如果你的工作经验比面试官还丰富的话，甚至还可以控制整个面试流程。 
 
-![](http://img.dabin-coder.cn/image/20220711000600.png) 
+![](http://img.topjavaer.cn/img/20220711000600.png) 
 
  既然面试官无法了解你的底细，那么他们怎么来验证你的项目经验和技术？下面总结了一些常用的提问方式。 
 
-![](http://img.dabin-coder.cn/image/20220711000648.png) 
+![](http://img.topjavaer.cn/img/20220711000648.png) 
 
 ## 准备项目的各种细节
 
@@ -39,15 +39,15 @@ sidebar: heading
 
  不少人是拘泥于“项目里做了什么业务，以及代码实现的细节”，这就相当于把后继提问权直接交给面试官。下表列出了一些不好的回答方式。 
 
-![](http://img.dabin-coder.cn/image/20220711000705.png) 
+![](http://img.topjavaer.cn/img/20220711000705.png) 
 
  在避免上述不好的回答的同时，大家可以按下表所给出的要素准备项目介绍。如果可以，也请大家准备一下用英语描述。其实刚毕业的学生，或者工作经验较少的人，英语能力都差不多，但你说了，这就是质的进步。 
 
-![](http://img.dabin-coder.cn/image/20220711000721.png) 
+![](http://img.topjavaer.cn/img/20220711000721.png) 
 
  面试前，你一定要准备，一定要有自信，但也要避免如下的一些情况。 
 
-![](http://img.dabin-coder.cn/image/20220711000733.png) 
+![](http://img.topjavaer.cn/img/20220711000733.png) 
 
 ## 不露痕迹地说出面试官爱听的话
 
@@ -55,7 +55,7 @@ sidebar: heading
 
  下面列些面试官爱听的关键点和对应的说辞。 
 
-![](http://img.dabin-coder.cn/image/20220711000746.png) 
+![](http://img.topjavaer.cn/img/20220711000746.png) 
 
 ##  一定要主动，面试官没有义务挖掘你的亮点 
 
@@ -91,7 +91,7 @@ sidebar: heading
 
  面试过程中有些方面你是绝对不能出错，所以你在准备过程中需要尤其注意如下的因素。下面列了些会导致你直接出局的错误回答。 
 
-![](http://img.dabin-coder.cn/image/20220711000758.png) 
+![](http://img.topjavaer.cn/img/20220711000758.png) 
 
 ## 学会引导
 

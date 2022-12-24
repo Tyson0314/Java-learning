@@ -6,10 +6,10 @@
 
 项目架构图如下：
 
-![](http://img.dabin-coder.cn/image/畅购商城.jpg)
+![](http://img.topjavaer.cn/img/畅购商城.jpg)
 
 这个项目比较适合在校生学习，推荐给大家。
 
 **获取方式**：微信搜索「**程序员大彬**」或者扫描下面的二维码，关注后发送关键字「**畅购**」就可以找到下载链接了（**无套路，无解压密码**）。
 
-![](http://img.dabin-coder.cn/image/公众号.jpg)
+![](http://img.topjavaer.cn/img/公众号.jpg)

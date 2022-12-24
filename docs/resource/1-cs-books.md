@@ -5,11 +5,11 @@ sidebar: heading
 <h1 align="center">200本计算机经典书籍分享</h1>
 <p align="center">
     <br>
-    <a href="http://img.dabin-coder.cn/image/个人微信索隆（交流群）.png"><img src="http://img.dabin-coder.cn/image/WeChat-微信交流群-blue.svg" alt="微信交流群"></a>
-<a href="http://img.dabin-coder.cn/image/公众号.jpg"><img src="http://img.dabin-coder.cn/image/公众号-程序员大彬.svg" alt="公众号"></a>
-<a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="http://img.dabin-coder.cn/image/知乎-程序员大彬.svg" alt="知乎"></a>
-<a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="http://img.dabin-coder.cn/image/牛客网-程序员大彬.svg" alt="牛客网"></a>
-<a href="https://juejin.cn/user/201965869218574/posts"><img src="http://img.dabin-coder.cn/image/掘金-程序员大彬.svg" alt="掘金"></a>
+    <a href="http://img.topjavaer.cn/img/个人微信索隆（交流群）.png"><img src="http://img.topjavaer.cn/img/WeChat-微信交流群-blue.svg" alt="微信交流群"></a>
+<a href="http://img.topjavaer.cn/img/公众号.jpg"><img src="http://img.topjavaer.cn/img/公众号-程序员大彬.svg" alt="公众号"></a>
+<a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="http://img.topjavaer.cn/img/知乎-程序员大彬.svg" alt="知乎"></a>
+<a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="http://img.topjavaer.cn/img/牛客网-程序员大彬.svg" alt="牛客网"></a>
+<a href="https://juejin.cn/user/201965869218574/posts"><img src="http://img.topjavaer.cn/img/掘金-程序员大彬.svg" alt="掘金"></a>
 <a href="https://github.com/Tyson0314/Java-learning"><img src="https://img.shields.io/badge/GitHub-计算机校招社招面试题汇总-critical.svg" alt="八股文"> </a>
         </p>
 
@@ -21,9 +21,9 @@ sidebar: heading
 
 > Github地址：https://github.com/Tyson0314/java-books
 
-![](http://img.dabin-coder.cn/image/image-20210902223746952.png)
+![](http://img.topjavaer.cn/img/image-20210902223746952.png)
 
-![](http://img.dabin-coder.cn/image/image-20221030094126118.png)
+![](http://img.topjavaer.cn/img/image-20221030094126118.png)
 
 书单持续更新中，小伙伴们也可以帮忙一起完善书单，找不到想要的书籍可以评论区提出~
 
@@ -317,7 +317,7 @@ sidebar: heading
 
 | 微信                                              | 支付宝                                                |
 | ------------------------------------------------- | ----------------------------------------------------- |
-| ![](http://img.dabin-coder.cn/image/微信收款.png) | ![](http://img.dabin-coder.cn/image/支付宝赞赏码.png) |
+| ![](http://img.topjavaer.cn/img/微信收款.png) | ![](http://img.topjavaer.cn/img/支付宝赞赏码.png) |
 
 > 最后给大家分享另一个Github仓库，用于分享**互联网大厂高频面试题、Java核心知识总结**，包括Java基础、并发、MySQL、Springboot、MyBatis、Redis、RabbitMQ等等，面试必备！欢迎大家star！
 >

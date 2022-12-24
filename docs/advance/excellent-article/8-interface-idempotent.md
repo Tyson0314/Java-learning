@@ -42,7 +42,7 @@
 
 功能上允许重复提交,但要保证重复提交不产生副作用,比如点击n次只产生一条记录,具体实现就是进入页面时申请一个token,然后后面所有的请求都带上这个token,后端根据token来避免重复请求。
 
-![](http://img.dabin-coder.cn/image/接口幂等.png)
+![](http://img.topjavaer.cn/img/接口幂等.png)
 
 ### **使用Post/Redirect/Get模式**
 
