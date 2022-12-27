@@ -12,7 +12,7 @@
 
 网站地址：https://topjavaer.cn
 
-![](http://img.dabin-coder.cn/image/image-20221030165150524.png)
+![](http://img.topjavaer.cn/img/image-20221030165150524.png)
 
 # 仓库简介
 
@@ -24,24 +24,25 @@
 
 如果大家想要实时关注我更新的文章以及分享的干货的话，可以关注我的**公众号『 程序员大彬 』**，后台回复『 PDF 』可以**下载最新版本的大厂高频面试题目PDF版本**。
 
-<div align="center"><img src="http://img.dabin-coder.cn/image/公众号.jpg" style="zoom:90%;" />
+<div align="center"><img src="http://img.topjavaer.cn/img/公众号.jpg" style="zoom:90%;" />
     <p>个人公众号</p>
 </div>
 <p align="center">
     <br>
-    <a href="http://img.dabin-coder.cn/image/个人微信索隆（交流群）.png"><img src="http://img.dabin-coder.cn/image/微信交流群.png" alt="微信交流群"></a>
-<a href="http://img.dabin-coder.cn/image/公众号.jpg"><img src="http://img.dabin-coder.cn/image/公众号.png" alt="公众号"></a>
-  <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="http://img.dabin-coder.cn/image/知乎.png" alt="知乎"></a>
-       <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="http://img.dabin-coder.cn/image/牛客网.png" alt="牛客网"></a>
-       <a href="https://juejin.cn/user/201965869218574/posts"><img src="http://img.dabin-coder.cn/image/掘金.png" alt="掘金"></a>
-           <a href="https://github.com/Tyson0314/java-books"><img src="http://img.dabin-coder.cn/image/免费计算机电子书籍.png" alt="免费PDF"></a>
+    <a href="http://img.topjavaer.cn/img/个人微信索隆（交流群）.png"><img src="http://img.topjavaer.cn/img/微信交流群.png" alt="微信交流群"></a>
+<a href="http://img.topjavaer.cn/img/公众号.jpg"><img src="http://img.topjavaer.cn/img/公众号.png" alt="公众号"></a>
+  <a href="https://www.zhihu.com/people/dai-shu-bin-13"><img src="http://img.topjavaer.cn/img/知乎.png" alt="知乎"></a>
+       <a href="https://www.nowcoder.com/profile/8683776/myDiscussPost"><img src="http://img.topjavaer.cn/img/牛客网.png" alt="牛客网"></a>
+       <a href="https://juejin.cn/user/201965869218574/posts"><img src="http://img.topjavaer.cn/img/掘金.png" alt="掘金"></a>
+           <a href="https://github.com/Tyson0314/java-books"><img src="http://img.topjavaer.cn/img/免费计算机电子书籍.png" alt="免费PDF"></a>
         </p>
 
 
 
 # 简历很重要
 
-[简历投递之后总是石沉大海？](https://zhuanlan.zhihu.com/p/406982597)
+- [23套精美简历模板](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247489358&idx=1&sn=dd1b91f115438c29a4215c674b8761e4&chksm=ce98ea08f9ef631e2c8361269f28c01db73eca1ff5b91ba0a0ec8c9a6b9fdcb46a5e16c57020#rd)
+- [简历投递之后总是石沉大海？](docs/campus-recruit/resume.md)
 
 # 精选资源
 
@@ -54,10 +55,19 @@
 # Java
 
 - [**Java高频面试题总结**](docs/java/java-basic.md)  (推荐 :+1:)
-- [Java8 新特性总结](docs/java/java8-all.md)
 - [Java集合高频面试题](docs/java/java-collection.md)(推荐 :+1:)
 - [Java并发高频面试题](docs/java/java-concurrent.md)   (推荐 :+1:)
 - [JVM高频面试题](/docs/java/jvm.md)(推荐 :+1:)
+
+**Java重要知识点**
+
+- [Java8新特性总结](docs/java/java8-all.md)
+- [Java19新特性](docs/advance/excellent-article/19-java19.md)
+
+**JVM重要知识点**
+
+- [美团面试：熟悉哪些JVM调优参数？](docs/advance/excellent-article/9-jvm-optimize-param.md)
+- [一次简单的JVM调优，拿去写到简历里](docs/advance/excellent-article/5-jvm-optimize.md)
 
 # 数据库
 
@@ -67,15 +77,20 @@
 
 **重要知识点**：
 
-- [8种最坑SQL语法](docs/advance/excellent-article/7-sql-optimize.md)
-
 - [MySQL执行计划详解](docs/database/mysql-execution-plan.md)(推荐 :+1:)
-
 - [图解索引下推](https://mp.weixin.qq.com/s/W1XQYmihtSdbLWQKeNwZvQ)(推荐 :+1:)
+- [MySQL最大建议行数 2000w，靠谱吗？](docs/advance/excellent-article/12-mysql-table-max-rows.md)
+- [order by是怎么工作的？](docs/advance/excellent-article/13-order-by-work.md)
+- [8种最坑SQL语法](docs/advance/excellent-article/7-sql-optimize.md)
+- [为什么说数据库连接很消耗资源](docs/advance/excellent-article/18-db-connect-resource.md)
 
 ## Redis
 
 - [Redis高频面试题总结](docs/redis/redis.md)(牛客高赞，推荐 :+1:)
+
+**重要知识点**：
+
+- [Redis如何实现库存扣减操作和防止被超卖？](docs/advance/excellent-article/1-redis-stock-minus.md)
 
 ## ElasticSearch
 
@@ -85,13 +100,22 @@
 
 ## Spring
 
-1. [Spring高频面试题30道](docs/framework/spring.md)(推荐 :+1:)
+- [Spring高频面试题30道](docs/framework/spring.md)(推荐 :+1:)
+
+**重要知识点**：
+
+- [Spring为何需要三级缓存解决循环依赖，而不是二级缓存？](docs/advance/excellent-article/6-spring-three-cache.md)
+- [@Transactional事务注解详解](docs/advance/excellent-article/2-spring-transaction.md)
 
 ## Spring Boot
 
-[Spring Boot总结](框架/SpringBoot实战.md)
+- [Spring Boot总结](框架/SpringBoot实战.md)
 
-[SpringBoot面试题总结](docs/framework/springboot.md)
+- [SpringBoot面试题总结](docs/framework/springboot.md)
+
+**重要知识点**：
+
+- [SpringBoot自动装配原理](docs/advance/excellent-article/3-springboot-auto-assembly.md)
 
 ## Spring MVC
 
@@ -116,6 +140,10 @@
 # 计算机网络
 
 [计算机网络常见面试题总结](docs/computer-basic/network.md) （**知乎1k+收藏！推荐 :+1:**）
+
+**重要知识点**：
+
+- [有了HTTP，为啥还要用RPC](docs/advance/excellent-article/15-http-vs-rpc.md)
 
 # 数据结构与算法
 
@@ -188,11 +216,6 @@
 - [什么是JWT？](docs/advance/excellent-article/16-what-is-jwt.md)
 - [单点登录（SSO）设计与实现](docs/advance/system-design/8-sso-design.md)
 
-# 编程实践
-
-1. [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
-2. [干掉 “重复代码” 的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
-
 # 大厂面经汇总
 
 - [字节跳动](docs/campus-recruit/interview/1-byte-and-dance.md)
@@ -208,9 +231,15 @@
 
 # 优质文章
 
-[优质文章汇总，持续更新中~](https://topjavaer.cn/advance/excellent-article/)
-
-![](http://img.dabin-coder.cn/image/image-20221030172546796.png)
+- [干掉“重复代码”的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
+- [面试官：如何保证接口幂等性？一口气说了12种方法！](docs/advance/excellent-article/8-interface-idempotent.md)
+- [大文件上传时如何做到秒传？](docs/advance/excellent-article/10-file-upload.md)
+- [架构的演进](docs/advance/excellent-article/14-architect-forward.md)
+- [8种架构模式](docs/advance/excellent-article/11-8-architect-pattern.md)
+- [限流的几种方案](docs/advance/excellent-article/17-limit-scheme.md)
+- [几种常见的架构模式](docs/advance/excellent-article/20-architect-pattern.md)
+- [新一代分布式任务调度框架](docs/advance/excellent-article/22-distributed-scheduled-task.md)
+- [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
 
 # 工具
 
@@ -236,9 +265,9 @@
 
 如果觉得**本仓库**对您有帮助的话，可以请大彬**喝一杯咖啡**（小伙伴们赞赏的时候可以备注下哦~）
 
-| 微信                                              | 支付宝                                                |
-| ------------------------------------------------- | ----------------------------------------------------- |
-| ![](http://img.dabin-coder.cn/image/微信收款.png) | ![](http://img.dabin-coder.cn/image/支付宝赞赏码.png) |
+| 微信                                          | 支付宝                                            |
+| --------------------------------------------- | ------------------------------------------------- |
+| ![](http://img.topjavaer.cn/img/微信收款.png) | ![](http://img.topjavaer.cn/img/支付宝赞赏码.png) |
 
 每笔赞赏我会在下面记录下来，感谢你们，我会更加努力，砥砺前行~
 

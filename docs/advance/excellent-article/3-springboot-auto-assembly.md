@@ -2,7 +2,7 @@
 
 首先，先看SpringBoot的主配置类：
 
-```
+```java
 @SpringBootApplication
 public class StartEurekaApplication
 {
@@ -15,7 +15,7 @@ public class StartEurekaApplication
 
 点进@SpringBootApplication来看，发现@SpringBootApplication是一个组合注解。
 
-```
+```java
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -32,7 +32,7 @@ public @interface SpringBootApplication {
 
 首先我们先来看 @SpringBootConfiguration：
 
-```
+```java
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -45,7 +45,7 @@ public @interface SpringBootConfiguration {
 
 那@Configuration还有一个作用就是把该类变成一个配置类，不需要额外的XML进行配置。所以@SpringBootConfiguration就相当于@Configuration。进入@Configuration，发现@Configuration核心是@Component，说明Spring的配置类也是Spring的一个组件。
 
-```
+```java
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -60,7 +60,7 @@ public @interface Configuration {
 
 继续来看下一个@EnableAutoConfiguration,这个注解是开启自动配置的功能。
 
-```
+```java
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -78,7 +78,7 @@ public @interface EnableAutoConfiguration {
 
 可以看到它是由 @AutoConfigurationPackage，@Import(EnableAutoConfigurationImportSelector.class)这两个而组成的，我们先说@AutoConfigurationPackage，他是说：让包中的类以及子包中的类能够被自动扫描到spring容器中。
 
-```
+```java
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -90,7 +90,7 @@ public @interface AutoConfigurationPackage {
 
 使用@Import来给Spring容器中导入一个组件 ，这里导入的是Registrar.class。来看下这个Registrar：
 
-```
+```java
 static class Registrar implements ImportBeanDefinitionRegistrar, DeterminableImports {
         Registrar() {
         }
@@ -115,7 +115,7 @@ static class Registrar implements ImportBeanDefinitionRegistrar, DeterminableImp
 
 ![](http://img.topjavaer.cn/img/springboot自动配置3.png)可以从图中看出AutoConfigurationImportSelector 继承了 DeferredImportSelector 继承了 ImportSelector，ImportSelector有一个方法为：selectImports。将所有需要导入的组件以全类名的方式返回，这些组件就会被添加到容器中。
 
-```
+```java
 public String[] selectImports(AnnotationMetadata annotationMetadata) {
     if (!this.isEnabled(annotationMetadata)) {
         return NO_IMPORTS;
@@ -132,7 +132,7 @@ public String[] selectImports(AnnotationMetadata annotationMetadata) {
 
 ![](http://img.topjavaer.cn/img/springboot自动配置4.png)有了自动配置类，免去了我们手动编写配置注入功能组件等的工作。那是如何获取到这些配置类的呢，看看下面这个方法：
 
-```
+```java
 protected AutoConfigurationImportSelector.AutoConfigurationEntry 
   getAutoConfigurationEntry(AutoConfigurationMetadata autoConfigurationMetadata, AnnotationMetadata annotationMetadata) {
     if (!this.isEnabled(annotationMetadata)) {
@@ -153,7 +153,7 @@ protected AutoConfigurationImportSelector.AutoConfigurationEntry
 
 我们可以看到getCandidateConfigurations()这个方法，他的作用就是引入系统已经加载好的一些类，到底是那些类呢：
 
-```
+```java
 protected List<String> getCandidateConfigurations(AnnotationMetadata metadata, AnnotationAttributes attributes) {
     List<String> configurations = SpringFactoriesLoader.loadFactoryNames(this.getSpringFactoriesLoaderFactoryClass(), this.getBeanClassLoader());
     Assert.notEmpty(configurations, 
@@ -168,7 +168,7 @@ public static List<String> loadFactoryNames(Class<?> factoryClass, @Nullable Cla
 
 会从META-INF/spring.factories中获取资源，然后通过Properties加载资源：
 
-```
+```java
 private static Map<String, List<String>> loadSpringFactories(@Nullable ClassLoader classLoader) {
     MultiValueMap<String, String> result = (MultiValueMap)cache.get(classLoader);
     if (result != null) {
@@ -211,7 +211,7 @@ private static Map<String, List<String>> loadSpringFactories(@Nullable ClassLoad
 
 ![](http://img.topjavaer.cn/img/springboot自动配置5.png)接下来看@ComponentScan注解，@ComponentScan(excludeFilters = { @Filter(type = FilterType.CUSTOM, classes = TypeExcludeFilter.class), @Filter(type = FilterType.CUSTOM, classes = AutoConfigurationExcludeFilter.class) })，这个注解就是扫描包，然后放入spring容器。
 
-```
+```java
 @ComponentScan(excludeFilters = {
   @Filter(type = FilterType.CUSTOM,classes = {TypeExcludeFilter.class}), 
   @Filter(type = FilterType.CUSTOM,classes = {AutoConfigurationExcludeFilter.class})})
@@ -222,7 +222,7 @@ public @interface SpringBootApplication {}
 
 接下来继续看run方法：
 
-```
+```java
 public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
@@ -230,7 +230,7 @@ public static void main(String[] args) {
 
 来看下在执行run方法到底有没有用到哪些自动配置的东西，我们点进run：
 
-```
+```java
 public ConfigurableApplicationContext run(String... args) {
     //计时器
     StopWatch stopWatch = new StopWatch();
@@ -281,7 +281,7 @@ public ConfigurableApplicationContext run(String... args) {
 
 那我们关注的就是 refreshContext(context); 刷新context，我们点进来看。
 
-```
+```java
 private void refreshContext(ConfigurableApplicationContext context) {
    refresh(context);
    if (this.registerShutdownHook) {
@@ -297,7 +297,7 @@ private void refreshContext(ConfigurableApplicationContext context) {
 
 我们继续点进refresh(context);
 
-```
+```java
 protected void refresh(ApplicationContext applicationContext) {
    Assert.isInstanceOf(AbstractApplicationContext.class, applicationContext);
    ((AbstractApplicationContext) applicationContext).refresh();
@@ -306,7 +306,7 @@ protected void refresh(ApplicationContext applicationContext) {
 
 他会调用 ((AbstractApplicationContext) applicationContext).refresh();方法，我们点进来看：
 
-```
+```java
 public void refresh() throws BeansException, IllegalStateException {
    synchronized (this.startupShutdownMonitor) {
       // Prepare this context for refreshing.
@@ -357,7 +357,7 @@ public void refresh() throws BeansException, IllegalStateException {
 
 由此可知，就是一个spring的bean的加载过程。继续来看一个方法叫做 onRefresh()：
 
-```
+```java
 protected void onRefresh() throws BeansException {
    // For subclasses: do nothing by default.
 }
@@ -367,7 +367,7 @@ protected void onRefresh() throws BeansException {
 
 ![](http://img.topjavaer.cn/img/springboot自动配置6.png)比如Tomcat跟web有关，我们可以看到有个ServletWebServerApplicationContext：
 
-```
+```java
 @Override
 protected void onRefresh() {
    super.onRefresh();
@@ -382,7 +382,7 @@ protected void onRefresh() {
 
 可以看到有一个createWebServer();方法他是创建web容器的，而Tomcat不就是web容器，那是如何创建的呢，我们继续看：
 
-```
+```java
 private void createWebServer() {
    WebServer webServer = this.webServer;
    ServletContext servletContext = getServletContext();
@@ -417,7 +417,7 @@ public interface ServletWebServerFactory {
 
 我们看到还有Jetty，那我们来看TomcatServletWebServerFactory：
 
-```
+```java
 @Override
 public WebServer getWebServer(ServletContextInitializer... initializers) {
    Tomcat tomcat = new Tomcat();
@@ -442,7 +442,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
 
 如果不明白的话， 我们在用另一种方式来理解下，大家要应该都知道stater举点例子。
 
-```
+```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-redis</artifactId>
@@ -455,7 +455,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
 
 首先自定义一个stater。
 
-```
+```xml
 <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
@@ -478,7 +478,7 @@ public WebServer getWebServer(ServletContextInitializer... initializers) {
 
 ![](http://img.topjavaer.cn/img/springboot自动配置8.png)img
 
-```
+```java
 public class GwServiceImpl  implements GwService{
     @Autowired
     GwProperties properties;
@@ -494,7 +494,7 @@ public class GwServiceImpl  implements GwService{
 
 我们做的就是通过配置文件来定制name这个是具体实现。
 
-```
+```java
 @Component
 @ConfigurationProperties(prefix = "spring.gwname")
 public class GwProperties {
@@ -513,7 +513,7 @@ public class GwProperties {
 
 这个类可以通过@ConfigurationProperties读取配置文件。
 
-```
+```java
 @Configuration
 @ConditionalOnClass(GwService.class)  //扫描类
 @EnableConfigurationProperties(GwProperties.class) //让配置类生效
@@ -535,7 +535,7 @@ public class GwAutoConfiguration {
 
 这个为配置类，为什么这么写因为，spring-boot的stater都是这么写的，我们可以参照他仿写stater，以达到自动配置的目的，然后我们在通过spring.factories也来进行配置。
 
-```
+```properties
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.gw.GwAutoConfiguration
 ```
 

@@ -43,7 +43,7 @@
 8. redis集群的几种方式详细说一下
 9. redis缓存雪崩，缓存击穿，缓存穿透是什么，怎么解决 
 10. mysql索引相关，为什么用B+树
-11. 手撕代码，链表求和，leetcode原题：https://leetcode-cn.com/problems/sum-lists-lcci/
+11. 手撕代码，链表求和，leetcode原题
 
 ### 华为二面
 - 是否用过Java、Python做系统的项目

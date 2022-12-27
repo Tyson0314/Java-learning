@@ -17,3 +17,7 @@
 - [架构的演进](./14-architect-forward.md)
 - [有了HTTP，为啥还要用RPC](./15-http-vs-rpc.md)
 - [什么是JWT](./16-what-is-jwt.md)
+- [限流的几种方案](./17-limit-scheme.md)
+- [为什么说数据库连接很消耗资源](./18-db-connect-resource.md)
+- [Java19新特性](./19-java19.md)
+- [几种常见的架构模式](./20-architect-pattern.md)
