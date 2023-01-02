@@ -65,9 +65,3 @@ b树、b+树是什么样的树结构，查询复杂度？是平衡二叉树吗�
 手撕代码：LRU算法；正反序层序遍历二叉树
 
 
-
-
-
-**最后给大家分享一份精心整理的大厂高频面试题PDF，需要的小伙伴可以自行下载：**
-
-[大厂面试手册](http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd)

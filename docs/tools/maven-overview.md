@@ -8,8 +8,6 @@ Maven 不仅是构建工具，还是一个依赖管理工具和项目信息管�
 
 配置用户范围 settings.xml。M2_HOME/conf/settings.xml 是全局范围的，而~/.m2/settings.xml 是用户范围的。配置成用户范围便于 Maven 升级。若直接修改 conf 目录下的 settings.xml，每次 Maven 升级时，都需要直接 settings.xml 文件。
 
-
-
 # 入门
 
 ## 编写测试代码
@@ -112,8 +110,6 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.117 sec
 
 执行顺序：compile->test->package->install
 
-
-
 # 依赖
 
 ```xml
@@ -164,8 +160,6 @@ spring-core 是 account 的第一直接依赖，common-logging 是 spring-core �
 查看依赖树：`mvn dependency:tree`
 
 分析依赖：`mvn dependency:analyze`
-
-
 
 # 仓库
 
@@ -253,8 +247,6 @@ mirrorsOf 配置为 central，表示其为中央仓库的镜像，任何对中�
 
 `<mirrorOf>*, !repo1<mirrorOf>`：匹配除了repo1以外的所有远程仓库。
 
-
-
 # 生命周期
 
 项目构建过程包括：清理项目- 编译-测试-打包-部署
@@ -276,8 +268,6 @@ site 生命周期：pre-site、site、post-site 和 site-deploy
 `mvn clean install`：调用 clean 生命周期的 clean 阶段和 default 生命周期的 install 阶段；
 
 `mvn clean deploy site-deploy`：调用 clean 生命周期的 clean 阶段、default 生命周期的 deploy 阶段，以及 site 生命周期的 site-deploy 阶段。
-
-
 
 # 插件
 
@@ -340,8 +330,6 @@ maven-surefire-plugin 提供了一个 maven.test.skip 参数，当其值为 true
     </build>
 ```
 
-
-
 # 聚合
 
 项目有多个模块时，使用一个聚合体将这些模块聚合起来，通过聚合体就可以一次构建全部模块。
@@ -356,8 +344,6 @@ accout-aggregator 的版本号要跟各个模块版本号相同，packaging 的�
     <module>../account-persist</module>
 </modules>
 ```
-
-
 
 # 继承
 

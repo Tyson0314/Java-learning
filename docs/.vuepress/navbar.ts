@@ -122,13 +122,14 @@ export default navbar([
 			},
             {
                 text: "系统设计",
-                children: [
-                    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
-					{text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
-					{text: "短链系统设计", link: "/advance/system-design/3-short-url.md"},
-					{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
-					{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
-                ]
+				link: "/advance/system-design/README.md",
+                //children: [
+                //    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
+				//	{text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
+				//	{text: "短链系统设计", link: "/advance/system-design/3-short-url.md"},
+				//	{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
+				//	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
+                //]
             },
 			{
                 text: "海量数据",

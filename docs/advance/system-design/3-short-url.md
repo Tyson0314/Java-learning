@@ -52,7 +52,7 @@ The document has moved <A HREF="https://www.howardliu.cn/how-to-use-branch-effic
 
 新浪微博使用 8 位字符串表示原始链接，这种字符串可以理解为数字的 62 进制表示，62^8 = 3521614606208 > 3521 亿 > 58 亿，也就是可以解决目前全球已知的网址。62 进制就是由 10 个数字 + (a-z)26 个小写字母 + (A-Z)26 个大写字母组成的数。
 
-### 哈希算法
+**哈希算法**
 
 对原始链接取 Hash 值，是一种比较简单的思路。有很多现成的算法可以实现，但是有个避不开的问题就是：Hash 碰撞，所以选一个碰撞率低的算法比较重要。
 
@@ -62,7 +62,7 @@ The document has moved <A HREF="https://www.howardliu.cn/how-to-use-branch-effic
 
 ![](http://img.topjavaer.cn/img/20220522154823.png)
 
-### 发号器
+**发号器**
 
 这个就是不管来的是什么，通过集中的统一发号器，分配一个 ID，这个 ID 就是短链的内容，比如第一个来的就是[https://tinyurl.com/1](https://xie.infoq.cn/link?target=https%3A%2F%2Ftinyurl.com%2F1)，第二个就是[https://tinyurl.com/2](https://xie.infoq.cn/link?target=https%3A%2F%2Ftinyurl.com%2F2)，以此类推。当然可能一些分布式 ID 算法上来就是很长的一个序号了。为了获取更短路，还可以将其转为 62 进制字符串。
 
