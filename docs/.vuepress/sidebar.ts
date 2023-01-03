@@ -108,13 +108,13 @@ export default sidebar({
             children: getChildren('./docs/campus-recruit', 'program-language'),
         },
     ],
-	"/advance/system-design": [
-        {
-            text: "系统设计",
-            collapsable: false,
-            children: getChildren('./docs/advance', 'system-design'),
-        },
-    ],
+	//"/advance/system-design": [
+    //    {
+    //        text: "系统设计",
+    //        collapsable: false,
+    //        children: getChildren('./docs/advance', 'system-design'),
+    //    },
+    //],
 	"/campus-recruit/share": [
         {
             text: "校招分享",

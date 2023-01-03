@@ -1,4 +1,4 @@
-**Springboot重要知识点&高频面试题**是我的**[知识星球](https://topjavaer.cn/zsxq/introduce.html)内部专属资料**，已经整理到Java面试手册**完整版**。
+**Springboot重要知识点&高频面试题**是我的[知识星球](https://topjavaer.cn/zsxq/introduce.html)**内部专属资料**，已经整理到Java面试手册**完整版**。
 
 ![](http://img.topjavaer.cn/img/image-20230102194202349.png)
 

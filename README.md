@@ -69,6 +69,15 @@
 - [Java优质项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
 - [优质视频教程推荐](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd)（推荐 :+1:）
 
+# 面试前准备
+
+- [项目经验怎么回答？](docs/campus-recruit/project-experience.md)
+- [没有项目经验，怎么办？](docs/campus-recruit/lack-project-experience.md)
+- [你在项目里遇到的最大困难是什么，如何解决的？](docs/campus-recruit/lbiggest-difficulty.md)
+- [面试官问你的职业规划是怎样的？该怎么回答](docs/campus-recruit/interview-question-career-plan.md)
+- [面试官问你有什么要问我的吗？该怎么回答](docs/campus-recruit/question-ask-me.md)
+- [HR问目前拿到哪几个offer了，怎么回答好？](docs/campus-recruit/hr-ask-offers.md)
+
 # Java
 
 - [**Java高频面试题总结**](docs/java/java-basic.md)  (推荐 :+1:)
@@ -80,11 +89,13 @@
 
 - [Java8新特性总结](docs/java/java8-all.md)
 - [Java19新特性](docs/advance/excellent-article/19-java19.md)
+- [泛型中的 T、E、K、V，还记得嘛？](docs/advance/excellent-article/24-generic.md)
 
 **JVM重要知识点**
 
 - [美团面试：熟悉哪些JVM调优参数？](docs/advance/excellent-article/9-jvm-optimize-param.md)
 - [一次简单的JVM调优，拿去写到简历里](docs/advance/excellent-article/5-jvm-optimize.md)
+- [阿里排错神器——Arthas](docs/advance/excellent-article/23-arthas-intro.md)
 
 # 数据库
 
@@ -195,11 +206,14 @@
 - [全局唯一ID](docs/advance/distributed/1-global-unique-id.md)
 - [分布式事务总结](docs/advance/distributed/6-distributed-transaction.md)
 - [分布式架构演进](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247490543&idx=1&sn=ee34bee96511d5e548381e0576f8b484&chksm=ce98e6a9f9ef6fbf7db9c2b6d2fed26853a3bc13a50c3228ab57bea55afe0772008cdb1f957b&token=1594696656&lang=zh_CN#rd)
+- [新一代分布式任务调度框架](docs/advance/excellent-article/22-distributed-scheduled-task.md)
 
 # 高并发
 
 - [限流算法总结](docs/advance/concurrent/1-current-limiting.md)
 - [负载均衡](docs/advance/concurrent/2-load-balance.md)
+- [限流的几种方案](docs/advance/excellent-article/17-limit-scheme.md)
+- [面试官：如何保证接口幂等性？一口气说了12种方法！](docs/advance/excellent-article/8-interface-idempotent.md)
 
 # 消息队列
 
@@ -227,6 +241,7 @@
 - [秒杀系统设计](docs/advance/system-design/5-second-kill.md)
 - [微信红包系统如何设计？](docs/advance/system-design/6-wechat-redpacket-design.md)
 - [如何把一个文件较快的发送到100w个服务器？](docs/advance/system-design/7-file-send.md)
+- [如何用 Redis 统计用户访问量？](docs/advance/system-design/10-pdd-visit-statistics)
 
 # 安全
 
@@ -249,13 +264,10 @@
 # 优质文章
 
 - [干掉“重复代码”的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
-- [面试官：如何保证接口幂等性？一口气说了12种方法！](docs/advance/excellent-article/8-interface-idempotent.md)
 - [大文件上传时如何做到秒传？](docs/advance/excellent-article/10-file-upload.md)
 - [架构的演进](docs/advance/excellent-article/14-architect-forward.md)
 - [8种架构模式](docs/advance/excellent-article/11-8-architect-pattern.md)
-- [限流的几种方案](docs/advance/excellent-article/17-limit-scheme.md)
 - [几种常见的架构模式](docs/advance/excellent-article/20-architect-pattern.md)
-- [新一代分布式任务调度框架](docs/advance/excellent-article/22-distributed-scheduled-task.md)
 - [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
 
 # 工具
@@ -267,6 +279,8 @@
 [Docker 基础总结！](docs/tools/docker-overview.md)
 
 [Maven 基础总结！](docs/tools/maven-overview.md)
+
+[Nginx 高频面试题](docs/tools/nginx.md)
 
 # 交流
 

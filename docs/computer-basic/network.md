@@ -1,4 +1,4 @@
-**计算机网络重要知识点&高频面试题**是我的**[知识星球](https://topjavaer.cn/zsxq/introduce.html)内部专属资料**，已经整理到**Java面试手册完整版**。
+**计算机网络重要知识点&高频面试题**是我的[知识星球](https://topjavaer.cn/zsxq/introduce.html)**内部专属资料**，已经整理到**Java面试手册完整版**。
 
 ![](http://img.topjavaer.cn/img/面试手册详情1.png)
 
