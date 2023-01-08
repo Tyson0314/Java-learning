@@ -242,6 +242,7 @@
 - [微信红包系统如何设计？](docs/advance/system-design/6-wechat-redpacket-design.md)
 - [如何把一个文件较快的发送到100w个服务器？](docs/advance/system-design/7-file-send.md)
 - [如何用 Redis 统计用户访问量？](docs/advance/system-design/10-pdd-visit-statistics)
+- [实时订阅推送设计](docs/advance/system-design/11-realtime-subscribe-push.md)
 
 # 安全
 

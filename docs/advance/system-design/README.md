@@ -1,6 +1,6 @@
 **系统设计高频面试题**是我的[知识星球](https://topjavaer.cn/zsxq/introduce.html)**内部专属资料**，已经整理到Java面试手册**完整版**。
 
-![](http://img.topjavaer.cn/img/image-20230103004712656.png)
+![](http://img.topjavaer.cn/img/image-20230105001012520.png)
 
 除了Java面试手册完整版之外，星球还有很多其他**优质资料**，比如包括Java项目、进阶知识、实战经验总结、优质书籍、笔试面试资源等等。
 
