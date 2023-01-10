@@ -251,15 +251,21 @@ public Class<T> clazzT;
 
 所以当不知道定声明什么类型的 Class 的时候可以定义一 个Class<?>。
 
-![图片](https://mmbiz.qpic.cn/mmbiz_jpg/JdLkEI9sZffWPDTNara23zX7cQiaVrP6plpf3S7CqZbryddwWFQN3gzKYlAZtRAnn0ro78WBiciaHVgKicD0kpSCPQ/640?wx_fmt=jpeg&wxfrom=5&wx_lazy=1&wx_co=1)
+```java
+public class Test3 {
+    public Class<?> clazz;
+    public Class<T> clazzT;
+}
+```
 
 那如果也想 `public Class<T> clazzT;`这样的话，就必须让当前的类也指定 T ，
 
-```
+```java
 public class Test3<T> {
     public Class<?> clazz;
     // 不会报错
     public Class<T> clazzT;
+}
 ```
 
 ## 小结

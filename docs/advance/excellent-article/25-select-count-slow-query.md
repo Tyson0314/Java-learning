@@ -1,3 +1,5 @@
+# SELECT COUNT(*) 会造成全表扫描？回去等通知吧
+
 ## 前言
 
 SELECT COUNT(*)会不会导致全表扫描引起慢查询呢？
@@ -16,7 +18,7 @@ EXPLAIN SELECT COUNT(*) FROM SomeTable
 
 结果如下
 
-![](C:\Users\Tyson\Desktop\img\0103\select count\select-count1.png)
+![](http://img.topjavaer.cn/img/select-count1.png)
 
 如图所示: 发现确实此条语句在此例中用到的并不是主键索引，而是辅助索引，实际上在此例中我试验了，不管是 COUNT(1)，还是 COUNT(*)，MySQL 都会用**成本最小**的辅助索引查询方式来计数，也就是使用 COUNT(*) 由于 MySQL 的优化已经保证了它的查询性能是最好的！随带提一句，COUNT(*)是 SQL92 定义的标准统计行数的语法，并且效率高，所以请直接使用COUNT(*)查询表的行数！
 

@@ -89,13 +89,14 @@
 
 - [Java8新特性总结](docs/java/java8-all.md)
 - [Java19新特性](docs/advance/excellent-article/19-java19.md)
-- [泛型中的 T、E、K、V，还记得嘛？](docs/advance/excellent-article/24-generic.md)
+- [Java Stream常见用法汇总](docs/advance/excellent-article/26-java-stream.md)
+- [泛型中的T、E、K、V，是什么含义？](docs/advance/excellent-article/24-generic.md)
 
 **JVM重要知识点**
 
 - [美团面试：熟悉哪些JVM调优参数？](docs/advance/excellent-article/9-jvm-optimize-param.md)
 - [一次简单的JVM调优，拿去写到简历里](docs/advance/excellent-article/5-jvm-optimize.md)
-- [阿里排错神器——Arthas](docs/advance/excellent-article/23-arthas-intro.md)
+- [阿里排错神器--Arthas](docs/advance/excellent-article/23-arthas-intro.md)
 
 # 数据库
 
@@ -111,6 +112,7 @@
 - [order by是怎么工作的？](docs/advance/excellent-article/13-order-by-work.md)
 - [8种最坑SQL语法](docs/advance/excellent-article/7-sql-optimize.md)
 - [为什么说数据库连接很消耗资源](docs/advance/excellent-article/18-db-connect-resource.md)
+- [SELECT COUNT(*) 会造成全表扫描？](docs/advance/excellent-article/25-select-count-slow-query.md)
 
 ## Redis
 
@@ -221,6 +223,10 @@
 2. [RabbitMQ面试题总结](docs/message-queue/rabbitmq.md) (推荐 :+1:)
 3. [Kafka面试题总结](docs/message-queue/kafka.md) (推荐 :+1:)
 
+**重要知识点：**
+
+- [消息队列常见的使用场景](docs/advance/excellent-article/27-mq-usage.md)
+
 # 海量数据场景题
 
 1. [统计不同电话号码的个数](https://topjavaer.cn/mass-data/1-count-phone-num.html)
@@ -239,10 +245,12 @@
 - [短链系统设计](docs/advance/system-design/3-short-url.md)
 - [超卖问题](docs/advance/system-design/4-oversold.md)
 - [秒杀系统设计](docs/advance/system-design/5-second-kill.md)
+- [秒杀系统设计的5个要点](docs/advance/system-design/12-second-kill-5-pointmd)
 - [微信红包系统如何设计？](docs/advance/system-design/6-wechat-redpacket-design.md)
 - [如何把一个文件较快的发送到100w个服务器？](docs/advance/system-design/7-file-send.md)
 - [如何用 Redis 统计用户访问量？](docs/advance/system-design/10-pdd-visit-statistics)
 - [实时订阅推送设计](docs/advance/system-design/11-realtime-subscribe-push.md)
+- [权限系统设计方案](docs/advance/system-design/13-permission-system.md)
 
 # 安全
 
