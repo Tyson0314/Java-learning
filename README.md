@@ -71,6 +71,7 @@
 
 # 面试前准备
 
+- [我建议你这样去刷题](docs/campus-recruit/leetcode-guide.md)
 - [项目经验怎么回答？](docs/campus-recruit/project-experience.md)
 - [没有项目经验，怎么办？](docs/campus-recruit/lack-project-experience.md)
 - [你在项目里遇到的最大困难是什么，如何解决的？](docs/campus-recruit/lbiggest-difficulty.md)
