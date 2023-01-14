@@ -252,6 +252,7 @@
 - [如何用 Redis 统计用户访问量？](docs/advance/system-design/10-pdd-visit-statistics)
 - [实时订阅推送设计](docs/advance/system-design/11-realtime-subscribe-push.md)
 - [权限系统设计方案](docs/advance/system-design/13-permission-system.md)
+- [如何设计一个抢红包系统](docs/advance/system-design/15-red-packet.md)
 
 # 安全
 
