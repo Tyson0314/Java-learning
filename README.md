@@ -227,6 +227,7 @@
 **重要知识点：**
 
 - [消息队列常见的使用场景](docs/advance/excellent-article/27-mq-usage.md)
+- [如何从0到1设计消息队列](docs/advance/system-design/16-mq-design.md)
 
 # 海量数据场景题
 
@@ -253,6 +254,7 @@
 - [实时订阅推送设计](docs/advance/system-design/11-realtime-subscribe-push.md)
 - [权限系统设计方案](docs/advance/system-design/13-permission-system.md)
 - [如何设计一个抢红包系统](docs/advance/system-design/15-red-packet.md)
+- [如何从0到1设计消息队列](docs/advance/system-design/16-mq-design.md)
 
 # 安全
 
