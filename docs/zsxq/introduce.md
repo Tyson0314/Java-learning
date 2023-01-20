@@ -51,7 +51,7 @@ APP端页面如下（建议大家**使用APP**，因为APP布局更加美观，�
 
 如果你加入了，希望你也能跟像球友们一样**每天坚持打卡学习，为未来奋斗**~
 
-![](http://img.topjavaer.cn/img/星球优惠券-私聊.png)
+![](http://img.topjavaer.cn/img/星球优惠券-学习网站.png)
 
 ## 学习圈能提供什么？
 
@@ -173,4 +173,4 @@ APP端页面如下（建议大家**使用APP**，因为APP布局更加美观，�
 
 PS：如果加入学习圈之后觉得不合适，**支持3天内全额退款**~
 
-![](http://img.topjavaer.cn/img/星球优惠券-私聊.png)
+![](http://img.topjavaer.cn/img/星球优惠券-学习网站.png)
