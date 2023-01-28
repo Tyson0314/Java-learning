@@ -10,7 +10,7 @@ sidebar: heading
 
 扫码登录功能主要分为三个阶段：**待扫描、已扫描待确认、已确认**。
 
-整体流程图如下图。
+整体流程图如图。
 
 ![](http://img.topjavaer.cn/img/整个流程.png)
 

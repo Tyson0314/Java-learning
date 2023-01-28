@@ -92,12 +92,15 @@
 - [Java19新特性](docs/advance/excellent-article/19-java19.md)
 - [Java Stream常见用法汇总](docs/advance/excellent-article/26-java-stream.md)
 - [泛型中的T、E、K、V，是什么含义？](docs/advance/excellent-article/24-generic.md)
+- [面试官：反射是如何影响性能的？](docs/java/basic/reflect-affect-permance.md)
+- [面试官：详细说说你对序列化的理解？](docs/java/basic/serialization.md)
 
 **JVM重要知识点**
 
 - [美团面试：熟悉哪些JVM调优参数？](docs/advance/excellent-article/9-jvm-optimize-param.md)
 - [一次简单的JVM调优，拿去写到简历里](docs/advance/excellent-article/5-jvm-optimize.md)
 - [阿里排错神器--Arthas](docs/advance/excellent-article/23-arthas-intro.md)
+- [Java堆内存是线程共享的？](docs/java/jvm/jvm-heap-memory-share.md)
 
 # 数据库
 
@@ -122,6 +125,9 @@
 **重要知识点**：
 
 - [Redis如何实现库存扣减操作和防止被超卖？](docs/advance/excellent-article/1-redis-stock-minus.md)
+- [Redis持久化详解](docs/redis/article/redis-duration.md)
+- [为什么Redis 6.0 引入多线程](docs/redis/article/redis-multi-thread.md)
+- [缓存和数据库一致性问题，看这篇就够了](docs/redis/article/cache-db-consistency.md)
 
 ## ElasticSearch
 
@@ -137,6 +143,7 @@
 
 - [Spring为何需要三级缓存解决循环依赖，而不是二级缓存？](docs/advance/excellent-article/6-spring-three-cache.md)
 - [@Transactional事务注解详解](docs/advance/excellent-article/2-spring-transaction.md)
+- [一文彻底搞懂Spring事务传播行为](docs/framework/spring/transaction-propagation.md)
 
 ## Spring Boot
 
@@ -231,14 +238,15 @@
 
 # 海量数据场景题
 
-1. [统计不同电话号码的个数](https://topjavaer.cn/mass-data/1-count-phone-num.html)
-2. [出现频率最高的100个词](https://topjavaer.cn/mass-data/2-find-hign-frequency-word.html)
-3. [查找两个大文件共同的URL](https://topjavaer.cn/mass-data/3-find-same-url.html)
-4. [如何在100亿的数据中找到中位数](https://topjavaer.cn/mass-data/4-find-mid-num.html)
-5. [找出最热门的查询串](https://topjavaer.cn/mass-data/5-find-hot-string.html)
-6. [如何找出排名前500的数字](https://topjavaer.cn/mass-data/6-top-500-num.html)
-7. [如何按照 query 的频度排序？](https://topjavaer.cn/mass-data/7-query-frequency-sort.html)
-8. [大数据中 TopK 问题的常用套路](https://topjavaer.cn/mass-data/8-topk-template.html)
+1. [大数据中 TopK 问题的常用套路](https://topjavaer.cn/mass-data/8-topk-template.html)
+2. [统计不同电话号码的个数](https://topjavaer.cn/mass-data/1-count-phone-num.html)
+3. [出现频率最高的100个词](https://topjavaer.cn/mass-data/2-find-hign-frequency-word.html)
+4. [查找两个大文件共同的URL](https://topjavaer.cn/mass-data/3-find-same-url.html)
+5. [如何在100亿的数据中找到中位数](https://topjavaer.cn/mass-data/4-find-mid-num.html)
+6. [找出最热门的查询串](https://topjavaer.cn/mass-data/5-find-hot-string.html)
+7. [如何找出排名前500的数字](https://topjavaer.cn/mass-data/6-top-500-num.html)
+8. [如何按照 query 的频度排序？](https://topjavaer.cn/mass-data/7-query-frequency-sort.html)
+9. [5亿个数的大文件怎么排序？](https://topjavaer.cn/mass-data/9-sort-500-million-large-files.html)
 
 # 系统设计
 
@@ -255,6 +263,8 @@
 - [权限系统设计方案](docs/advance/system-design/13-permission-system.md)
 - [如何设计一个抢红包系统](docs/advance/system-design/15-red-packet.md)
 - [如何从0到1设计消息队列](docs/advance/system-design/16-mq-design.md)
+- [购物车系统怎么设计？](docs/advance/system-design/17-shopping-car.md)
+- [如何设计一个注册中心？](docs/advance/system-design/18-register-center.md)
 
 # 安全
 
