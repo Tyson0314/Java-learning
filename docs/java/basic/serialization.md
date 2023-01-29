@@ -31,11 +31,11 @@
 
 **序列化：**把对象转化为可传输的字节序列过程
 
-![](C:\Users\Tyson\Desktop\img\0103\序列化的理解1.png)
+![](http://img.topjavaer.cn/img/序列化的理解1.png)
 
 **反序列化：把字节序列还原为对象的过程**
 
-![](C:\Users\Tyson\Desktop\img\0103\序列化的理解2.png)
+![](http://img.topjavaer.cn/img/序列化的理解2.png)
 
 
 

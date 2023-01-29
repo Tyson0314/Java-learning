@@ -4,7 +4,7 @@
 
 大彬，**非科班自学Java**，校招斩获京东、携程、华为等多家互联网中大厂offer。作为一名转码选手，深感这一路的不易，**半年的自学经历**，彻底改变了我的职业生涯。坚持分享自学Java经历、计算机知识、Java后端技术和面试经验等，希望能帮助到更多的小伙伴，**我踩过的坑你们不要再踩**。
 
-[点击此处](https://zhuanlan.zhihu.com/p/395162772) 查看我的**自学路线**。
+[点击此处](https://topjavaer.cn/learning-resources/java-learn-guide.html) 查看我的**自学路线**。
 
 # 面试网站
 
@@ -22,7 +22,7 @@
 
 **面试专题相关的文章已经整理成PDF，需要的小伙伴可以自行下载**：[Java高频面试题PDF](http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd)
 
-如果你是Java初学者，不知道下一步该学什么内容，可以看下我总结的**2021年最新的[Java学习路线](https://zhuanlan.zhihu.com/p/395162772)**。如果喜欢看视频学习，可以参考这个：[播放量1000万+！B站最值得学习的Java视频教程](https://zhuanlan.zhihu.com/p/397533240)。
+如果你是Java初学者，不知道下一步该学什么内容，可以看下我最新整理的**[Java学习路线](https://topjavaer.cn/learning-resources/java-learn-guide.html)**。如果喜欢看视频学习，可以参考这个：[播放量1000万+！B站最值得学习的Java视频教程](https://zhuanlan.zhihu.com/p/397533240)。
 
 如果大家想要实时关注我更新的文章以及分享的干货的话，可以关注我的**公众号『 程序员大彬 』**，后台回复『 PDF 』可以**下载最新版本的大厂高频面试题目PDF版本**。
 
@@ -59,7 +59,7 @@
 # 简历很重要
 
 - [23套精美简历模板](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247489358&idx=1&sn=dd1b91f115438c29a4215c674b8761e4&chksm=ce98ea08f9ef631e2c8361269f28c01db73eca1ff5b91ba0a0ec8c9a6b9fdcb46a5e16c57020#rd)
-- [简历投递之后总是石沉大海？](docs/campus-recruit/resume.md)
+- [简历投递之后总是石沉大海？](https://topjavaer.cn/campus-recruit/resume.html)
 
 # 精选资源
 
@@ -69,65 +69,73 @@
 - [Java优质项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
 - [优质视频教程推荐](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd)（推荐 :+1:）
 
+# 经验分享
+
+- [工作一年想要跳槽，不知道应该怎么准备？](https://topjavaer.cn/career-plan/how-to-prepare-job-hopping.html)
+- [工作3年半，最近岗位有变动，有点迷茫](https://topjavaer.cn/career-plan/4-years-reflect.html)
+- [对于java开发和大数据开发，24年秋招的话选择哪个方向会比较合适呢？](https://topjavaer.cn/career-plan/java-or-bigdata.html)
+- [四年程序员生涯的反思](https://topjavaer.cn/career-plan/4-years-reflect.html)
+- [在国企做开发，是什么样的体验](https://topjavaer.cn/career-plan/guoqi-programmer.html)
+
 # 面试前准备
 
-- [我建议你这样去刷题](docs/campus-recruit/leetcode-guide.md)
-- [项目经验怎么回答？](docs/campus-recruit/project-experience.md)
-- [没有项目经验，怎么办？](docs/campus-recruit/lack-project-experience.md)
-- [你在项目里遇到的最大困难是什么，如何解决的？](docs/campus-recruit/lbiggest-difficulty.md)
-- [面试官问你的职业规划是怎样的？该怎么回答](docs/campus-recruit/interview-question-career-plan.md)
-- [面试官问你有什么要问我的吗？该怎么回答](docs/campus-recruit/question-ask-me.md)
-- [HR问目前拿到哪几个offer了，怎么回答好？](docs/campus-recruit/hr-ask-offers.md)
+- [我建议你这样去刷题](https://topjavaer.cn/campus-recruit/leetcode-guide.html)
+- [项目经验怎么回答？](https://topjavaer.cn/campus-recruit/project-experience.html)
+- [没有项目经验，怎么办？](https://topjavaer.cn/campus-recruit/lack-project-experience.html)
+- [你在项目里遇到的最大困难是什么，如何解决的？](https://topjavaer.cn/campus-recruit/lbiggest-difficulty.html)
+- [面试官问你的职业规划是怎样的？该怎么回答](https://topjavaer.cn/campus-recruit/interview-question-career-plan.html)
+- [面试官问你有什么要问我的吗？该怎么回答](https://topjavaer.cn/campus-recruit/question-ask-me.html)
+- [HR问目前拿到哪几个offer了，怎么回答好？](https://topjavaer.cn/campus-recruit/hr-ask-offers.html)
 
 # Java
 
-- [**Java高频面试题总结**](docs/java/java-basic.md)  (推荐 :+1:)
-- [Java集合高频面试题](docs/java/java-collection.md)(推荐 :+1:)
-- [Java并发高频面试题](docs/java/java-concurrent.md)   (推荐 :+1:)
-- [JVM高频面试题](/docs/java/jvm.md)(推荐 :+1:)
+- [**Java高频面试题总结**](https://topjavaer.cn/java/java-basic.html)  (推荐 :+1:)
+- [Java集合高频面试题](https://topjavaer.cn/java/java-collection.html)(推荐 :+1:)
+- [Java并发高频面试题](https://topjavaer.cn/java/java-concurrent.html)   (推荐 :+1:)
+- [JVM高频面试题](https://topjavaer.cn/java/jvm.html)(推荐 :+1:)
 
 **Java重要知识点**
 
-- [Java8新特性总结](docs/java/java8-all.md)
-- [Java19新特性](docs/advance/excellent-article/19-java19.md)
-- [Java Stream常见用法汇总](docs/advance/excellent-article/26-java-stream.md)
-- [泛型中的T、E、K、V，是什么含义？](docs/advance/excellent-article/24-generic.md)
-- [面试官：反射是如何影响性能的？](docs/java/basic/reflect-affect-permance.md)
-- [面试官：详细说说你对序列化的理解？](docs/java/basic/serialization.md)
+- [Java8新特性总结](https://topjavaer.cn/java/java8-all.html)
+- [Java19新特性](https://topjavaer.cn/advance/excellent-article/19-java19.html)
+- [Java Stream常见用法汇总](https://topjavaer.cn/advance/excellent-article/26-java-stream.html)
+- [泛型中的T、E、K、V，是什么含义？](https://topjavaer.cn/advance/excellent-article/24-generic.html)
+- [面试官：反射是如何影响性能的？](https://topjavaer.cn/java/basic/reflect-affect-permance.html)
+- [面试官：详细说说你对序列化的理解？](https://topjavaer.cn/java/basic/serialization.html)
 
 **JVM重要知识点**
 
-- [美团面试：熟悉哪些JVM调优参数？](docs/advance/excellent-article/9-jvm-optimize-param.md)
-- [一次简单的JVM调优，拿去写到简历里](docs/advance/excellent-article/5-jvm-optimize.md)
-- [阿里排错神器--Arthas](docs/advance/excellent-article/23-arthas-intro.md)
-- [Java堆内存是线程共享的？](docs/java/jvm/jvm-heap-memory-share.md)
+- [美团面试：熟悉哪些JVM调优参数？](https://topjavaer.cn/advance/excellent-article/9-jvm-optimize-param.html)
+- [一次简单的JVM调优，拿去写到简历里](https://topjavaer.cn/advance/excellent-article/5-jvm-optimize.html)
+- [阿里排错神器--Arthas](https://topjavaer.cn/advance/excellent-article/23-arthas-intro.html)
+- [Java堆内存是线程共享的？](https://topjavaer.cn/java/jvm/jvm-heap-memory-share.html)
 
 # 数据库
 
 ## MySQL
 
-- [MySQL高频面试题50道](docs/database/mysql.md)(**知乎1k+收藏，推荐** :+1:)
+- [MySQL高频面试题50道](https://topjavaer.cn/database/mysql.html)(**知乎1k+收藏，推荐** :+1:)
 
 **重要知识点**：
 
-- [MySQL执行计划详解](docs/database/mysql-execution-plan.md)(推荐 :+1:)
+- [MySQL执行计划详解](https://topjavaer.cn/database/mysql-execution-plan.html)(推荐 :+1:)
 - [图解索引下推](https://mp.weixin.qq.com/s/W1XQYmihtSdbLWQKeNwZvQ)(推荐 :+1:)
-- [MySQL最大建议行数 2000w，靠谱吗？](docs/advance/excellent-article/12-mysql-table-max-rows.md)
-- [order by是怎么工作的？](docs/advance/excellent-article/13-order-by-work.md)
-- [8种最坑SQL语法](docs/advance/excellent-article/7-sql-optimize.md)
-- [为什么说数据库连接很消耗资源](docs/advance/excellent-article/18-db-connect-resource.md)
-- [SELECT COUNT(*) 会造成全表扫描？](docs/advance/excellent-article/25-select-count-slow-query.md)
+- [MySQL最大建议行数 2000w，靠谱吗？](https://topjavaer.cn/advance/excellent-article/12-mysql-table-max-rows.html)
+- [order by是怎么工作的？](https://topjavaer.cn/advance/excellent-article/13-order-by-work.html)
+- [8种最坑SQL语法](https://topjavaer.cn/advance/excellent-article/7-sql-optimize.html)
+- [为什么说数据库连接很消耗资源](https://topjavaer.cn/advance/excellent-article/18-db-connect-resource.html)
+- [SELECT COUNT(*) 会造成全表扫描？](https://topjavaer.cn/advance/excellent-article/25-select-count-slow-query.html)
 
 ## Redis
 
-- [Redis高频面试题总结](docs/redis/redis.md)(牛客高赞，推荐 :+1:)
+- [Redis高频面试题总结](https://topjavaer.cn/redis/redis.html)(牛客高赞，推荐 :+1:)
 
 **重要知识点**：
 
-- [Redis如何实现库存扣减操作和防止被超卖？](docs/advance/excellent-article/1-redis-stock-minus.md)
-- [Redis持久化详解](docs/redis/article/redis-duration.md)
-- [为什么Redis 6.0 引入多线程](docs/redis/article/redis-multi-thread.md)
-- [缓存和数据库一致性问题，看这篇就够了](docs/redis/article/cache-db-consistency.md)
+- [Redis如何实现库存扣减操作和防止被超卖？](https://topjavaer.cn/advance/excellent-article/1-redis-stock-minus.html)
+- [Redis持久化详解](https://topjavaer.cn/redis/article/redis-duration.html)
+- [为什么Redis 6.0 引入多线程](https://topjavaer.cn/redis/article/redis-multi-thread.html)
+- [缓存和数据库一致性问题，看这篇就够了](https://topjavaer.cn/redis/article/cache-db-consistency.html)
 
 ## ElasticSearch
 
@@ -137,55 +145,55 @@
 
 ## Spring
 
-- [Spring高频面试题30道](docs/framework/spring.md)(推荐 :+1:)
+- [Spring高频面试题30道](https://topjavaer.cn/framework/spring.html)(推荐 :+1:)
 
 **重要知识点**：
 
-- [Spring为何需要三级缓存解决循环依赖，而不是二级缓存？](docs/advance/excellent-article/6-spring-three-cache.md)
-- [@Transactional事务注解详解](docs/advance/excellent-article/2-spring-transaction.md)
-- [一文彻底搞懂Spring事务传播行为](docs/framework/spring/transaction-propagation.md)
+- [Spring为何需要三级缓存解决循环依赖，而不是二级缓存？](https://topjavaer.cn/advance/excellent-article/6-spring-three-cache.html)
+- [@Transactional事务注解详解](https://topjavaer.cn/advance/excellent-article/2-spring-transaction.html)
+- [一文彻底搞懂Spring事务传播行为](https://topjavaer.cn/framework/spring/transaction-propagation.html)
 
 ## Spring Boot
 
-- [Spring Boot总结](框架/SpringBoot实战.md)
+- [Spring Boot总结](框架/SpringBoot实战.html)
 
-- [SpringBoot面试题总结](docs/framework/springboot.md)
+- [SpringBoot面试题总结](https://topjavaer.cn/framework/springboot.html)
 
 **重要知识点**：
 
-- [SpringBoot自动装配原理](docs/advance/excellent-article/3-springboot-auto-assembly.md)
+- [SpringBoot自动装配原理](https://topjavaer.cn/advance/excellent-article/3-springboot-auto-assembly.html)
 
 ## Spring MVC
 
-[Spring MVC面试题总结](docs/framework/springmvc.md)
+[Spring MVC面试题总结](https://topjavaer.cn/framework/springmvc.html)
 
 ## Mybatis
 
-[Mybatis入门知识点](框架/深入浅出Mybatis技术原理与实战.md)
+[Mybatis入门知识点](框架/深入浅出Mybatis技术原理与实战.html)
 
-[Mybatis面试题总结](docs/framework/mybatis.md)
+[Mybatis面试题总结](https://topjavaer.cn/framework/mybatis.html)
 
 ## SpringCloud
 
-[SpringCloud面试题](docs/framework/springcloud-interview.md)(推荐 :+1:)
+[SpringCloud面试题](https://topjavaer.cn/framework/springcloud-interview.html)(推荐 :+1:)
 
-[SpringCloud总结](docs/framework/springcloud-overview.md)
+[SpringCloud总结](https://topjavaer.cn/framework/springcloud-overview.html)
 
 ## Netty
 
-[Netty实战笔记](docs/framework/netty-overview.md)
+[Netty实战笔记](https://topjavaer.cn/framework/netty-overview.html)
 
 # 计算机网络
 
-[计算机网络常见面试题总结](docs/computer-basic/network.md) （**知乎1k+收藏！推荐 :+1:**）
+[计算机网络常见面试题总结](https://topjavaer.cn/computer-basic/network.html) （**知乎1k+收藏！推荐 :+1:**）
 
 **重要知识点**：
 
-- [有了HTTP，为啥还要用RPC](docs/advance/excellent-article/15-http-vs-rpc.md)
+- [有了HTTP，为啥还要用RPC](https://topjavaer.cn/advance/excellent-article/15-http-vs-rpc.html)
 
 # 数据结构与算法
 
-- [常见数据结构总结](docs/computer-basic/data-structure.md)
+- [常见数据结构总结](https://topjavaer.cn/computer-basic/data-structure.html)
 - [如何高效的刷LeetCode？](https://www.zhihu.com/question/280279208/answer/2377906738)
 - [120道Leetcode题解（高频）](https://topjavaer.cn/leetcode/hot120/)
 
@@ -211,30 +219,30 @@
 
 # 分布式
 
-- [微服务面试题](docs/advance/distributed/4-micro-service.md)
-- [RPC面试题](docs/advance/distributed/3-rpc.md)
-- [全局唯一ID](docs/advance/distributed/1-global-unique-id.md)
-- [分布式事务总结](docs/advance/distributed/6-distributed-transaction.md)
+- [微服务面试题](https://topjavaer.cn/advance/distributed/4-micro-service.html)
+- [RPC面试题](https://topjavaer.cn/advance/distributed/3-rpc.html)
+- [全局唯一ID](https://topjavaer.cn/advance/distributed/1-global-unique-id.html)
+- [分布式事务总结](https://topjavaer.cn/advance/distributed/6-distributed-transaction.html)
 - [分布式架构演进](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247490543&idx=1&sn=ee34bee96511d5e548381e0576f8b484&chksm=ce98e6a9f9ef6fbf7db9c2b6d2fed26853a3bc13a50c3228ab57bea55afe0772008cdb1f957b&token=1594696656&lang=zh_CN#rd)
-- [新一代分布式任务调度框架](docs/advance/excellent-article/22-distributed-scheduled-task.md)
+- [新一代分布式任务调度框架](https://topjavaer.cn/advance/excellent-article/22-distributed-scheduled-task.html)
 
 # 高并发
 
-- [限流算法总结](docs/advance/concurrent/1-current-limiting.md)
-- [负载均衡](docs/advance/concurrent/2-load-balance.md)
-- [限流的几种方案](docs/advance/excellent-article/17-limit-scheme.md)
-- [面试官：如何保证接口幂等性？一口气说了12种方法！](docs/advance/excellent-article/8-interface-idempotent.md)
+- [限流算法总结](https://topjavaer.cn/advance/concurrent/1-current-limiting.html)
+- [负载均衡](https://topjavaer.cn/advance/concurrent/2-load-balance.html)
+- [限流的几种方案](https://topjavaer.cn/advance/excellent-article/17-limit-scheme.html)
+- [面试官：如何保证接口幂等性？一口气说了12种方法！](https://topjavaer.cn/advance/excellent-article/8-interface-idempotent.html)
 
 # 消息队列
 
-1. [消息队列面试题](docs/message-queue/mq.md)
-2. [RabbitMQ面试题总结](docs/message-queue/rabbitmq.md) (推荐 :+1:)
-3. [Kafka面试题总结](docs/message-queue/kafka.md) (推荐 :+1:)
+1. [消息队列面试题](https://topjavaer.cn/message-queue/mq.html)
+2. [RabbitMQ面试题总结](https://topjavaer.cn/message-queue/rabbitmq.html) (推荐 :+1:)
+3. [Kafka面试题总结](https://topjavaer.cn/message-queue/kafka.html) (推荐 :+1:)
 
 **重要知识点：**
 
-- [消息队列常见的使用场景](docs/advance/excellent-article/27-mq-usage.md)
-- [如何从0到1设计消息队列](docs/advance/system-design/16-mq-design.md)
+- [消息队列常见的使用场景](https://topjavaer.cn/advance/excellent-article/27-mq-usage.html)
+- [如何从0到1设计消息队列](https://topjavaer.cn/advance/system-design/16-mq-design.html)
 
 # 海量数据场景题
 
@@ -250,60 +258,60 @@
 
 # 系统设计
 
-- [扫码登录](docs/advance/system-design/1-scan-code-login.md)
-- [订单超时未支付自动取消](docs/advance/system-design/2-order-timeout-auto-cancel.md)
-- [短链系统设计](docs/advance/system-design/3-short-url.md)
-- [超卖问题](docs/advance/system-design/4-oversold.md)
-- [秒杀系统设计](docs/advance/system-design/5-second-kill.md)
-- [秒杀系统设计的5个要点](docs/advance/system-design/12-second-kill-5-pointmd)
-- [微信红包系统如何设计？](docs/advance/system-design/6-wechat-redpacket-design.md)
-- [如何把一个文件较快的发送到100w个服务器？](docs/advance/system-design/7-file-send.md)
-- [如何用 Redis 统计用户访问量？](docs/advance/system-design/10-pdd-visit-statistics)
-- [实时订阅推送设计](docs/advance/system-design/11-realtime-subscribe-push.md)
-- [权限系统设计方案](docs/advance/system-design/13-permission-system.md)
-- [如何设计一个抢红包系统](docs/advance/system-design/15-red-packet.md)
-- [如何从0到1设计消息队列](docs/advance/system-design/16-mq-design.md)
-- [购物车系统怎么设计？](docs/advance/system-design/17-shopping-car.md)
-- [如何设计一个注册中心？](docs/advance/system-design/18-register-center.md)
+- [扫码登录](https://topjavaer.cn/advance/system-design/1-scan-code-login.html)
+- [订单超时未支付自动取消](https://topjavaer.cn/advance/system-design/2-order-timeout-auto-cancel.html)
+- [短链系统设计](https://topjavaer.cn/advance/system-design/3-short-url.html)
+- [超卖问题](https://topjavaer.cn/advance/system-design/4-oversold.html)
+- [秒杀系统设计](https://topjavaer.cn/advance/system-design/5-second-kill.html)
+- [秒杀系统设计的5个要点](https://topjavaer.cn/advance/system-design/12-second-kill-5-pointmd)
+- [微信红包系统如何设计？](https://topjavaer.cn/advance/system-design/6-wechat-redpacket-design.html)
+- [如何把一个文件较快的发送到100w个服务器？](https://topjavaer.cn/advance/system-design/7-file-send.html)
+- [如何用 Redis 统计用户访问量？](https://topjavaer.cn/advance/system-design/10-pdd-visit-statistics)
+- [实时订阅推送设计](https://topjavaer.cn/advance/system-design/11-realtime-subscribe-push.html)
+- [权限系统设计方案](https://topjavaer.cn/advance/system-design/13-permission-system.html)
+- [如何设计一个抢红包系统](https://topjavaer.cn/advance/system-design/15-red-packet.html)
+- [如何从0到1设计消息队列](https://topjavaer.cn/advance/system-design/16-mq-design.html)
+- [购物车系统怎么设计？](https://topjavaer.cn/advance/system-design/17-shopping-car.html)
+- [如何设计一个注册中心？](https://topjavaer.cn/advance/system-design/18-register-center.html)
 
 # 安全
 
-- [什么是JWT？](docs/advance/excellent-article/16-what-is-jwt.md)
-- [单点登录（SSO）设计与实现](docs/advance/system-design/8-sso-design.md)
+- [什么是JWT？](https://topjavaer.cn/advance/excellent-article/16-what-is-jwt.html)
+- [单点登录（SSO）设计与实现](https://topjavaer.cn/advance/system-design/8-sso-design.html)
 
 # 大厂面经汇总
 
-- [字节跳动](docs/campus-recruit/interview/1-byte-and-dance.md)
-- [腾讯](docs/campus-recruit/interview/2-tencent.md)
-- [百度](docs/campus-recruit/interview/3-baidu.md)
-- [阿里](docs/campus-recruit/interview/4-ali.md)
-- [快手](docs/campus-recruit/interview/5-kuaishou.md)
-- [美团](docs/campus-recruit/interview/6-meituan.md)
-- [shopee](docs/campus-recruit/interview/7-shopee.md)
-- [京东](docs/campus-recruit/interview/8-jingdong.md)
-- [华为](docs/campus-recruit/interview/9-huawei.md)
-- [网易](docs/campus-recruit/interview/10-netease.md)
+- [字节跳动](https://topjavaer.cn/campus-recruit/interview/1-byte-and-dance.html)
+- [腾讯](https://topjavaer.cn/campus-recruit/interview/2-tencent.html)
+- [百度](https://topjavaer.cn/campus-recruit/interview/3-baidu.html)
+- [阿里](https://topjavaer.cn/campus-recruit/interview/4-ali.html)
+- [快手](https://topjavaer.cn/campus-recruit/interview/5-kuaishou.html)
+- [美团](https://topjavaer.cn/campus-recruit/interview/6-meituan.html)
+- [shopee](https://topjavaer.cn/campus-recruit/interview/7-shopee.html)
+- [京东](https://topjavaer.cn/campus-recruit/interview/8-jingdong.html)
+- [华为](https://topjavaer.cn/campus-recruit/interview/9-huawei.html)
+- [网易](https://topjavaer.cn/campus-recruit/interview/10-netease.html)
 
 # 优质文章
 
-- [干掉“重复代码”的技巧有哪些](docs/advance/excellent-article/4-remove-duplicate-code.md)
-- [大文件上传时如何做到秒传？](docs/advance/excellent-article/10-file-upload.md)
-- [架构的演进](docs/advance/excellent-article/14-architect-forward.md)
-- [8种架构模式](docs/advance/excellent-article/11-8-architect-pattern.md)
-- [几种常见的架构模式](docs/advance/excellent-article/20-architect-pattern.md)
-- [线上接口很慢怎么办？](docs/practice/service-performance-optimization.md)
+- [干掉“重复代码”的技巧有哪些](https://topjavaer.cn/advance/excellent-article/4-remove-duplicate-code.html)
+- [大文件上传时如何做到秒传？](https://topjavaer.cn/advance/excellent-article/10-file-upload.html)
+- [架构的演进](https://topjavaer.cn/advance/excellent-article/14-architect-forward.html)
+- [8种架构模式](https://topjavaer.cn/advance/excellent-article/11-8-architect-pattern.html)
+- [几种常见的架构模式](https://topjavaer.cn/advance/excellent-article/20-architect-pattern.html)
+- [线上接口很慢怎么办？](https://topjavaer.cn/practice/service-performance-optimization.html)
 
 # 工具
 
-[Git 超详细总结！](docs/tools/git-overview.md)(推荐 :+1:)
+[Git 超详细总结！](https://topjavaer.cn/tools/git-overview.html)(推荐 :+1:)
 
-[Linux 常用命令总结！](docs/tools/linux-overview.md)
+[Linux 常用命令总结！](https://topjavaer.cn/tools/linux-overview.html)
 
-[Docker 基础总结！](docs/tools/docker-overview.md)
+[Docker 基础总结！](https://topjavaer.cn/tools/docker-overview.html)
 
-[Maven 基础总结！](docs/tools/maven-overview.md)
+[Maven 基础总结！](https://topjavaer.cn/tools/maven-overview.html)
 
-[Nginx 高频面试题](docs/tools/nginx.md)
+[Nginx 高频面试题](https://topjavaer.cn/tools/nginx.html)
 
 # 交流
 

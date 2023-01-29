@@ -203,7 +203,7 @@ private long getReflectCallFieldCostTime(int count) {
 
 沿用上面的测试方法，测试结果如下：
 
-![](C:\Users\Tyson\Desktop\img\0103\反射影响性能2.png)
+![](http://img.topjavaer.cn/img/反射影响性能2.png)
 
 修改`getReflectCallMethodCostTime`和`getReflectCallFieldCostTime`方法的代码如下，对`getMethod`和`getDeclaredField`进行测试：
 
