@@ -136,6 +136,7 @@
 - [Redis持久化详解](https://topjavaer.cn/redis/article/redis-duration.html)
 - [为什么Redis 6.0 引入多线程](https://topjavaer.cn/redis/article/redis-multi-thread.html)
 - [缓存和数据库一致性问题，看这篇就够了](https://topjavaer.cn/redis/article/cache-db-consistency.html)
+- [Redis 集群模式的工作原理](https://topjavaer.cn/redis/article/redis-cluster-work.html)
 
 ## ElasticSearch
 
@@ -273,6 +274,7 @@
 - [如何从0到1设计消息队列](https://topjavaer.cn/advance/system-design/16-mq-design.html)
 - [购物车系统怎么设计？](https://topjavaer.cn/advance/system-design/17-shopping-car.html)
 - [如何设计一个注册中心？](https://topjavaer.cn/advance/system-design/18-register-center.html)
+- [如何设计一个高并发系统？](https://topjavaer.cn/advance/system-design/19-high-concurrent-system-design.html)
 
 # 安全
 
