@@ -22,7 +22,7 @@
 
 **面试专题相关的文章已经整理成PDF，需要的小伙伴可以自行下载**：[Java高频面试题PDF](http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd)
 
-如果你是Java初学者，不知道下一步该学什么内容，可以看下我最新整理的**[Java学习路线](https://topjavaer.cn/learning-resources/java-learn-guide.html)**。如果喜欢看视频学习，可以参考这个：[播放量1000万+！B站最值得学习的Java视频教程](https://zhuanlan.zhihu.com/p/397533240)。
+如果你是Java初学者，不知道下一步该学什么内容，可以看下我最新整理的[Java学习路线](https://topjavaer.cn/learning-resources/java-learn-guide.html)。如果喜欢看视频学习，可以参考这个：[播放量1000万+！B站最值得学习的Java视频教程](https://zhuanlan.zhihu.com/p/397533240)。
 
 如果大家想要实时关注我更新的文章以及分享的干货的话，可以关注我的**公众号『 程序员大彬 』**，后台回复『 PDF 』可以**下载最新版本的大厂高频面试题目PDF版本**。
 
@@ -89,7 +89,7 @@
 
 # Java
 
-- [**Java高频面试题总结**](https://topjavaer.cn/java/java-basic.html)  (推荐 :+1:)
+- [Java高频面试题总结](https://topjavaer.cn/java/java-basic.html)  (推荐 :+1:)
 - [Java集合高频面试题](https://topjavaer.cn/java/java-collection.html)(推荐 :+1:)
 - [Java并发高频面试题](https://topjavaer.cn/java/java-concurrent.html)   (推荐 :+1:)
 - [JVM高频面试题](https://topjavaer.cn/java/jvm.html)(推荐 :+1:)
