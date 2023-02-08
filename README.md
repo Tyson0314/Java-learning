@@ -277,6 +277,8 @@
 - [购物车系统怎么设计？](https://topjavaer.cn/advance/system-design/17-shopping-car.html)
 - [如何设计一个注册中心？](https://topjavaer.cn/advance/system-design/18-register-center.html)
 - [如何设计一个高并发系统？](https://topjavaer.cn/advance/system-design/19-high-concurrent-system-design.html)
+- [分库分表平滑迁移](https://topjavaer.cn/advance/system-design/20-sharding-smooth-migration.html)
+- [10w级别数据Excel导入优化](https://topjavaer.cn/advance/system-design/21-excel-import.html)
 
 # 安全
 
