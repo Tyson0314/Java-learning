@@ -163,6 +163,8 @@
 **重要知识点**：
 
 - [SpringBoot自动装配原理](https://topjavaer.cn/advance/excellent-article/3-springboot-auto-assembly.html)
+- [SpringBoot如何解决跨域问题](https://topjavaer.cn/framework/springboot/springboot-cross-domain.html)
+- [SpringBoot实现电子文件签字+合同系统](https://topjavaer.cn/framework/springboot/springboot-contract.html)
 
 ## Spring MVC
 
