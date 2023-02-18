@@ -60,17 +60,6 @@ export default navbar([
                     {text: "Kafka面试题", link: "/message-queue/kafka.md"},
                 ]
             }
-        ]
-    },
-    {
-        text: "计算机基础",
-        icon: "computer",
-        children: [
-            {text: "网络", link: "/computer-basic/network.md"},
-            {text: "操作系统", link: "/computer-basic/operate-system.md"},
-            {text: "算法", link: "/computer-basic/algorithm.md"},
-			{text: "LeetCode题解", link: "/leetcode/hot120"},
-            {text: "数据结构", link: "/computer-basic/data-structure.md"},
             {
                 text: "关系型数据库",
                 children: [
@@ -88,8 +77,64 @@ export default navbar([
                     {text: "ElasticSearch面试题", link: "https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg"},
                 ]
             },
-        ]
-    },
+			{
+				text: "计算机基础",
+				icon: "computer",
+				children: [
+					{text: "网络", link: "/computer-basic/network.md"},
+					{text: "操作系统", link: "/computer-basic/operate-system.md"},
+					{text: "算法", link: "/computer-basic/algorithm.md"},
+					{text: "LeetCode题解", link: "/leetcode/hot120"},
+					{text: "数据结构", link: "/computer-basic/data-structure.md"},
+					//{
+					//    text: "关系型数据库",
+					//    children: [
+					//        //{text: "MySQL基础", children: ["/database/mysql-basic/"],},
+					//        {text: "MySQL基础", link: "/database/mysql-basic/"},
+					//        {text: "MySQL面试题", link: "/database/mysql.md"},
+					//        {text: "MySQL执行计划详解", link: "/database/mysql-execution-plan.md"},
+					//    ]
+					//},
+					//{
+					//    text: "非关系型数据库",
+					//    children: [
+					//        {text: "Redis基础", link: "/redis/redis-basic/"},
+					//        {text: "Redis面试题", link: "/redis/redis.md"},
+					//        {text: "ElasticSearch面试题", link: "https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg"},
+					//    ]
+					//},
+				]
+			},
+		]
+	},
+    //{
+    //    text: "计算机基础",
+    //    icon: "computer",
+    //    children: [
+    //        {text: "网络", link: "/computer-basic/network.md"},
+    //        {text: "操作系统", link: "/computer-basic/operate-system.md"},
+    //        {text: "算法", link: "/computer-basic/algorithm.md"},
+	//		{text: "LeetCode题解", link: "/leetcode/hot120"},
+    //        {text: "数据结构", link: "/computer-basic/data-structure.md"},
+    //        //{
+    //        //    text: "关系型数据库",
+    //        //    children: [
+    //        //        //{text: "MySQL基础", children: ["/database/mysql-basic/"],},
+    //        //        {text: "MySQL基础", link: "/database/mysql-basic/"},
+    //        //        {text: "MySQL面试题", link: "/database/mysql.md"},
+    //        //        {text: "MySQL执行计划详解", link: "/database/mysql-execution-plan.md"},
+    //        //    ]
+    //        //},
+    //        //{
+    //        //    text: "非关系型数据库",
+    //        //    children: [
+    //        //        {text: "Redis基础", link: "/redis/redis-basic/"},
+    //        //        {text: "Redis面试题", link: "/redis/redis.md"},
+    //        //        {text: "ElasticSearch面试题", link: "https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg"},
+    //        //    ]
+    //        //},
+    //    ]
+    //},
     {
         text: "进阶之路",
         icon: "win",
@@ -130,6 +175,13 @@ export default navbar([
 				//	{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
 				//	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
                 //]
+                children: [
+                    {text: "扫码登录设计", link: "/advance/system-design/README.md"},
+					{text: "超时订单自动取消", link: "/advance/system-design/README.md"},
+					{text: "短链系统设计", link: "/advance/system-design/README.md"},
+					{text: "微信红包系统如何设计？", link: "/advance/system-design/README.md"},
+					{text: "单点登录设计与实现", link: "/advance/system-design/README.md"},
+                ]
             },
 			{
                 text: "海量数据",
@@ -193,27 +245,27 @@ export default navbar([
             },
         ]
     },
-    // {
-    //     text: "珍藏资源",
-    //     icon: "collection",
-    //     children: [
-    //         {
-    //             text: "学习资源",
-    //             children: [
-    //                 {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books"},
-    //                 {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md"},
-    //             ]
-    //         },
-    //         {
-    //             text: "学习路线",
-    //             children: [
-    //                 {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md"},
-    //                 {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
-    //             ]
-    //         },
-    //
-    //     ]
-    // },
+    {
+        text: "珍藏资源",
+        icon: "collection",
+        children: [
+            {
+                text: "学习资源",
+                children: [
+                    {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books"},
+                    {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md"},
+                ]
+            },
+            {
+                text: "学习路线",
+                children: [
+                    {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md"},
+                    {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
+                ]
+            },
+   
+        ]
+    },
     {
         text: "关于",
         icon: "about",
