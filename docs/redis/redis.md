@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Redis常见面试题总结
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis面试题,Redis优缺点,Redis应用场景,Redis数据类型,Redis和Memcached,Redis keys命令,Redis事务,Redis持久化机制,Redis内存淘汰策略,缓存常见问题,LUA脚本,RedLock,Redis大key,Redis集群
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ![](http://img.topjavaer.cn/img/Redis知识点.jpg)

@@ -24,10 +24,10 @@ export default navbar([
     {
        text: "学习圈",
        icon: "zsxq",
-        link: "/zsxq/introduce.md",
+       link: "/zsxq/introduce.md",
     },
     {
-        text: "Java",
+        text: "面试指南",
         icon: "java",
         children: [
 			{
@@ -59,7 +59,7 @@ export default navbar([
                     {text: "RabbitMQ面试题", link: "/message-queue/rabbitmq.md"},
                     {text: "Kafka面试题", link: "/message-queue/kafka.md"},
                 ]
-            }
+            },
             {
                 text: "关系型数据库",
                 children: [
@@ -139,6 +139,44 @@ export default navbar([
         text: "进阶之路",
         icon: "win",
         children: [
+            {
+                text: "系统设计",
+                //link: "/advance/system-design/README.md",
+                //children: [
+                //    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
+                //	{text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
+                //	{text: "短链系统设计", link: "/advance/system-design/3-short-url.md"},
+                //	{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
+                //	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
+                //]
+                children: [
+                    {text: "扫码登录设计", link: "/advance/system-design/README.md"},
+                    {text: "超时订单自动取消", link: "/advance/system-design/README.md"},
+                    {text: "短链系统设计", link: "/advance/system-design/README.md"},
+                    {text: "微信红包系统如何设计？", link: "/advance/system-design/README.md"},
+                    {text: "单点登录设计与实现", link: "/advance/system-design/README.md"},
+                    {text: "如何用 Redis 统计用户访问量？", link: "/advance/system-design/README.md"},
+                    {text: "实时订阅推送设计与实现", link: "/advance/system-design/README.md"},
+                    {text: "如何设计一个抢红包系统", link: "/advance/system-design/README.md"},
+                    {text: "购物车系统怎么设计？", link: "/advance/system-design/README.md"},
+                    {text: "如何设计一个注册中心？", link: "/advance/system-design/README.md"},
+                    {text: "如何设计一个高并发系统？", link: "/advance/system-design/README.md"},
+                    {text: "10w级别数据Excel导入怎么优化？", link: "/advance/system-design/README.md"},
+                ]
+            },
+            {
+                text: "海量数据",
+                children: [
+                    {text: "统计不同号码的个数", link: "/mass-data/1-count-phone-num.md"},
+                    {text: "出现频率最高的100个词", link: "/mass-data/2-find-hign-frequency-word.md"},
+                    {text: "查找两个大文件共同的URL", link: "/mass-data/3-find-same-url.md"},
+                    {text: "如何在100亿数据中找到中位数？", link: "/mass-data/4-find-mid-num.md"},
+                    {text: "如何查询最热门的查询串？", link: "/mass-data/5-find-hot-string.md"},
+                    {text: "如何找出排名前 500 的数？", link: "/mass-data/6-top-500-num.md"},
+                    {text: "如何按照 query 的频度排序？", link: "/mass-data/7-query-frequency-sort.md"},
+                    {text: "大数据中 TopK 问题的常用套路", link: "/mass-data/8-topk-template.md"},
+                ]
+            },
 		    {
 				text: "分布式",
 				icon: "distribute",
@@ -165,37 +203,6 @@ export default navbar([
 					{text: "设计模式详解", link: "/advance/design-pattern/"},
 				],
 			},
-            {
-                text: "系统设计",
-				link: "/advance/system-design/README.md",
-                //children: [
-                //    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
-				//	{text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
-				//	{text: "短链系统设计", link: "/advance/system-design/3-short-url.md"},
-				//	{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
-				//	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
-                //]
-                children: [
-                    {text: "扫码登录设计", link: "/advance/system-design/README.md"},
-					{text: "超时订单自动取消", link: "/advance/system-design/README.md"},
-					{text: "短链系统设计", link: "/advance/system-design/README.md"},
-					{text: "微信红包系统如何设计？", link: "/advance/system-design/README.md"},
-					{text: "单点登录设计与实现", link: "/advance/system-design/README.md"},
-                ]
-            },
-			{
-                text: "海量数据",
-                children: [
-                    {text: "统计不同号码的个数", link: "/mass-data/1-count-phone-num.md"},
-                    {text: "出现频率最高的100个词", link: "/mass-data/2-find-hign-frequency-word.md"},
-					{text: "查找两个大文件共同的URL", link: "/mass-data/3-find-same-url.md"},
-					{text: "如何在100亿数据中找到中位数？", link: "/mass-data/4-find-mid-num.md"},
-					{text: "如何查询最热门的查询串？", link: "/mass-data/5-find-hot-string.md"},
-					{text: "如何找出排名前 500 的数？", link: "/mass-data/6-top-500-num.md"},
-					{text: "如何按照 query 的频度排序？", link: "/mass-data/7-query-frequency-sort.md"},
-					{text: "大数据中 TopK 问题的常用套路", link: "/mass-data/8-topk-template.md"},
-                ]
-            },
 			{
                 text: "优质文章",
                 children: [
@@ -263,7 +270,7 @@ export default navbar([
                     {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
                 ]
             },
-   
+
         ]
     },
     {
@@ -274,20 +281,20 @@ export default navbar([
             {text: "网站日记", link: "/other/site-diary.md"},
             {text: "联系我", link: "/about/contact.md"},
 			{text: "留言区", link: "/other/leave-a-message.md"},
-            {
-                text: "学习资源",
-                children: [
-                    {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books"},
-                    {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md"},
-                ]
-            },
-            {
-                text: "学习路线",
-                children: [
-                    {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md"},
-                    {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
-                ]
-            },
+            //{
+            //    text: "学习资源",
+            //    children: [
+            //        {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books"},
+            //        {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md"},
+            //    ]
+            //},
+            //{
+            //    text: "学习路线",
+            //    children: [
+            //        {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md"},
+            //        {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
+            //    ]
+            //},
         ]
     },
 

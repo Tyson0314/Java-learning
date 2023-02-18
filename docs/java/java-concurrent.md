@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Java并发常见面试题总结
+category: Java
+tag:
+  - Java并发
+head:
+  - - meta
+    - name: keywords
+      content: Java并发,多线程,线程池执行原理,线程池参数,线程和进程,死锁,volatile,synchronized,ThreadLocal,Java锁,Java并发工具,原子类,AQS
+  - - meta
+    - name: description
+      content: 高质量的Java并发常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 > 欢迎加入[大彬的学习圈](https://topjavaer.cn/zsxq/introduce.html)，学习圈整理了最新的**Java面试手册完整版**（本网站的面试题补充版，更全面），还有很多其他**优质资料**，比如包括Java项目、进阶知识、实战经验总结、优质书籍、笔试面试资源等等。

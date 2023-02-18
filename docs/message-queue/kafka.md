@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Kafka常见面试题总结
+category: 消息队列
+tag:
+  - Kafka
+head:
+  - - meta
+    - name: keywords
+      content: Kafka 面试题,Kafka设计架构,Kafka分区,Kafka Producer,Kafka pull模式,Kafka topic,Kafka优缺点
+  - - meta
+    - name: description
+      content: 高质量的Kafka常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 

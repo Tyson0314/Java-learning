@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Spring常见面试题总结
+category: 框架
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring面试题,Spring设计模式,Spring AOP,Spring IOC,Spring 动态代理,Bean生命周期,自动装配,Spring注解,Spring事务,Async注解
+  - - meta
+    - name: description
+      content: 高质量的Spring常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ![](http://img.topjavaer.cn/img/Spring总结.jpg)

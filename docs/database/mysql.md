@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: MySQL常见面试题总结
+category: 数据库
+tag:
+  - MySQL
+head:
+  - - meta
+    - name: keywords
+      content: MySQL面试题,事务特性,事务隔离级别,MySQL编码和字符集,MySQL索引,索引分类,最左匹配原则,聚集索引,覆盖索引,索引失效,索引下推,存储引擎,MVCC原理,MySQL日志,MySQL分区,MySQL主从同步,MySQL深分页,MySQL慢查询,分库分表,乐观锁和悲观锁
+  - - meta
+    - name: description
+      content: MySQL常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ![](http://img.topjavaer.cn/img/MySQL知识点总结.jpg)

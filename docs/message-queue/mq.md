@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 消息队列常见面试题总结
+category: 消息队列
+tag:
+  - 消息队列
+head:
+  - - meta
+    - name: keywords
+      content: 消息队列面试题,消息队列优缺点,消息队列对比,MQ常用协议,MQ通讯模式,消息重复消费,消息队列高可用
+  - - meta
+    - name: description
+      content: 高质量的消息队列常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ## 为什么要使用消息队列？

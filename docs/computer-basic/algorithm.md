@@ -1,6 +1,18 @@
 ---
 sidebar: heading
+title: 常见算法总结
+category: 计算机基础
+tag:
+  - 算法
+head:
+  - - meta
+    - name: keywords
+      content: 算法知识总结,二叉树遍历,排序算法,动态规划,回溯算法,贪心算法,双指针
+  - - meta
+    - name: description
+      content: 算法常见知识点总结
 ---
+
 
 ![](http://img.topjavaer.cn/img/数据结构与算法.jpg)
 

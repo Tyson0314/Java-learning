@@ -1,7 +1,17 @@
 ---
 sidebar: heading
+title: MyBatis常见面试题总结
+category: 框架
+tag:
+  - MyBatis
+head:
+  - - meta
+    - name: keywords
+      content: MyBatis面试题,Hibernate,Executor,MyBatis分页,MyBatis插件运行原理,MyBatis延迟加载,MyBatis预编译,一级缓存和二级缓存
+  - - meta
+    - name: description
+      content: 高质量的MyBatis常见知识点和面试题总结，让天下没有难背的八股文！
 ---
-
 ## Mybatis是什么？
 
 - MyBatis框架是一个开源的数据持久层框架。

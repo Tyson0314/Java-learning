@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 操作系统常见面试题总结
+category: 计算机基础
+tag:
+  - 操作系统
+head:
+  - - meta
+    - name: keywords
+      content: 操作系统面试题,进程线程,并发和并行,协程,进程通信,死锁,进程调度策略,分页分段,页面置换算法,用户态和内核态,IO多路复用
+  - - meta
+    - name: description
+      content: 操作系统常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ## 操作系统的四个特性？

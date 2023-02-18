@@ -1,6 +1,16 @@
 ---
 sidebar: heading
-
+title: Java基础常见面试题总结
+category: Java
+tag:
+  - Java基础
+head:
+  - - meta
+    - name: keywords
+      content: JVM,JDK,JRE,面向对象,Java 基本数据类型,装箱和拆箱,Java数组,值传递和引用传递,String,深拷贝,final关键字,同步和异步,Java8新特性,序列化和反序列化,反射,泛型
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 

@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Spring Cloud常见面试题总结
+category: 框架
+tag:
+  - Spring Cloud
+head:
+  - - meta
+    - name: keywords
+      content: Spring Cloud面试题,微服务,Spring Cloud优势,服务熔断,Eureka,Ribbon,Feign,Spring Cloud核心组件,Spring Cloud Bus,Spring Cloud Config,Spring Cloud Gateway
+  - - meta
+    - name: description
+      content: Spring Cloud常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 

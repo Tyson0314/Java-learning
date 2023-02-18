@@ -1,7 +1,17 @@
 ---
 sidebar: heading
+title: RabbitMQ常见面试题总结
+category: 消息队列
+tag:
+  - RabbitMQ
+head:
+  - - meta
+    - name: keywords
+      content: RabbitMQ面试题,RabbitMQ组件,RabbitMQ Exchange,RabbitMQ消息丢失,消息重复消费,死信队列
+  - - meta
+    - name: description
+      content: RabbitMQ常见知识点和面试题总结，让天下没有难背的八股文！
 ---
-
 ## 什么是RabbitMQ？
 
 RabbitMQ是一个由erlang开发的消息队列。消息队列用于应用间的异步协作。

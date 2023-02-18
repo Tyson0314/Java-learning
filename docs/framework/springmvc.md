@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Spring MVC常见面试题总结
+category: 框架
+tag:
+  - Spring MVC
+head:
+  - - meta
+    - name: keywords
+      content: Spring MVC面试题,MVC模式,Spring MVC和Struts,Spring MVC工作原理,Spring MVC常用注解,Spring MVC异常处理,Spring MVC拦截器,REST
+  - - meta
+    - name: description
+      content: 高质量的Spring MVC常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ## 说说你对 SpringMVC 的理解

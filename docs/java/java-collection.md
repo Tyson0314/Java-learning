@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Java集合常见面试题总结
+category: Java
+tag:
+  - Java集合
+head:
+  - - meta
+    - name: keywords
+      content: Java集合,ArrayList,LinkedList,HashMap扩容,HashMap线程不安全,LinkedHashMap底层原理,TreeMap介绍,HashSet,fail fast,fail safe,Iterator,并发容器
+  - - meta
+    - name: description
+      content: 高质量的Java集合常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
 ![](http://img.topjavaer.cn/img/Java集合.jpg)
