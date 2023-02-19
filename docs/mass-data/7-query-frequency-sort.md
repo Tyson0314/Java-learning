@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 如何按照 query 的频度排序？
+category: 海量数据
+tag:
+  - 海量数据
+head:
+  - - meta
+    - name: keywords
+      content: 海量数据面试题,海量数据
+  - - meta
+    - name: description
+      content: 海量数据常见面试题总结，让天下没有难背的八股文！
 ---
 
 ## 如何按照 query 的频度排序？

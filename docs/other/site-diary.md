@@ -8,13 +8,15 @@ sidebar: heading
 
 ## 更新记录
 
-- 2022.12.18，新增[order by是怎么工作的？](/advance/excellent-article/13-order-by-work.md)
+- 2023.02.08，新增[10w级别数据Excel导入优化](/advance/system-design)
 
-- 2022.12.17，新增[单点登录（SSO）设计与实现](/advance/system-design/8-sso-design.md)
+- 2022.12.18，新增[order by是怎么工作的？](/advance/excellent-article/13-order-by-work.html)
+
+- 2022.12.17，新增[单点登录（SSO）设计与实现](/advance/system-design)
 
 - 2022.12.05，新增[ES的分布式架构原理](/database/es/1-es-architect.html)
 
-- 2022.11.28，新增[系统设计-微信红包系统如何设计](/advance/system-design/6-wechat-redpacket-design.html)
+- 2022.11.28，新增[系统设计-微信红包系统如何设计](/advance/system-design)
 
 - 2022.11.20，新增[系统设计-短链系统](/advance/system-design/4-short-url.html)
 

@@ -6,7 +6,7 @@
 
 要么在创建项目的时候直接勾选下面的配置：
 
-![image-20230211115527377](C:\Users\Tyson\AppData\Roaming\Typora\typora-user-images\image-20230211115527377.png)
+![](http://img.topjavaer.cn/img/image-20230211115527377.png)
 
 要么给springBoot项目添加下面的依赖：
 

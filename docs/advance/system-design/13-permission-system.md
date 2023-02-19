@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 全网最全的权限系统设计方案
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,权限系统设计,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
+---
+
 # 全网最全的权限系统设计方案
 
 今天和大家聊聊权限系统设计常见的方案。

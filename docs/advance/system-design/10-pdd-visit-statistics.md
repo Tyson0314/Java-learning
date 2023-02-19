@@ -1,5 +1,18 @@
-如何用 Redis 统计用户访问量？
---------------------------------------------------
+---
+sidebar: heading
+title: 如何用 Redis 统计用户访问量？
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,用户访问量统计,Redis,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
+---
+
 拼多多有数亿的用户，那么对于某个网页，怎么使用Redis来统计一个网站的用户访问数呢？
 
 1、**Hash**

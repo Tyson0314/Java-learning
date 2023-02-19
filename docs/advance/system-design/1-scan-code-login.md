@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 扫码登录原理
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,扫码登录原理,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
 ---
 
 > 回复【**手册**】获取大彬精心整理的**大厂面试手册**。

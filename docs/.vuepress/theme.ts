@@ -97,16 +97,16 @@ export default hopeTheme({
 
         //myplugin
         copyright: {
-            disableCopy: true,
+            disableCopy: false,
             global: true,
             author: "大彬",
-            license: "MIT",
+            //license: "MIT",
             hostname: "https://www.topjavaer.cn",
         },
         baiduAutoPush: {},
         sitemapPlugin: {
             // 配置选项
-            hostname: "https:www.topjavaer.cn"
+            hostname: "https://www.topjavaer.cn"
         },
         photoSwipePlugin: {
             // 你的选项

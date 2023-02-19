@@ -1,6 +1,16 @@
 ---
 sidebar: heading
-
+title: 如何在100亿数据中找到中位数？
+category: 海量数据
+tag:
+  - 海量数据
+head:
+  - - meta
+    - name: keywords
+      content: 海量数据面试题,100亿数据找中位数,海量数据
+  - - meta
+    - name: description
+      content: 海量数据常见面试题总结，让天下没有难背的八股文！
 ---
 
 # 如何在100亿数据中找到中位数？

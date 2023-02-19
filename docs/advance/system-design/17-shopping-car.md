@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 购物车系统怎么设计？
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,购物车系统设计,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
+---
+
 # 购物车系统怎么设计？
 
 ## 1 主要功能

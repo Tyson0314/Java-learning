@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 如何查询最热门的查询串？
+category: 海量数据
+tag:
+  - 海量数据
+head:
+  - - meta
+    - name: keywords
+      content: 海量数据面试题,查询最热门的查询串,海量数据
+  - - meta
+    - name: description
+      content: 海量数据常见面试题总结，让天下没有难背的八股文！
 ---
 
 # 如何查询最热门的查询串？

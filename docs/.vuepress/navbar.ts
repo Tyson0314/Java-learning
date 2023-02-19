@@ -140,31 +140,6 @@ export default navbar([
         icon: "win",
         children: [
             {
-                text: "系统设计",
-                //link: "/advance/system-design/README.md",
-                //children: [
-                //    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
-                //	{text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
-                //	{text: "短链系统设计", link: "/advance/system-design/3-short-url.md"},
-                //	{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
-                //	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
-                //]
-                children: [
-                    {text: "扫码登录设计", link: "/advance/system-design/README.md"},
-                    {text: "超时订单自动取消", link: "/advance/system-design/README.md"},
-                    {text: "短链系统设计", link: "/advance/system-design/README.md"},
-                    {text: "微信红包系统如何设计？", link: "/advance/system-design/README.md"},
-                    {text: "单点登录设计与实现", link: "/advance/system-design/README.md"},
-                    {text: "如何用 Redis 统计用户访问量？", link: "/advance/system-design/README.md"},
-                    {text: "实时订阅推送设计与实现", link: "/advance/system-design/README.md"},
-                    {text: "如何设计一个抢红包系统", link: "/advance/system-design/README.md"},
-                    {text: "购物车系统怎么设计？", link: "/advance/system-design/README.md"},
-                    {text: "如何设计一个注册中心？", link: "/advance/system-design/README.md"},
-                    {text: "如何设计一个高并发系统？", link: "/advance/system-design/README.md"},
-                    {text: "10w级别数据Excel导入怎么优化？", link: "/advance/system-design/README.md"},
-                ]
-            },
-            {
                 text: "海量数据",
                 children: [
                     {text: "统计不同号码的个数", link: "/mass-data/1-count-phone-num.md"},
@@ -175,6 +150,31 @@ export default navbar([
                     {text: "如何找出排名前 500 的数？", link: "/mass-data/6-top-500-num.md"},
                     {text: "如何按照 query 的频度排序？", link: "/mass-data/7-query-frequency-sort.md"},
                     {text: "大数据中 TopK 问题的常用套路", link: "/mass-data/8-topk-template.md"},
+                ]
+            },
+            {
+                text: "系统设计",
+                //link: "/advance/system-design/README.md",
+                //children: [
+                //    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
+                //	{text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
+                //	{text: "短链系统设计", link: "/advance/system-design/3-short-url.md"},
+                //	{text: "微信红包系统如何设计？", link: "/advance/system-design/6-wechat-redpacket-design.md"},
+                //	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
+                //]
+                children: [
+                    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
+                    {text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
+                    {text: "短链系统设计", link: "/advance/system-design/README.md"},
+                    {text: "微信红包系统如何设计？", link: "/advance/system-design/README.md"},
+                    {text: "单点登录设计与实现", link: "/advance/system-design/README.md"},
+                    {text: "如何用 Redis 统计用户访问量？", link: "/advance/system-design/README.md"},
+                    {text: "实时订阅推送设计与实现", link: "/advance/system-design/README.md"},
+                    {text: "如何设计一个抢红包系统", link: "/advance/system-design/README.md"},
+                    {text: "购物车系统怎么设计？", link: "/advance/system-design/README.md"},
+                    {text: "如何设计一个注册中心？", link: "/advance/system-design/README.md"},
+                    {text: "如何设计一个高并发系统？", link: "/advance/system-design/README.md"},
+                    {text: "10w级别数据Excel导入怎么优化？", link: "/advance/system-design/README.md"},
                 ]
             },
 		    {

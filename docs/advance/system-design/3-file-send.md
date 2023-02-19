@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 如何把一个文件较快的发送到100w个服务器？
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,文件发送,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
 ---
 
 ## 如何把一个文件较快的发送到100w个服务器？

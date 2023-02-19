@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 如何设计一个注册中心？
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,注册中心,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
+---
+
 ## 如何设计一个注册中心？
 
 今天，给大家分享如何设计一个**注册中心**。

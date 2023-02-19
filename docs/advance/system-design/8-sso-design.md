@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: 单点登录（SSO）的设计与实现
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,单点登录设计与实现,SSO,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
+---
+
+
 # 单点登录（SSO）的设计与实现
 
 ## 一、前言

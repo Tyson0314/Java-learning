@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 订单30分钟未支付自动取消怎么实现？
+category: 场景设计
+tag:
+  - 场景设计
+head:
+  - - meta
+    - name: keywords
+      content: 场景设计面试题,订单超时自动取消,场景设计
+  - - meta
+    - name: description
+      content: 场景设计常见面试题总结，让天下没有难背的八股文！
 ---
 
 # 订单30分钟未支付自动取消怎么实现？
