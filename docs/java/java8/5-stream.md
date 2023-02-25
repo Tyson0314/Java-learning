@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Stream
+category: Java
+tag:
+  - Java8
+head:
+  - - meta
+    - name: keywords
+      content: java stream,java流操作
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # Stream
 
 使用 `java.util.Stream` 对一个包含一个或多个元素的集合做各种操作，原集合不变，返回新集合。只能对实现了 `java.util.Collection` 接口的类做流的操作。`Map` 不支持 `Stream` 流。`Stream` 流支持同步执行，也支持并发执行。

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 新一代分布式任务调度框架
+category: 优质文章
+tag:
+  - 分布式
+head:
+  - - meta
+    - name: keywords
+      content: 分布式任务调度框架,任务调度
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 新一代分布式任务调度框架
 
 我们先思考下面几个业务场景的解决方案:

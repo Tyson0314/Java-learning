@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis简介
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis简介,redis优缺点,io多路复用,Memcached和Redis的区别,redis应用场景
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 简介
 
 Redis是一个高性能的key-value数据库。Redis对数据的操作都是原子性的。

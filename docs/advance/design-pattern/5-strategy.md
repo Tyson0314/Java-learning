@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之策略模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 策略模式,设计模式
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 策略模式
 
 策略模式（Strategy Pattern）属于对象的行为模式。其用意是针对一组算法，将每一个算法封装到具有共同接口的独立的类中，从而使得它们可以相互替换。策略模式使得算法可以在不影响到客户端的情况下发生变化。

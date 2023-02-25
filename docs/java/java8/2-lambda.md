@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Lambda表达式
+category: Java
+tag:
+  - Java8
+head:
+  - - meta
+    - name: keywords
+      content: Lambda表达式
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # Lambda 表达式
 
 在Java8以前，使用`Collections`的sort方法对字符串排序的写法：

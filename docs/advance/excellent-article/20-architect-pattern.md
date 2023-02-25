@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 几种常见的架构模式
+category: 优质文章
+tag:
+  - 架构
+head:
+  - - meta
+    - name: keywords
+      content: 架构模式
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 几种常见的架构模式
 
 分享一些工作中会用到的一些架构方面的设计模式。总体而言，共有八种，分别是：

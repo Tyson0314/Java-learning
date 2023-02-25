@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis 集群模式的工作原理
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis集群模式
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ## Redis 集群模式的工作原理
 
 Redis 集群模式的工作原理？在集群模式下，Redis 的 key 是如何寻址的？分布式寻址都有哪些算法？了解一致性 hash 算法吗？

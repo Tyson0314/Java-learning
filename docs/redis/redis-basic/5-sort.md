@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis排序
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis排序
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 排序
 
 ```

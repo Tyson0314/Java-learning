@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 大公司为什么禁止SpringBoot项目使用Tomcat？
+category: 优质文章
+tag:
+  - Spring Boot
+head:
+  - - meta
+    - name: keywords
+      content: Spring Boot,Tomcat
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 大公司为什么禁止SpringBoot项目使用Tomcat？
 
 ## 前言

@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: SELECT COUNT(*) 会造成全表扫描？回去等通知吧
+category: 优质文章
+tag:
+  - 数据库
+head:
+  - - meta
+    - name: keywords
+      content: count(*),全表扫描,执行计划
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
+
 # SELECT COUNT(*) 会造成全表扫描？回去等通知吧
 
 ## 前言

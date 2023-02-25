@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 为什么说数据库连接很消耗资源
+category: 优质文章
+tag:
+  - 实践经验
+head:
+  - - meta
+    - name: keywords
+      content: 数据库连接
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 为什么说数据库连接很消耗资源
 
 相信有过工作经验的同学都知道数据库连接是一个比较耗资源的操作。那么资源到底是耗费在哪里呢？

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 架构的演进
+category: 优质文章
+tag:
+  - 架构
+head:
+  - - meta
+    - name: keywords
+      content: 架构,架构演进
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 架构的演进
 
 ### 传统单体应用架构

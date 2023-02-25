@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 干掉 “重复代码” 的技巧有哪些
+category: 优质文章
+tag:
+  - 开发技巧
+head:
+  - - meta
+    - name: keywords
+      content: 重复代码,开发技巧
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 干掉 “重复代码” 的技巧有哪些
 
 软件工程师和码农最大的区别就是平时写代码时习惯问题，码农很喜欢写重复代码而软件工程师会利用各种技巧去干掉重复的冗余代码。

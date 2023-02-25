@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Map集合
+category: Java
+tag:
+  - Java8
+head:
+  - - meta
+    - name: keywords
+      content: map集合,java map
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # Map 集合
 
 Java8 针对 map 操作增加了一些方法，非常方便

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 一次简单的 JVM 调优，拿去写到简历里
+category: 优质文章
+tag:
+  - JVM
+head:
+  - - meta
+    - name: keywords
+      content: JVM调优
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 一次简单的 JVM 调优，拿去写到简历里
 
 大家好，我是大彬。

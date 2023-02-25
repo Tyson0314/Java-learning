@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Spring 为何需要三级缓存解决循环依赖，而不是二级缓存？
+category: 优质文章
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring,循环依赖问题,三级缓存
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # Spring 为何需要三级缓存解决循环依赖，而不是二级缓存？
 
 ## **前言**

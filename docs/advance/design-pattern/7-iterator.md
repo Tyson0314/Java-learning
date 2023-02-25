@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之迭代器模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 迭代器模式,设计模式,迭代器
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 迭代器模式
 
 提供一种方法顺序访问一个聚合对象中的各个元素, 而又不暴露其内部的表示。

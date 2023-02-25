@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis实现消息队列
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis实现消息队列
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 消息队列
 
 使用一个列表，让生产者将任务使用LPUSH命令放进列表，消费者不断用RPOP从列表取出任务。

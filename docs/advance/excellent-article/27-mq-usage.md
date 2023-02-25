@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 消息队列常见的使用场景
+category: 优质文章
+tag:
+  - 消息队列
+head:
+  - - meta
+    - name: keywords
+      content: 消息队列使用场景,异步
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 消息队列常见的使用场景
 
 消息队列中间件是分布式系统中重要的组件，主要解决应用耦合，异步消息，流量削锋等问题

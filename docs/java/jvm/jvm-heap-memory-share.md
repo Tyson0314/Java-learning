@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Java堆内存是线程共享的？
+category: Java
+tag:
+  - JVM
+head:
+  - - meta
+    - name: keywords
+      content: 堆内存内存共享,内存共享
+  - - meta
+    - name: description
+      content: 高质量的Java常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 > 本文转自Hollis
 
 Java作为一种面向对象的，跨平台语言，其对象、内存等一直是比较难的知识点，所以，即使是一个Java的初学者，也一定或多或少的对JVM有一些了解。可以说，关于JVM的相关知识，基本是每个Java开发者必学的知识点，也是面试的时候必考的知识点。

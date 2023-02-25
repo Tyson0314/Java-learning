@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 内置的函数式接口
+category: Java
+tag:
+  - Java8
+head:
+  - - meta
+    - name: keywords
+      content: 函数式接口,内置的函数式接口
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 内置的函数式接口
 
 Comparator 和 Runnable，Java 8 为他们都添加了 @FunctionalInterface 注解，以用来支持 Lambda 表达式。

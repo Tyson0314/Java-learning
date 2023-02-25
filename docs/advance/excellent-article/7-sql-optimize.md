@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 这几个SQL语法的坑，你踩过吗
+category: 优质文章
+tag:
+  - 数据库
+head:
+  - - meta
+    - name: keywords
+      content: SQL语法
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 这几个SQL语法的坑，你踩过吗
 
 > 本文已经收录到Github仓库，该仓库包含**计算机基础、Java基础、多线程、JVM、常见框架、分布式、微服务、设计模式、架构**等核心知识点，欢迎star~

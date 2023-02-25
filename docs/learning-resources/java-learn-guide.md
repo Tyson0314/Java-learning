@@ -85,6 +85,16 @@ http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224
 
 head first系列的书籍讲解比较有趣，比较好理解。《JAVA核心技术卷》难度相对适中，内容也比较全面，部分章节（如Swing）可以跳过。
 
+> 这些书籍，我已经整理了电子版，放到github上了，总共**200多本经典的计算机书籍**，包括C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~（花了一个多月的时间整理的，希望对大家有帮助，欢迎star~）
+>
+> 仓库持续更新中~
+>
+> ![](http://img.topjavaer.cn/img/书单new.png)
+>
+> 有需要的自取：
+>
+> github仓库：https://github.com/Tyson0314/java-books
+
 视频推荐动力节点老杜的视频教程，1000w的播放量！视频总体上质量很不错，讲解挺详细，适合新手。跟着老杜的视频学下来，可以学到很多知识！
 
 https://www.bilibili.com/video/BV1Rx411876f

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之代理模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 代理模式,设计模式,静态代理,动态代理
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 代理模式
 
 代理模式使用代理对象完成用户请求，屏蔽用户对真实对象的访问。

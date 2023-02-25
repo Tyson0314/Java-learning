@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之装饰模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 装饰模式,设计模式,装饰者
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 装饰模式
 
 装饰者模式(decorator pattern)：动态地将责任附加到对象上, 若要扩展功能, 装饰者提供了比继承更有弹性的替代方案。

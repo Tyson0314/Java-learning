@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Parallel-Streams
+category: Java
+tag:
+  - Java8
+head:
+  - - meta
+    - name: keywords
+      content: Parallel-Streams,并行流
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # Parallel-Streams
 
 并行流。`stream` 流是支持**顺序**和**并行**的。顺序流操作是单线程操作，串行化的流无法带来性能上的提升，通常我们会使用多线程来并行执行任务，处理速度更快。

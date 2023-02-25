@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: 如何保证接口幂等性？
+category: 优质文章
+tag:
+  - 实践经验
+head:
+  - - meta
+    - name: keywords
+      content: 接口幂等性
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
+
 # 面试官：如何保证接口幂等性？一口气说了9种方法！
 
 大家好，我是大彬~

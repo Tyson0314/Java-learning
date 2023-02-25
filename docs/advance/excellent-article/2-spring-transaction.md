@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: @Transactional 事务注解详解
+category: 优质文章
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring事务,事务传播行为,事务注解
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # @Transactional 事务注解详解
 
 ## Spring事务的传播行为

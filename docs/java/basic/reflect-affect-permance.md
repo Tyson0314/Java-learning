@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 反射是怎么影响性能的？
+category: Java
+tag:
+  - Java基础
+head:
+  - - meta
+    - name: keywords
+      content: java反射
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 今天来聊聊反射的性能问题。反射具体是怎么影响性能的？
 
 # 01 反射真的存在性能问题吗？

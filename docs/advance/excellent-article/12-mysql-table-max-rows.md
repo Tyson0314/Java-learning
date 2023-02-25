@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: MySQL最大建议行数 2000w，靠谱吗？
+category: 优质文章
+tag:
+  - 数据库
+head:
+  - - meta
+    - name: keywords
+      content: MySQL最大行数
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # MySQL最大建议行数 2000w，靠谱吗？
 
 ## **1 背景**

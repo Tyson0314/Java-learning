@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之观察者模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 观察者模式,设计模式,观察者
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 观察者模式
 
 **观察者模式（Observer）**，又叫**发布-订阅模式（Publish/Subscribe）**，定义对象间一种一对多的依赖关系，使得每当一个对象改变状态，则所有依赖于它的对象都会得到通知并自动更新。UML结构图如下：

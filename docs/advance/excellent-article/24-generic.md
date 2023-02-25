@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 泛型详解
+category: 优质文章
+tag:
+  - java
+head:
+  - - meta
+    - name: keywords
+      content: 泛型
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 泛型详解
 
 Java 泛型（generics）是 JDK 5 中引入的一个新特性, 泛型提供了编译时类型安全检测机制，该机制允许开发者在编译时检测到非法的类型。

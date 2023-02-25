@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis删除策略
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis删除策略
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 删除策略
 
 1. 被动删除。在访问key时，如果发现key已经过期，那么会将key删除。

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 分布式锁
+category: 分布式
+tag:
+  - 分布式锁
+head:
+  - - meta
+    - name: keywords
+      content: 分布式锁,分布式
+  - - meta
+    - name: description
+      content: 分布式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 分布式锁
 
 ## 为什么要使用分布式锁

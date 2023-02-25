@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 缓存和数据库一致性问题，看这篇就够了
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: 缓存和数据库一致性问题,缓存一致性
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 > 本文转自水滴与银弹
 
 如何保证缓存和数据库一致性，这是一个老生常谈的话题了。

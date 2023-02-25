@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之责任链模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 责任链模式,设计模式
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 责任链模式
 
 ## 定义

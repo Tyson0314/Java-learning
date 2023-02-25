@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: order by是怎么工作的？
+category: 优质文章
+tag:
+  - 数据库
+head:
+  - - meta
+    - name: keywords
+      content: order by,MySQL,数据库排序
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # order by是怎么工作的？
 
 在你开发应用的时候，一定会经常碰到需要根据指定的字段排序来显示结果的需求。还是以我们前面举例用过的市民表为例，假设你要查询城市是“杭州”的所有人名字，并且按照姓名排序返回前 1000 个人的姓名、年龄。

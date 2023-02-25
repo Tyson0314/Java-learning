@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 为什么要序列化？
+category: Java
+tag:
+  - Java基础
+head:
+  - - meta
+    - name: keywords
+      content: 序列化
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 > 本文转自爱笑的架构师
 
 凡事都要问为什么，在讲解序列化概念和原理前，我们先来了解一下为什么需要序列化。

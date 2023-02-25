@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis数据类型
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis数据类型
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 数据类型
 
 Redis支持五种数据类型：

@@ -1,4 +1,17 @@
-
+---
+sidebar: heading
+title: 为什么Redis 6.0 引入多线程
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: redis多线程,redis6.0
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
 
 > 本文转载自Hollis
 

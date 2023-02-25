@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis数据结构
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis数据结构,动态字符串
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 数据结构
 
 ## 动态字符串

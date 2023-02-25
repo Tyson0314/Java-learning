@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式的六大原则
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 设计模式的六大原则,设计模式,设计模式面试题
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 设计模式的六大原则
 
 - 开闭原则：对扩展开放,对修改关闭，多使用抽象类和接口。

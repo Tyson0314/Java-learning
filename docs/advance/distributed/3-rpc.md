@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: RPC
+category: 分布式
+tag:
+  - RPC
+head:
+  - - meta
+    - name: keywords
+      content: RPC,分布式,RPC框架,RPC和HTTP,序列化技术
+  - - meta
+    - name: description
+      content: 分布式常见面试题总结，让天下没有难背的八股文！
+---
+
 # RPC
 
 ## RPC简介

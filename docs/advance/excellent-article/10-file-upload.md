@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 大文件上传时如何做到秒传？
+category: 优质文章
+tag:
+  - 实践经验
+head:
+  - - meta
+    - name: keywords
+      content: 大文件上传优化,文件上传
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 大文件上传时如何做到秒传？
 
 大家好，我是大彬~

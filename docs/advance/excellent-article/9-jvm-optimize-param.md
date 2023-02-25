@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: 美团面试：熟悉哪些JVM调优参数？
+category: 优质文章
+tag:
+  - JVM
+head:
+  - - meta
+    - name: keywords
+      content: JVM调优参数,JVM调优
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
+
 # 美团面试：熟悉哪些JVM调优参数？
 
 今天来熟悉一下，关于`JVM`调优常用的一些参数。

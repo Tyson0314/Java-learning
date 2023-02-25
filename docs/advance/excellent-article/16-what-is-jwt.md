@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 什么是JWT
+category: 优质文章
+tag:
+  - web
+head:
+  - - meta
+    - name: keywords
+      content: jwt,web开发
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 什么是JWT
 
 JSON Web Token（缩写 JWT）是目前最流行的跨域认证解决方案。

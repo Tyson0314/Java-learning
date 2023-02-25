@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Spring Boot 自动装配原理
+category: 优质文章
+tag:
+  - Spring Boot
+head:
+  - - meta
+    - name: keywords
+      content: SpringBoot自动装配原理,自动装配
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # Spring Boot 自动装配原理
 
 首先，先看SpringBoot的主配置类：

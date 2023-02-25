@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 限流的几种方案
+category: 优质文章
+tag:
+  - 实践经验
+head:
+  - - meta
+    - name: keywords
+      content: 限流方案,令牌桶算法,漏桶算法,滑动窗口,Guava限流,网关层限流
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 限流的几种方案
 
 ### 文章目录
@@ -21,7 +36,7 @@
   - 中间件限流
   - 限流组件
   - 合法性验证限流
-  - Guawa限流
+  - Guava限流
   - 网关层限流
 
 - 从架构维度考虑限流设计

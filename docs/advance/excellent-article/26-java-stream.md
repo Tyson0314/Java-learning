@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Java Stream常见用法汇总，开发效率大幅提升
+category: 优质文章
+tag:
+  - java
+head:
+  - - meta
+    - name: keywords
+      content: stream流操作,java stream,java8
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # Java Stream常见用法汇总，开发效率大幅提升
 
 Java8 新增的 Stream 流大大减轻了我们代码的工作量，但是 Stream 流的用法较多，实际使用的时候容易遗忘，整理一下供大家参考。

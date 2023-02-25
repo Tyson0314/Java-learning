@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之工厂模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 工厂模式,设计模式
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 工厂模式
 
 工厂模式是用来封装对象的创建。工厂模式有三种，它们分别是简单工厂模式，工厂方法模式以及抽象工厂模式，通常我们所说的工厂模式指的是工厂方法模式。

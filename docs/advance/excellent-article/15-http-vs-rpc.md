@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 有了HTTP，为啥还要用RPC
+category: 优质文章
+tag:
+  - 网络
+head:
+  - - meta
+    - name: keywords
+      content: HTTP和RPC,HTTP,RPC
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # 有了HTTP，为啥还要用RPC
 
 > 原文链接：https://www.jianshu.com/p/9d42b926d40d

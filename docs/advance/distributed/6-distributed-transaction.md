@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 分布式事务
+category: 分布式
+tag:
+  - 分布式事务
+head:
+  - - meta
+    - name: keywords
+      content: 分布式事务,强一致性,弱一致性,最终一致性,CAP理论,BASE理论,2PC方案,TCC,本地消息表,saga事务,最大努力通知方案
+  - - meta
+    - name: description
+      content: 分布式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 分布式事务
 
 ## 简介

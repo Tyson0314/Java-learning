@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis事务
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis事务
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 事务
 
 事务的原理是将一个事务范围内的若干命令发送给Redis，然后再让Redis依次执行这些命令。

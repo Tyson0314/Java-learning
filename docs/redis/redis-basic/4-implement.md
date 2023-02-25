@@ -1,4 +1,19 @@
-# 底层实现
+---
+sidebar: heading
+title: Redis底层实现
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis底层实现
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
+# 
 
 ## string
 

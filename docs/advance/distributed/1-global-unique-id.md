@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 全局唯一ID生成方案
+category: 分布式
+tag:
+  - 分布式ID
+head:
+  - - meta
+    - name: keywords
+      content: 分布式ID,分布式,唯一ID生成方案
+  - - meta
+    - name: description
+      content: 分布式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 全局唯一ID生成方案
 
 传统的单体架构的时候，我们基本是单库然后业务单表的结构。每个业务表的ID一般我们都是从1增，通过`AUTO_INCREMENT=1`设置自增起始值，但是在分布式服务架构模式下分库分表的设计，使得多个库或多个表存储相同的业务数据。这种情况根据数据库的自增ID就会产生相同ID的情况，不能保证主键的唯一性。

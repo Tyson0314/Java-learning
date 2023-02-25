@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之单例模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 单例模式,设计模式,单例
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 单例模式
 
 单例模式（Singleton），目的是为了保证在一个进程中，某个类有且仅有一个实例。

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis 如何实现库存扣减操作和防止被超卖？
+category: 优质文章
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis,库存扣减,超卖问题
+  - - meta
+    - name: description
+      content: 优质文章汇总
+---
+
 # Redis 如何实现库存扣减操作和防止被超卖？
 
 电商当项目经验已经非常普遍了，不管你是包装的还是真实的，起码要能讲清楚电商中常见的问题，比如库存的操作怎么防止商品被超卖

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 设计模式之适配器模式
+category: 设计模式
+tag:
+  - 设计模式
+head:
+  - - meta
+    - name: keywords
+      content: 适配器模式,设计模式,适配器
+  - - meta
+    - name: description
+      content: 设计模式常见面试题总结，让天下没有难背的八股文！
+---
+
 # 适配器模式
 适配器模式将现成的对象通过适配变成我们需要的接口。 适配器让原本接口不兼容的类可以合作。
 

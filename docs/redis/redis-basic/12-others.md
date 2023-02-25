@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Redis其他知识点
+category: 缓存
+tag:
+  - Redis
+head:
+  - - meta
+    - name: keywords
+      content: Redis客户端,redis慢查询,redis数据一致性
+  - - meta
+    - name: description
+      content: Redis常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 其他
 
 ## 客户端
