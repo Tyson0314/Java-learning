@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 没有项目经验，怎么办？
+category: 分享
+tag:
+  - 面试题
+head:
+  - - meta
+    - name: keywords
+      content: 项目经验
+  - - meta
+    - name: description
+      content: 没有项目经验，怎么办？
+---
+
 # 没有项目经验，怎么办？
 
 这个问题有很多人问过我了，今天来聊聊具体解决方案。

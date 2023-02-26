@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 简历应该怎么写？
+category: 分享
+tag:
+  - 简历
+head:
+  - - meta
+    - name: keywords
+      content: 简历编写,写简历
+  - - meta
+    - name: description
+      content: 简历应该怎么写？
 ---
 
 很多同学刚开始找工作时，投出去很多简历，但是都石沉大海了，没有下文。

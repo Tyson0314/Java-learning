@@ -33,6 +33,8 @@ export default hopeTheme({
 	collapsable: true,
 
     displayFooter: true,
+    prevLink: true,
+    nextLink: true,
 
     // footer: '<a href="http://beian.miit.gov.cn/" rel="noopener noreferrer" target="_blank">粤ICP备2022005190号-2 |</a>' +
     // '<a href="/other/site-diary.html">关于网站</a>',

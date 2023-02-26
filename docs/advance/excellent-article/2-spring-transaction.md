@@ -1,6 +1,6 @@
 ---
 sidebar: heading
-title: @Transactional 事务注解详解
+title: Transactional事务注解详解
 category: 优质文章
 tag:
   - Spring

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 24届校招，Java开发和大数据开发怎么选
+category: 分享
+tag:
+  - 星球
+head:
+  - - meta
+    - name: keywords
+      content: 职业规划,岗位选择,Java还是大数据
+  - - meta
+    - name: description
+      content: 星球问题摘录
+---
+
 ## 24届校招，Java开发和大数据开发怎么选
 
 最近在大彬的[学习圈](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247492252&idx=1&sn=8fc12e97763e3b994b0dd0e717a4b674&chksm=ce9b1fdaf9ec96cca6c03cb6e7b61156d3226dbb587f81cea27b71be6671b81b537c9b7e9b2d#rd)中，有小伙伴提了一个关于方向选择的问题：**24届校招，Java开发和大数据开发怎么选**？

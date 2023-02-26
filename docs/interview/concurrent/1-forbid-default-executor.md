@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 为什么阿里禁止使用Java内置线程池？
+category: Java
+tag:
+  - Java并发
+head:
+  - - meta
+    - name: keywords
+      content: Java并发,多线程,线程池,为什么禁止使用Java内置线程池
+  - - meta
+    - name: description
+      content: 高质量的Java并发常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ## 为什么阿里禁止使用Java内置线程池？
 
 首先要了解一下线程池 ThreadPoolExecutor 的参数及其作用。

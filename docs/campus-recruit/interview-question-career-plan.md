@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 面试时问你的职业规划，该怎么回答？
+category: 分享
+tag:
+  - 面试题
+head:
+  - - meta
+    - name: keywords
+      content: 面试题,职业规划
+  - - meta
+    - name: description
+      content: 面试时问你的职业规划，该怎么回答？
+---
+
 ## 面试时问你的职业规划，该怎么回答？
 
 建议紧扣工作和学习两个维度回答

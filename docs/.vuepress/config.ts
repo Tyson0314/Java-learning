@@ -8,8 +8,8 @@ import { gitPlugin } from '@vuepress/plugin-git'
 
 export default defineUserConfig({
     lang: "zh-CN",
-    title: "程序员大彬",
-    description: "自学转码之路",
+    title: "Java学习&面试指南-程序员大彬",
+    description: "Java学习、面试指南，涵盖大部分 Java 程序员所需要掌握的核心知识",
     base: "/",
     dest: './public',
     theme,
@@ -31,7 +31,7 @@ export default defineUserConfig({
         ["meta", { "http-equiv": "Expires", content: "0" }],
         ['meta', {name: 'baidu-site-verification', content: 'code-mtJaPDeFwy'}],
         // ['meta', { name: 'google-site-verification', content: 'eGgkbT6uJR-WQeSkhhcB6RbnZ2RtF5poPf1ai-Fgmy8' }],
-        ['meta', {name: 'keywords', content: 'Java, Spring, Mybatis, SpringMVC, Springboot, 编程, 程序员, MySQL, Redis, 系统设计, 分布式, RPC, 高可用, 高并发'}],
+        ['meta', {name: 'keywords', content: 'Java,Spring,Mybatis,SpringMVC,Springboot,编程,程序员,MySQL,Redis,系统设计,分布式,RPC,高可用,高并发,场景设计,Java面试'}],
         [
             'script', {}, `
 			var _hmt = _hmt || [];

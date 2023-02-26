@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Docker学习笔记
+category: 笔记
+tag:
+  - 工具
+head:
+  - - meta
+    - name: keywords
+      content: Docker,Docker命令,docker镜像,docker容器
+  - - meta
+    - name: description
+      content: Docker常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ## 简介
 
 Docker是一个开源的应用容器引擎，通过容器可以隔离应用程序的运行时环境（程序运行时依赖的各种库和配置），比虚拟机更轻量（虚拟机在操作系统层面进行隔离）。docker的另一个优点就是build once, run everywhere，只编译一次，就可以在各个平台（windows、linux等）运行。

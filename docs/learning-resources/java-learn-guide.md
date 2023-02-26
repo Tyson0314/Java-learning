@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Java自学路线
+category: 学习路线
+tag:
+  - Java
+head:
+  - - meta
+    - name: keywords
+      content: java学习路线,经验分享,java,Spring,mysql,redis,springboot
+  - - meta
+    - name: description
+      content: 绝对全面的Java自学路线
 ---
 
 大家好，我是大彬~

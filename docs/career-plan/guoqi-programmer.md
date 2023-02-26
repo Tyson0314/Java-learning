@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 在国企做开发，是什么样的体验
+category: 分享
+tag:
+  - 国企
+head:
+  - - meta
+    - name: keywords
+      content: 国企工作,工作经历分享
+  - - meta
+    - name: description
+      content: 4年工作经验的程序员分享
+---
+
 ## 在国企做开发，是什么样的体验
 
 > 本文已经收录到Github仓库，该仓库包含**计算机基础、Java核心知识点、多线程、JVM、常见框架、分布式、微服务、设计模式、架构**等核心知识点，欢迎star~

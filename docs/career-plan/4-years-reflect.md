@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 4年工作经验的程序员分享
+category: 分享
+tag:
+  - 工作经历分享
+head:
+  - - meta
+    - name: keywords
+      content: 工作经历分享
+  - - meta
+    - name: description
+      content: 4年工作经验的程序员分享
+---
+
 今天给大家分享一个**4年工作经验的程序员**的经历，应该对各位会有所启发。
 
 2022年，我彻底失业了。**在面试了10多家单位后，居然没有一个人给offer**，为此对自己做出了反思。

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 工作一年想要跳槽，不知道应该怎么准备？
+category: 分享
+tag:
+  - 星球
+head:
+  - - meta
+    - name: keywords
+      content: 职业规划,跳槽怎么准备,程序员跳槽
+  - - meta
+    - name: description
+      content: 星球问题摘录
+---
+
 ## 工作一年想要跳槽，不知道应该怎么准备？
 
 最近在大彬的[学习圈](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247492252&idx=1&sn=8fc12e97763e3b994b0dd0e717a4b674&chksm=ce9b1fdaf9ec96cca6c03cb6e7b61156d3226dbb587f81cea27b71be6671b81b537c9b7e9b2d#rd)中，有小伙伴问我怎么准备跳槽、面试，在这里跟大家分享一下。

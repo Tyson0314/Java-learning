@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 高可用——负载均衡
+category: 实践经验
+tag:
+  - 并发
+head:
+  - - meta
+    - name: keywords
+      content: 高可用,负载均衡
+  - - meta
+    - name: description
+      content: Java常见面试题总结，让天下没有难背的八股文！
+---
+
 # 高可用——负载均衡
 
 ## **一、 什么是负载均衡？**

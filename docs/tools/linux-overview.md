@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Linux学习笔记
+category: 笔记
+tag:
+  - 工具
+head:
+  - - meta
+    - name: keywords
+      content: linux,linux基础操作,linux命令
+  - - meta
+    - name: description
+      content: Linux常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 基本操作
 
 ## Linux关机,重启

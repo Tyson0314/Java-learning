@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Java创建对象有几种方式？
+category: Java
+tag:
+  - Java基础
+head:
+  - - meta
+    - name: keywords
+      content: java创建对象的方式
+  - - meta
+    - name: description
+      content: 高质量的Java基础常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ##  Java创建对象有几种方式？
 
 Java创建对象有以下几种方式：

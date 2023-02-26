@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 程序员职业规划分享
+category: 分享
+tag:
+  - 面试题
+head:
+  - - meta
+    - name: keywords
+      content: 职业规划
+  - - meta
+    - name: description
+      content: 面试高频题，职业规划
 ---
 
 分享一下我的看法。

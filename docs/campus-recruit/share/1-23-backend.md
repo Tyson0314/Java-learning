@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 双非本，非科班自学转码分享
+category: 分享
+tag:
+  - 校招
+head:
+  - - meta
+    - name: keywords
+      content: 非科班转码,自学java,双非转码
+  - - meta
+    - name: description
+      content: 自学Java经验分享
 ---
 
 # 双非本，非科班的自我救赎之路

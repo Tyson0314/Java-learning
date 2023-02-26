@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 23届秋招，寒气逼人。。
+category: 分享
+tag:
+  - 校招
+head:
+  - - meta
+    - name: keywords
+      content: 秋招经历分享
+  - - meta
+    - name: description
+      content: 2023 届秋招经历分享
+---
+
 ## 23届秋招，寒气逼人。。
 
 分享一篇牛客网友的 2023 届秋招经历分享，写的很不错，很真实。

@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: 国家电网还是拼多多，怎么选？
+category: 分享
+tag:
+  - offer选择
+head:
+  - - meta
+    - name: keywords
+      content: offer选择,秋招offer比较
+  - - meta
+    - name: description
+      content: 秋招offer选择经验分享
+---
+
+
 今天在知乎上看到这个职业选择的问题：“**国家电网还是拼多多，怎么选？**”，其中高赞的观点我觉得非常具有参考价值，今天分享出来，也希望能给球友们一些启发和帮助。
 
 **原问题**

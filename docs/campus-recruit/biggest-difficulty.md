@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 你在项目里遇到的最大困难是什么，如何解决的？
+category: 分享
+tag:
+  - 面试题
+head:
+  - - meta
+    - name: keywords
+      content: 项目里遇到的最大困难是什么
+  - - meta
+    - name: description
+      content: 你在项目里遇到的最大困难是什么，如何解决的？
+---
+
 ## 你在项目里遇到的最大困难是什么，如何解决的？
 
 这是一道面试高频题，但是很多人都没能回答好，或者说没有准备好怎么去回答。

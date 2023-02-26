@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 阿里和美团实习的经历分享
+category: 分享
+tag:
+  - 工作体验
+head:
+  - - meta
+    - name: keywords
+      content: 实习经历分享
+  - - meta
+    - name: description
+      content: 阿里飞猪和美团基础架构组实习的经历分享
+---
+
 分享一位学弟在阿里飞猪和美团基础架构组实习的经历，很不错的分享，非常用心！
 
 ## 为什么选飞猪

@@ -1,8 +1,17 @@
 ---
 sidebar: heading
+title: LeetCode刷题经验分享
+category: 分享
+tag:
+  - 刷题
+head:
+  - - meta
+    - name: keywords
+      content:  LeetCode刷题经验,刷题
+  - - meta
+    - name: description
+      content: LeetCode刷题经验分享
 ---
-
-
 
 分享几点我自己的刷题经验，看看我是如何在最短时间内搞定数据结构与算法，达到应付面试的程度的。
 

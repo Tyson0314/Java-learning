@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: 非科班，秋招还没offer，该怎么办
+category: 分享
+tag:
+  - 校招
+head:
+  - - meta
+    - name: keywords
+      content: 非科班转码,秋招没offer,23秋招,秋招
+  - - meta
+    - name: description
+      content: 秋招经验分享
 ---
 
 # 非科班，秋招还没offer，该怎么办

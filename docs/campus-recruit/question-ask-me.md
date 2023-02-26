@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 面试官：你有什么要问我的吗？
+category: 分享
+tag:
+  - 面试题
+head:
+  - - meta
+    - name: keywords
+      content: 面试高频题
+  - - meta
+    - name: description
+      content: 面试官：你有什么要问我的吗？
+---
+
 ## 你有什么要问我的吗？
 
 很多时候，在面试接近尾声的时候，面试官会问应聘者一个问题：“你有什么要问我的吗？”。

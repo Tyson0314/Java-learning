@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Maven学习笔记
+category: 笔记
+tag:
+  - 工具
+head:
+  - - meta
+    - name: keywords
+      content: Maven,maven依赖,maven仓库,maven插件,maven聚合,maven生命周期
+  - - meta
+    - name: description
+      content: Maven常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # 简介
 
 Maven 是强大的构建工具，能够帮我们自动化构建过程--清理、编译、测试、打包和部署。比如测试，我们无需告诉 maven 如何去测试，只需遵循 maven 的约定编写好测试用例，当我们运行构建的时候，这些测试就会自动运行。

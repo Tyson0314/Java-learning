@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: CS自学路线
+category: 学习路线
+tag:
+  - 计算机
+head:
+  - - meta
+    - name: keywords
+      content: CS学习路线,经验分享,数据库,数据结构与算法,操作系统,计算机网络
+  - - meta
+    - name: description
+      content: CS自学路线分享
 ---
 
 大家好，我是大彬~今天给大家分享CS自学路线。

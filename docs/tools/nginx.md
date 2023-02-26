@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Nginx学习笔记
+category: 笔记
+tag:
+  - 工具
+head:
+  - - meta
+    - name: keywords
+      content: nginx
+  - - meta
+    - name: description
+      content: Nginx常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 **文章目录：**
 
 - 什么是Nginx？

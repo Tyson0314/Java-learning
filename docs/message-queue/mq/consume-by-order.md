@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 如何保证消息的顺序性？
+category: 消息队列
+tag:
+  - 消息队列
+head:
+  - - meta
+    - name: keywords
+      content: 消息队列面试题,如何保证消息消费的顺序性
+  - - meta
+    - name: description
+      content: 高质量的消息队列常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ## 如何保证消息的顺序性？
 
 假设有这样一个场景，使用 MySQL `binlog` 将数据从一个 MySQL 库原封不动地同步到另一个 MySQL 库里面去。

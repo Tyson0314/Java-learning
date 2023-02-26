@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Git学习笔记
+category: 笔记
+tag:
+  - 工具
+head:
+  - - meta
+    - name: keywords
+      content: Git,git命令,git分支,git标签,git补丁,git推送
+  - - meta
+    - name: description
+      content: Git常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # Git 简介
 
 Git 是一个开源的分布式版本控制系统，可以有效、快速的进行项目版本管理。Git 是 Linus Torvalds 为了帮助管理 Linux 内核开发而开发的一个开放源码的版本控制软件。

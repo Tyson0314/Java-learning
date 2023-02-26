@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: HR问目前拿到哪几个offer了，怎么回答好？
+category: 分享
+tag:
+  - 面试题
+head:
+  - - meta
+    - name: keywords
+      content: 面试题
+  - - meta
+    - name: description
+      content: HR问目前拿到哪几个offer了，怎么回答好？
+---
+
 ## HR问目前拿到哪几个offer了，怎么回答好？
 
 这是比较常见的面试问题。
