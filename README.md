@@ -102,6 +102,7 @@
 - [泛型中的T、E、K、V，是什么含义？](https://topjavaer.cn/advance/excellent-article/24-generic.html)
 - [面试官：反射是如何影响性能的？](https://topjavaer.cn/java/basic/reflect-affect-permance.html)
 - [面试官：详细说说你对序列化的理解？](https://topjavaer.cn/java/basic/serialization.html)
+- [感受 lambda 之美](https://mp.weixin.qq.com/s/xwvdtWdFbvmUYaRAAkIhvA)
 
 **JVM重要知识点**
 
@@ -109,6 +110,14 @@
 - [一次简单的JVM调优，拿去写到简历里](https://topjavaer.cn/advance/excellent-article/5-jvm-optimize.html)
 - [阿里排错神器--Arthas](https://topjavaer.cn/advance/excellent-article/23-arthas-intro.html)
 - [Java堆内存是线程共享的？](https://topjavaer.cn/java/jvm/jvm-heap-memory-share.html)
+- [面试官：你工作中做过 JVM 调优吗？怎么做的？](https://mp.weixin.qq.com/s/mwZ5qiBt-xlxy8N3Ya2SvQ)
+- [JVM调优几款好用的内存分析工具](https://mp.weixin.qq.com/s/bSgNk6roybRp2buCvwfomw)
+
+**Java并发重要知识点**
+
+- [说一说多线程常见锁的策略](https://mp.weixin.qq.com/s/t0SK4fMF7D_zY_1zlTz6jA)
+- [8 种异步实现方式](https://mp.weixin.qq.com/s/2lgGj878MQoD-siZvG473g)
+- [CompletableFuture 异步多线程](https://mp.weixin.qq.com/s/gRnXInZznCyZE0ZQ9ByfIg)
 
 # 数据库
 
@@ -125,6 +134,10 @@
 - [8种最坑SQL语法](https://topjavaer.cn/advance/excellent-article/7-sql-optimize.html)
 - [为什么说数据库连接很消耗资源](https://topjavaer.cn/advance/excellent-article/18-db-connect-resource.html)
 - [SELECT COUNT(*) 会造成全表扫描？](https://topjavaer.cn/advance/excellent-article/25-select-count-slow-query.html)
+- [MySQL中的 distinct 和 group by 哪个效率更高？](https://mp.weixin.qq.com/s/jPUjKl81Es3bbtGoqdVDxg)
+- [MySQL慢查询之慢 SQL 定位、日志分析与优化方案](https://mp.weixin.qq.com/s/XpEfv0M_ArMa69fnXugWig)
+- [MySQL 上亿大表如何优化？](https://mp.weixin.qq.com/s/YSlhVJYp9AhR_UZEJKH1Vg)
+- [字节一面：select......for update会锁表还是锁行？](https://mp.weixin.qq.com/s/FW6y8UXVDODG2ViiiWKfYQ)
 
 ## Redis
 
@@ -137,6 +150,8 @@
 - [为什么Redis 6.0 引入多线程](https://topjavaer.cn/redis/article/redis-multi-thread.html)
 - [缓存和数据库一致性问题，看这篇就够了](https://topjavaer.cn/redis/article/cache-db-consistency.html)
 - [Redis 集群模式的工作原理](https://topjavaer.cn/redis/article/redis-cluster-work.html)
+- [面试官问：你们项目中用Redis来干什么？](https://mp.weixin.qq.com/s/eAKajEByV1P4eOF9J1hiNA)
+- [MySQL和Redis如何保持数据一致性?](https://mp.weixin.qq.com/s/0t3ZZpwwczFfrgbbvrTJRw)
 
 ## ElasticSearch
 
@@ -153,6 +168,7 @@
 - [Spring为何需要三级缓存解决循环依赖，而不是二级缓存？](https://topjavaer.cn/advance/excellent-article/6-spring-three-cache.html)
 - [@Transactional事务注解详解](https://topjavaer.cn/advance/excellent-article/2-spring-transaction.html)
 - [一文彻底搞懂Spring事务传播行为](https://topjavaer.cn/framework/spring/transaction-propagation.html)
+- [15个Spring扩展点](https://mp.weixin.qq.com/s/q2ZLXxAM0AC7sDlq6kDA4Q)
 
 ## Spring Boot
 
@@ -219,6 +235,10 @@
 - [设计模式之观察者模式](https://topjavaer.cn/advance/design-pattern/10-observer.html)
 - [设计模式之代理模式](https://topjavaer.cn/advance/design-pattern/11-proxy.html)
 - [设计模式之建造者模式](https://topjavaer.cn/advance/design-pattern/12-builder.html)
+
+**设计模式优质文章**
+
+- [代码越写越乱？那是因为你没用责任链](https://mp.weixin.qq.com/s/TpB5bmNwlcJj-XZo5iXXtg)
 
 # 分布式
 
