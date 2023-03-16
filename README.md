@@ -76,6 +76,12 @@
 - [对于java开发和大数据开发，24年秋招的话选择哪个方向会比较合适呢？](https://topjavaer.cn/career-plan/java-or-bigdata.html)
 - [四年程序员生涯的反思](https://topjavaer.cn/career-plan/4-years-reflect.html)
 - [在国企做开发，是什么样的体验](https://topjavaer.cn/career-plan/guoqi-programmer.html)
+- [工作两年多，技术水平没有很大提升，该怎么办](https://topjavaer.cn/zsxq/question/2-years-tech-no-upgrade.html)
+- [24届校招，Java开发和大数据开发怎么选](https://topjavaer.cn/zsxq/question/java-or-bigdata.html)
+
+# 副业指南
+
+- [一些接单平台](https://topjavaer.cn/zsxq/article/sideline-guide.html)
 
 # 面试前准备
 
@@ -124,6 +130,7 @@
 ## MySQL
 
 - [MySQL高频面试题50道](https://topjavaer.cn/database/mysql.html)(**知乎1k+收藏，推荐** :+1:)
+- [MySQL锁高频面试题](https://topjavaer.cn/database/mysql-lock.html)
 
 **重要知识点**：
 
@@ -204,7 +211,8 @@
 
 # 计算机网络
 
-[计算机网络常见面试题总结](https://topjavaer.cn/computer-basic/network.html) （**知乎1k+收藏！推荐 :+1:**）
+- [计算机网络常见面试题总结](https://topjavaer.cn/computer-basic/network.html) （**知乎1k+收藏！推荐 :+1:**）
+- [TCP常见面试题总结](https://topjavaer.cn/computer-basic/tcp.html) 
 
 **重要知识点**：
 
@@ -244,10 +252,14 @@
 
 - [微服务面试题](https://topjavaer.cn/advance/distributed/4-micro-service.html)
 - [RPC面试题](https://topjavaer.cn/advance/distributed/3-rpc.html)
-- [全局唯一ID](https://topjavaer.cn/advance/distributed/1-global-unique-id.html)
 - [分布式事务总结](https://topjavaer.cn/advance/distributed/6-distributed-transaction.html)
+
+**优质文章**：
+
+- [全局唯一ID生成方案](https://topjavaer.cn/advance/distributed/1-global-unique-id.html)
 - [分布式架构演进](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247490543&idx=1&sn=ee34bee96511d5e548381e0576f8b484&chksm=ce98e6a9f9ef6fbf7db9c2b6d2fed26853a3bc13a50c3228ab57bea55afe0772008cdb1f957b&token=1594696656&lang=zh_CN#rd)
 - [新一代分布式任务调度框架](https://topjavaer.cn/advance/excellent-article/22-distributed-scheduled-task.html)
+- [分布式锁怎么实现？](https://topjavaer.cn/distributed/article/distributed-lock.html)
 
 # 高并发
 
@@ -326,18 +338,16 @@
 - [8种架构模式](https://topjavaer.cn/advance/excellent-article/11-8-architect-pattern.html)
 - [几种常见的架构模式](https://topjavaer.cn/advance/excellent-article/20-architect-pattern.html)
 - [线上接口很慢怎么办？](https://topjavaer.cn/practice/service-performance-optimization.html)
+- [Zookeeper有哪些使用场景？](https://topjavaer.cn/zookeeper/zk-usage.html)
 
 # 工具
 
-[Git 超详细总结！](https://topjavaer.cn/tools/git-overview.html)(推荐 :+1:)
-
-[Linux 常用命令总结！](https://topjavaer.cn/tools/linux-overview.html)
-
-[Docker 基础总结！](https://topjavaer.cn/tools/docker-overview.html)
-
-[Maven 基础总结！](https://topjavaer.cn/tools/maven-overview.html)
-
-[Nginx 高频面试题](https://topjavaer.cn/tools/nginx.html)
+- [Git 高频面试题总结](https://topjavaer.cn/tools/git.html)
+- [Git 超详细总结！](https://topjavaer.cn/tools/git-overview.html)(推荐 :+1:)
+- [Linux 常用命令总结！](https://topjavaer.cn/tools/linux-overview.html)
+- [Docker 基础总结！](https://topjavaer.cn/tools/docker-overview.html)
+- [Maven 基础总结！](https://topjavaer.cn/tools/maven-overview.html)
+- [Nginx 高频面试题](https://topjavaer.cn/tools/nginx.html)
 
 # 交流
 
