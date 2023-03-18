@@ -14,19 +14,21 @@ head:
 ---
 
 
-> 欢迎加入[大彬的学习圈](https://topjavaer.cn/zsxq/introduce.html)，学习圈整理了最新的**Java面试手册完整版**（本网站的面试题补充版，更全面），还有很多其他**优质资料**，比如包括Java项目、进阶知识、实战经验总结、优质书籍、笔试面试资源等等。
+> 欢迎加入[大彬的学习圈](https://topjavaer.cn/zsxq/introduce.html)，学习圈提供**专属一对一的提问答疑**，帮你解答各种疑难问题，包括自学Java路线、职业规划、面试问题等等。大彬会**优先解答**球友的问题。
+>
+> ![](http://img.topjavaer.cn/img/image-20230318103729439.png)
+>
+> ![](http://img.topjavaer.cn/img/image-20230318104002122.png)
+>
+> ![](http://img.topjavaer.cn/img/image-20230102210715391.png)
+>
+> 另外[学习圈](https://topjavaer.cn/zsxq/introduce.html)整理了最新的**Java面试手册完整版**（本网站的面试题补充版，更全面），还有很多其他**优质资料**，比如包括Java项目、进阶知识、实战经验总结、优质书籍、笔试面试资源等等。
 >
 > ![](http://img.topjavaer.cn/img/image-20230102194032026.png)
 >
 > ![](http://img.topjavaer.cn/img/image-20221229145413500.png)
 >
 > ![](http://img.topjavaer.cn/img/image-20221229145455706.png)
->
-> **专属一对一的提问答疑**，帮你解答各种疑难问题，包括自学Java路线、职业规划、面试问题等等。大彬会**优先解答**球友的问题。
->
-> ![](http://img.topjavaer.cn/img/image-20230102210715391.png)
->
-> ![](http://img.topjavaer.cn/img/描述能体现自己编程能力的代码.png)
 >
 > [大彬的学习圈](https://topjavaer.cn/zsxq/introduce.html)**加入方式**：
 >
