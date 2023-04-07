@@ -49,6 +49,7 @@ export default navbar([
                     {text: "SpringBoot面试题", link: "/framework/springboot.md"},
                     {text: "SpringCloud详解", link: "/framework/springcloud/"},
                     {text: "SpringCloud面试题", link: "/framework/springcloud-interview.md"},
+                    {text: "ZooKeeper面试题", link: "/zookeeper/zk.md"},
                     {text: "Netty详解", link: "/framework/netty/"},
                 ]
             },
@@ -74,6 +75,7 @@ export default navbar([
                 children: [
                     {text: "Redis基础", link: "/redis/redis-basic/"},
                     {text: "Redis面试题", link: "/redis/redis.md"},
+                    {text: "MongoDB面试题", link: "/database/mongodb.md"},
                     {text: "ElasticSearch面试题", link: "https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg"},
                 ]
             },
@@ -82,6 +84,7 @@ export default navbar([
 				icon: "computer",
 				children: [
 					{text: "网络", link: "/computer-basic/network.md"},
+                    {text: "TCP专题", link: "/computer-basic/tcp.md"},
 					{text: "操作系统", link: "/computer-basic/operate-system.md"},
 					{text: "算法", link: "/computer-basic/algorithm.md"},
 					{text: "LeetCode题解", link: "/leetcode/hot120"},

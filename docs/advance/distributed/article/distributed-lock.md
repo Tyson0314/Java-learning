@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 分布式锁
+category: 分布式
+tag:
+  - 分布式ID
+head:
+  - - meta
+    - name: keywords
+      content: 分布式锁,Redis分布式锁,zookeeper分布式锁,redlock
+  - - meta
+    - name: description
+      content: 分布式锁常见面试题总结，让天下没有难背的八股文！
+---
+
 ## 分布式锁怎么实现？
 
 一般实现分布式锁都有哪些方式？使用 Redis 如何设计分布式锁？使用 zk 来设计分布式锁可以吗？这两种分布式锁的实现方式哪种效率比较高？

@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: ES常见知识点总结
+category: 数据库
+tag:
+  - ES
+head:
+  - - meta
+    - name: keywords
+      content: ES常见知识点总结,非关系型数据库,elastic search面试题,es
+  - - meta
+    - name: description
+      content: ES常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 跟大家分享Elasticsearch的基础知识，它是做什么的以及它的使用和基本原理。
 
 ## 一、生活中的数据

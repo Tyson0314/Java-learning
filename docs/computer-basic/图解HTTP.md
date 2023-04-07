@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: HTTP常见知识点总结
+category: 计算机基础
+tag:
+  - TCP
+head:
+  - - meta
+    - name: keywords
+      content: HTTP面试题,HTTP
+  - - meta
+    - name: description
+      content: HTTP常见知识点总结，让天下没有难背的八股文！
 ---
 
 ## 简介

@@ -952,7 +952,23 @@ public class AsyncExecutionInterceptor extends AsyncExecutionAspectSupport imple
 
 2.调用本类的异步方法是不会起作用的。这种方式绕过了代理而直接调用了方法，@Async注解会失效。
 
+## 为什么 Spring和IDEA 都不推荐使用 @Autowired 注解？
 
+idea 在我们经常使用的`@Autowired` 注解上添加了警告。警告内容是: `Field injection is not recommended`, 译为: **不推荐使用属性注入**。
+
+Spring常用的注入方式有：属性注入, 构造方法注入, set 方法注入
+
+- 构造器注入：利用构造方法的参数注入依赖
+- set方法注入：调用setter的方法注入依赖
+- 属性注入：在字段上使用@Autowired/Resource注解
+
+其中，基于属性注入的方式，容易导致Spring 初始化失败。因为在Spring在初始化的时候，可能由于属性在被注入前就引用而导致空指针异常，进而导致容器初始化失败。
+
+如果可能的话，尽量使用构造器注入。Lombok提供了一个注解`@RequiredArgsConstructor`, 可以方便我们快速进行构造注入。
+
+@Autowired是属性注入，而且@Autowired默认是按照类型匹配（ByType），因此有可能会出现两个相同的类型bean，进而导致Spring 装配失败。
+
+如果要使用属性注入的话，可以使用 `@Resource` 代替 `@Autowired` 注解。@Resource默认是按照名称匹配（ByName），如果找不到则是ByType注入。另外，@Autowired是Spring提供的，@Resource是JSR-250提供的，是Java标准，我们使用的IoC容器会去兼容它，这样即使更换容器，也可以正常工作。
 
 
 

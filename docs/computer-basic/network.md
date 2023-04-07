@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: 计算机网络常见面试题
+category: 计算机基础
+tag:
+  - 网络
+head:
+  - - meta
+    - name: keywords
+      content: 计算机网络常见面试题
+  - - meta
+    - name: description
+      content: 计算机网络常见面试题，努力打造最优质的Java学习网站
+---
+
 **计算机网络重要知识点&高频面试题**是我的[知识星球](https://topjavaer.cn/zsxq/introduce.html)**内部专属资料**，已经整理到**Java面试手册完整版**。
 
 ![](http://img.topjavaer.cn/img/面试手册详情1.png)

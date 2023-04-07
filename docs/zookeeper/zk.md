@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: ZooKeeper常见面试题总结
+category: 框架
+tag:
+  - ZooKeeper
+head:
+  - - meta
+    - name: keywords
+      content: ZooKeeper面试题,ZooKeeper部署模式,ZooKeeper宕机,ZooKeeper功能,ZooKeeper主从节点,ZooKeeper和Dubbo
+  - - meta
+    - name: description
+      content: 高质量的ZooKeeper常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ##  ZooKeeper 是什么？
 
 ZooKeeper 是一个开源的分布式协调服务。它是一个为分布式应用提供一致性服务的软件，分布式应用程序可以基于 Zookeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。

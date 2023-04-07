@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: 上海互联网公司汇总
+category: 分享
+tag:
+  - 资讯
+head:
+  - - meta
+    - name: keywords
+      content: 上海互联网公司
+  - - meta
+    - name: description
+      content: 上海互联网公司汇总
+---
+
+
 今年互联网整体行情不容乐观，不好找工作，因此我整理了一些比较靠谱的互联网公司，希望大家少踩坑 。
 
 本期先整理**上海**的互联网公司，后续会整理其他地区的，敬请期待！

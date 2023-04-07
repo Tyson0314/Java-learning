@@ -78,6 +78,7 @@
 - [在国企做开发，是什么样的体验](https://topjavaer.cn/career-plan/guoqi-programmer.html)
 - [工作两年多，技术水平没有很大提升，该怎么办](https://topjavaer.cn/zsxq/question/2-years-tech-no-upgrade.html)
 - [24届校招，Java开发和大数据开发怎么选](https://topjavaer.cn/zsxq/question/java-or-bigdata.html)
+- [新人如何快速的熟悉新项目](https://topjavaer.cn/zsxq/question/familiarize-new-project-qucikly.html)
 
 # 副业指南
 

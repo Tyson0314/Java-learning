@@ -1,5 +1,16 @@
 ---
 sidebar: heading
+title: Java和Golang怎么选？
+category: 分享
+tag:
+  - 职业规划
+head:
+  - - meta
+    - name: keywords
+      content: java和golang,语言选择
+  - - meta
+    - name: description
+      content: 努力打造最优质的Java学习网站
 ---
 
 # Java和Golang怎么选？

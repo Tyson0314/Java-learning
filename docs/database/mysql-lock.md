@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: MySQL锁相关面试题
+category: 数据库
+tag:
+  - MySQL
+head:
+  - - meta
+    - name: keywords
+      content: MySQL面试题,MySQL锁面试题,MySQL锁,意向锁,全局锁,排他锁,乐观锁,悲观锁
+  - - meta
+    - name: description
+      content: MySQL锁常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # MySQL锁相关面试题
 
 ## 为什么需要加锁

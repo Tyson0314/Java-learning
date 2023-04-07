@@ -7,7 +7,7 @@ tag:
 head:
   - - meta
     - name: keywords
-      content: 场景设计面试题,订单超时自动取消,场景设计
+      content: 场景设计面试题,订单取消设计,订单自动取消,订单设计
   - - meta
     - name: description
       content: 场景设计常见面试题总结，让天下没有难背的八股文！
@@ -15,7 +15,7 @@ head:
 
 # 订单30分钟未支付自动取消怎么实现？
 
-推荐大家加入我的[**学习圈**](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247491988&idx=1&sn=a7d50c0994cbfdede312715b393daa8a&scene=21#wechat_redirect)，目前已经有100多位小伙伴加入了，下面有50元的**优惠券**，**扫描二维码**领取优惠券加入（**即将恢复原价**）。
+推荐大家加入我的[**学习圈**](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247491988&idx=1&sn=a7d50c0994cbfdede312715b393daa8a&scene=21#wechat_redirect)，目前已经有**300**多位小伙伴加入了，下方有50元的**优惠券**，**扫描二维码**领取优惠券加入（**即将恢复原价**）。
 
 学习圈提供以下这些**服务**：
 

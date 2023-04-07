@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: MongoDB常见面试题总结
+category: 数据库
+tag:
+  - MongoDB
+head:
+  - - meta
+    - name: keywords
+      content: MongoDB面试题,非关系型数据库,MongoDB特点,MongoDB使用场景,MongoDB优势,MongoDB
+  - - meta
+    - name: description
+      content: MongoDB常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 ## mongodb是什么？
 
 MongoDB 是由 C++语言编写的，是一个基于分布式文件存储的开源数据库系统。 再高负载的情况下，添加更多的节点，可以保证服务器性能。 MongoDB 旨在给 WEB 应用提供可扩展的高性能数据存储解决方案。

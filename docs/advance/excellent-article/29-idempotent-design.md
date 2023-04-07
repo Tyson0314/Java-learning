@@ -1,3 +1,17 @@
+---
+sidebar: heading
+title: 接口的幂等性如何设计？
+category: 优质文章
+tag:
+  - Spring Boot
+head:
+  - - meta
+    - name: keywords
+      content: 接口幂等,幂等性
+  - - meta
+    - name: description
+      content: 努力打造最优质的Java学习网站
+---
 ## 接口的幂等性如何设计？
 
 分布式系统中的某个接口，该如何保证幂等性？

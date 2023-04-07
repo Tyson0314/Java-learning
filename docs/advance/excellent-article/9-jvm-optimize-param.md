@@ -20,7 +20,7 @@ head:
 
 X或者XX开头的都是非标准化参数
 
-![](http://img.topjavaer.cn/img/jvm参数1.png)
+![](http://img.topjavaer.cn/img/20230327084105.png)
 
 意思就是说标准化参数不会变，非标准化参数可能在每个`JDK`版本中有所变化，但是就目前来看X开头的非标准化的参数改变的也是非常少。
 
@@ -31,7 +31,7 @@ X或者XX开头的都是非标准化参数
 
 `-XX:+PrintCommandLineFlags`查看当前`JVM`设置过的相关参数：
 
-![](http://img.topjavaer.cn/img/jvm参数2.png)
+![](http://img.topjavaer.cn/img/20230327084121.png)
 
 ## JVM参数分类
 

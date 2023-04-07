@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: TCP常见面试题总结
+category: 计算机基础
+tag:
+  - TCP
+head:
+  - - meta
+    - name: keywords
+      content: TCP面试题,三次握手,四次挥手,TCP协议,滑动窗口,粘包,TCP和UDP,TCP特点,TCP可靠性
+  - - meta
+    - name: description
+      content: TCP常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
 # TCP协议面试题
 
 ## 为什么需要TCP协议？

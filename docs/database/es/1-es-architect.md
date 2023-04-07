@@ -1,4 +1,19 @@
-## 面试题
+---
+sidebar: heading
+title: ES 的分布式架构原理
+category: 数据库
+tag:
+  - ES
+head:
+  - - meta
+    - name: keywords
+      content: es面试题,非关系型数据库,elastic search面试题,es,ES 的分布式架构原理
+  - - meta
+    - name: description
+      content: MongoDB常见知识点和面试题总结，让天下没有难背的八股文！
+---
+
+## ES 的分布式架构原理
 
 ES 的分布式架构原理能说一下么（ES 是如何实现分布式的啊）？
 
