@@ -151,7 +151,7 @@ sc -d cn.test.mobile.controller.order.OrderController
  classLoaderHash   18b4aac2
 ```
 
-###### 与之相应的还有sm( “Search-Method”  )，查看已加载类的方法信息
+与之相应的还有sm( “Search-Method”  )，查看已加载类的方法信息
 
 查看String里的方法
 

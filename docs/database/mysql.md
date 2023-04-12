@@ -1172,6 +1172,12 @@ canal的原理如下：
 
 如果是普通字段(没有索引/主键)，那么`select ..... for update`就会加表锁。
 
+## MySQL的binlog有几种格式？分别有什么区别？
 
+有三种格式，statement，row和mixed。
+
+- statement：每一条会修改数据的sql都会记录在binlog中。不需要记录每一行的变化，减少了binlog日志量，节约了IO，提高性能。由于sql的执行是有上下文的，因此在保存的时候需要保存相关的信息，同时还有一些使用了函数之类的语句无法被记录复制。
+- row：不记录sql语句上下文相关信息，仅保存哪条记录被修改。记录单元为每一行的改动，由于很多操作，会导致大量行的改动(比如alter table)，因此这种模式的文件保存的信息太多，日志量太大。
+- mixed：一种折中的方案，普通操作使用statement记录，当无法使用statement的时候使用row。
 
 ![](http://img.topjavaer.cn/img/20220612101342.png)
