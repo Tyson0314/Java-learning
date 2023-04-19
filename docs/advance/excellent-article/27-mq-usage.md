@@ -122,4 +122,16 @@ head:
 
 以上实际是消息队列的两种消息模式，点对点或发布订阅模式。模型为示意图，供参考。
 
-*本文转载自：https://www.cnblogs.com/ruiati/p/6649868.html*
+
+
+
+
+
+
+最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+[**Github地址**](https://github.com/Tyson0314/java-books)
