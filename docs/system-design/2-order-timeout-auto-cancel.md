@@ -22,7 +22,7 @@ sidebar: heading
 
 6、打卡学习，**大学自习室的氛围**，一起蜕变成长
 
-![](http://img.topjavaer.cn/img/星球优惠券-学习网站.png)
+![前面内容](http://img.topjavaer.cn/img/202304212238005.png)
 
 --分割线--
 
