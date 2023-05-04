@@ -100,6 +100,7 @@
 - [Java集合高频面试题](https://topjavaer.cn/java/java-collection.html)(推荐 :+1:)
 - [Java并发高频面试题](https://topjavaer.cn/java/java-concurrent.html)   (推荐 :+1:)
 - [JVM高频面试题](https://topjavaer.cn/java/jvm.html)(推荐 :+1:)
+- [Tomcat基础知识点总结](https://topjavaer.cn/web/tomcat.html)
 
 **Java重要知识点**
 
@@ -110,6 +111,7 @@
 - [面试官：反射是如何影响性能的？](https://topjavaer.cn/java/basic/reflect-affect-permance.html)
 - [面试官：详细说说你对序列化的理解？](https://topjavaer.cn/java/basic/serialization.html)
 - [感受 lambda 之美](https://mp.weixin.qq.com/s/xwvdtWdFbvmUYaRAAkIhvA)
+- [try-catch 捕获异常会影响性能吗？](https://mp.weixin.qq.com/s/iZAB3XzBCoKaJMW6X2jmzA)
 
 **JVM重要知识点**
 
@@ -146,6 +148,10 @@
 - [MySQL慢查询之慢 SQL 定位、日志分析与优化方案](https://mp.weixin.qq.com/s/XpEfv0M_ArMa69fnXugWig)
 - [MySQL 上亿大表如何优化？](https://mp.weixin.qq.com/s/YSlhVJYp9AhR_UZEJKH1Vg)
 - [字节一面：select......for update会锁表还是锁行？](https://mp.weixin.qq.com/s/FW6y8UXVDODG2ViiiWKfYQ)
+- [面试官：从 MySQL 读取 100w 数据进行处理，应该怎么做？](https://mp.weixin.qq.com/s/a8vgtTvdgAU6E9xOfm18nw)
+- [面试官：int(1) 和 int(10) 有什么区别？](https://mp.weixin.qq.com/s/0P1R2JqTWuPvmqEA2ttj_w)
+- [1000万的数据，怎么查询？](https://mp.weixin.qq.com/s/WJmwxDGg6fOfV6hJ300Diw)
+- [新同事竟然不懂 where 1=1 是什么意思？](https://mp.weixin.qq.com/s/DjocMG-lE4Swsq2gTvl_7g)
 
 ## Redis
 
@@ -164,6 +170,10 @@
 ## ElasticSearch
 
 - [ElasticSearch高频面试题](https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg)
+
+## MongoDB
+
+- [MongoDB高频面试题](https://topjavaer.cn/database/mongodb.html)
 
 # 框架
 
@@ -188,6 +198,7 @@
 
 - [SpringBoot自动装配原理](https://topjavaer.cn/advance/excellent-article/3-springboot-auto-assembly.html)
 - [SpringBoot如何解决跨域问题](https://topjavaer.cn/framework/springboot/springboot-cross-domain.html)
+- [SpringBoot项目启动优化实践](https://mp.weixin.qq.com/s/-WtrN3jD8pVXTHQ-kpwqQA)
 - [SpringBoot实现电子文件签字+合同系统](https://topjavaer.cn/framework/springboot/springboot-contract.html)
 
 ## Spring MVC
@@ -205,6 +216,11 @@
 [SpringCloud面试题](https://topjavaer.cn/framework/springcloud-interview.html)(推荐 :+1:)
 
 [SpringCloud总结](https://topjavaer.cn/framework/springcloud-overview.html)
+
+## Zookeeper
+
+- [Zookeeper面试题](https://topjavaer.cn/zookeeper/zk.html)
+- [Zookeeper有哪些使用场景？](https://topjavaer.cn/zookeeper/zk-usage.html)
 
 ## Netty
 
@@ -312,6 +328,7 @@
 - [如何设计一个高并发系统？](https://topjavaer.cn/advance/system-design/19-high-concurrent-system-design.html)
 - [分库分表平滑迁移](https://topjavaer.cn/advance/system-design/20-sharding-smooth-migration.html)
 - [10w级别数据Excel导入优化](https://topjavaer.cn/advance/system-design/21-excel-import.html)
+- [从3s到25ms！看看人家的接口优化技巧](https://mp.weixin.qq.com/s/vDD_FT6re249HlPvgR9TRw)
 
 # 安全
 
@@ -339,7 +356,10 @@
 - [8种架构模式](https://topjavaer.cn/advance/excellent-article/11-8-architect-pattern.html)
 - [几种常见的架构模式](https://topjavaer.cn/advance/excellent-article/20-architect-pattern.html)
 - [线上接口很慢怎么办？](https://topjavaer.cn/practice/service-performance-optimization.html)
-- [Zookeeper有哪些使用场景？](https://topjavaer.cn/zookeeper/zk-usage.html)
+- [不要再封装各种 Util 工具类了，这个神级框架值得拥有！](https://mp.weixin.qq.com/s/7VuxBrBcXsAoykcJyNRsvQ)
+- [怎样写出优雅的代码？](https://mp.weixin.qq.com/s/ph2pH4O1G_6YScGITaiJwg)
+- [BitMap牛逼在哪里？](https://mp.weixin.qq.com/s/jfRCHHh2D6wMAeyD7XLKxg)
+- [什么是雪花算法？啥原理？附 Java 实现！](https://mp.weixin.qq.com/s/1Kx55x3fYUs9afpeAzIUOg)
 
 # 工具
 

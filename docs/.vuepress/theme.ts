@@ -10,7 +10,7 @@ export default hopeTheme({
         url: "https://www.topjavaer.cn",
     },
 
-    iconAssets: "//at.alicdn.com/t/c/font_3573089_fuhvd5afpn.css",
+    iconAssets: "//at.alicdn.com/t/c/font_3573089_filjrbqsa8w.css",
     iconPrefix: "iconfont icon-",
     //iconAssets: "iconfont",
 

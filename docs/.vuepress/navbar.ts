@@ -33,62 +33,63 @@ export default navbar([
 			{
 				text: "Java",
 				children: [
-					{text: "基础", link: "/java/java-basic.md"},
-					{text: "集合", link: "/java/java-collection.md"},
-					{text: "并发", link: "/java/java-concurrent.md"},
-					{text: "JVM", link: "/java/jvm.md"},
-					{text: "Java8", link: "/java/java8"},
+					{text: "基础", link: "/java/java-basic.md", icon: "jihe"},
+					{text: "集合", link: "/java/java-collection.md", icon: "fuwuqi"},
+					{text: "并发", link: "/java/java-concurrent.md", icon: "bingfa"},
+					{text: "JVM", link: "/java/jvm.md", icon: "xuniji"},
+					{text: "Java8", link: "/java/java8.md", icon: "java"},
+					{text: "Tomcat", link: "/web/tomcat.md", icon: "TOMCAT"},
 				]
 			},
             {
                 text: "框架",
                 children: [
-                    {text: "Spring面试题", link: "/framework/spring.md"},
-                    {text: "SpringMVC面试题", link: "/framework/springmvc.md"},
-                    {text: "Mybatis面试题", link: "/framework/mybatis.md"},
-                    {text: "SpringBoot面试题", link: "/framework/springboot.md"},
-                    {text: "SpringCloud详解", link: "/framework/springcloud/"},
-                    {text: "SpringCloud面试题", link: "/framework/springcloud-interview.md"},
-                    {text: "ZooKeeper面试题", link: "/zookeeper/zk.md"},
-                    {text: "Netty详解", link: "/framework/netty/"},
+                    {text: "Spring面试题", link: "/framework/spring.md", icon: "bxl-spring-boot"},
+                    {text: "SpringMVC面试题", link: "/framework/springmvc.md", icon: "pingtai"},
+                    {text: "Mybatis面试题", link: "/framework/mybatis.md", icon: "wendang"},
+                    {text: "SpringBoot面试题", link: "/framework/springboot.md", icon: "bxl-spring-boot"},
+                    {text: "SpringCloud详解", link: "/framework/springcloud/", icon: "jihe"},
+                    {text: "SpringCloud面试题", link: "/framework/springcloud-interview.md", icon: "yun"},
+                    {text: "ZooKeeper面试题", link: "/zookeeper/zk.md", icon: "Zookeeper"},
+                    {text: "Netty详解", link: "/framework/netty/", icon: "fuwuqi"},
                 ]
             },
             {
                 text: "消息队列",
                 children: [
-                    {text: "消息队列面试题", link: "/message-queue/mq.md"},
-                    {text: "RabbitMQ面试题", link: "/message-queue/rabbitmq.md"},
-                    {text: "Kafka面试题", link: "/message-queue/kafka.md"},
+                    {text: "消息队列面试题", link: "/message-queue/mq.md", icon: "xiaoxiduilie"},
+                    {text: "RabbitMQ面试题", link: "/message-queue/rabbitmq.md", icon: "amqpxiaoxiduilie"},
+                    {text: "Kafka面试题", link: "/message-queue/kafka.md", icon: "Kafka"},
                 ]
             },
             {
                 text: "关系型数据库",
                 children: [
                     //{text: "MySQL基础", children: ["/database/mysql-basic/"],},
-                    {text: "MySQL基础", link: "/database/mysql-basic/"},
-                    {text: "MySQL面试题", link: "/database/mysql.md"},
-                    {text: "MySQL执行计划详解", link: "/database/mysql-execution-plan.md"},
+                    {text: "MySQL基础", link: "/database/mysql-basic/", icon: "jihe"},
+                    {text: "MySQL面试题", link: "/database/mysql.md", icon: "mysql"},
+                    {text: "MySQL执行计划详解", link: "/database/mysql-execution-plan.md", icon: "chayan"},
                 ]
             },
             {
                 text: "非关系型数据库",
                 children: [
-                    {text: "Redis基础", link: "/redis/redis-basic/"},
-                    {text: "Redis面试题", link: "/redis/redis.md"},
-                    {text: "MongoDB面试题", link: "/database/mongodb.md"},
-                    {text: "ElasticSearch面试题", link: "https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg"},
+                    {text: "Redis基础", link: "/redis/redis-basic/", icon: "jihe"},
+                    {text: "Redis面试题", link: "/redis/redis.md", icon: "Redis"},
+                    {text: "MongoDB面试题", link: "/database/mongodb.md", icon: "MongoDB"},
+                    {text: "ElasticSearch面试题", link: "https://mp.weixin.qq.com/s/Ffb8NDgavf9QAWYBm0qAVg", icon: "elastic"},
                 ]
             },
 			{
 				text: "计算机基础",
 				icon: "computer",
 				children: [
-					{text: "网络", link: "/computer-basic/network.md"},
-                    {text: "TCP专题", link: "/computer-basic/tcp.md"},
-					{text: "操作系统", link: "/computer-basic/operate-system.md"},
-					{text: "算法", link: "/computer-basic/algorithm.md"},
-					{text: "LeetCode题解", link: "/leetcode/hot120"},
-					{text: "数据结构", link: "/computer-basic/data-structure.md"},
+					{text: "网络", link: "/computer-basic/network.md", icon: "wangluo3"},
+                    {text: "TCP专题", link: "/computer-basic/tcp.md", icon: "wangluo1"},
+					{text: "操作系统", link: "/computer-basic/operate-system.md", icon: "os"},
+					{text: "算法", link: "/computer-basic/algorithm.md", icon: "suanfa"},
+					{text: "LeetCode题解", link: "/leetcode/hot120", icon: "leetcode"},
+					{text: "数据结构", link: "/computer-basic/data-structure.md", icon: "datastruct"},
 					//{
 					//    text: "关系型数据库",
 					//    children: [
@@ -184,32 +185,32 @@ export default navbar([
 				text: "分布式",
 				icon: "distribute",
 				children: [
-					{text: "全局唯一ID", link: "/advance/distributed/1-global-unique-id.md"},
-					{text: "分布式锁", link: "/advance/distributed/2-distributed-lock.md"},
-					{text: "RPC", link: "/advance/distributed/3-rpc.md"},
-					{text: "微服务", link: "/advance/distributed/4-micro-service.md"},
-					{text: "分布式架构", link: "/advance/distributed/5-distibuted-arch.md"},
-					{text: "分布式事务", link: "/advance/distributed/6-distributed-transaction.md"},
+					{text: "全局唯一ID", link: "/advance/distributed/1-global-unique-id.md", icon: "quanju"},
+					{text: "分布式锁", link: "/advance/distributed/2-distributed-lock.md", icon: "lock"},
+					{text: "RPC", link: "/advance/distributed/3-rpc.md", icon: "call"},
+					{text: "微服务", link: "/advance/distributed/4-micro-service.md", icon: "weifuwu"},
+					{text: "分布式架构", link: "/advance/distributed/5-distibuted-arch.md", icon: "jiagou"},
+					{text: "分布式事务", link: "/advance/distributed/6-distributed-transaction.md", icon: "transaction"},
 				]
 			},
 		    {
 				text: "高并发",
 				children: [
-					{text: "限流", link: "/advance/concurrent/1-current-limiting.md"},
-					{text: "负载均衡", link: "/advance/concurrent/2-load-balance.md"},
+					{text: "限流", link: "/advance/concurrent/1-current-limiting.md", icon: "bingfa"},
+					{text: "负载均衡", link: "/advance/concurrent/2-load-balance.md", icon: "balance"},
 				],
 			},
             {
 				text: "设计模式",
 				icon: "win",
 				children: [
-					{text: "设计模式详解", link: "/advance/design-pattern/"},
+					{text: "设计模式详解", link: "/advance/design-pattern/", icon: "design"},
 				],
 			},
 			{
                 text: "优质文章",
                 children: [
-                    {text: "优质文章汇总", link: "/advance/excellent-article"},
+                    {text: "优质文章汇总", link: "/advance/excellent-article", icon: "wenzhang"},
                 ]
             },
         ]
@@ -240,17 +241,17 @@ export default navbar([
             {
                 text: "开发工具",
                 children: [
-                    {text: "Git详解", link: "/tools/git/"},
-                    {text: "Maven详解", link: "/tools/maven/"},
-                    {text: "Docker详解", link: "/tools/docker/"},
-                    {text: "Linux常用命令", link: "/tools/linux"},
-					{text: "Nginx面试题", link: "https://mp.weixin.qq.com/s/SKKEeYxif0wWJo6n57rd6A"},
+                    {text: "Git详解", link: "/tools/git/", icon: "git1"},
+                    {text: "Maven详解", link: "/tools/maven/", icon: "jihe"},
+                    {text: "Docker详解", link: "/tools/docker/", icon: "docker1"},
+                    {text: "Linux常用命令", link: "/tools/linux", icon: "linux"},
+					{text: "Nginx面试题", link: "https://mp.weixin.qq.com/s/SKKEeYxif0wWJo6n57rd6A", icon: "nginx"},
                 ]
             },
             {
                 text: "编程利器",
                 children: [
-                    {text: "markdown编辑器", link: "/tools/typora-overview.md"},
+                    {text: "markdown编辑器", link: "/tools/typora-overview.md", icon: "markdown"},
                 ]
             },
         ]
@@ -262,15 +263,15 @@ export default navbar([
             {
                 text: "学习资源",
                 children: [
-                    {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books"},
-                    {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md"},
+                    {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books", icon: "book"},
+                    {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md", icon: "leetcode"},
                 ]
             },
             {
                 text: "学习路线",
                 children: [
-                    {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md"},
-                    {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md"},
+                    {text: "Java学习路线", link: "/learning-resources/java-learn-guide.md", icon: "java"},
+                    {text: "CS学习路线", link: "/learning-resources/cs-learn-guide.md", icon: "jisuanji"},
                 ]
             },
 
@@ -280,10 +281,10 @@ export default navbar([
         text: "关于",
         icon: "about",
         children: [
-            {text: "关于我", link: "/about/introduce.md"},
-            {text: "网站日记", link: "/other/site-diary.md"},
-            {text: "联系我", link: "/about/contact.md"},
-			{text: "留言区", link: "/other/leave-a-message.md"},
+            {text: "关于我", link: "/about/introduce.md", icon: "wode"},
+            {text: "网站日记", link: "/other/site-diary.md", icon: "riji"},
+            {text: "联系我", link: "/about/contact.md", icon: "lianxi"},
+			{text: "留言区", link: "/other/leave-a-message.md", icon: "liuyan"},
             //{
             //    text: "学习资源",
             //    children: [
