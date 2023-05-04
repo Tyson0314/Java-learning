@@ -3,7 +3,6 @@
 node_modules/
 *.bat
 *.sh
-web/
 .idea/
 *.py
 public/
