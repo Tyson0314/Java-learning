@@ -7,10 +7,10 @@ heroText: 程序员大彬
 tagline: 优质的编程学习网站
 actions:
   - text: 开始阅读
-    link: /java/java-basic.md
+    link: /java/java-basic.html
     type: primary
   - text: 学习圈子💡
-    link: /zsxq/introduce.md
+    link: /zsxq/introduce.html
     type: primary
 features:
   - title: 经典计算机书籍
