@@ -249,6 +249,20 @@ export default navbar([
                 ]
             },
             {
+                text: "在线工具",
+                children: [
+                    {text: "json", link: "https://www.json.cn/"},
+                    {text: "base64编解码", link: "https://c.runoob.com/front-end/693/"},
+                    {text: "时间戳转换", link: "https://www.beijing-time.org/shijianchuo/"},
+                    {text: "unicode转换", link: "https://www.fulimama.com/unicode/"},
+					{text: "正则表达式", link: "https://www.sojson.com/regex/"},
+                    {text: "md5加密", link: "https://www.toolkk.com/tools/md5-encrypt"},
+                    {text: "流程图工具", link: "https://app.diagrams.net/"},
+                    {text: "二维码", link: "https://cli.im/"},
+                    {text: "文本比对", link: "https://c.runoob.com/front-end/8006/"},
+                ]
+            },
+            {
                 text: "编程利器",
                 children: [
                     {text: "markdown编辑器", link: "/tools/typora-overview.md", icon: "markdown"},

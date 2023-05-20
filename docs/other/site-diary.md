@@ -25,8 +25,6 @@ sidebar: heading
 
 - 2022.11.20，新增[系统设计-短链系统](/advance/system-design/4-short-url.html)
 
-- 2022.11.20，新增[校招分享-双非本，非科班的自我救赎之路](/campus-recruit/share/1-23-backend.html)，[校招分享-秋招还没offer，该怎么办](/campus-recruit/share/2-no-offer.html)
-
 - 2022.11.14，[修复Java集合uml图错误](https://topjavaer.cn/java/java-collection.html#%E5%B8%B8%E8%A7%81%E7%9A%84%E9%9B%86%E5%90%88%E6%9C%89%E5%93%AA%E4%BA%9B)
 
 - 2022.11.12，[120道LeetCode题解（高频）](/leetcode/README.md)，已整理**58**道
