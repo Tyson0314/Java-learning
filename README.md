@@ -63,11 +63,14 @@
 
 # 精选资源
 
-- [200多本经典的计算机书籍](https://github.com/Tyson0314/java-books)
-- [谷歌师兄刷题笔记](https://t.1yb.co/A6id)（推荐 :+1:）
-- [BAT大佬总结的刷题手册](https://t.1yb.co/yMbo)（推荐 :+1:）
-- [Java优质项目推荐](https://www.zhihu.com/question/325011850/answer/2257046656)
-- [优质视频教程推荐](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd)（推荐 :+1:）
+- [200多本经典的计算机书籍，收藏吧](https://github.com/Tyson0314/java-books)
+- [谷歌师兄刷题笔记，支持Java、C++、Go三种语言！](https://t.1yb.co/A6id)（推荐 :+1:）
+- [刷题必备！BAT大佬总结的刷题手册！](https://t.1yb.co/yMbo)（推荐 :+1:）
+- [Github 上爆火的各种硬核技术学习路线思维导图 :star:](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247494513&idx=1&sn=de1a7cf0b5580840cb8ad4a96e618866&chksm=ce9b1637f9ec9f212d054018598b96b5277f7733fac8f985d8dae0074c8446a2cad8e43ba739#rd)
+- [图解操作系统、网络、计算机组成PDF下载！那些让你起飞的计算机基础知识 :star:](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247494510&idx=1&sn=b19d9e07321b8fca9129fe0d8403a426&chksm=ce9b1628f9ec9f3e7d45a6db8389ee2813864a9ca692238d29b139c35ccb01b08155bc2da358#rd)
+- [白嫖真的香！15个Java优质项目](https://www.zhihu.com/question/325011850/answer/2257046656)
+- [免费分享！字节大佬推荐的优质视频教程](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd)（推荐 :+1:）
+- [玩转ChatGPT手册限时免费分享:star:](https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247494344&idx=1&sn=d16f51e8bd3424f63e4fb6a5aa5ca4db&chksm=ce9b178ef9ec9e9841c7a049e4da0843c291b96f463e87190a6bf344c7022194ee393b695751#rd)
 
 # 经验分享
 

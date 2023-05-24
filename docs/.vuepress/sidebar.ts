@@ -122,13 +122,16 @@ export default sidebar({
             children: getChildren('./docs/campus-recruit', 'share'),
         },
     ],
-	"/mass-data": [
-        {
-            text: "海量数据",
-            collapsable: false,
-            children: getChildren('./docs', '/mass-data'),
-        },
-    ],
+	// "/mass-data": [
+    //     {
+    //         text: "海量数据",
+    //         collapsable: false,
+    //         // children: getChildren('./docs', '/mass-data'),
+    //         children: [
+    //             {text: "统计不同号码的个数", link: "/mass-data/1-count-phone-num.md"}
+    //         ]
+    //     },
+    // ],
 	
     //'/': "auto", //不能放在数组第一个，否则会导致右侧栏无法使用
     //"/",

@@ -37,7 +37,7 @@ export default navbar([
 					{text: "集合", link: "/java/java-collection.md", icon: "fuwuqi"},
 					{text: "并发", link: "/java/java-concurrent.md", icon: "bingfa"},
 					{text: "JVM", link: "/java/jvm.md", icon: "xuniji"},
-					{text: "Java8", link: "/java/java8.md", icon: "java"},
+					{text: "Java8", link: "/java/java8", icon: "java"},
 					{text: "Tomcat", link: "/web/tomcat.md", icon: "TOMCAT"},
 				]
 			},
@@ -146,14 +146,14 @@ export default navbar([
             {
                 text: "海量数据",
                 children: [
-                    {text: "统计不同号码的个数", link: "/mass-data/1-count-phone-num.md"},
-                    {text: "出现频率最高的100个词", link: "/mass-data/2-find-hign-frequency-word.md"},
-                    {text: "查找两个大文件共同的URL", link: "/mass-data/3-find-same-url.md"},
-                    {text: "如何在100亿数据中找到中位数？", link: "/mass-data/4-find-mid-num.md"},
-                    {text: "如何查询最热门的查询串？", link: "/mass-data/5-find-hot-string.md"},
-                    {text: "如何找出排名前 500 的数？", link: "/mass-data/6-top-500-num.md"},
-                    {text: "如何按照 query 的频度排序？", link: "/mass-data/7-query-frequency-sort.md"},
-                    {text: "大数据中 TopK 问题的常用套路", link: "/mass-data/8-topk-template.md"},
+                    {text: "统计不同号码的个数", link: "/mass-data/1-count-phone-num.md", icon: "phoneno"},
+                    {text: "出现频率最高的100个词", link: "/mass-data/2-find-hign-frequency-word.md", icon: "datastruct"},
+                    {text: "查找两个大文件共同的URL", link: "/mass-data/3-find-same-url.md", icon: "wenben"},
+                    {text: "如何在100亿数据中找到中位数？", link: "/mass-data/4-find-mid-num.md", icon: "bingfa"},
+                    {text: "如何查询最热门的查询串？", link: "/mass-data/5-find-hot-string.md", icon: "query"},
+                    {text: "如何找出排名前 500 的数？", link: "/mass-data/6-top-500-num.md", icon: "rank"},
+                    {text: "如何按照 query 的频度排序？", link: "/mass-data/7-query-frequency-sort.md", icon: "frequency"},
+                    {text: "大数据中 TopK 问题的常用套路", link: "/mass-data/8-topk-template.md", icon: "bigdata"},
                 ]
             },
             {
@@ -167,18 +167,18 @@ export default navbar([
                 //	{text: "单点登录设计与实现", link: "/advance/system-design/8-sso-design.md"},
                 //]
                 children: [
-                    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md"},
-                    {text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md"},
-                    {text: "短链系统设计", link: "/advance/system-design/README.md"},
-                    {text: "微信红包系统如何设计？", link: "/advance/system-design/README.md"},
-                    {text: "单点登录设计与实现", link: "/advance/system-design/README.md"},
-                    {text: "如何用 Redis 统计用户访问量？", link: "/advance/system-design/README.md"},
-                    {text: "实时订阅推送设计与实现", link: "/advance/system-design/README.md"},
-                    {text: "如何设计一个抢红包系统", link: "/advance/system-design/README.md"},
-                    {text: "购物车系统怎么设计？", link: "/advance/system-design/README.md"},
-                    {text: "如何设计一个注册中心？", link: "/advance/system-design/README.md"},
-                    {text: "如何设计一个高并发系统？", link: "/advance/system-design/README.md"},
-                    {text: "10w级别数据Excel导入怎么优化？", link: "/advance/system-design/README.md"},
+                    {text: "扫码登录设计", link: "/advance/system-design/1-scan-code-login.md", icon: "scan"},
+                    {text: "超时订单自动取消", link: "/advance/system-design/2-order-timeout-auto-cancel.md", icon: "timeout"},
+                    {text: "短链系统设计", link: "/advance/system-design/README.md", icon: "lianjie"},
+                    {text: "微信红包系统如何设计？", link: "/advance/system-design/README.md", icon: "hongbao"},
+                    {text: "单点登录设计与实现", link: "/advance/system-design/README.md", icon: "login"},
+                    {text: "如何用 Redis 统计用户访问量？", link: "/advance/system-design/README.md", icon: "visit"},
+                    {text: "实时订阅推送设计与实现", link: "/advance/system-design/README.md", icon: "tongzhi"},
+                    {text: "如何设计一个抢红包系统", link: "/advance/system-design/README.md", icon: "hongbao1"},
+                    {text: "购物车系统怎么设计？", link: "/advance/system-design/README.md", icon: "shopcar"},
+                    {text: "如何设计一个注册中心？", link: "/advance/system-design/README.md", icon: "zhuce"},
+                    {text: "如何设计一个高并发系统？", link: "/advance/system-design/README.md", icon: "xitong"},
+                    {text: "10w级别数据Excel导入怎么优化？", link: "/advance/system-design/README.md", icon: "excel"},
                 ]
             },
 		    {
@@ -279,6 +279,10 @@ export default navbar([
                 children: [
                     {text: "计算机经典电子书PDF", link: "https://github.com/Tyson0314/java-books", icon: "book"},
                     {text: "Leetcode刷题笔记", link: "/learning-resources/leetcode-note.md", icon: "leetcode"},
+					{text: "技术学习路线思维导图", link: "https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247494513&idx=1&sn=de1a7cf0b5580840cb8ad4a96e618866&chksm=ce9b1637f9ec9f212d054018598b96b5277f7733fac8f985d8dae0074c8446a2cad8e43ba739#rd", icon: "route"},
+					{text: "图解操作系统、网络、计算机系列", link: "https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247494510&idx=1&sn=b19d9e07321b8fca9129fe0d8403a426&chksm=ce9b1628f9ec9f3e7d45a6db8389ee2813864a9ca692238d29b139c35ccb01b08155bc2da358#rd", icon: "computer"},
+					{text: "优质视频教程", link: "https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247487149&idx=1&sn=aa883c9f020945d3f210550bd688c7d0&chksm=ce98f3ebf9ef7afdae0b37c4d0751806b0fbbf08df783fba536e5ec20ec6a6e1512198dc6206&token=104697471&lang=zh_CN#rd", icon: "video"},
+					{text: "ChatGPT手册", link: "https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247494344&idx=1&sn=d16f51e8bd3424f63e4fb6a5aa5ca4db&chksm=ce9b178ef9ec9e9841c7a049e4da0843c291b96f463e87190a6bf344c7022194ee393b695751#rd", icon: "ai"},
                 ]
             },
             {
