@@ -18,20 +18,22 @@ head:
 
 # Spring Cloud核心知识总结
 
-下面是一张Spring Cloud核心组件关系图：
-
 ![](http://img.topjavaer.cn/img/springcloud1.png)
 
 
-
-从这张图中，其实我们是可以获取很多信息的，希望大家细细品尝。
-
-话不多说，我们直接开始 Spring Cloud 连环炮。
 
 
 ## 1、什么是Spring Cloud ？
 
 Spring cloud 流应用程序启动器是基于 Spring Boot 的 Spring 集成应用程序，提供与外部系统的集成。Spring cloud Task，一个生命周期短暂的微服务框架，用于快速构建执行有限数据处理的应用程序。
+
+## spring、 springboot、 springcloud 的区别是什么？
+
+Spring是一个生态体系（也可以说是技术体系），是集大成者，它包含了Spring Framework、Spring Boot、Spring Cloud等。
+
+Spring Boot是基于 Spring 框架开发的用于开发 Web 应用程序的框架，它帮助开发人员快速搭建和配置一个独立的、可执行的、基于 Spring 的应用程序，从而减少了繁琐和重复的配置工作。
+
+Spring Cloud事实上是一整套基于Spring Boot的微服务解决方案。它为开发者提供了很多工具，用于快速构建分布式系统的一些通用模式，例如：配置管理、注册中心、服务发现、限流、网关、链路追踪等。Spring Boot是build anything，而Spring Cloud是coordinate anything，Spring Cloud的每一个微服务解决方案都是基于Spring Boot构建的。
 
 ## 2、什么是微服务？
 

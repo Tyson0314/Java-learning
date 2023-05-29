@@ -13,23 +13,12 @@ head:
       content: 高质量的Java并发常见知识点和面试题总结，让天下没有难背的八股文！
 ---
 
-> 欢迎加入[大彬的学习圈](https://topjavaer.cn/zsxq/introduce.html)，学习圈整理了最新的**Java面试手册完整版**（本网站的面试题补充版，更全面），还有很多其他**优质资料**，比如包括Java项目、进阶知识、实战经验总结、优质书籍、笔试面试资源等等。
->
-> ![](http://img.topjavaer.cn/img/image-20230102194032026.png)
->
-> ![](http://img.topjavaer.cn/img/image-20221229145413500.png)
->
-> ![](http://img.topjavaer.cn/img/image-20221229145455706.png)
->
-> **专属一对一的提问答疑**，帮你解答各种疑难问题，包括自学Java路线、职业规划、面试问题等等。大彬会**优先解答**球友的问题。
->
-> ![](http://img.topjavaer.cn/img/image-20230102210715391.png)
->
-> ![](http://img.topjavaer.cn/img/描述能体现自己编程能力的代码.png)
->
-> [大彬的学习圈](https://topjavaer.cn/zsxq/introduce.html)**加入方式**：
->
-> ![前面内容](http://img.topjavaer.cn/img/202304212238005.png)
+::: tip 这是一则或许对你有帮助的信息
+
+- **面试手册**：这是一份大彬精心整理的[**大厂面试手册**](https://topjavaer.cn/zsxq/mianshishouce.html)最新版，目前已经更新迭代了**19**个版本，质量很高（专为面试打造）
+- **知识星球**：**专属面试手册/一对一交流/简历修改/超棒的学习氛围/学习路线规划**，欢迎加入[大彬的知识星球](https://topjavaer.cn/zsxq/introduce.html)（点击链接查看星球的详细介绍）
+
+:::
 
 ## 线程池
 
