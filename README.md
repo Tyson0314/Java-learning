@@ -377,9 +377,10 @@
 
 如果想进**技术、面试交流群**，可以扫描下方二维码加我微信，**备注加群**，我拉你进群，群里有BAT大佬，互相学习~
 
-<div align="center"><img src="http://img.dabin-coder.cn/image/个人微信索隆.jpg" style="zoom:60%;" />
+<div align="center"><img src="http://img.topjavaer.cn/img/202306241420398.png" style="zoom:60%;" />
     <p></p>
 </div>
+
 
 
 
