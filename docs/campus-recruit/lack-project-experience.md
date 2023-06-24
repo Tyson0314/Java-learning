@@ -50,7 +50,7 @@ https://github.com/newbee-ltd/newbee-mall
 
 newbee-mall 项目是一套电商系统，包括 newbee-mall 商城系统及 newbee-mall-admin 商城后台管理系统，基于 Spring Boot 2.X 及相关技术栈开发。 前台商城系统包含首页门户、商品分类、新品上线、首页轮播、商品推荐、商品搜索、商品展示、购物车、订单结算、订单流程、个人订单管理、会员中心、帮助中心等模块。 后台管理系统包含数据面板、轮播图管理、商品管理、订单管理、会员管理、分类管理、设置等模块。
 
-![](http://img.dabin-coder.cn/image/image-20210827001950033.png)
+![](http://img.topjavaer.cn/image/image-20210827001950033.png)
 
 ## litemall
 
@@ -70,17 +70,19 @@ https://github.com/linlinjava/litemall
 - 优惠券列表、优惠券选择
 - ...
 
-![](http://img.dabin-coder.cn/image/litemall.png)
+![](http://img.topjavaer.cn/image/litemall.png)
 
-![](http://img.dabin-coder.cn/image/litemall01.png)
+![](http://img.topjavaer.cn/image/litemall01.png)
 
-在这里也分享一份非常棒的Java学习笔记，**Github标星137k+**！这份笔记主要Java基础、容器、Java IO、并发和虚拟机等内容，排版精良，内容更是无可挑剔。
+在这里也分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
 
-![](https://pic3.zhimg.com/80/v2-cdfb49d3d6562191415ae9771055807a_720w.jpg)
+![](http://img.topjavaer.cn/image/image-20211127150136157.png)
 
-需要的小伙伴可自行下载：
+![](http://img.topjavaer.cn/image/image-20220316234337881.png)
 
-http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=100000392&idx=1&sn=f6c8e84651ce48f6ef5b0d496f0f6adf&chksm=4e98ffce79ef76d8dcebdc4787ae8b37760ec193574da9036e46954ae8954ebd56c78792726f#rd
+需要的小伙伴可以自行**下载**：
+
+http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 ## eladmin
 
@@ -96,9 +98,9 @@ https://github.com/elunez/eladmin
 
 使用的技术栈也比较新，给作者点赞！
 
-![](http://img.dabin-coder.cn/image/image-20210826235913747.png)
+![](http://img.topjavaer.cn/image/image-20210826235913747.png)
 
-![](http://img.dabin-coder.cn/image/image-20210826235952292.png)
+![](http://img.topjavaer.cn/image/image-20210826235952292.png)
 
 ## vhr
 
@@ -108,7 +110,7 @@ https://github.com/lenve/vhr
 
 微人事是一个前后端分离的人力资源管理系统，项目采用SpringBoot+Vue开发。项目加入常见的企业级应用所涉及到的技术点，例如 Redis、RabbitMQ 等。
 
-![](http://img.dabin-coder.cn/image/vhr01.png)
+![](http://img.topjavaer.cn/image/vhr01.png)
 
 ## My-Blog
 
@@ -118,7 +120,7 @@ https://github.com/ZHENFENG13/My-Blog
 
 My Blog 是由 SpringBoot + Mybatis + Thymeleaf 等技术实现的 Java 博客系统，页面美观、功能齐全、部署简单及完善的代码，一定会给使用者无与伦比的体验！
 
-![](http://img.dabin-coder.cn/image/my-blog.png)
+![](http://img.topjavaer.cn/image/my-blog.png)
 
 
 
@@ -130,7 +132,7 @@ https://github.com/saysky/ForestBlog
 
 一个简单漂亮的SSM(Spring+SpringMVC+Mybatis)博客系统。该博客是基于SSM实现的个人博客系统，适合初学SSM和个人博客制作的同学学习。
 
-![](http://img.dabin-coder.cn/image/forest_blog.png)
+![](http://img.topjavaer.cn/image/forest_blog.png)
 
 ## Blog
 
@@ -140,7 +142,7 @@ https://github.com/zhisheng17/blog
 
 `My-Blog` 使用的是 Docker + SpringBoot + Mybatis + thymeleaf 打造的一个个人博客模板。此项目在 [Tale](https://github.com/otale/tale) 博客系统基础上进行修改的。
 
-![](http://img.dabin-coder.cn/image/blog.png)
+![](http://img.topjavaer.cn/image/blog.png)
 
 ## community
 
@@ -150,7 +152,7 @@ https://github.com/codedrinker/community
 
 码问社区。开源论坛、问答系统，现有功能提问、回复、通知、最新、最热、消除零回复功能。技术栈 Spring、Spring Boot、MyBatis、MySQL/H2、Bootstrap。
 
-![](http://img.dabin-coder.cn/image/image-20210826234936711.png)
+![](http://img.topjavaer.cn/image/image-20210826234936711.png)
 
 
 
@@ -179,7 +181,7 @@ V部落，Vue+SpringBoot实现的多用户博客管理平台！
 5.mavon-editor
 6.vue-router
 
-![](http://img.dabin-coder.cn/image/20220505162337.png)
+![](http://img.topjavaer.cn/img/202306241059444.png)
 
 ## gpmall
 
@@ -191,9 +193,9 @@ https://github.com/2227324689/gpmall
 
 后端的主要架构是基于springboot+dubbo+mybatis。
 
-![](http://img.dabin-coder.cn/image/20220505162427.png)
+![](http://img.topjavaer.cn/image/20220505162427.png)
 
-![](http://img.dabin-coder.cn/image/20220505162154.png)
+![](http://img.topjavaer.cn/image/20220505162154.png)
 
 ## guns
 
@@ -207,7 +209,7 @@ Guns基于**插件化架构**，在建设系统时，可以自由组合细粒度
 
 使用Guns可以快速开发出各类信息化管理系统，例如OA办公系统、项目管理系统、商城系统、供应链系统、客户关系管理系统等。
 
-![](http://img.dabin-coder.cn/image/20220505162031.png)
+![](http://img.topjavaer.cn/image/20220505162031.png)
 
 ## music-website
 
@@ -219,7 +221,7 @@ https://github.com/Yin-Hongwei/music-website
 
 前端技术栈：Vue3.0 + TypeScript + Vue-Router + Vuex + Axios + ElementPlus + Echarts。
 
-![](http://img.dabin-coder.cn/image/20220505161944.jpg)
+![](http://img.topjavaer.cn/image/20220505161944.jpg)
 
 
 

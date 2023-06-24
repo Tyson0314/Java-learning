@@ -1053,6 +1053,15 @@ public class B extends A {
 - finally 是异常处理语句结构的一部分，一般以`try-catch-finally`出现，`finally`代码块表示总是被执行。
 - finalize 是Object类的一个方法，该方法一般由垃圾回收器来调用，当我们调用`System.gc()`方法的时候，由垃圾回收器调用`finalize()`方法，回收垃圾，JVM并不保证此方法总被调用。
 
+## Java中的finally一定会被执行吗？
+
+答案是不一定。
+
+有以下两种情况finally不会被执行：
+
+- 程序未执行到try代码块
+- 如果当一个线程在执行 try 语句块或者 catch 语句块时被打断（interrupted）或者被终止（killed），与其相对应的 finally 语句块可能不会执行。还有更极端的情况，就是在线程运行 try 语句块或者 catch 语句块时，突然死机或者断电，finally 语句块肯定不会执行了。
+
 ## final关键字的作用？
 
 - final 修饰的类不能被继承。
