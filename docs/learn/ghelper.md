@@ -1,4 +1,17 @@
-# 科学上网教程
+---
+sidebar: heading
+title: 科学上网教程
+category: 工具
+tag:
+  - 工具
+head:
+  - - meta
+    - name: keywords
+      content: ghelper
+  - - meta
+    - name: description
+      content: 提高工作效率的工具
+---
 
 
 
@@ -64,10 +77,16 @@ Ghelper可以在google play商店进行下载，需要访问google商店，无�
 
 
 
->  最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、架构、分布式、微服务、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
 
-![](http://img.topjavaer.cn/img/Image.png)
 
-![](http://img.topjavaer.cn/img/image-20221030094126118.png)
+最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
 
-**Github地址**：https://github.com/Tyson0314/java-books
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+[**Github地址**](https://github.com/Tyson0314/java-books)
+
+如果访问不了Github，可以访问码云地址。
+
+[码云地址](https://gitee.com/tysondai/java-books)
