@@ -231,6 +231,14 @@ executor提供一个原生函数isTerminated()来判断线程池中的任务是�
 - 调用new Thread()创建的线程缺乏管理，可以无限制的创建，线程之间的相互竞争会导致过多占用系统资源而导致系统瘫痪
 - 直接使用new Thread()启动的线程不利于扩展，比如定时执行、定期执行、定时定期执行、线程中断等都不好实现
 
+## execute和submit的区别
+
+execute只能提交Runnable类型的任务，无返回值。submit既可以提交Runnable类型的任务，也可以提交Callable类型的任务，会有一个类型为Future的返回值，但当任务类型为Runnable时，返回值为null。
+
+execute在执行任务时，如果遇到异常会直接抛出，而submit不会直接抛出，只有在使用Future的get方法获取返回值时，才会抛出异常
+
+execute所属顶层接口是Executor，submit所属顶层接口是ExecutorService，实现类ThreadPoolExecutor重写了execute方法，抽象类AbstractExecutorService重写了submit方法。
+
 ## 进程线程
 
 进程是指一个内存中运行的应用程序，每个进程都有自己独立的一块内存空间。
@@ -1237,5 +1245,116 @@ poll的时间复杂度O(n)。poll本质上和select没有区别，它将用户�
 epoll的时间复杂度O(1)。epoll可以理解为event poll，不同于忙轮询和无差别轮询，epoll会把哪个流发生了怎样的I/O事件通知我们。所以我们说epoll实际上是事件驱动的。
 
 > 参考链接：https://blog.csdn.net/u014209205/article/details/80598209
+
+## ReadWriteLock 和 StampedLock 的区别
+
+在多线程编程中，对于共享资源的访问控制是一个非常重要的问题。在并发环境下，多个线程同时访问共享资源可能会导致数据不一致的问题，因此需要一种机制来保证数据的一致性和并发性。
+
+Java提供了多种机制来实现并发控制，其中 ReadWriteLock 和 StampedLock 是两个常用的锁类。本文将分别介绍这两个类的特性、使用场景以及示例代码。
+
+**ReadWriteLock**
+
+ReadWriteLock 是Java提供的一个接口，全类名：`java.util.concurrent.locks.ReentrantLock`。它允许多个线程同时读取共享资源，但只允许一个线程写入共享资源。这种机制可以提高读取操作的并发性，但写入操作需要独占资源。
+
+**特性**
+
+- 多个线程可以同时获取读锁，但只有一个线程可以获取写锁。
+- 当一个线程持有写锁时，其他线程无法获取读锁和写锁，读写互斥。
+- 当一个线程持有读锁时，其他线程可以同时获取读锁，读读共享。
+
+**使用场景**
+
+**ReadWriteLock** 适用于读多写少的场景，例如缓存系统、数据库连接池等。在这些场景中，读取操作占据大部分时间，而写入操作较少。
+
+**示例代码**
+
+下面是一个使用 ReadWriteLock 的示例，实现了一个简单的缓存系统：
+
+```java
+public class Cache {
+    private Map<String, Object> data = new HashMap<>();
+    private ReadWriteLock lock = new ReentrantReadWriteLock();
+
+    public Object get(String key) {
+        lock.readLock().lock();
+        try {
+            return data.get(key);
+        } finally {
+            lock.readLock().unlock();
+        }
+    }
+
+    public void put(String key, Object value) {
+        lock.writeLock().lock();
+        try {
+            data.put(key, value);
+        } finally {
+            lock.writeLock().unlock();
+        }
+    }
+}
+```
+
+在上述示例中，Cache 类使用 ReadWriteLock 来实现对 data 的并发访问控制。get 方法获取读锁并读取数据，put 方法获取写锁并写入数据。
+
+**StampedLock**
+
+StampedLock 是Java 8 中引入的一种新的锁机制，全类名：`java.util.concurrent.locks.StampedLock`，它提供了一种乐观读的机制，可以进一步提升读取操作的并发性能。
+
+**特性**
+
+- 与 ReadWriteLock 类似，StampedLock 也支持多个线程同时获取读锁，但只允许一个线程获取写锁。
+- 与 ReadWriteLock 不同的是，StampedLock 还提供了一个乐观读锁（Optimistic Read Lock），即不阻塞其他线程的写操作，但在读取完成后需要验证数据的一致性。
+
+**使用场景**
+
+StampedLock 适用于读远远大于写的场景，并且对数据的一致性要求不高，例如统计数据、监控系统等。
+
+**示例代码**
+
+下面是一个使用 StampedLock 的示例，实现了一个计数器：
+
+```java
+public class Counter {
+    private int count = 0;
+    private StampedLock lock = new StampedLock();
+
+    public int getCount() {
+        long stamp = lock.tryOptimisticRead();
+        int value = count;
+        if (!lock.validate(stamp)) {
+            stamp = lock.readLock();
+            try {
+                value = count;
+            } finally {
+                lock.unlockRead(stamp);
+            }
+        }
+        return value;
+    }
+
+    public void increment() {
+        long stamp = lock.writeLock();
+        try {
+            count++;
+        } finally {
+            lock.unlockWrite(stamp);
+        }
+    }
+}
+```
+
+在上述示例中，Counter 类使用 StampedLock 来实现对计数器的并发访问控制。getCount 方法首先尝试获取乐观读锁，并读取计数器的值，然后通过 validate 方法验证数据的一致性。如果验证失败，则获取悲观读锁，并重新读取计数器的值。increment 方法获取写锁，并对计数器进行递增操作。
+
+**总结**
+
+**ReadWriteLock** 和 **StampedLock** 都是Java中用于并发控制的重要机制。
+
+- **ReadWriteLock** 适用于读多写少的场景;
+- **StampedLock** 则适用于读远远大于写的场景，并且对数据的一致性要求不高;
+
+在实际应用中，我们需要根据具体场景来选择合适的锁机制。通过合理使用这些锁机制，我们可以提高并发程序的性能和可靠性。
+
+
 
 ![](http://img.topjavaer.cn/img/20220612101342.png)

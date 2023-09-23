@@ -181,6 +181,8 @@ public class RedisTest {
 
 前面的方案是基于**Redis单机版**的分布式锁讨论，还不是很完美。因为Redis一般都是集群部署的。
 
+![](http://img.topjavaer.cn/img/202308202338736.png)
+
 如果线程一在`Redis`的`master`节点上拿到了锁，但是加锁的`key`还没同步到`slave`节点。恰好这时，`master`节点发生故障，一个`slave`节点就会升级为`master`节点。线程二就可以顺理成章获取同个`key`的锁啦，但线程一也已经拿到锁了，锁的安全性就没了。
 
 为了解决这个问题，Redis作者antirez提出一种高级的分布式锁算法：**Redlock**。它的核心思想是这样的：
@@ -188,6 +190,8 @@ public class RedisTest {
 部署多个Redis master，以保证它们不会同时宕掉。并且这些master节点是完全相互独立的，相互之间不存在数据同步。同时，需要确保在这多个master实例上，是与在Redis单实例，使用相同方法来获取和释放锁。
 
 我们假设当前有5个Redis master节点，在5台服务器上面运行这些Redis实例。
+
+![](http://img.topjavaer.cn/img/202308202339712.png)
 
 RedLock的实现步骤:
 
@@ -203,6 +207,8 @@ RedLock的实现步骤:
 - 根据设置的超时时间来判断，是不是要跳过该master节点。
 - 如果大于等于3个节点加锁成功，并且使用的时间小于锁的有效期，即可认定加锁成功啦。
 - 如果获取锁失败，解锁！
+
+Redisson 实现了 redLock 版本的锁，有兴趣的小伙伴，可以去了解一下。
 
 ### 基于ZooKeeper的实现方式
 

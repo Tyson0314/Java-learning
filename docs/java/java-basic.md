@@ -274,6 +274,8 @@ Integer x = 1; // 装箱 调⽤ Integer.valueOf(1)
 int y = x; // 拆箱 调⽤了 X.intValue()
 ```
 
+## 两个Integer 用== 比较不相等的原因
+
 下面看一道常见的面试题：
 
 ```java
