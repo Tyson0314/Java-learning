@@ -8,6 +8,10 @@ sidebar: heading
 
 ## 更新记录
 
+- 2023.12.28，[增加源码解析模块，包含Sprign/SpringMVC/MyBatis（更新中）](/source/mybatis/1-overview.html)。
+
+- 2023.12.28，[遭受黑客攻击，植入木马程序](/zsxq/article/site-hack.html)。
+
 - 2023.08.10，分布式锁实现-[RedLock](http://topjavaer.cn/advance/distributed/2-distributed-lock.html)补充图片
 
 - 2023.05.04，导航栏增加图标。

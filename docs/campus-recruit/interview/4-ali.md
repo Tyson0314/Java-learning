@@ -48,6 +48,18 @@
 24. 操作系统的内存管理的页面淘汰 算法 ，介绍下LRU（最近最少使用算法 ）
 25. B+树的特点与优势
 
+> 分享一份大彬精心整理的大厂面试手册，包含计**算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> 链接：https://pan.xunlei.com/s/VNgU60NQQNSDaEy9z955oufbA1?pwd=y9fy#
+>
+> 备用链接：https://pan.quark.cn/s/cbbb681e7c19
+
 ## 面经3
 
 - 自我介绍，说简历里没有的东西
@@ -74,6 +86,14 @@
 - 服务注册的时候发现没有注册成功会是什么原因。
 - 讲讲你认为的rpc和service mesh之间的关系。
 
-**最后给大家分享一份精心整理的大厂高频面试题PDF，需要的小伙伴可以自行下载：**
 
-[大厂面试手册](http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd)
+
+最后给大家分享**200多本计算机经典书籍PDF电子书**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，感兴趣的小伙伴可以自取：
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+**200多本计算机经典书籍PDF电子书**：https://pan.xunlei.com/s/VNlmlh9jBl42w0QH2l4AJaWGA1?pwd=j8eq#
+
+备用链接：https://pan.quark.cn/s/3f1321952a16

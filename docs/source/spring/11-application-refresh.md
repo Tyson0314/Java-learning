@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,容器刷新,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 **正文**
 
 在之前的博文中我们一直以BeanFactory接口以及它的默认实现类XmlBeanFactory为例进行分析，但是Spring中还提供了另一个接口ApplicationContext，用于扩展BeanFactory中现有的功能。
@@ -15,6 +30,8 @@ ApplicationContext bf = new ClassPathXmlApplicationContext("beanFactoryTest.xml"
 ```
 
 接下来我们就以ClassPathXmlApplicationContext作为切入点，开始对整体功能进行分析。首先看下其构造函数：
+
+> [最全面的Java面试网站](https://topjavaer.cn)
 
 ```java
 public ClassPathXmlApplicationContext() {
@@ -170,6 +187,16 @@ spring之所以强大，为世人所推崇，除了它功能上为大家提供�
 （12）完成刷新过程，通知生命周期处理器lifecycleProcessor刷新过程，同时发出ContextRefreshEvent通知别人。
 
 接下来我们就详细的讲解每一个过程
+
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 ## prepareRefresh刷新上下文的准备工作
 
@@ -1162,3 +1189,15 @@ protected void finishRefresh() {
     LiveBeansView.registerApplicationContext(this);
 }
 ```
+
+
+
+分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+
+![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+
+![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+
+需要的小伙伴可以自行**下载**：
+
+http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd

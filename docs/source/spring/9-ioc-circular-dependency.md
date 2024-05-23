@@ -1,3 +1,17 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,循环依赖,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
 ## **什么是循环依赖**
 
 循环依赖其实就是循环引用，也就是两个或则两个以上的bean互相持有对方，最终形成闭环。比如A依赖于B，B依赖于C，C又依赖于A。如下图所示：
@@ -5,6 +19,8 @@
 ![](http://img.topjavaer.cn/img/202309210848022.png)
 
 注意，这里不是函数的循环调用，是对象的相互依赖关系。循环调用其实就是一个死循环，除非有终结条件。
+
+> [最全面的Java面试网站](https://topjavaer.cn)
 
 Spring中循环依赖场景有：
 
@@ -55,6 +71,16 @@ private final Map<String, ObjectFactory<?>> singletonFactories = new HashMap<>(1
 
 private final Map<String, Object> earlySingletonObjects = new HashMap<>(16);
 ```
+
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 这三级缓存分别指：
 

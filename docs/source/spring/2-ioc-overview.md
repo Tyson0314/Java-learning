@@ -1,3 +1,18 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,源码分析,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 ## 概述
 
 上一篇我们了解了Spring的整体架构，这篇我们开始真正的阅读Spring源码。在分析spring的源码之前，我们先来简单回顾下spring核心功能的简单使用。

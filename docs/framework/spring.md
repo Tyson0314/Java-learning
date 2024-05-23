@@ -102,6 +102,18 @@ AOP有两种实现方式：静态代理和动态代理。
 
 动态代理：代理类在程序运行时创建，AOP框架不会去修改字节码，而是在内存中临时生成一个代理对象，在运行期间对业务方法进行增强，不会生成新类。
 
+> 分享一份大彬精心整理的大厂面试手册，包含计**算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> 链接：https://pan.xunlei.com/s/VNgU60NQQNSDaEy9z955oufbA1?pwd=y9fy#
+>
+> 备用链接：https://pan.quark.cn/s/cbbb681e7c19
+
 ## Spring AOP的实现原理
 
 `Spring`的`AOP`实现原理其实很简单，就是通过**动态代理**实现的。如果我们为`Spring`的某个`bean`配置了切面，那么`Spring`在创建这个`bean`的时候，实际上创建的是这个`bean`的一个代理对象，我们后续对`bean`中方法的调用，实际上调用的是代理类重写的代理方法。而`Spring`的`AOP`使用了两种动态代理，分别是**JDK的动态代理**，以及**CGLib的动态代理**。
@@ -976,5 +988,15 @@ Spring常用的注入方式有：属性注入, 构造方法注入, set 方法注
 如果要使用属性注入的话，可以使用 `@Resource` 代替 `@Autowired` 注解。@Resource默认是按照名称匹配（ByName），如果找不到则是ByType注入。另外，@Autowired是Spring提供的，@Resource是JSR-250提供的，是Java标准，我们使用的IoC容器会去兼容它，这样即使更换容器，也可以正常工作。
 
 
+
+> 最后给大家分享**200多本计算机经典书籍PDF电子书**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，感兴趣的小伙伴可以自取：
+>
+> ![](http://img.topjavaer.cn/image/Image.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+>
+> **200多本计算机经典书籍PDF电子书**：https://pan.xunlei.com/s/VNlmlh9jBl42w0QH2l4AJaWGA1?pwd=j8eq#
+>
+> 备用链接：https://pan.quark.cn/s/3f1321952a16
 
 ![](http://img.topjavaer.cn/img/20220612101342.png)

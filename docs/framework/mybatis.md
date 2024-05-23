@@ -27,6 +27,17 @@ head:
 - MyBatis作为持久层框架，其主要思想是将程序中的大量SQL语句剥离出来，配置在配置文件当中，实现SQL的灵活配置。
 - 这样做的好处是将SQL与程序代码分离，可以在不修改代码的情况下，直接在配置文件当中修改SQL。
 
+## 为什么使用Mybatis代替JDBC？
+
+MyBatis 是一种优秀的 ORM（Object-Relational Mapping）框架，与 JDBC 相比，有以下几点优势：
+
+1. 简化了 JDBC 的繁琐操作：使用 JDBC 进行数据库操作需要编写大量的样板代码，如获取连接、创建 Statement/PreparedStatement，设置参数，处理结果集等。而使用 MyBatis 可以将这些操作封装起来，通过简单的配置文件和 SQL 语句就能完成数据库操作，从而大大简化了开发过程。
+2. 提高了 SQL 的可维护性：使用 JDBC 进行数据库操作，SQL 语句通常会散布在代码中的各个位置，当 SQL 语句需要修改时，需要找到所有使用该语句的地方进行修改，这非常不方便，也容易出错。而使用 MyBatis，SQL 语句都可以集中在配置文件中，可以更加方便地修改和维护，同时也提高了 SQL 语句的可读性。
+3. 支持动态 SQL：MyBatis 提供了强大的动态 SQL 功能，可以根据不同的条件生成不同的 SQL 语句，这对于复杂的查询操作非常有用。
+4. 易于集成：MyBatis 可以与 Spring 等流行的框架集成使用，可以通过 XML 或注解配置进行灵活的配置，同时 MyBatis 也提供了非常全面的文档和示例代码，学习和使用 MyBatis 非常方便。
+
+综上所述，使用 MyBatis 可以大大简化数据库操作的代码，提高 SQL 语句的可维护性和可读性，同时还提供了强大的动态 SQL 功能，易于集成使用。因此，相比于直接使用 JDBC，使用 MyBatis 更为便捷、高效和方便。
+
 ## **ORM是什么**
 
 ORM（Object Relational Mapping），对象关系映射，是一种为了解决关系型数据库数据与简单Java对象（POJO）的映射关系的技术。简单的说，ORM是通过使用描述对象和数据库之间映射的元数据，将程序中的对象自动持久化到关系型数据库中。
@@ -107,7 +118,7 @@ Mybatis仅可以编写针对 `ParameterHandler`、`ResultSetHandler`、`Statemen
 
 编写插件：实现 Mybatis 的 Interceptor 接口并复写 intercept()方法，然后再给插件编写注解，指定要拦截哪一个接口的哪些方法即可，最后在配置文件中配置你编写的插件。
 
-## .Mybatis 是否支持延迟加载？
+## Mybatis 是否支持延迟加载？
 
 Mybatis 仅支持 association 关联对象和 collection 关联集合对象的延迟加载，association 指的就是一对一，collection 指的就是一对多查询。在 Mybatis 配置文件中，可以配置是否启用延迟加载`lazyLoadingEnabled=true|false`。
 

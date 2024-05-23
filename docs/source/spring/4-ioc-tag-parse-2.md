@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
+
 **正文**
 
 在上一篇我们已经完成了从xml配置文件到BeanDefinition的转换，转换后的实例是GenericBeanDefinition的实例。本文主要来看看标签解析剩余部分及BeanDefinition的注册。

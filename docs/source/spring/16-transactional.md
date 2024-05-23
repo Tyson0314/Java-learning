@@ -1,6 +1,21 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,代理,事物注解,声明式事物,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 **正文**
 
-面的几个章节已经分析了spring基于`@AspectJ`的源码，那么接下来我们分析一下Aop的另一个重要功能，事物管理。
+面的几个章节已经分析了spring基于`@AspectJ`的源码，那么接下来我们分析一下Aop的另一个重要功能，事物管理。[最全面的Java面试网站](https://topjavaer.cn)
 
 ## 事务的介绍
 
@@ -107,6 +122,16 @@ public interface TransactionDefinition {
 MySQL默认的事务隔离级别为 **可重复读repeatable-read**
 
 　　3.PlatformTransactionManager-->Spring事务基础结构中的中心接口
+
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 ```java
 public interface PlatformTransactionManager {
@@ -387,3 +412,19 @@ java.lang.RuntimeException: ==手动抛出一个异常
 
 
 下一篇我们分析基于@Transactional注解的声明式事物的的源码实现。
+
+
+
+
+
+最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+[**Github地址**](https://github.com/Tyson0314/java-books)
+
+如果访问不了Github，可以访问码云地址。
+
+[码云地址](https://gitee.com/tysondai/java-books)

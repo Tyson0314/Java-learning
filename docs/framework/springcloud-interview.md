@@ -24,16 +24,65 @@ head:
 
 :::
 
+## 更新记录
+
+- 2024.5.15，完善[Spring、SpringMVC、Springboot、 Springcloud 的区别是什么？](##Spring、SpringMVC、Springboot、 Springcloud 的区别是什么？)
 
 ## 1、什么是Spring Cloud ？
 
 Spring cloud 流应用程序启动器是基于 Spring Boot 的 Spring 集成应用程序，提供与外部系统的集成。Spring cloud Task，一个生命周期短暂的微服务框架，用于快速构建执行有限数据处理的应用程序。
 
-## spring、 springboot、 springcloud 的区别是什么？
+![](http://img.topjavaer.cn/img/202405220918802.png)
 
-Spring是一个生态体系（也可以说是技术体系），是集大成者，它包含了Spring Framework、Spring Boot、Spring Cloud等。
+Spring cloud 流应用程序启动器是基于 Spring Boot 的 Spring 集成应用程序，提供与外部系统的集成。Spring cloud Task，一个生命周期短暂的微服务框架，用于快速构建执行有限数据处理的应用程序。
+
+## Spring、SpringMVC、Springboot、 Springcloud 的区别是什么？
+
+### Spring
+
+Spring是一个生态体系（也可以说是技术体系），是集大成者，它包含了Spring Framework、Spring Boot、Spring Cloud等。**它是一个轻量级控制反转(IOC)和面向切面(AOP)的容器框架**，为开发者提供了一个简易的开发方式。
+
+Spring的核心特性思想之一IOC，它实现了容器对Bean对象的管理、降低组件耦合，使各层服务解耦。
+
+Spring的另一个核心特性就是AOP，面向切面编程。面向切面编程需要将程序逻辑分解为称为所谓关注点的不同部分。跨越应用程序多个点的功能称为跨领域问题，这些跨领域问题在概念上与应用程序的业务逻辑分离。有许多常见的例子，如日志记录，声明式事务，安全性，缓存等。
+
+**如果说IOC依赖注入可以帮助我们将应用程序对象相互分离，那么AOP可以帮助我们将交叉问题与它们所影响的对象分离。二者目的都是使服务解耦，使开发简易。**
+
+当然，除了Spring 的两大核心功能，还有如下这些，如：
+
+- Spring JDBC
+- Spring MVC
+- Spring ORM
+- Spring Test
+
+### SpringMVC
+
+Spring与MVC可以更好地解释什么是SpringMVC，MVC为现代web项目开发的一种很常见的模式，简言之C（控制器）将V（视图、用户客户端）与M（模块，业务）分开构成了MVC ，业内常见的MVC模式的开发框架有Struts。
+
+Spring MVC是Spring的一部分，主要用于开发WEB应用和网络接口，它是Spring的一个模块，通过DispatcherServlet, ModelAndView 和View Resolver，让应用开发变得很容易。
+
+### SpringBoot
+
+SpringBoot是一套整合了框架的框架。
+
+它的初衷：解决Spring框架配置文件的繁琐、搭建服务的复杂性。
+
+它的设计理念：**约定优于配置**（convention over configuration）。
+
+基于此理念实现了**自动配置**，且降低项目搭建的复杂度。
+
+搭建一个接口服务，通过SpringBoot几行代码即可实现。基于Spring Boot，不是说原来的配置没有了，而是Spring Boot有一套默认配置，我们可以把它看做比较通用的约定，而Spring Boot遵循的是**约定优于配置**原则，同时，如果你需要使用到Spring以往提供的各种复杂但功能强大的配置功能，Spring Boot一样支持。
+
+在Spring Boot中，你会发现引入的所有包都是starter形式，如：
+
+- spring-boot-starter-web-services，针对SOAP Web Services
+- spring-boot-starter-web，针对Web应用与网络接口
+- spring-boot-starter-jdbc，针对JDBC
+- spring-boot-starter-cache，针对缓存支持
 
 Spring Boot是基于 Spring 框架开发的用于开发 Web 应用程序的框架，它帮助开发人员快速搭建和配置一个独立的、可执行的、基于 Spring 的应用程序，从而减少了繁琐和重复的配置工作。
+
+### Spring Cloud
 
 Spring Cloud事实上是一整套基于Spring Boot的微服务解决方案。它为开发者提供了很多工具，用于快速构建分布式系统的一些通用模式，例如：配置管理、注册中心、服务发现、限流、网关、链路追踪等。Spring Boot是build anything，而Spring Cloud是coordinate anything，Spring Cloud的每一个微服务解决方案都是基于Spring Boot构建的。
 

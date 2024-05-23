@@ -1,6 +1,23 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,属性填充,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 **正文**
 
 `doCreateBean()` 主要用于完成 bean 的创建和初始化工作，我们可以将其分为四个过程：
+
+> [最全面的Java面试网站](https://topjavaer.cn)
 
 - `createBeanInstance()` 实例化 bean
 - `populateBean()` 属性填充
@@ -107,6 +124,16 @@ protected void populateBean(String beanName, RootBeanDefinition mbd, BeanWrapper
 （5）将所有的PropertyValues中的属性填充至BeanWrapper中
 
 上面步骤中有几个地方是我们比较感兴趣的，它们分别是依赖注入（autowireByName/autowireByType）以及属性填充，接下来进一步分析这几个功能的实现细节
+
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 
 

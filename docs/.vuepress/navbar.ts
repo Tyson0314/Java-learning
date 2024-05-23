@@ -215,6 +215,54 @@ export default navbar([
             },
         ]
     },
+
+    {
+        text: "源码解读",
+        icon: "source",
+        children: [
+            {
+                text: "Spring",
+                children: [
+                    {text: "整体架构", link: "/source/spring/1-architect.md", icon: "book"},
+                    {text: "IOC 容器基本实现", link: "/source/spring/2-ioc-overview", icon: "book"},
+                    {text: "IOC默认标签解析（上）", link: "/source/spring/3-ioc-tag-parse-1", icon: "book"},
+                    {text: "IOC默认标签解析（下）", link: "/source/spring/4-ioc-tag-parse-2", icon: "book"},
+                    {text: "IOC之自定义标签解析", link: "/source/spring/5-ioc-tag-custom.md", icon: "book"},
+                    {text: "IOC-开启 bean 的加载", link: "/source/spring/6-bean-load", icon: "book"},
+                    {text: "IOC之bean创建", link: "/source/spring/7-bean-build", icon: "book"},
+                    {text: "IOC属性填充", link: "/source/spring/8-ioc-attribute-fill", icon: "book"},
+                    {text: "IOC之循环依赖处理", link: "/source/spring/9-ioc-circular-dependency", icon: "book"},
+                    {text: "IOC之bean 的初始化", link: "/source/spring/10-bean-initial", icon: "book"},
+                    {text: "ApplicationContext容器refresh过程", link: "/source/spring/11-application-refresh", icon: "book"},
+                    {text: "AOP的使用及AOP自定义标签", link: "/source/spring/12-aop-custom-tag", icon: "book"},
+                    {text: "创建AOP代理之获取增强器", link: "/source/spring/13-aop-proxy-advisor", icon: "book"},
+                    {text: "AOP代理的生成", link: "/source/spring/14-aop-proxy-create", icon: "book"},
+                    {text: "AOP目标方法和增强方法的执行", link: "/source/spring/15-aop-advice-create", icon: "book"},
+                    {text: "@Transactional注解的声明式事物介绍", link: "/source/spring/16-transactional", icon: "book"},
+                    {text: "Spring事务是怎么通过AOP实现的？", link: "/source/spring/17-spring-transaction-aop", icon: "book"},
+                    {text: "事务增强器", link: "/source/spring/18-transaction-advice", icon: "book"},
+                    {text: "事务的回滚和提交", link: "/source/spring/19-transaction-rollback-commit", icon: "book"},
+                ]
+            },
+            {
+                text: "SpringMVC",
+                children: [
+                    {text: "文件上传和拦截器", link: "/source/spring-mvc/1-overview", icon: "book"},
+                    {text: "导读篇", link: "/source/spring-mvc/2-guide", icon: "book"},
+                    {text: "场景分析", link: "/source/spring-mvc/3-scene", icon: "book"},
+                    {text: "事务的回滚和提交", link: "/source/spring-mvc/4-fileupload-interceptor", icon: "book"},
+                ]
+            },
+            {
+                text: "MyBatis(更新中)",
+                children: [
+                    {text: "整体架构", link: "/source/mybatis/1-overview", icon: "book"},
+                    {text: "反射模块", link: "/source/mybatis/2-reflect", icon: "book"},
+                ]
+            },
+
+        ]
+    },
     //{
     //    text: "场景题",
     //    icon: "design",

@@ -1,6 +1,21 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,代理,目标方法,增强方法,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 **正文**
 
-上一篇博文中我们讲了代理类的生成，这一篇主要讲解剩下的部分，当代理类调用时，目标方法和代理方法是如何执行的,我们还是接着上篇的ReflectiveMethodInvocation类Proceed方法来看
+上一篇博文中我们讲了代理类的生成，这一篇主要讲解剩下的部分，当代理类调用时，目标方法和代理方法是如何执行的,我们还是接着上篇的ReflectiveMethodInvocation类Proceed方法来看。[最全面的Java面试网站](https://topjavaer.cn)
 
 ```java
 public Object proceed() throws Throwable {
@@ -39,6 +54,16 @@ public Object proceed() throws Throwable {
 ![](http://img.topjavaer.cn/img/202310011108435.png)
 
 我们看到链中的顺序是AspectJAfterThrowingAdvice、AfterReturningAdviceInterceptor、AspectJAfterAdvice、MethodBeforeAdviceInterceptor，这些拦截器是按顺序执行的，那我们来看看第一个拦截器AspectJAfterThrowingAdvice中的invoke方法
+
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 ## **AspectJAfterThrowingAdvice**
 
@@ -152,3 +177,17 @@ before方法执行完后，就通过反射的方式执行目标bean中的method�
 ## 总结
 
 这个代理类调用过程，我们可以看到是一个递归的调用过程，通过ReflectiveMethodInvocation类中Proceed方法递归调用，顺序执行拦截器链中AspectJAfterThrowingAdvice、AfterReturningAdviceInterceptor、AspectJAfterAdvice、MethodBeforeAdviceInterceptor这几个拦截器，在拦截器中反射调用增强方法
+
+
+
+最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+[**Github地址**](https://github.com/Tyson0314/java-books)
+
+如果访问不了Github，可以访问码云地址。
+
+[码云地址](https://gitee.com/tysondai/java-books)

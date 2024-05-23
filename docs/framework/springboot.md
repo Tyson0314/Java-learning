@@ -61,10 +61,76 @@ starter提供了一个自动化配置类，一般命名为 XXXAutoConfiguration 
 启动类上面的注解是@SpringBootApplication，它也是 Spring Boot 的核心注解，主要组合包含了以下 3 个注解：
 
 - @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。
+- @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能： @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })。
+- @ComponentScan：Spring组件扫描。
+
+## 有哪些常用的SpringBoot注解？
+
+- @SpringBootApplication。这个注解是Spring Boot最核心的注解，用在 Spring Boot的主类上，标识这是一个 Spring Boot 应用，用来开启 Spring Boot 的各项能力
+
+- @SpringBootConfiguration：组合了 @Configuration 注解，实现配置文件的功能。
 
 - @EnableAutoConfiguration：打开自动配置的功能，也可以关闭某个自动配置的选项，如关闭数据源自动配置功能： @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })。
 
 - @ComponentScan：Spring组件扫描。
+
+- @Repository：用于标注数据访问组件，即DAO组件。
+
+- @Service：一般用于修饰service层的组件
+
+- **@RestController**。用于标注控制层组件(如struts中的action)，表示这是个控制器bean,并且是将函数的返回值直 接填入HTTP响应体中,是REST风格的控制器；它是@Controller和@ResponseBody的合集。
+
+- **@ResponseBody**。表示该方法的返回结果直接写入HTTP response body中
+
+- **@Component**。泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。
+
+- **@Bean**，相当于XML中的`<bean></bean>`,放在方法的上面，而不是类，意思是产生一个bean,并交给spring管理。
+
+- **@AutoWired**，byType方式。把配置好的Bean拿来用，完成属性、方法的组装，它可以对类成员变量、方法及构造函数进行标注，完成自动装配的工作。
+
+- **@Qualifier**。当有多个同一类型的Bean时，可以用@Qualifier("name")来指定。与@Autowired配合使用
+
+- **@Resource(name="name",type="type")**。没有括号内内容的话，默认byName。与@Autowired干类似的事。
+
+- **@RequestMapping**
+
+  RequestMapping是一个用来处理请求地址映射的注解；提供路由信息，负责URL到Controller中的具体函数的映射，可用于类或方法上。用于类上，表示类中的所有响应请求的方法都是以该地址作为父路径。
+
+- **@RequestParam**
+
+  用在方法的参数前面。
+
+- ### @Scope
+
+  用于声明一个Spring`Bean`实例的作用域
+
+- ### @Primary
+
+  当同一个对象有多个实例时，优先选择该实例。
+
+- ### @PostConstruct
+
+  用于修饰方法，当对象实例被创建并且依赖注入完成后执行，可用于对象实例的初始化操作。
+
+- ### @PreDestroy
+
+  用于修饰方法，当对象实例将被Spring容器移除时执行，可用于对象实例持有资源的释放。
+
+- ### @EnableTransactionManagement
+
+  启用Spring基于注解的事务管理功能，需要和`@Configuration`注解一起使用。
+
+- ### @Transactional
+
+  表示方法和类需要开启事务，当作用与类上时，类中所有方法均会开启事务，当作用于方法上时，方法开启事务，方法上的注解无法被子类所继承。
+
+- ### @ControllerAdvice
+
+  常与`@ExceptionHandler`注解一起使用，用于捕获全局异常，能作用于所有controller中。
+
+- ### @ExceptionHandler
+
+  修饰方法时，表示该方法为处理全局异常的方法。
 
 ## 自动配置原理
 

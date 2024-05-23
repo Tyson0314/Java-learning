@@ -1,6 +1,23 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,AOP自定义标签,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 **正文**
 
 我们知道在面向对象OOP编程存在一些弊端，当需要为多个不具有继承关系的对象引入同一个公共行为时，例如日志，安全检测等，我们只有在每个对象里引入公共行为，这样程序中就产生了大量的重复代码，所以有了面向对象编程的补充，面向切面编程（AOP），AOP所关注的方向是横向的，不同于OOP的纵向。接下来我们就详细分析下spring中的AOP。首先我们从动态AOP的使用开始。
+
+> [最全面的Java面试网站](https://topjavaer.cn)
 
 ## AOP的使用
 
@@ -122,6 +139,16 @@ public class Test {
 Spring实现了对所有类的test方法进行增强，使辅助功能可以独立于核心业务之外，方便与程序的扩展和解耦。 
 
 那么，Spring是如何实现AOP的呢？首先我们知道，SPring是否支持注解的AOP是由一个配置文件控制的，也就是`<aop:aspectj-autoproxy/>`，当在配置文件中声明了这句配置的时候，Spring就会支持注解的AOP，那么我们的分析就从这句注解开始。
+
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 
 
@@ -311,3 +338,17 @@ public class AServicelmpll implements AService {
 ```
 
 然后将以上代码中的 “this.b();” 修改为 “((AService) AopContext.currentProxy()).b();” 即可。 通过以上的修改便可以完成对a和b方法的同时增强。
+
+
+
+最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+[**Github地址**](https://github.com/Tyson0314/java-books)
+
+如果访问不了Github，可以访问码云地址。
+
+[码云地址](https://gitee.com/tysondai/java-books)

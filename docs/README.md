@@ -55,6 +55,18 @@ projects:
 
 本网站所有内容已经汇总成**PDF电子版**，**PDF电子版**在我的[**学习圈**](zsxq/introduce.md)可以获取~
 
+## 计算机经典书籍PDF
+
+给大家分享**200多本计算机经典书籍PDF电子书**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，感兴趣的小伙伴可以自取：
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+**200多本计算机经典书籍PDF电子书**：https://pan.xunlei.com/s/VNlmlh9jBl42w0QH2l4AJaWGA1?pwd=j8eq#
+
+备用链接：https://pan.quark.cn/s/3f1321952a16
+
 ## 学习路线
 
 ![](http://img.topjavaer.cn/img/20220530232715.png)

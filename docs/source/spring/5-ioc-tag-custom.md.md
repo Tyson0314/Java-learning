@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
+
 ## 概述
 
 之前我们已经介绍了spring中默认标签的解析，解析来我们将分析自定义标签的解析，我们先回顾下自定义标签解析所使用的方法，如下图所示： 

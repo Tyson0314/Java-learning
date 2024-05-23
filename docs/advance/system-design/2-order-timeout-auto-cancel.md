@@ -42,11 +42,11 @@ head:
 
 对上述的任务，我们给一个专业的名字来形容，那就是延时任务。那么这里就会产生一个问题，这个延时任务和定时任务的区别究竟在哪里呢？一共有如下几点区别
 
-定时任务有明确的触发时间，延时任务没有
+1、定时任务有明确的触发时间，延时任务没有
 
-定时任务有执行周期，而延时任务在某事件触发后一段时间内执行，没有执行周期
+2、定时任务有执行周期，而延时任务在某事件触发后一段时间内执行，没有执行周期
 
-定时任务一般执行的是批处理操作是多个任务，而延时任务一般是单个任务
+3、定时任务一般执行的是批处理操作是多个任务，而延时任务一般是单个任务
 
 下面，我们以判断订单是否超时为例，进行方案分析
 
@@ -340,13 +340,13 @@ public class HashedWheelTimerTest {
 - 集群扩展相当麻烦
 - 因为内存条件限制的原因，比如下单未付款的订单数太多，那么很容易就出现 OOM 异常
 
-## 方案 4：redis 缓存
+## 方案 4：Redis 缓存
 
 ### 思路一
 
 利用 redis 的 zset,zset 是一个有序集合，每一个元素(member)都关联了一个 score,通过 score 排序来取集合中的值
 
-添加元素:ZADD key score member [[score member][score member] …]
+添加元素:ZADD key score member [score member …]
 
 按顺序查询元素:ZRANGE key start stop [WITHSCORES]
 
@@ -619,11 +619,11 @@ ps:redis 的 pub/sub 机制存在一个硬伤，官网内容如下
 
 ### 思路
 
-我们可以采用 rabbitMQ 的延时队列。RabbitMQ 具有以下两个特性，可以实现延迟队列
+我们可以采用 RabbitMQ 的延时队列。RabbitMQ 具有以下两个特性，可以实现延迟队列
 
 RabbitMQ 可以针对 Queue 和 Message 设置 x-message-tt，来控制消息的生存时间，如果超时，则消息变为 dead letter
 
-lRabbitMQ 的 Queue 可以配置 x-dead-letter-exchange 和 x-dead-letter-routing-key（可选）两个参数，用来控制队列内出现了 deadletter，则按照这两个参数重新路由。结合以上两个特性，就可以模拟出延迟消息的功能,具体的，我改天再写一篇文章，这里再讲下去，篇幅太长。
+lRabbitMQ 的 Queue 可以配置 x-dead-letter-exchange 和 x-dead-letter-routing-key（可选）两个参数，用来控制队列内出现了 deadletter，则按照这两个参数重新路由。结合以上两个特性，就可以模拟出延迟消息的功能。
 
 ### 优点
 

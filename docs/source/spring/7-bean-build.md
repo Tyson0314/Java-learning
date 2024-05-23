@@ -1,3 +1,19 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,Spring设计模式,Bean创建,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
+
 **正文**
 
 在 Spring 中存在着不同的 scope，默认是 singleton ，还有 prototype、request 等等其他的 scope，他们的初始化步骤是怎样的呢？这个答案在这篇博客中给出。

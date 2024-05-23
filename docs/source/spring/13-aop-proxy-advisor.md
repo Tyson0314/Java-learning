@@ -1,10 +1,25 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,代理,增强器,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
 **正文**
 
 在上一篇的博文中我们讲解了通过自定义配置完成了对AnnotationAwareAspectJAutoProxyCreator类型的自动注册，那么这个类到底做了什么工作来完成AOP的操作呢？首先我们看看AnnotationAwareAspectJAutoProxyCreator的层次结构，如下图所示： 
 
 ![](http://img.topjavaer.cn/img/202309262317016.png)
 
-
+> 内容摘自我的学习网站：topjavaer.cn
 
 从上图的类层次结构图中我们看到这个类实现了BeanPostProcessor接口，而实现BeanPostProcessor后，当Spring加载这个Bean时会在实例化前调用其postProcesssAfterIntialization方法，而我们对于AOP逻辑的分析也由此开始。
 首先看下其父类AbstractAutoProxyCreator中的postProcessAfterInitialization方法：
@@ -94,7 +109,15 @@ protected List<Advisor> findEligibleAdvisors(Class<?> beanClass, String beanName
 
 对于指定bean的增强方法的获取一定是包含两个步骤的，获取所有的增强以及寻找所有增强中使用于bean的增强并应用，那么**findCandidateAdvisors**与**findAdvisorsThatCanApply**便是做了这两件事情。当然，如果无法找到对应的增强器便返回DO_NOT_PROXY，其中DO_NOT_PROXY=null。
 
-
+> 分享一份大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
 
 ## 获取增强器
 
@@ -243,7 +266,7 @@ private static <A extends Annotation> A findAnnotation(Class<?> clazz, Class<A> 
 }
 ```
 
-如果 bean 存在 Aspect.class注解，就可以获取此bean中的增强器了，接着我们来看看 List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
+如果 bean 存在 Aspect.class注解，就可以获取此bean中的增强器了，接着我们来看看 `List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory)`;
 
 ```java
 @Override
@@ -801,3 +824,18 @@ private boolean matchesMethod(Method method) {
 
 至此，我们在后置处理器中找到了所有匹配Bean中的增强器，下一篇讲解如何使用找到切面，来创建代理。
 
+
+
+
+
+最后给大家分享一个Github仓库，上面有大彬整理的**300多本经典的计算机书籍PDF**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，可以star一下，下次找书直接在上面搜索，仓库持续更新中~
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+[**Github地址**](https://github.com/Tyson0314/java-books)
+
+如果访问不了Github，可以访问码云地址。
+
+[码云地址](https://gitee.com/tysondai/java-books)

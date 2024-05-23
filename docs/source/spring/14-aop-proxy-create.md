@@ -1,3 +1,28 @@
+---
+sidebar: heading
+title: Spring源码分析
+category: 源码分析
+tag:
+  - Spring
+head:
+  - - meta
+    - name: keywords
+      content: Spring源码,标签解析,源码分析,代理生成,AOP代理,增强器,Spring设计模式,Spring AOP,Spring IOC,Bean,Bean生命周期
+  - - meta
+    - name: description
+      content: 高质量的Spring源码分析总结
+---
+
+> 本文已经收录到大彬精心整理的**大厂面试手册**，包含**计算机基础、Java基础、多线程、JVM、数据库、Redis、Spring、Mybatis、SpringMVC、SpringBoot、分布式、微服务、设计模式、架构、校招社招分享**等高频面试题，非常实用，有小伙伴靠着这份手册拿过字节offer~
+>
+> ![](http://img.topjavaer.cn/image/image-20211127150136157.png)
+>
+> ![](http://img.topjavaer.cn/image/image-20220316234337881.png)
+>
+> 需要的小伙伴可以自行**下载**：
+>
+> http://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247485445&idx=1&sn=1c6e224b9bb3da457f5ee03894493dbc&chksm=ce98f543f9ef7c55325e3bf336607a370935a6c78dbb68cf86e59f5d68f4c51d175365a189f8#rd
+
 **正文**
 
 在获取了所有对应bean的增强后，便可以进行代理的创建了。回到AbstractAutoProxyCreator的wrapIfNecessary方法中，如下所示： 
@@ -33,6 +58,8 @@
 ```
 
 我们上一篇文章分析完了第16行，获取到了所有对应bean的增强器，并获取到了此目标bean所有匹配的 Advisor，接下来我们要从第17行开始分析，如果 specificInterceptors 不为空，则要为当前bean创建代理类，接下来我们来看创建代理类的方法 **createProxy：**
+
+> [最全面的Java面试网站](https://topjavaer.cn)
 
 ```java
 protected Object createProxy(Class<?> beanClass, @Nullable String beanName,
@@ -632,3 +659,15 @@ public Object proceed() throws Throwable {
 
 
 下一篇文章讲解目标方法和增强方法是如何执行的。
+
+
+
+
+
+最后给大家分享**200多本计算机经典书籍PDF电子书**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，感兴趣的小伙伴可以自取：
+
+![](http://img.topjavaer.cn/image/Image.png)
+
+![](http://img.topjavaer.cn/image/image-20221030094126118.png)
+
+https://mp.weixin.qq.com/s?__biz=Mzg2OTY1NzY0MQ==&mid=2247486208&idx=1&sn=dbeedf47c50b1be67b2ef31a901b8b56&chksm=ce98f646f9ef7f506a1f7d72fc9384ba1b518072b44d157f657a8d5495a1c78c3e5de0b41efd&token=1652861108&lang=zh_CN#rd
