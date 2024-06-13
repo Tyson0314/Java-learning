@@ -8,6 +8,12 @@ sidebar: heading
 
 ## 更新记录
 
+- 2024.06.11，新增-聊聊如何用Redis 实现分布式锁？
+
+- 2024.06.07，更新-为什么Redis单线程还这么快？
+
+- 2024.05.21，新增一条SQL是怎么执行的
+
 - 2023.12.28，[增加源码解析模块，包含Sprign/SpringMVC/MyBatis（更新中）](/source/mybatis/1-overview.html)。
 
 - 2023.12.28，[遭受黑客攻击，植入木马程序](/zsxq/article/site-hack.html)。
