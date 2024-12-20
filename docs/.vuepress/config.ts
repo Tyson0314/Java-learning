@@ -8,7 +8,7 @@ import { gitPlugin } from '@vuepress/plugin-git'
 
 export default defineUserConfig({
     lang: "zh-CN",
-    title: "Java学习&面试指南-程序员大彬",
+    title: "大彬",
     description: "Java学习、面试指南，涵盖大部分 Java 程序员所需要掌握的核心知识",
     base: "/",
     dest: './public',
