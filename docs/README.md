@@ -47,25 +47,9 @@ projects:
 [<img src="https://img.shields.io/badge/知乎-程序员大彬-blue">](https://www.zhihu.com/people/dai-shu-bin-13)
 [<img src="https://img.shields.io/badge/PDF-免费计算机电子书籍-green">](https://github.com/Tyson0314/java-books)
 
-## 秋招提前批信息汇总
-
-[秋招提前批及正式批信息汇总（含内推）](https://docs.qq.com/sheet/DYW9ObnpobXNRTXpq?tab=BB08J2)
-
 ## 面试手册电子版
 
 本网站所有内容已经汇总成**PDF电子版**，**PDF电子版**在我的[**学习圈**](zsxq/introduce.md)可以获取~
-
-## 计算机经典书籍PDF
-
-给大家分享**200多本计算机经典书籍PDF电子书**，包括**C语言、C++、Java、Python、前端、数据库、操作系统、计算机网络、数据结构和算法、机器学习、编程人生**等，感兴趣的小伙伴可以自取：
-
-![](http://img.topjavaer.cn/image/Image.png)
-
-![](http://img.topjavaer.cn/image/image-20221030094126118.png)
-
-**200多本计算机经典书籍PDF电子书**：https://pan.xunlei.com/s/VNlmlh9jBl42w0QH2l4AJaWGA1?pwd=j8eq#
-
-备用链接：https://pan.quark.cn/s/3f1321952a16
 
 ## 学习路线
 
