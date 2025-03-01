@@ -31,4 +31,4 @@
 
 最后，给大家送福利啦，限时发放10张[知识星球](https://mp.weixin.qq.com/s/6eAOmYiNhEjIvhhXoXm9QQ)60元的优惠券，先到先得！目前[知识星球](https://mp.weixin.qq.com/s/6eAOmYiNhEjIvhhXoXm9QQ)已经有**300**多位成员了，想加入的小伙伴不要错过这一波优惠活动，**扫描下方二维码**领取优惠券即可加入。
 
-![](http://img.topjavaer.cn/img/星球优惠券0317-减60.png)
+![](http://img.topjavaer.cn/img/202412271108286.png)

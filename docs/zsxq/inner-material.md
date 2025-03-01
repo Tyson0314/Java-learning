@@ -22,4 +22,4 @@
 
 [知识星球](https://topjavaer.cn/zsxq/introduce.html)**加入方式**：
 
-![](http://img.topjavaer.cn/img/202312280805419.png)
+![](http://img.topjavaer.cn/img/202412271108286.png)

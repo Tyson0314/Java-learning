@@ -95,5 +95,5 @@ head:
 
 **加入方式**：**扫描二维码**领取优惠券加入（**即将恢复原价**）~
 
-![](http://img.topjavaer.cn/img/星球优惠券-b站.png)
+![](http://img.topjavaer.cn/img/202412271108286.png)
 

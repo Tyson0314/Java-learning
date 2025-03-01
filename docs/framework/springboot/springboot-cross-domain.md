@@ -90,4 +90,4 @@ public class AccountController {
 
 6、打卡学习，**大学自习室的氛围**，一起蜕变成长
 
-![](http://img.topjavaer.cn/img/星球优惠券-学习网站.png)
+![](http://img.topjavaer.cn/img/202412271108286.png)

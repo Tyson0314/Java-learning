@@ -58,4 +58,4 @@ head:
 
 **加入方式**：**扫描二维码**领取优惠券即可加入~
 
-![](http://img.topjavaer.cn/img/星球优惠券-b站.png)
+![](http://img.topjavaer.cn/img/202412271108286.png)
